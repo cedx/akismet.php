@@ -207,10 +207,10 @@ class Comment implements \JsonSerializable {
 
     if (mb_strlen($content = $this->getContent())) $map['comment_content'] = $content;
     if ($date = $this->getDate()) $map['comment_date_gmt'] = $date->format('c');
-    if ($postModified = $this->getPostModified()) $map['user_agent'] = $postModified->format('c');
-    if (mb_strlen($type = $this->getType())) $map['user_ip'] = $type;
-    if (mb_strlen($permalink = $this->getPermalink())) $map['user_role'] = $permalink;
-    if (mb_strlen($referrer = $this->getReferrer())) $map['user_ip'] = $referrer;
+    if ($postModified = $this->getPostModified()) $map['comment_post_modified_gmt'] = $postModified->format('c');
+    if (mb_strlen($type = $this->getType())) $map['comment_type'] = $type;
+    if (mb_strlen($permalink = $this->getPermalink())) $map['permalink'] = $permalink;
+    if (mb_strlen($referrer = $this->getReferrer())) $map['referrer'] = $referrer;
 
     return $map;
   }

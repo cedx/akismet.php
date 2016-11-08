@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <phpdoc>
-  <title>Free Mobile</title>
+  <title>Akismet for PHP</title>
 
   <parser>
     <target>api</target>

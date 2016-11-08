@@ -177,12 +177,12 @@ class Author implements \JsonSerializable {
   public function toJSON(): array {
     $map = [];
 
-    if (mb_strlen($name = $this->name)) $map['comment_author'] = $name;
-    if (mb_strlen($email = $this->email)) $map['comment_author_email'] = $email;
-    if (mb_strlen($url = $this->url)) $map['comment_author_url'] = $url;
-    if (mb_strlen($userAgent = $this->userAgent)) $map['user_agent'] = $userAgent;
-    if (mb_strlen($ipAddress = $this->ipAddress)) $map['user_ip'] = $ipAddress;
-    if (mb_strlen($role = $this->role)) $map['user_role'] = $role;
+    if (mb_strlen($name = $this->getName())) $map['comment_author'] = $name;
+    if (mb_strlen($email = $this->getEmail())) $map['comment_author_email'] = $email;
+    if (mb_strlen($url = $this->getURL())) $map['comment_author_url'] = $url;
+    if (mb_strlen($userAgent = $this->getUserAgent())) $map['user_agent'] = $userAgent;
+    if (mb_strlen($ipAddress = $this->getIpAddress())) $map['user_ip'] = $ipAddress;
+    if (mb_strlen($role = $this->getRole())) $map['user_role'] = $role;
 
     return $map;
   }

@@ -1,7 +1,7 @@
 # Akismet for PHP
 ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Code quality](https://img.shields.io/codacy/grade/34982a060f094758917dddaaf4b40364.svg) ![Build](https://img.shields.io/travis/cedx/akismet.php.svg)
 
-Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net)).
+Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net).
 
 ## Features
 - [Key Verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.
@@ -22,6 +22,26 @@ $ composer require cedx/akismet
 
 ## Usage
 This package has an API based on [Observables](http://reactivex.io/intro.html).
+
+### Data Classes
+The `Author`, `Blog`, and `Comment` classes provide standard getters and setters to access their properties.
+
+To ease the instanciation of these classes, their constructor accepts an associative array of property values (`"property" => "value"`):
+
+```php
+// Using the setters.
+$author = new Author();
+$author->setIpAddress('127.0.0.1');
+$author->setName('Anonymous');
+$author->setUserAgent('Mozilla/5.0');
+
+// Using an associative array.
+$author = new Author([
+  'ipAddress' => '127.0.0.1',
+  'name' => 'Anonymous',
+  'userAgent' => 'https://belin.io'
+]);
+```
 
 ### Key Verification
 

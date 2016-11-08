@@ -32,16 +32,16 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
     $this->assertNull(Author::fromJSON('foo'));
 
     $author = Author::fromJSON([]);
-    $this->assertTrue(!mb_strlen($author->getEmail()));
-    $this->assertTrue(!mb_strlen($author->getURL()));
+    $this->assertEquals(0, mb_strlen($author->getEmail()));
+    $this->assertEquals(0, mb_strlen($author->getURL()));
 
     $author = Author::fromJSON([
       'comment_author_email' => 'cedric@belin.io',
-      'comment_author_url' => 'https://www.belin.io'
+      'comment_author_url' => 'https://belin.io'
     ]);
 
     $this->assertEquals('cedric@belin.io', $author->getEmail());
-    $this->assertEquals('https://www.belin.io', $author->getURL());
+    $this->assertEquals('https://belin.io', $author->getURL());
   }
 
   /**
@@ -49,18 +49,18 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
    */
   public function testToJSON() {
     $data = (new Author())->toJSON();
-    $this->assertTrue(!count($data));
+    $this->assertEquals(0, count($data));
 
     $data = (new Author([
       'email' => 'cedric@belin.io',
       'ipAddress' => '127.0.0.1',
       'name' => 'Cédric Belin',
-      'url' => 'https://www.belin.io'
+      'url' => 'https://belin.io'
     ]))->toJSON();
 
     $this->assertEquals('Cédric Belin', $data['comment_author']);
     $this->assertEquals('cedric@belin.io', $data['comment_author_email']);
-    $this->assertEquals('https://www.belin.io', $data['comment_author_url']);
+    $this->assertEquals('https://belin.io', $data['comment_author_url']);
     $this->assertEquals('127.0.0.1', $data['user_ip']);
   }
 }

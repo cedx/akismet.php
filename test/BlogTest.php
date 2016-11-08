@@ -32,9 +32,9 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
     $this->assertNull(Blog::fromJSON('foo'));
 
     $blog = Blog::fromJSON([]);
-    $this->assertTrue(!mb_strlen($blog->getCharset()));
-    $this->assertTrue(!mb_strlen($blog->getLanguage()));
-    $this->assertTrue(!mb_strlen($blog->getURL()));
+    $this->assertEquals(0, mb_strlen($blog->getCharset()));
+    $this->assertEquals(0, mb_strlen($blog->getLanguage()));
+    $this->assertEquals(0, mb_strlen($blog->getURL()));
 
     $blog = Blog::fromJSON([
       'blog' => 'https://github.com/cedx/akismet.php',
@@ -52,7 +52,7 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
    */
   public function testToJSON() {
     $data = (new Blog())->toJSON();
-    $this->assertTrue(!count($data));
+    $this->assertEquals(0, count($data));
 
     $data = (new Blog([
       'charset' => 'UTF-8',

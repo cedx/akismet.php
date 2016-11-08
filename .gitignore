@@ -1,0 +1,7 @@
+/.idea/
+/*.iml
+/**/.DS_Store
+/composer.lock
+/doc/api/
+/var/
+/vendor/

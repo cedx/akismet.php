@@ -1,0 +1,7 @@
+language: php
+php: '7.0'
+sudo: false
+
+install: composer install --no-interaction
+script: vendor/bin/phpunit
+after_script: vendor/bin/codacycoverage clover var/coverage.xml

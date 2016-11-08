@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<phpdoc>
+  <title>Free Mobile</title>
+
+  <parser>
+    <target>api</target>
+  </parser>
+
+  <transformer>
+    <target>api</target>
+  </transformer>
+
+  <transformations>
+    <template name="clean"/>
+  </transformations>
+
+  <files>
+    <directory>../lib</directory>
+  </files>
+</phpdoc>

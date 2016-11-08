@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project default="dist" name="akismet.php">
+  <property name="version" value="1.0.0"/>
+
+  <target name="clean" description="Deletes all generated files and reset any saved state.">
+    <delete>
+      <fileset dir="var" includes="**/*" excludes=".gitkeep"/>
+    </delete>
+  </target>
+
+  <target name="coverage" depends="test" description="Sends the results of the code coverage.">
+    <exec executable="vendor/bin/codacycoverage" passthru="true">
+      <arg value="clover"/>
+      <arg value="var/coverage.xml"/>
+    </exec>
+  </target>
+
+  <target name="dist" depends="clean" description="Creates a distribution file for this program.">
+    <zip destfile="var/${phing.project.name}-${version}.zip">
+      <fileset dir="." includes="*.json,*.md,*.txt"/>
+      <fileset dir="." includes="lib/**/*.php"/>
+    </zip>
+  </target>
+
+  <target name="doc" description="Builds the documentation.">
+    <delete dir="doc/api" quiet="true"/>
+    <exec executable="vendor/bin/phpdoc" passthru="true">
+      <arg value="--config=doc/phpdoc.xml"/>
+    </exec>
+  </target>
+
+  <target name="lint" description="Performs static analysis of source code.">
+    <exec executable="vendor/bin/phpmd" passthru="true">
+      <arg value="lib,test"/>
+      <arg value="text"/>
+      <arg value="codesize,controversial,design,naming,unusedcode"/>
+    </exec>
+  </target>
+
+  <target name="test" description="Runs the unit tests.">
+    <exec executable="vendor/bin/phpunit" passthru="true"/>
+  </target>
+</project>

@@ -25,7 +25,6 @@ This package has an API based on [Observables](http://reactivex.io/intro.html).
 
 ### Data Classes
 The `Author`, `Blog`, and `Comment` classes provide standard getters and setters to access their properties.
-
 To ease the instanciation of these classes, their constructor accepts an associative array of property values (`"property" => "value"`):
 
 ```php

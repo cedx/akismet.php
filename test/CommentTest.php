@@ -49,8 +49,12 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
     $author = $comment->getAuthor();
     $this->assertInstanceOf(Author::class, $author);
     $this->assertEquals('Cédric Belin', $author->getName());
+
+    $date = $comment->getDate();
+    $this->assertInstanceOf(\DateTime::class, $date);
+    $this->assertEquals(2000, $date->format('Y'));
+
     $this->assertEquals('A user comment.', $comment->getContent());
-    $this->assertInstanceOf(\DateTime::class, $comment->getDate());
     $this->assertEquals('https://belin.io', $comment->getReferrer());
     $this->assertEquals(CommentType::TRACKBACK, $comment->getType());
   }

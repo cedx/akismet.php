@@ -78,7 +78,7 @@ class Client {
    * @return string The Akismet API key.
    */
   public function getAPIKey(): string {
-    return $this->isTest;
+    return $this->apiKey;
   }
 
   /**

@@ -99,7 +99,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
         'userAgent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
       ]),
       'content' => 'I\'m testing out the Service API.',
-      'referrer' => 'https://www.npmjs.com/package/akismet',
+      'referrer' => 'https://packagist.org/packages/cedx/akismet',
       'type' => CommentType::COMMENT
     ]);
 

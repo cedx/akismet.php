@@ -147,16 +147,22 @@ class Client {
    * @return Observable The response as string.
    */
   private function queryService($endPoint, array $fields = []) {
-    $query = array_merge($this->getBlog()->toJSON(), $fields);
-    if ($this->isTest()) $query['is_test'] = 'true';
+    $params = array_merge($this->getBlog()->toJSON(), $fields);
+    if ($this->isTest()) $params['is_test'] = 'true';
 
-    return Observable::create(function(ObserverInterface $observer) use($endPoint, $query) {
+    return Observable::create(function(ObserverInterface $observer) use($endPoint, $params) {
       try {
-        $promise = (new HTTPClient())->getAsync($endPoint, ['query' => $query]);
+        $promise = (new HTTPClient())->postAsync($endPoint, ['form_params' => $params]);
         $response = $promise->then()->wait();
+
+        $akismetHeader = 'x-akismet-debug-help';
+        if($response->hasHeader($akismetHeader))
+          throw new \UnexpectedValueException($response->getHeader($akismetHeader)[0]);
+
         $observer->onNext((string) $response->getBody());
         $observer->onCompleted();
       }
+
       catch(\Exception $e) {
         $observer->onError($e);
       }

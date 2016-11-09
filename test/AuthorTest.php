@@ -21,7 +21,7 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
     ]);
 
     $this->assertEquals('cedric@belin.io', $author->getEmail());
-    $this->assertEquals('192.168.0.1', $author->getIpAddress());
+    $this->assertEquals('192.168.0.1', $author->getIPAddress());
     $this->assertEquals('Cédric Belin', $author->getName());
   }
 

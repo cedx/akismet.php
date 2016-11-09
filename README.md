@@ -38,7 +38,7 @@ $author = new Author([
 
 // Using the fluent interface of the setters.
 $author = (new Author())
-  ->setIpAddress('127.0.0.1')
+  ->setIPAddress('127.0.0.1')
   ->setName('Anonymous')
   ->setUserAgent('Mozilla/5.0');
 ```

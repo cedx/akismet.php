@@ -78,7 +78,7 @@ class Author implements \JsonSerializable {
    * Gets the author's IP address.
    * @return string The author's IP address.
    */
-  public function getIpAddress(): string {
+  public function getIPAddress(): string {
     return $this->ipAddress;
   }
 
@@ -137,7 +137,7 @@ class Author implements \JsonSerializable {
    * @param string $value The new IP address.
    * @return $this This instance.
    */
-  public function setIpAddress(string $value) {
+  public function setIPAddress(string $value) {
     $this->ipAddress = $value;
     return $this;
   }
@@ -193,7 +193,7 @@ class Author implements \JsonSerializable {
     if (mb_strlen($email = $this->getEmail())) $map['comment_author_email'] = $email;
     if (mb_strlen($url = $this->getURL())) $map['comment_author_url'] = $url;
     if (mb_strlen($userAgent = $this->getUserAgent())) $map['user_agent'] = $userAgent;
-    if (mb_strlen($ipAddress = $this->getIpAddress())) $map['user_ip'] = $ipAddress;
+    if (mb_strlen($ipAddress = $this->getIPAddress())) $map['user_ip'] = $ipAddress;
     if (mb_strlen($role = $this->getRole())) $map['user_role'] = $role;
 
     return $map;

@@ -146,7 +146,7 @@ class Comment implements \JsonSerializable {
    * Sets the comment's author.
    * @param Author $value The new author.
    */
-  public function setAuthor(Author $value) {
+  public function setAuthor(Author $value = null) {
     $this->author = $value;
   }
 
@@ -162,7 +162,7 @@ class Comment implements \JsonSerializable {
    * Sets the UTC timestamp of the creation of the comment.
    * @param \DateTime $value The new UTC timestamp of the creation of the comment.
    */
-  public function setDate(\DateTime $value) {
+  public function setDate(\DateTime $value = null) {
     $this->date = $value;
   }
 
@@ -178,7 +178,7 @@ class Comment implements \JsonSerializable {
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    * @param \DateTime $value The new UTC timestamp of the publication time.
    */
-  public function setPostModified(\DateTime $value) {
+  public function setPostModified(\DateTime $value = null) {
     $this->postModified = $value;
   }
 

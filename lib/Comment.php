@@ -58,7 +58,7 @@ class Comment implements \JsonSerializable {
   /**
    * Creates a new comment from the specified JSON map.
    * @param mixed $map A JSON map representing a comment.
-   * @return Comment The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return static The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
     if (!is_array($map)) return null;
@@ -145,7 +145,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the comment's author.
    * @param Author $value The new author.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setAuthor(Author $value = null) {
     $this->author = $value;
@@ -155,7 +155,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the comment's content.
    * @param string $value The new content.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setContent(string $value) {
     $this->content = $value;
@@ -165,7 +165,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the UTC timestamp of the creation of the comment.
    * @param \DateTime $value The new UTC timestamp of the creation of the comment.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setDate(\DateTime $value = null) {
     $this->date = $value;
@@ -175,7 +175,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the permanent location of the entry the comment is submitted to.
    * @param string $value The new permanent location of the entry.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setPermalink(string $value) {
     $this->permalink = $value;
@@ -185,7 +185,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    * @param \DateTime $value The new UTC timestamp of the publication time.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setPostModified(\DateTime $value = null) {
     $this->postModified = $value;
@@ -195,7 +195,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the URL of the webpage that linked to the entry being requested.
    * @param string $value The new URL of the webpage that linked to the entry.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setReferrer(string $value) {
     $this->referrer = $value;
@@ -205,7 +205,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the comment's type.
    * @param string $value The new type.
-   * @return Comment This instance.
+   * @return $this This instance.
    */
   public function setType(string $value) {
     $this->type = $value;

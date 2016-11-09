@@ -38,7 +38,7 @@ class Blog implements \JsonSerializable {
   /**
    * Creates a new blog from the specified JSON map.
    * @param mixed $map A JSON map representing a blog.
-   * @return Blog The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return static The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
     return !is_array($map) ? null : new static([
@@ -103,7 +103,7 @@ class Blog implements \JsonSerializable {
   /**
    * Sets the blog or site URL.
    * @param string $value The new URL.
-   * @return Blog This instance.
+   * @return $this This instance.
    */
   public function setURL(string $value) {
     $this->url = $value;

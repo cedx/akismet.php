@@ -31,7 +31,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function testConstructor() {
     $client = new Client('0123456789ABCDEF', 'https://github.com/cedx/akismet.js');
     $this->assertEquals('0123456789ABCDEF', $client->getAPIKey());
-    $this->assertInstanceOf(Blog::class , $client->getBlog());
+    $this->assertInstanceOf(Blog::class, $client->getBlog());
   }
 
   /**

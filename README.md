@@ -91,7 +91,7 @@ $ export AKISMET_API_KEY=<YourApiKey>
 Then, you can run the `test` script from the command prompt:
 
 ```shell
-$ npm test
+$ phing test
 ```
 
 ## See Also

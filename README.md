@@ -25,21 +25,22 @@ This package has an API based on [Observables](http://reactivex.io/intro.html).
 
 ### Data Classes
 The `Author`, `Blog`, and `Comment` classes provide standard getters and setters to access their properties.
-To ease the instanciation of these classes, their constructor accepts an associative array of property values (`"property" => "value"`):
+
+To ease the initialization of these classes, their constructor accepts an associative array of property values (`"property" => "value"`), and their setters have a fluent interface:
 
 ```php
-// Using the setters.
-$author = new Author();
-$author->setIpAddress('127.0.0.1');
-$author->setName('Anonymous');
-$author->setUserAgent('Mozilla/5.0');
-
-// Using an associative array.
+// Using an associative array on instanciation.
 $author = new Author([
   'ipAddress' => '127.0.0.1',
   'name' => 'Anonymous',
-  'userAgent' => 'https://belin.io'
+  'userAgent' => 'Mozilla/5.0'
 ]);
+
+// Using the fluent interface of the setters.
+$author = (new Author())
+  ->setIpAddress('127.0.0.1')
+  ->setName('Anonymous')
+  ->setUserAgent('Mozilla/5.0');
 ```
 
 ### Key Verification

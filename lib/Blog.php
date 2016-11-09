@@ -83,25 +83,31 @@ class Blog implements \JsonSerializable {
   /**
    * Sets the character encoding for the values included in comments.
    * @param string $value The new character encoding.
+   * @return Blog This instance.
    */
   public function setCharset(string $value) {
     $this->charset = $value;
+    return $this;
   }
 
   /**
    * Sets the language(s) in use on the blog or site, in ISO 639-1 format, comma-separated.
    * @param string $value The new language(s).
+   * @return Blog This instance.
    */
   public function setLanguage(string $value) {
     $this->language = $value;
+    return $this;
   }
 
   /**
    * Sets the blog or site URL.
    * @param string $value The new URL.
+   * @return Blog This instance.
    */
   public function setURL(string $value) {
     $this->url = $value;
+    return $this;
   }
 
   /**

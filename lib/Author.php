@@ -125,49 +125,61 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's mail address.
    * @param string $value The new mail address.
+   * @return Author This instance.
    */
   public function setEmail(string $value) {
     $this->email = $value;
+    return $this;
   }
 
   /**
    * Sets the the author's IP address.
    * @param string $value The new IP address.
+   * @return Author This instance.
    */
   public function setIpAddress(string $value) {
     $this->ipAddress = $value;
+    return $this;
   }
 
   /**
    * Sets the author's name.
    * @param string $value The new name.
+   * @return Author This instance.
    */
   public function setName(string $value) {
     $this->name = $value;
+    return $this;
   }
 
   /**
    * Sets the author's role. If you set it to `"administrator"`, Akismet will always return `false`.
    * @param string $value The new role.
+   * @return Author This instance.
    */
   public function setRole(string $value) {
     $this->role = $value;
+    return $this;
   }
 
   /**
    * Sets the URL of the author's website.
    * @param string $value The new website URL.
+   * @return Author This instance.
    */
   public function setURL(string $value) {
     $this->url = $value;
+    return $this;
   }
 
   /**
    * Sets the author's user agent, that is the string identifying the Web browser used to submit comments.
    * @param string $value The new user agent.
+   * @return Author This instance.
    */
   public function setUserAgent(string $value) {
     $this->userAgent = $value;
+    return $this;
   }
 
   /**

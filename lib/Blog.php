@@ -103,7 +103,7 @@ class Blog implements \JsonSerializable {
   /**
    * Sets the blog or site URL.
    * @param string $value The new URL.
-   * @return $this This instance.
+   * @return Blog This instance.
    */
   public function setURL(string $value): self {
     $this->url = $value;

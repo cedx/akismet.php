@@ -145,9 +145,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the comment's author.
    * @param Author $value The new author.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setAuthor(Author $value = null) {
+  public function setAuthor(Author $value = null): self {
     $this->author = $value;
     return $this;
   }
@@ -155,9 +155,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the comment's content.
    * @param string $value The new content.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setContent(string $value) {
+  public function setContent(string $value): self {
     $this->content = $value;
     return $this;
   }
@@ -165,9 +165,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the UTC timestamp of the creation of the comment.
    * @param \DateTime $value The new UTC timestamp of the creation of the comment.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setDate(\DateTime $value = null) {
+  public function setDate(\DateTime $value = null): self {
     $this->date = $value;
     return $this;
   }
@@ -175,9 +175,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the permanent location of the entry the comment is submitted to.
    * @param string $value The new permanent location of the entry.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setPermalink(string $value) {
+  public function setPermalink(string $value): self {
     $this->permalink = $value;
     return $this;
   }
@@ -185,9 +185,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    * @param \DateTime $value The new UTC timestamp of the publication time.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setPostModified(\DateTime $value = null) {
+  public function setPostModified(\DateTime $value = null): self {
     $this->postModified = $value;
     return $this;
   }
@@ -195,9 +195,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the URL of the webpage that linked to the entry being requested.
    * @param string $value The new URL of the webpage that linked to the entry.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setReferrer(string $value) {
+  public function setReferrer(string $value): self {
     $this->referrer = $value;
     return $this;
   }
@@ -205,9 +205,9 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the comment's type.
    * @param string $value The new type.
-   * @return $this This instance.
+   * @return Comment This instance.
    */
-  public function setType(string $value) {
+  public function setType(string $value): self {
     $this->type = $value;
     return $this;
   }

@@ -85,7 +85,7 @@ class Blog implements \JsonSerializable {
    * @param string $value The new character encoding.
    * @return Blog This instance.
    */
-  public function setCharset(string $value) {
+  public function setCharset(string $value): self {
     $this->charset = $value;
     return $this;
   }
@@ -95,7 +95,7 @@ class Blog implements \JsonSerializable {
    * @param string $value The new language(s).
    * @return Blog This instance.
    */
-  public function setLanguage(string $value) {
+  public function setLanguage(string $value): self {
     $this->language = $value;
     return $this;
   }
@@ -105,7 +105,7 @@ class Blog implements \JsonSerializable {
    * @param string $value The new URL.
    * @return $this This instance.
    */
-  public function setURL(string $value) {
+  public function setURL(string $value): self {
     $this->url = $value;
     return $this;
   }

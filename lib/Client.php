@@ -57,7 +57,7 @@ class Client {
 
     $this->userAgent = isset($options['userAgent']) && is_string($options['userAgent'])
       ? $options['userAgent']
-      : sprintf('PHP/%s | Akismet/1.0.0', PHP_VERSION);
+      : sprintf('PHP/%s | Akismet/1.1.0', PHP_VERSION);
   }
 
   /**

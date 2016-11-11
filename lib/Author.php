@@ -125,9 +125,9 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's mail address.
    * @param string $value The new mail address.
-   * @return $this This instance.
+   * @return Author This instance.
    */
-  public function setEmail(string $value) {
+  public function setEmail(string $value): self {
     $this->email = $value;
     return $this;
   }
@@ -135,9 +135,9 @@ class Author implements \JsonSerializable {
   /**
    * Sets the the author's IP address.
    * @param string $value The new IP address.
-   * @return $this This instance.
+   * @return Author This instance.
    */
-  public function setIPAddress(string $value) {
+  public function setIPAddress(string $value): self {
     $this->ipAddress = $value;
     return $this;
   }
@@ -145,9 +145,9 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's name.
    * @param string $value The new name.
-   * @return $this This instance.
+   * @return Author This instance.
    */
-  public function setName(string $value) {
+  public function setName(string $value): self {
     $this->name = $value;
     return $this;
   }
@@ -155,9 +155,9 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's role. If you set it to `"administrator"`, Akismet will always return `false`.
    * @param string $value The new role.
-   * @return $this This instance.
+   * @return Author This instance.
    */
-  public function setRole(string $value) {
+  public function setRole(string $value): self {
     $this->role = $value;
     return $this;
   }
@@ -165,9 +165,9 @@ class Author implements \JsonSerializable {
   /**
    * Sets the URL of the author's website.
    * @param string $value The new website URL.
-   * @return $this This instance.
+   * @return Author This instance.
    */
-  public function setURL(string $value) {
+  public function setURL(string $value): self {
     $this->url = $value;
     return $this;
   }
@@ -175,9 +175,9 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's user agent, that is the string identifying the Web browser used to submit comments.
    * @param string $value The new user agent.
-   * @return $this This instance.
+   * @return Author This instance.
    */
-  public function setUserAgent(string $value) {
+  public function setUserAgent(string $value): self {
     $this->userAgent = $value;
     return $this;
   }

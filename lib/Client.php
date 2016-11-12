@@ -11,7 +11,7 @@ use Rx\{Observable, ObserverInterface};
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
 class Client {
-  
+
   /**
    * @var string The HTTP header containing the Akismet error messages.
    */

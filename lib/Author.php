@@ -53,7 +53,7 @@ class Author implements \JsonSerializable {
   /**
    * Creates a new author from the specified JSON map.
    * @param mixed $map A JSON map representing an author.
-   * @return static The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return Author The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
     return !is_array($map) ? null : new static([

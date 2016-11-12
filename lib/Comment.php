@@ -58,7 +58,7 @@ class Comment implements \JsonSerializable {
   /**
    * Creates a new comment from the specified JSON map.
    * @param mixed $map A JSON map representing a comment.
-   * @return static The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return Comment The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
     if (!is_array($map)) return null;

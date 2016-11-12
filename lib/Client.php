@@ -68,7 +68,7 @@ class Client {
   public function checkComment(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->queryService($endPoint, $comment->toJSON())->map(function($response) {
+    return $this->fetch($endPoint, $comment->toJSON())->map(function($response) {
       return $response == 'true';
     });
   }
@@ -115,7 +115,7 @@ class Client {
   public function submitHam(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->queryService($endPoint, $comment->toJSON());
+    return $this->fetch($endPoint, $comment->toJSON());
   }
 
   /**
@@ -126,7 +126,7 @@ class Client {
   public function submitSpam(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->queryService($endPoint, $comment->toJSON());
+    return $this->fetch($endPoint, $comment->toJSON());
   }
 
   /**
@@ -135,7 +135,7 @@ class Client {
    */
   public function verifyKey() {
     $endPoint = static::SERVICE_URL . '/1.1/verify-key';
-    return $this->queryService($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
+    return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
       return $response == 'valid';
     });
   }
@@ -143,11 +143,11 @@ class Client {
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
    * @param string $endPoint The URL of the end point to query.
-   * @param array $fields The fields describing the query body.
+   * @param array $params The fields describing the query body.
    * @return Observable The response as string.
    */
-  private function queryService($endPoint, array $fields = []) {
-    $params = array_merge($this->getBlog()->toJSON(), $fields);
+  private function fetch($endPoint, array $params = []) {
+    $params = array_merge($this->getBlog()->toJSON(), $params);
     if ($this->isTest()) $params['is_test'] = 'true';
 
     return Observable::create(function(ObserverInterface $observer) use($endPoint, $params) {

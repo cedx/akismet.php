@@ -11,6 +11,11 @@ use Rx\{Observable, ObserverInterface};
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
 class Client {
+  
+  /**
+   * @var string The HTTP header containing the Akismet error messages.
+   */
+  const DEBUG_HEADER = 'x-akismet-debug-help';
 
   /**
    * @var string The URL of the remote service.
@@ -154,10 +159,8 @@ class Client {
       try {
         $promise = (new HTTPClient())->postAsync($endPoint, ['form_params' => $params]);
         $response = $promise->then()->wait();
-
-        $akismetHeader = 'x-akismet-debug-help';
-        if($response->hasHeader($akismetHeader))
-          throw new \UnexpectedValueException($response->getHeader($akismetHeader)[0]);
+        if($response->hasHeader(static::DEBUG_HEADER))
+          throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
 
         $observer->onNext((string) $response->getBody());
         $observer->onCompleted();

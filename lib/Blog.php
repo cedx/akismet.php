@@ -30,7 +30,7 @@ class Blog implements \JsonSerializable {
    */
   public function __construct(array $config = []) {
     foreach ($config as $property => $value) {
-      $setter = "set$property";
+      $setter = "set{$property}";
       if(method_exists($this, $setter)) $this->$setter($value);
     }
   }
@@ -128,6 +128,6 @@ class Blog implements \JsonSerializable {
    */
   public function __toString(): string {
     $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class . " $json";
+    return static::class . " {$json}";
   }
 }

@@ -64,7 +64,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
    */
   public function testToJSON() {
     $data = (new Comment())->toJSON();
-    $this->assertEquals(0, count($data));
+    $this->assertEquals(0, count(get_object_vars($data)));
 
     $data = (new Comment([
       'author' => new Author(['name' => 'Cédric Belin']),

@@ -49,7 +49,7 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
    */
   public function testToJSON() {
     $data = (new Author())->toJSON();
-    $this->assertEquals(0, count($data));
+    $this->assertEquals(0, count(get_object_vars($data)));
 
     $data = (new Author([
       'email' => 'cedric@belin.io',
@@ -58,9 +58,9 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
       'url' => 'https://belin.io'
     ]))->toJSON();
 
-    $this->assertEquals('Cédric Belin', $data['comment_author']);
-    $this->assertEquals('cedric@belin.io', $data['comment_author_email']);
-    $this->assertEquals('https://belin.io', $data['comment_author_url']);
-    $this->assertEquals('127.0.0.1', $data['user_ip']);
+    $this->assertEquals('Cédric Belin', $data->comment_author);
+    $this->assertEquals('cedric@belin.io', $data->comment_author_email);
+    $this->assertEquals('https://belin.io', $data->comment_author_url);
+    $this->assertEquals('127.0.0.1', $data->user_ip);
   }
 }

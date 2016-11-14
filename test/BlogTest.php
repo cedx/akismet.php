@@ -52,7 +52,7 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
    */
   public function testToJSON() {
     $data = (new Blog())->toJSON();
-    $this->assertEquals(0, count($data));
+    $this->assertEquals(0, count(get_object_vars($data)));
 
     $data = (new Blog([
       'charset' => 'UTF-8',
@@ -60,8 +60,8 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
       'url' => 'https://github.com/cedx/akismet.php'
     ]))->toJSON();
 
-    $this->assertEquals('https://github.com/cedx/akismet.php', $data['blog']);
-    $this->assertEquals('UTF-8', $data['blog_charset']);
-    $this->assertEquals('en', $data['blog_lang']);
+    $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
+    $this->assertEquals('UTF-8', $data->blog_charset);
+    $this->assertEquals('en', $data->blog_lang);
   }
 }

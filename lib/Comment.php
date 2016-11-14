@@ -61,20 +61,22 @@ class Comment implements \JsonSerializable {
    * @return Comment The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
-    if (!is_array($map)) return null;
+    if (is_array($map)) $map = (object) $map;
+    else if (!is_object($map)) return null;
 
-    $hasAuthor = count(array_filter(array_keys($map), function($key) {
+    $keys = array_keys(get_object_vars($map));
+    $hasAuthor = count(array_filter($keys, function($key) {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;
 
     return new static([
       'author' => $hasAuthor ? Author::fromJSON($map) : null,
-      'content' => isset($map['comment_content']) && is_string($map['comment_content']) ? $map['comment_content'] : '',
-      'date' => isset($map['comment_date_gmt']) && is_string($map['comment_date_gmt']) ? new \DateTime($map['comment_date_gmt']) : null,
-      'permalink' => isset($map['permalink']) && is_string($map['permalink']) ? $map['permalink'] : '',
-      'postModified' => isset($map['comment_post_modified_gmt']) && is_string($map['comment_post_modified_gmt']) ? new \DateTime($map['comment_post_modified_gmt']) : null,
-      'referrer' => isset($map['referrer']) && is_string($map['referrer']) ? $map['referrer'] : '',
-      'type' => isset($map['comment_type']) && is_string($map['comment_type']) ? $map['comment_type'] : ''
+      'content' => isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '',
+      'date' => isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTime($map->comment_date_gmt) : null,
+      'permalink' => isset($map->permalink) && is_string($map->permalink) ? $map->permalink : '',
+      'postModified' => isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTime($map->comment_post_modified_gmt) : null,
+      'referrer' => isset($map->referrer) && is_string($map->referrer) ? $map->referrer : '',
+      'type' => isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ''
     ]);
   }
 
@@ -136,9 +138,9 @@ class Comment implements \JsonSerializable {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return array The map in JSON format corresponding to this object.
+   * @return \stdClass The map in JSON format corresponding to this object.
    */
-  final public function jsonSerialize(): array {
+  final public function jsonSerialize(): \stdClass {
     return $this->toJSON();
   }
 
@@ -214,18 +216,16 @@ class Comment implements \JsonSerializable {
 
   /**
    * Converts this object to a map in JSON format.
-   * @return array The map in JSON format corresponding to this object.
+   * @return \stdClass The map in JSON format corresponding to this object.
    */
-  public function toJSON(): array {
-    $map = ($author = $this->getAuthor()) ? $author->toJSON() : [];
-
-    if (mb_strlen($content = $this->getContent())) $map['comment_content'] = $content;
-    if ($date = $this->getDate()) $map['comment_date_gmt'] = $date->format('c');
-    if ($postModified = $this->getPostModified()) $map['comment_post_modified_gmt'] = $postModified->format('c');
-    if (mb_strlen($type = $this->getType())) $map['comment_type'] = $type;
-    if (mb_strlen($permalink = $this->getPermalink())) $map['permalink'] = $permalink;
-    if (mb_strlen($referrer = $this->getReferrer())) $map['referrer'] = $referrer;
-
+  public function toJSON(): \stdClass {
+    $map = ($author = $this->getAuthor()) ? $author->toJSON() : new \stdClass();
+    if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
+    if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
+    if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
+    if (mb_strlen($type = $this->getType())) $map->comment_type = $type;
+    if (mb_strlen($permalink = $this->getPermalink())) $map->permalink = $permalink;
+    if (mb_strlen($referrer = $this->getReferrer())) $map->referrer = $referrer;
     return $map;
   }
 
@@ -235,6 +235,6 @@ class Comment implements \JsonSerializable {
    */
   public function __toString(): string {
     $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class . " {$json}";
+    return static::class." {$json}";
   }
 }

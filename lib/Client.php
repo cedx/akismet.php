@@ -225,12 +225,12 @@ class Client {
    * @return \stdClass The map in JSON format corresponding to this object.
    */
   public function toJSON(): \stdClass {
-    $map = new \stdClass();
-    $map->apiKey = $this->getAPIKey();
-    $map->blog = ($blog = $this->getBlog()) ? get_class($blog) : null;
-    $map->test = $this->isTest();
-    $map->userAgent = $this->getUserAgent();
-    return $map;
+    return (object) [
+      'apiKey' => $this->getAPIKey(),
+      'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
+      'test' => $this->isTest(),
+      'userAgent' => $this->getUserAgent()
+    ];
   }
 
   /**

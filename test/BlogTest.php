@@ -52,7 +52,7 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
    */
   public function testToJSON() {
     $data = (new Blog())->toJSON();
-    $this->assertEquals(0, count(get_object_vars($data)));
+    $this->assertEquals(0, count((array) $data));
 
     $data = (new Blog([
       'charset' => 'UTF-8',

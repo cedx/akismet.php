@@ -110,6 +110,47 @@ class Client {
   }
 
   /**
+   * Sets the Akismet API key.
+   * @param string $value The new API key.
+   * @return Client This instance.
+   */
+  public function setAPIKey(string $value): self {
+    $this->apiKey = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the front page or home URL of the instance making requests.
+   * @param string|Blog $value The new front page or home URL.
+   * @return Client This instance.
+   */
+  public function setBlog($value): self {
+    if (!isset($value)) $this->blog = null;
+    else $this->blog = $value instanceof Blog ? $value : new Blog(['url' => $value]);
+    return $this;
+  }
+
+  /**
+   * Sets a value indicating whether the client operates in test mode.
+   * @param bool $value `true` to enable the test mode, otherwise `false`.
+   * @return Client This instance.
+   */
+  public function setTest(bool $value): self {
+    $this->test = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the user agent string to use when making requests.
+   * @param string $value The new user agent string. If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
+   * @return Client This instance.
+   */
+  public function setUserAgent(string $value): self {
+    $this->userAgent = $value;
+    return $this;
+  }
+
+  /**
    * Submits the specified comment that was incorrectly marked as spam but should not have been.
    * @param Comment $comment The comment to be submitted.
    * @return Observable Completes once the comment has been submitted.

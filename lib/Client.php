@@ -113,6 +113,14 @@ class Client {
   }
 
   /**
+   * Converts this object to a map in JSON format.
+   * @return \stdClass The map in JSON format corresponding to this object.
+   */
+  final public function jsonSerialize(): \stdClass {
+    return $this->toJSON();
+  }
+
+  /**
    * Submits the specified comment that was incorrectly marked as spam but should not have been.
    * @param Comment $comment The comment to be submitted.
    * @return Observable Completes once the comment has been submitted.
@@ -170,5 +178,27 @@ class Client {
         $observer->onError($e);
       }
     });
+  }
+
+  /**
+   * Converts this object to a map in JSON format.
+   * @return \stdClass The map in JSON format corresponding to this object.
+   */
+  public function toJSON(): \stdClass {
+    $map = new \stdClass();
+    $map->apiKey = $this->getAPIKey();
+    $map->blog = ($blog = $this->getBlog()) ? $blog->toJSON() : null;
+    $map->test = $this->isTest();
+    $map->userAgent = $this->getUserAgent();
+    return $map;
+  }
+
+  /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
   }
 }

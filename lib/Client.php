@@ -25,7 +25,7 @@ class Client {
   /**
    * @var string The Akismet API key.
    */
-  private $apiKey;
+  private $apiKey = '';
 
   /**
    * @var Blog The front page or home URL of the instance making requests.
@@ -35,29 +35,24 @@ class Client {
   /**
    * @var bool Value indicating whether the client operates in test mode.
    */
-  private $test;
+  private $test = false;
 
   /**
-   * @var string The user agent string to use when making requests. If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
+   * @var string The user agent string to use when making requests.
    */
   private $userAgent;
 
   /**
    * Initializes a new instance of the class.
-   * @param string $apiKey The Akismet API key used to query the service.
-   * @param string|Blog $blog The front page or home URL transmitted when making requests.
-   * @param array $options An object specifying additional values used to initialize this instance.
-   * @throws \InvalidArgumentException The specified API key or blog URL is empty.
+   * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
-  public function __construct(string $apiKey, $blog, array $options = []) {
-    $this->apiKey = $apiKey;
-    if (!mb_strlen($this->apiKey)) throw new \InvalidArgumentException('The specified API key is empty.');
+  public function __construct(array $config = []) {
+    $this->userAgent = sprintf('PHP/%s | Akismet/2.0.0', PHP_VERSION);
 
-    $this->blog = $blog instanceof Blog ? $blog : new Blog(['url' => $blog]);
-    if (!mb_strlen($this->blog->getURL())) throw new \InvalidArgumentException('The specified blog URL is empty.');
-
-    $this->test = isset($options['test']) && is_bool($options['test']) ? $options['test'] : false;
-    $this->userAgent = isset($options['userAgent']) && is_string($options['userAgent']) ? $options['userAgent'] : sprintf('PHP/%s | Akismet/2.0.0', PHP_VERSION);
+    foreach ($config as $property => $value) {
+      $setter = "set{$property}";
+      if(method_exists($this, $setter)) $this->$setter($value);
+    }
   }
 
   /**
@@ -83,15 +78,14 @@ class Client {
 
   /**
    * Gets the front page or home URL of the instance making requests.
-   * @return Blog The front page or home URL of the instance making requests.
+   * @return Blog The front page or home URL.
    */
-  public function getBlog(): Blog {
+  public function getBlog() {
     return $this->blog;
   }
 
   /**
    * Gets the user agent string to use when making requests.
-   * If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
    * @return string The user agent string to use when making requests.
    */
   public function getUserAgent(): string {

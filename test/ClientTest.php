@@ -29,7 +29,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Tests the `Client` constructor.
    */
   public function testConstructor() {
-    $client = new Client('0123456789-ABCDEF', 'http://your.blog.url', ['userAgent' => 'FooBar/6.6.6']);
+    $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => 'http://your.blog.url', 'userAgent' => 'FooBar/6.6.6']);
     $this->assertEquals('0123456789-ABCDEF', $client->getAPIKey());
     $this->assertEquals('FooBar/6.6.6', $client->getUserAgent());
 
@@ -77,7 +77,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Tests the `Client::toJSON()` method.
    */
   public function testToJSON() {
-    $data = (new Client('0123456789-ABCDEF', 'http://your.blog.url', ['userAgent' => 'FooBar/6.6.6']))->toJSON();
+    $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => 'http://your.blog.url', 'userAgent' => 'FooBar/6.6.6']))->toJSON();
     $this->assertEquals('0123456789-ABCDEF', $data->apiKey);
     $this->assertEquals('http://your.blog.url', $data->blog->blog);
     $this->assertFalse($data->test);
@@ -99,7 +99,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function(\Exception $e) { $this->fail($e->getMessage()); }
     );
 
-    $client = new Client('0123456789-ABCDEF', $this->client->getBlog(), ['test' => $this->client->isTest()]);
+    $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => $this->client->getBlog(), 'test' => $this->client->isTest()]);
     $client->verifyKey()->subscribeCallback(
       function($response) { $this->assertFalse($response); },
       function(\Exception $e) { $this->fail($e->getMessage()); }
@@ -110,7 +110,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Performs a common set of tasks just before each test method is called.
    */
   protected function setUp() {
-    $this->client = new Client(getenv('AKISMET_API_KEY'), 'https://github.com/cedx/akismet.php', ['test' => true]);
+    $this->client = new Client([
+      'apiKey' => getenv('AKISMET_API_KEY'),
+      'blog' => 'https://github.com/cedx/akismet.php',
+      'test' => true
+    ]);
 
     $this->ham = new Comment([
       'author' => new Author([

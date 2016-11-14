@@ -28,7 +28,7 @@ The provided classes have standard getters and setters to access their propertie
 To ease the initialization of these classes, their constructor accepts an associative array of property values (`"property" => "value"`), and their setters have a fluent interface:
 
 ```php
-// Using an associative array on instanciation.
+// Using an associative array with the constructor.
 $client = new Client([
   'apiKey' => 'YourAPIKey',
   'blog' => 'http://your.blog.url',

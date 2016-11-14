@@ -78,7 +78,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function(\Exception $e) { $this->fail($e->getMessage()); }
     );
 
-    $client = new Client('viagra-test-123', $this->client->getBlog(), ['isTest' => $this->client->isTest()]);
+    $client = new Client('viagra-test-123', $this->client->getBlog(), ['test' => $this->client->isTest()]);
     $client->verifyKey()->subscribeCallback(
       function($response) { $this->assertFalse($response); },
       function(\Exception $e) { $this->fail($e->getMessage()); }
@@ -89,7 +89,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Performs a common set of tasks just before each test method is called.
    */
   protected function setUp() {
-    $this->client = new Client(getenv('AKISMET_API_KEY'), 'https://github.com/cedx/akismet.php', ['isTest' => true]);
+    $this->client = new Client(getenv('AKISMET_API_KEY'), 'https://github.com/cedx/akismet.php', ['test' => true]);
 
     $this->ham = new Comment([
       'author' => new Author([

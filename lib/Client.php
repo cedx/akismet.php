@@ -35,7 +35,7 @@ class Client {
   /**
    * @var bool Value indicating whether the client operates in test mode.
    */
-  private $isTest;
+  private $test;
 
   /**
    * @var string The user agent string to use when making requests. If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
@@ -56,13 +56,8 @@ class Client {
     $this->blog = $blog instanceof Blog ? $blog : new Blog(['url' => $blog]);
     if (!mb_strlen($this->blog->getURL())) throw new \InvalidArgumentException('The specified blog URL is empty.');
 
-    $this->isTest = isset($options['isTest']) && is_bool($options['isTest'])
-      ? $options['isTest']
-      : false;
-
-    $this->userAgent = isset($options['userAgent']) && is_string($options['userAgent'])
-      ? $options['userAgent']
-      : sprintf('PHP/%s | Akismet/1.1.0', PHP_VERSION);
+    $this->test = isset($options['test']) && is_bool($options['test']) ? $options['test'] : false;
+    $this->userAgent = isset($options['userAgent']) && is_string($options['userAgent']) ? $options['userAgent'] : sprintf('PHP/%s | Akismet/1.1.0', PHP_VERSION);
   }
 
   /**
@@ -109,7 +104,7 @@ class Client {
    * @return bool `true` if the client operates in test mode, otherwise `false`.
    */
   public function isTest(): bool {
-    return $this->isTest;
+    return $this->test;
   }
 
   /**
@@ -147,7 +142,7 @@ class Client {
    * @return Observable A boolean value indicating whether it is a valid API key.
    */
   public function verifyKey() {
-    $endPoint = static::SERVICE_URL . '/1.1/verify-key';
+    $endPoint = static::SERVICE_URL.'/1.1/verify-key';
     return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
       return $response == 'valid';
     });
@@ -160,8 +155,8 @@ class Client {
    * @return Observable The response as string.
    */
   private function fetch($endPoint, array $params = []) {
-    $params = array_merge($this->getBlog()->toJSON(), $params);
-    if ($this->isTest()) $params['is_test'] = 'true';
+    $params = array_merge((array) $this->getBlog()->toJSON(), $params);
+    if ($this->isTest()) $params['is_test'] = '1';
 
     return Observable::create(function(ObserverInterface $observer) use($endPoint, $params) {
       try {

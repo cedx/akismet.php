@@ -77,15 +77,15 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Tests the `Client::toJSON()` method.
    */
   public function testToJSON() {
-    $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => 'http://your.blog.url', 'userAgent' => 'FooBar/6.6.6']))->toJSON();
+    $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'userAgent' => 'FooBar/6.6.6']))->toJSON();
     $this->assertEquals('0123456789-ABCDEF', $data->apiKey);
-    $this->assertEquals('http://your.blog.url', $data->blog->blog);
+    $this->assertNull($data->blog);
     $this->assertFalse($data->test);
     $this->assertEquals('FooBar/6.6.6', $data->userAgent);
 
     $data = $this->client->toJSON();
     $this->assertEquals(getenv('AKISMET_API_KEY'), $data->apiKey);
-    $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog->blog);
+    $this->assertEquals(Blog::class, $data->blog);
     $this->assertTrue($data->test);
     $this->assertStringStartsWith('PHP/'.PHP_VERSION, $data->userAgent);
   }

@@ -84,7 +84,7 @@ $client->submitHam($comment)->subscribeCallback(function() {
 In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
 
 ```shell
-$ export AKISMET_API_KEY=<YourApiKey>
+$ export AKISMET_API_KEY="<YourAPIKey>"
 ```
 
 Then, you can run the `test` script from the command prompt:

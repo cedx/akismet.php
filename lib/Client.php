@@ -226,7 +226,7 @@ class Client {
   public function toJSON(): \stdClass {
     $map = new \stdClass();
     $map->apiKey = $this->getAPIKey();
-    $map->blog = ($blog = $this->getBlog()) ? $blog->toJSON() : null;
+    $map->blog = ($blog = $this->getBlog()) ? get_class($blog) : null;
     $map->test = $this->isTest();
     $map->userAgent = $this->getUserAgent();
     return $map;

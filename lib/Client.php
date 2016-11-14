@@ -191,7 +191,7 @@ class Client {
    * @return Observable The response as string.
    * @throws \InvalidArgumentException The API key or blog URL is empty.
    */
-  private function fetch($endPoint, array $params = []) {
+  private function fetch(string $endPoint, array $params = []) {
     $blog = $this->getBlog();
     if (!mb_strlen($this->getAPIKey()) || !$blog) throw new \InvalidArgumentException('The API key or the blog URL is empty.');
 

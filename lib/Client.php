@@ -192,15 +192,16 @@ class Client {
    * @throws \InvalidArgumentException The API key or blog URL is empty.
    */
   private function fetch($endPoint, array $params = []) {
-    if (!mb_strlen($this->getAPIKey()) || !$this->getBlog()) throw new \InvalidArgumentException('The API key or the blog URL is empty.');
+    $blog = $this->getBlog();
+    if (!mb_strlen($this->getAPIKey()) || !$blog) throw new \InvalidArgumentException('The API key or the blog URL is empty.');
 
-    $params = array_merge((array) $this->getBlog()->toJSON(), $params);
-    if ($this->isTest()) $params['is_test'] = '1';
+    $bodyParams = array_merge((array) $blog->toJSON(), $params);
+    if ($this->isTest()) $bodyParams['is_test'] = '1';
 
-    return Observable::create(function(ObserverInterface $observer) use($endPoint, $params) {
+    return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyParams) {
       try {
         $promise = (new HTTPClient())->postAsync($endPoint, [
-          'form_params' => $params,
+          'form_params' => $bodyParams,
           'headers' => ['User-Agent' => $this->getUserAgent()]
         ]);
 

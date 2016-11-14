@@ -23,24 +23,23 @@ $ composer require cedx/akismet
 ## Usage
 This package has an API based on [Observables](http://reactivex.io/intro.html).
 
-### Data Classes
-The `Author`, `Blog`, and `Comment` classes provide standard getters and setters to access their properties.
-
+### Class Instantiation
+The provided classes have standard getters and setters to access their properties.
 To ease the initialization of these classes, their constructor accepts an associative array of property values (`"property" => "value"`), and their setters have a fluent interface:
 
 ```php
 // Using an associative array on instanciation.
-$author = new Author([
-  'ipAddress' => '127.0.0.1',
-  'name' => 'Anonymous',
-  'userAgent' => 'Mozilla/5.0'
+$client = new Client([
+  'apiKey' => 'YourAPIKey',
+  'blog' => 'http://your.blog.url',
+  'userAgent' => 'MyApp/1.0.0 | MyPlugin/1.0.0'
 ]);
 
 // Using the fluent interface of the setters.
-$author = (new Author())
-  ->setIPAddress('127.0.0.1')
-  ->setName('Anonymous')
-  ->setUserAgent('Mozilla/5.0');
+$client = (new Client())
+  ->setAPIKey('YourAPIKey')
+  ->setBlog('http://your.blog.url')
+  ->setUserAgent('MyApp/1.0.0 | MyPlugin/1.0.0');
 ```
 
 ### Key Verification
@@ -48,7 +47,7 @@ $author = (new Author())
 ```php
 use akismet\{Client};
 
-$client = new Client('YourAPIKey', 'http://your.blog.url');
+$client = new Client(['apiKey' => 'YourAPIKey', 'blog' => 'http://your.blog.url']);
 $client->verifyKey()->subscribeCallback(function($isValid) {
   echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
 });

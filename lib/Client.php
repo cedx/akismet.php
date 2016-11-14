@@ -124,8 +124,10 @@ class Client {
    * @return Client This instance.
    */
   public function setBlog($value): self {
-    if (!isset($value)) $this->blog = null;
-    else $this->blog = $value instanceof Blog ? $value : new Blog(['url' => $value]);
+    if ($value instanceof Blog) $this->blog = $value;
+    else if (is_string($value)) $this->blog = new Blog(['url' => $value]);
+    else $this->blog = null;
+
     return $this;
   }
 

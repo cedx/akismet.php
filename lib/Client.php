@@ -57,7 +57,7 @@ class Client {
     if (!mb_strlen($this->blog->getURL())) throw new \InvalidArgumentException('The specified blog URL is empty.');
 
     $this->test = isset($options['test']) && is_bool($options['test']) ? $options['test'] : false;
-    $this->userAgent = isset($options['userAgent']) && is_string($options['userAgent']) ? $options['userAgent'] : sprintf('PHP/%s | Akismet/1.1.0', PHP_VERSION);
+    $this->userAgent = isset($options['userAgent']) && is_string($options['userAgent']) ? $options['userAgent'] : sprintf('PHP/%s | Akismet/2.0.0', PHP_VERSION);
   }
 
   /**

@@ -94,7 +94,6 @@ class Client {
 
   /**
    * Gets a value indicating whether the client operates in test mode.
-   * You can use it when submitting test queries to Akismet.
    * @return bool `true` if the client operates in test mode, otherwise `false`.
    */
   public function isTest(): bool {
@@ -132,6 +131,7 @@ class Client {
 
   /**
    * Sets a value indicating whether the client operates in test mode.
+   * You can use it when submitting test queries to Akismet.
    * @param bool $value `true` to enable the test mode, otherwise `false`.
    * @return Client This instance.
    */
@@ -142,7 +142,8 @@ class Client {
 
   /**
    * Sets the user agent string to use when making requests.
-   * @param string $value The new user agent string. If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
+   * If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
+   * @param string $value The new user agent string.
    * @return Client This instance.
    */
   public function setUserAgent(string $value): self {

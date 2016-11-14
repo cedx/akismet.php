@@ -4,6 +4,7 @@ This file contains highlights of what changes on each version of the [Akismet fo
 ## Version 2.0.0
 - Breaking change: changed the return type of the `jsonSerialize()` and `toJSON()` methods.
 - Added the `jsonSerialize()` and `toJSON()` methods to the `Client` class.
+- Added the missing `User-Agent` HTTP header to the outgoing `Client` requests.
 
 ## Version 1.2.0
 - Added the `Client::DEBUG_HEADER` constant.

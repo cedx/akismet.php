@@ -165,7 +165,11 @@ class Client {
 
     return Observable::create(function(ObserverInterface $observer) use($endPoint, $params) {
       try {
-        $promise = (new HTTPClient())->postAsync($endPoint, ['form_params' => $params]);
+        $promise = (new HTTPClient())->postAsync($endPoint, [
+          'form_params' => $params,
+          'headers' => ['User-Agent' => $this->getUserAgent()]
+        ]);
+
         $response = $promise->then()->wait();
         if($response->hasHeader(static::DEBUG_HEADER))
           throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);

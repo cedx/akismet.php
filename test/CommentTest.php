@@ -73,9 +73,9 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
       'type' => CommentType::PINGBACK
     ]))->toJSON();
 
-    $this->assertEquals('Cédric Belin', $data['comment_author']);
-    $this->assertEquals('A user comment.', $data['comment_content']);
-    $this->assertEquals('pingback', $data['comment_type']);
-    $this->assertEquals('https://belin.io', $data['referrer']);
+    $this->assertEquals('Cédric Belin', $data->comment_author);
+    $this->assertEquals('A user comment.', $data->comment_content);
+    $this->assertEquals('pingback', $data->comment_type);
+    $this->assertEquals('https://belin.io', $data->referrer);
   }
 }

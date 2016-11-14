@@ -68,7 +68,7 @@ class Client {
   public function checkComment(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, $comment->toJSON())->map(function($response) {
+    return $this->fetch($endPoint, (array) $comment->toJSON())->map(function($response) {
       return $response == 'true';
     });
   }
@@ -123,7 +123,7 @@ class Client {
   public function submitHam(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, $comment->toJSON());
+    return $this->fetch($endPoint, (array) $comment->toJSON());
   }
 
   /**
@@ -134,7 +134,7 @@ class Client {
   public function submitSpam(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, $comment->toJSON());
+    return $this->fetch($endPoint, (array) $comment->toJSON());
   }
 
   /**

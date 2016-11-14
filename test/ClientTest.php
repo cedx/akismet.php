@@ -29,9 +29,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Tests the `Client` constructor.
    */
   public function testConstructor() {
-    $client = new Client('0123456789ABCDEF', 'https://github.com/cedx/akismet.js');
-    $this->assertEquals('0123456789ABCDEF', $client->getAPIKey());
-    $this->assertInstanceOf(Blog::class, $client->getBlog());
+    $client = new Client('0123456789-ABCDEF', 'http://your.blog.url', ['userAgent' => 'FooBar/6.6.6']);
+    $this->assertEquals('0123456789-ABCDEF', $client->getAPIKey());
+    $this->assertEquals('FooBar/6.6.6', $client->getUserAgent());
+
+    $blog = $client->getBlog();
+    $this->assertInstanceOf(Blog::class, $blog);
+    $this->assertEquals('http://your.blog.url', $blog->getURL());
   }
 
   /**
@@ -78,7 +82,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function(\Exception $e) { $this->fail($e->getMessage()); }
     );
 
-    $client = new Client('viagra-test-123', $this->client->getBlog(), ['test' => $this->client->isTest()]);
+    $client = new Client('0123456789-ABCDEF', $this->client->getBlog(), ['test' => $this->client->isTest()]);
     $client->verifyKey()->subscribeCallback(
       function($response) { $this->assertFalse($response); },
       function(\Exception $e) { $this->fail($e->getMessage()); }
@@ -95,6 +99,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       'author' => new Author([
         'ipAddress' => '192.168.0.1',
         'name' => 'Akismet for PHP',
+        'role' => 'administrator',
         'url' => 'https://github.com/cedx/akismet.php',
         'userAgent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
       ]),

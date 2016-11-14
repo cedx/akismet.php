@@ -188,8 +188,11 @@ class Client {
    * @param string $endPoint The URL of the end point to query.
    * @param array $params The fields describing the query body.
    * @return Observable The response as string.
+   * @throws \InvalidArgumentException The API key or blog URL is empty.
    */
   private function fetch($endPoint, array $params = []) {
+    if (!mb_strlen($this->getAPIKey()) || !$this->getBlog()) throw new \InvalidArgumentException('The API key or the blog URL is empty.');
+
     $params = array_merge((array) $this->getBlog()->toJSON(), $params);
     if ($this->isTest()) $params['is_test'] = '1';
 

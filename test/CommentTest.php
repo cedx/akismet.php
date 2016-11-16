@@ -16,7 +16,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
   public function testConstructor() {
     $comment = new Comment([
       'content' => 'Hello World!',
-      'date' => new \DateTime(),
+      'date' => time(),
       'referrer' => 'https://github.com/cedx/akismet.php'
     ]);
 

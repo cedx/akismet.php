@@ -120,7 +120,7 @@ class Client implements \JsonSerializable {
 
   /**
    * Sets the front page or home URL of the instance making requests.
-   * @param string|Blog $value The new front page or home URL.
+   * @param Blog|string $value The new front page or home URL.
    * @return Client This instance.
    */
   public function setBlog($value): self {

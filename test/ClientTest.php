@@ -44,12 +44,12 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function testCheckComment() {
     $this->client->checkComment($this->ham)->subscribeCallback(
       function($response) { $this->assertFalse($response); },
-      function(\Exception $e) { $this->fail($e->getMessage()); }
+      function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
 
     $this->client->checkComment($this->spam)->subscribeCallback(
       function($response) { $this->assertTrue($response); },
-      function(\Exception $e) { $this->fail($e->getMessage()); }
+      function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
  }
 
@@ -59,7 +59,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function testSubmitHam() {
     $this->client->submitHam($this->ham)->subscribeCallback(
       function() { $this->assertTrue(true); },
-      function(\Exception $e) { $this->fail($e->getMessage()); }
+      function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
   }
 
@@ -69,7 +69,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function testSubmitSpam() {
     $this->client->submitSpam($this->spam)->subscribeCallback(
       function() { $this->assertTrue(true); },
-      function(\Exception $e) { $this->fail($e->getMessage()); }
+      function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
   }
 
@@ -96,13 +96,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   public function testVerifyKey() {
     $this->client->verifyKey()->subscribeCallback(
       function($response) { $this->assertTrue($response); },
-      function(\Exception $e) { $this->fail($e->getMessage()); }
+      function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
 
     $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => $this->client->getBlog(), 'test' => $this->client->isTest()]);
     $client->verifyKey()->subscribeCallback(
       function($response) { $this->assertFalse($response); },
-      function(\Exception $e) { $this->fail($e->getMessage()); }
+      function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
   }
 

@@ -47,7 +47,7 @@ class Client implements \JsonSerializable {
    * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
   public function __construct(array $config = []) {
-    $this->userAgent = sprintf('PHP/%s | Akismet/2.0.0', PHP_VERSION);
+    $this->userAgent = sprintf('PHP/%s | Akismet/2.0.1', PHP_VERSION);
 
     foreach ($config as $property => $value) {
       $setter = "set{$property}";

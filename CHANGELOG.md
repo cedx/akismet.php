@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Version 2.0.1
+- Fixed a missing `implements \JsonSerializable` statement.
+
 ## Version 2.0.0
 - Breaking change: modified the return type of the `jsonSerialize()` and `toJSON()` methods.
 - Breaking change: modified the signature of the constructor of the `Client` class.

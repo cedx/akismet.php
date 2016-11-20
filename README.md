@@ -28,26 +28,23 @@ The provided classes have standard getters and setters to access their propertie
 To ease the initialization of these classes, their constructor accepts an associative array of property values (`"property" => "value"`), and their setters have a fluent interface:
 
 ```php
+use akismet\{Client};
+
 // Using an associative array with the constructor.
 $client = new Client([
   'apiKey' => 'YourAPIKey',
-  'blog' => 'http://your.blog.url',
-  'userAgent' => 'MyApp/1.0.0 | MyPlugin/1.0.0'
+  'blog' => 'http://your.blog.url'
 ]);
 
 // Using the fluent interface of the setters.
 $client = (new Client())
   ->setAPIKey('YourAPIKey')
-  ->setBlog('http://your.blog.url')
-  ->setUserAgent('MyApp/1.0.0 | MyPlugin/1.0.0');
+  ->setBlog('http://your.blog.url');
 ```
 
 ### Key Verification
 
 ```php
-use akismet\{Client};
-
-$client = new Client(['apiKey' => 'YourAPIKey', 'blog' => 'http://your.blog.url']);
 $client->verifyKey()->subscribeCallback(function($isValid) {
   echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
 });

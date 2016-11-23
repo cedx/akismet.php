@@ -56,6 +56,15 @@ class Comment implements \JsonSerializable {
   }
 
   /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
+  }
+
+  /**
    * Creates a new comment from the specified JSON map.
    * @param mixed $map A JSON map representing a comment.
    * @return Comment The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
@@ -140,8 +149,15 @@ class Comment implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  final public function jsonSerialize(): \stdClass {
-    return $this->toJSON();
+  public function jsonSerialize(): \stdClass {
+    $map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass();
+    if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
+    if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
+    if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
+    if (mb_strlen($type = $this->getType())) $map->comment_type = $type;
+    if (mb_strlen($permalink = $this->getPermalink())) $map->permalink = $permalink;
+    if (mb_strlen($referrer = $this->getReferrer())) $map->referrer = $referrer;
+    return $map;
   }
 
   /**
@@ -223,29 +239,5 @@ class Comment implements \JsonSerializable {
   public function setType(string $value): self {
     $this->type = $value;
     return $this;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function toJSON(): \stdClass {
-    $map = ($author = $this->getAuthor()) ? $author->toJSON() : new \stdClass();
-    if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
-    if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
-    if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
-    if (mb_strlen($type = $this->getType())) $map->comment_type = $type;
-    if (mb_strlen($permalink = $this->getPermalink())) $map->permalink = $permalink;
-    if (mb_strlen($referrer = $this->getReferrer())) $map->referrer = $referrer;
-    return $map;
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." {$json}";
   }
 }

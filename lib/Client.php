@@ -47,12 +47,21 @@ class Client implements \JsonSerializable {
    * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
   public function __construct(array $config = []) {
-    $this->userAgent = sprintf('PHP/%s | Akismet/2.0.1', PHP_VERSION);
+    $this->userAgent = sprintf('PHP/%s | Akismet/3.0.0', PHP_VERSION);
 
     foreach ($config as $property => $value) {
       $setter = "set{$property}";
       if(method_exists($this, $setter)) $this->$setter($value);
     }
+  }
+
+  /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
   }
 
   /**
@@ -63,7 +72,7 @@ class Client implements \JsonSerializable {
   public function checkComment(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->toJSON())->map(function($response) {
+    return $this->fetch($endPoint, (array) $comment->jsonSerialize())->map(function($response) {
       return $response == 'true';
     });
   }
@@ -104,8 +113,13 @@ class Client implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  final public function jsonSerialize(): \stdClass {
-    return $this->toJSON();
+  public function jsonSerialize(): \stdClass {
+    return (object) [
+      'apiKey' => $this->getAPIKey(),
+      'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
+      'test' => $this->isTest(),
+      'userAgent' => $this->getUserAgent()
+    ];
   }
 
   /**
@@ -161,7 +175,7 @@ class Client implements \JsonSerializable {
   public function submitHam(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->toJSON());
+    return $this->fetch($endPoint, (array) $comment->jsonSerialize());
   }
 
   /**
@@ -172,7 +186,7 @@ class Client implements \JsonSerializable {
   public function submitSpam(Comment $comment) {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->toJSON());
+    return $this->fetch($endPoint, (array) $comment->jsonSerialize());
   }
 
   /**
@@ -196,7 +210,7 @@ class Client implements \JsonSerializable {
     $blog = $this->getBlog();
     if (!mb_strlen($this->getAPIKey()) || !$blog) return Observable::error(new \InvalidArgumentException('The API key or the blog URL is empty.'));
 
-    $bodyParams = array_merge((array) $blog->toJSON(), $params);
+    $bodyParams = array_merge((array) $blog->jsonSerialize(), $params);
     if ($this->isTest()) $bodyParams['is_test'] = '1';
 
     return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyParams) {
@@ -218,27 +232,5 @@ class Client implements \JsonSerializable {
         $observer->onError($e);
       }
     });
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function toJSON(): \stdClass {
-    return (object) [
-      'apiKey' => $this->getAPIKey(),
-      'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
-      'test' => $this->isTest(),
-      'userAgent' => $this->getUserAgent()
-    ];
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." {$json}";
   }
 }

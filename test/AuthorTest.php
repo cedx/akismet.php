@@ -45,10 +45,10 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Author::toJSON()` method.
+   * Tests the `Author::jsonSerialize()` method.
    */
-  public function testToJSON() {
-    $data = (new Author())->toJSON();
+  public function testJsonSerialize() {
+    $data = (new Author())->jsonSerialize();
     $this->assertEquals(0, count((array) $data));
 
     $data = (new Author([
@@ -56,7 +56,7 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
       'ipAddress' => '127.0.0.1',
       'name' => 'Cédric Belin',
       'url' => 'https://belin.io'
-    ]))->toJSON();
+    ]))->jsonSerialize();
 
     $this->assertEquals('Cédric Belin', $data->comment_author);
     $this->assertEquals('cedric@belin.io', $data->comment_author_email);

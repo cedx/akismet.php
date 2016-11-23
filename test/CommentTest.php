@@ -60,10 +60,10 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Comment::toJSON()` method.
+   * Tests the `Comment::jsonSerialize()` method.
    */
-  public function testToJSON() {
-    $data = (new Comment())->toJSON();
+  public function testJsonSerialize() {
+    $data = (new Comment())->jsonSerialize();
     $this->assertEquals(0, count((array) $data));
 
     $data = (new Comment([
@@ -71,7 +71,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
       'content' => 'A user comment.',
       'referrer' => 'https://belin.io',
       'type' => CommentType::PINGBACK
-    ]))->toJSON();
+    ]))->jsonSerialize();
 
     $this->assertEquals('Cédric Belin', $data->comment_author);
     $this->assertEquals('A user comment.', $data->comment_content);

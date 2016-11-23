@@ -48,17 +48,17 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Blog::toJSON()` method.
+   * Tests the `Blog::jsonSerialize()` method.
    */
-  public function testToJSON() {
-    $data = (new Blog())->toJSON();
+  public function testJsonSerialize() {
+    $data = (new Blog())->jsonSerialize();
     $this->assertEquals(0, count((array) $data));
 
     $data = (new Blog([
       'charset' => 'UTF-8',
       'language' => 'en',
       'url' => 'https://github.com/cedx/akismet.php'
-    ]))->toJSON();
+    ]))->jsonSerialize();
 
     $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
     $this->assertEquals('UTF-8', $data->blog_charset);

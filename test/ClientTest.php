@@ -51,7 +51,24 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function($response) { $this->assertTrue($response); },
       function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
- }
+  }
+
+  /**
+   * Tests the `Client::jsonSerialize()` method.
+   */
+  public function testJsonSerialize() {
+    $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'userAgent' => 'FooBar/6.6.6']))->jsonSerialize();
+    $this->assertEquals('0123456789-ABCDEF', $data->apiKey);
+    $this->assertNull($data->blog);
+    $this->assertFalse($data->test);
+    $this->assertEquals('FooBar/6.6.6', $data->userAgent);
+
+    $data = $this->client->jsonSerialize();
+    $this->assertEquals(getenv('AKISMET_API_KEY'), $data->apiKey);
+    $this->assertEquals(Blog::class, $data->blog);
+    $this->assertTrue($data->test);
+    $this->assertStringStartsWith('PHP/'.PHP_VERSION, $data->userAgent);
+  }
 
   /**
    * Tests the `Client::submitHam()` method.
@@ -71,23 +88,6 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function() { $this->assertTrue(true); },
       function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
-  }
-
-  /**
-   * Tests the `Client::toJSON()` method.
-   */
-  public function testToJSON() {
-    $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'userAgent' => 'FooBar/6.6.6']))->toJSON();
-    $this->assertEquals('0123456789-ABCDEF', $data->apiKey);
-    $this->assertNull($data->blog);
-    $this->assertFalse($data->test);
-    $this->assertEquals('FooBar/6.6.6', $data->userAgent);
-
-    $data = $this->client->toJSON();
-    $this->assertEquals(getenv('AKISMET_API_KEY'), $data->apiKey);
-    $this->assertEquals(Blog::class, $data->blog);
-    $this->assertTrue($data->test);
-    $this->assertStringStartsWith('PHP/'.PHP_VERSION, $data->userAgent);
   }
 
   /**

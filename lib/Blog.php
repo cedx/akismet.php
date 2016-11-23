@@ -36,6 +36,15 @@ class Blog implements \JsonSerializable {
   }
 
   /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
+  }
+
+  /**
    * Creates a new blog from the specified JSON map.
    * @param mixed $map A JSON map representing a blog.
    * @return Blog The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
@@ -77,8 +86,12 @@ class Blog implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  final public function jsonSerialize(): \stdClass {
-    return $this->toJSON();
+  public function jsonSerialize(): \stdClass {
+    $map = new \stdClass();
+    if (mb_strlen($url = $this->getURL())) $map->blog = $url;
+    if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
+    if (mb_strlen($language = $this->getLanguage())) $map->blog_lang = $language;
+    return $map;
   }
 
   /**
@@ -109,26 +122,5 @@ class Blog implements \JsonSerializable {
   public function setURL(string $value): self {
     $this->url = $value;
     return $this;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function toJSON(): \stdClass {
-    $map = new \stdClass();
-    if (mb_strlen($url = $this->getURL())) $map->blog = $url;
-    if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
-    if (mb_strlen($language = $this->getLanguage())) $map->blog_lang = $language;
-    return $map;
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." {$json}";
   }
 }

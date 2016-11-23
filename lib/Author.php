@@ -51,6 +51,15 @@ class Author implements \JsonSerializable {
   }
 
   /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." {$json}";
+  }
+
+  /**
    * Creates a new author from the specified JSON map.
    * @param mixed $map A JSON map representing an author.
    * @return Author The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
@@ -119,8 +128,15 @@ class Author implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  final public function jsonSerialize(): \stdClass {
-    return $this->toJSON();
+  public function jsonSerialize(): \stdClass {
+    $map = new \stdClass();
+    if (mb_strlen($name = $this->getName())) $map->comment_author = $name;
+    if (mb_strlen($email = $this->getEmail())) $map->comment_author_email = $email;
+    if (mb_strlen($url = $this->getURL())) $map->comment_author_url = $url;
+    if (mb_strlen($userAgent = $this->getUserAgent())) $map->user_agent = $userAgent;
+    if (mb_strlen($ipAddress = $this->getIPAddress())) $map->user_ip = $ipAddress;
+    if (mb_strlen($role = $this->getRole())) $map->user_role = $role;
+    return $map;
   }
 
   /**
@@ -181,29 +197,5 @@ class Author implements \JsonSerializable {
   public function setUserAgent(string $value): self {
     $this->userAgent = $value;
     return $this;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function toJSON(): \stdClass {
-    $map = new \stdClass();
-    if (mb_strlen($name = $this->getName())) $map->comment_author = $name;
-    if (mb_strlen($email = $this->getEmail())) $map->comment_author_email = $email;
-    if (mb_strlen($url = $this->getURL())) $map->comment_author_url = $url;
-    if (mb_strlen($userAgent = $this->getUserAgent())) $map->user_agent = $userAgent;
-    if (mb_strlen($ipAddress = $this->getIPAddress())) $map->user_ip = $ipAddress;
-    if (mb_strlen($role = $this->getRole())) $map->user_role = $role;
-    return $map;
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_FORCE_OBJECT | JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." {$json}";
   }
 }

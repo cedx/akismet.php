@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Akismet fo
 
 ## Version 3.0.0
 - Breaking change: removed the `toJSON()` methods.
+- Added the `onRequest` and `onResponse` event streams to the `Client` class.
 - Removed the `final` modifier from the `jsonSerialize()` methods.
 
 ## Version 2.0.1

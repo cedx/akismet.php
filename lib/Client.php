@@ -5,7 +5,9 @@
 namespace akismet;
 
 use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\Psr7\{ServerRequest};
 use Rx\{Observable, ObserverInterface};
+use Rx\Subject\{Subject};
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
@@ -33,6 +35,16 @@ class Client implements \JsonSerializable {
   private $blog;
 
   /**
+   * @var Subject The handler of "request" events.
+   */
+  private $onRequest;
+
+  /**
+   * @var Subject The handler of "response" events.
+   */
+  private $onResponse;
+
+  /**
    * @var bool Value indicating whether the client operates in test mode.
    */
   private $test = false;
@@ -47,6 +59,8 @@ class Client implements \JsonSerializable {
    * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
   public function __construct(array $config = []) {
+    $this->onRequest = new Subject();
+    $this->onResponse = new Subject();
     $this->userAgent = sprintf('PHP/%s | Akismet/3.0.0', PHP_VERSION);
 
     foreach ($config as $property => $value) {
@@ -120,6 +134,22 @@ class Client implements \JsonSerializable {
       'test' => $this->isTest(),
       'userAgent' => $this->getUserAgent()
     ];
+  }
+
+  /**
+   * Gets the stream of "request" events.
+   * @return Observable The stream of "request" events.
+   */
+  public function onRequest(): Observable {
+    return $this->onRequest->asObservable();
+  }
+
+  /**
+   * Gets the stream of "response" events.
+   * @return Observable The stream of "response" events.
+   */
+  public function onResponse(): Observable {
+    return $this->onResponse->asObservable();
   }
 
   /**
@@ -215,12 +245,16 @@ class Client implements \JsonSerializable {
 
     return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyParams) {
       try {
-        $promise = (new HTTPClient())->postAsync($endPoint, [
+        $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyParams);
+        $promise = (new HTTPClient())->sendAsync($request, [
           'form_params' => $bodyParams,
           'headers' => ['User-Agent' => $this->getUserAgent()]
         ]);
 
+        $this->onRequest->onNext($request);
         $response = $promise->then()->wait();
+        $this->onResponse->onNext($response);
+
         if($response->hasHeader(static::DEBUG_HEADER))
           throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
 

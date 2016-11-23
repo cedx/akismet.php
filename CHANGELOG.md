@@ -1,6 +1,10 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Version 3.0.0
+- Breaking change: removed the `toJSON()` methods.
+- Removed the `final` modifier from the `jsonSerialize()` methods.
+
 ## Version 2.0.1
 - Fixed a missing `implements \JsonSerializable` statement.
 

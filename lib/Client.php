@@ -83,7 +83,7 @@ class Client implements \JsonSerializable {
    * @param Comment $comment The comment to be checked.
    * @return Observable A boolean value indicating whether it is spam.
    */
-  public function checkComment(Comment $comment) {
+  public function checkComment(Comment $comment): Observable {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
     return $this->fetch($endPoint, (array) $comment->jsonSerialize())->map(function($response) {
@@ -202,7 +202,7 @@ class Client implements \JsonSerializable {
    * @param Comment $comment The comment to be submitted.
    * @return Observable Completes once the comment has been submitted.
    */
-  public function submitHam(Comment $comment) {
+  public function submitHam(Comment $comment): Observable {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
     return $this->fetch($endPoint, (array) $comment->jsonSerialize());
@@ -213,7 +213,7 @@ class Client implements \JsonSerializable {
    * @param Comment $comment The comment to be submitted.
    * @return Observable Completes once the comment has been submitted.
    */
-  public function submitSpam(Comment $comment) {
+  public function submitSpam(Comment $comment): Observable {
     $serviceURL = parse_url(static::SERVICE_URL);
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
     return $this->fetch($endPoint, (array) $comment->jsonSerialize());
@@ -223,7 +223,7 @@ class Client implements \JsonSerializable {
    * Checks the API key against the service database, and returns a value indicating whether it is valid.
    * @return Observable A boolean value indicating whether it is a valid API key.
    */
-  public function verifyKey() {
+  public function verifyKey(): Observable {
     $endPoint = static::SERVICE_URL.'/1.1/verify-key';
     return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
       return $response == 'valid';
@@ -236,7 +236,7 @@ class Client implements \JsonSerializable {
    * @param array $params The fields describing the query body.
    * @return Observable The response as string.
    */
-  private function fetch(string $endPoint, array $params = []) {
+  private function fetch(string $endPoint, array $params = []): Observable {
     $blog = $this->getBlog();
     if (!mb_strlen($this->getAPIKey()) || !$blog) return Observable::error(new \InvalidArgumentException('The API key or the blog URL is empty.'));
 

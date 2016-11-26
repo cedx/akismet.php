@@ -77,6 +77,26 @@ $client->submitHam($comment)->subscribeCallback(function() {
 });
 ```
 
+## Events
+The `akismet\Client` class triggers some events during its life cycle:
+
+- `request` : emitted every time a request is made to the remote service.
+- `response` : emitted every time a response is received from the remote service.
+
+These events are exposed as `Observables`, you can subscribe to them using the `on<EventName>` methods:
+
+```php
+use Psr\Http\Message\{RequestInterface, ResponseInterface};
+
+$client->onRequest()->subscribeCallback(function(RequestInterface $request) {
+  echo 'Client request: ', $request->getUri();
+});
+
+$client->onResponse()->subscribeCallback(function(ResponseInterface $response) {
+  echo 'Server response: ', $response->getStatusCode();
+});
+```
+
 ## Unit Tests
 In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
 

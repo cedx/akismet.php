@@ -28,6 +28,7 @@
   ],
   "require": {
     "php": ">=7.0.0",
+    "ext-curl": "*",
     "cedx/enum": "^1.0.0",
     "guzzlehttp/guzzle": "^6.2.2",
     "reactivex/rxphp": "^1.4.1"

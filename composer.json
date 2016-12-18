@@ -29,7 +29,7 @@
   "require": {
     "php": ">=7.0.0",
     "ext-curl": "*",
-    "cedx/enum": "^1.0.0",
+    "cedx/enum": "^1.1.0",
     "guzzlehttp/guzzle": "^6.2.2",
     "reactivex/rxphp": "^1.4.1"
   },
@@ -38,7 +38,7 @@
     "phing/phing": "^2.15.2",
     "phpdocumentor/phpdocumentor": "^2.9.0",
     "phpmd/phpmd": "^2.5.0",
-    "phpunit/phpunit": "^5.7.2"
+    "phpunit/phpunit": "^5.7.4"
   },
   "scripts": {
     "coverage": "codacycoverage clover var/coverage.xml",

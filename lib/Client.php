@@ -246,12 +246,13 @@ class Client implements \JsonSerializable {
     return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyParams) {
       try {
         $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyParams);
+        $this->onRequest->onNext($request);
+        
         $promise = (new HTTPClient())->sendAsync($request, [
-          'form_params' => $bodyParams,
+          'form_params' => $request->getParsedBody(),
           'headers' => ['User-Agent' => $this->getUserAgent()]
         ]);
 
-        $this->onRequest->onNext($request);
         $response = $promise->then()->wait();
         $this->onResponse->onNext($response);
 

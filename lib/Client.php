@@ -247,7 +247,7 @@ class Client implements \JsonSerializable {
       try {
         $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyParams);
         $this->onRequest->onNext($request);
-        
+
         $promise = (new HTTPClient())->sendAsync($request, [
           'form_params' => $request->getParsedBody(),
           'headers' => ['User-Agent' => $this->getUserAgent()]

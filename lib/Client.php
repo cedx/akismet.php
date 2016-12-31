@@ -35,6 +35,11 @@ class Client implements \JsonSerializable {
   private $blog;
 
   /**
+   * @var bool Value indicating whether the client operates in test mode.
+   */
+  private $isTest = false;
+
+  /**
    * @var Subject The handler of "request" events.
    */
   private $onRequest;
@@ -43,11 +48,6 @@ class Client implements \JsonSerializable {
    * @var Subject The handler of "response" events.
    */
   private $onResponse;
-
-  /**
-   * @var bool Value indicating whether the client operates in test mode.
-   */
-  private $test = false;
 
   /**
    * @var string The user agent string to use when making requests.
@@ -121,7 +121,7 @@ class Client implements \JsonSerializable {
    * @return bool `true` if the client operates in test mode, otherwise `false`.
    */
   public function isTest(): bool {
-    return $this->test;
+    return $this->isTest;
   }
 
   /**
@@ -132,7 +132,7 @@ class Client implements \JsonSerializable {
     return (object) [
       'apiKey' => $this->getAPIKey(),
       'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
-      'test' => $this->isTest(),
+      'isTest' => $this->isTest(),
       'userAgent' => $this->getUserAgent()
     ];
   }
@@ -182,8 +182,8 @@ class Client implements \JsonSerializable {
    * @param bool $value `true` to enable the test mode, otherwise `false`.
    * @return Client This instance.
    */
-  public function setTest(bool $value): self {
-    $this->test = $value;
+  public function setIsTest(bool $value): self {
+    $this->isTest = $value;
     return $this;
   }
 
@@ -234,19 +234,19 @@ class Client implements \JsonSerializable {
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
    * @param string $endPoint The URL of the end point to query.
-   * @param array $params The fields describing the query body.
+   * @param array $fields The fields describing the query body.
    * @return Observable The response as string.
    */
-  private function fetch(string $endPoint, array $params = []): Observable {
+  private function fetch(string $endPoint, array $fields = []): Observable {
     $blog = $this->getBlog();
     if (!mb_strlen($this->getAPIKey()) || !$blog) return Observable::error(new \InvalidArgumentException('The API key or the blog URL is empty.'));
 
-    $bodyParams = array_merge((array) $blog->jsonSerialize(), $params);
-    if ($this->isTest()) $bodyParams['is_test'] = '1';
+    $bodyFields = array_merge((array) $blog->jsonSerialize(), $fields);
+    if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-    return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyParams) {
+    return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyFields) {
       try {
-        $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyParams);
+        $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyFields);
         $this->onRequest->onNext($request);
 
         $promise = (new HTTPClient())->sendAsync($request, [

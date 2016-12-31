@@ -60,14 +60,13 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'userAgent' => 'FooBar/6.6.6']))->jsonSerialize();
     $this->assertEquals('0123456789-ABCDEF', $data->apiKey);
     $this->assertNull($data->blog);
-    $this->assertFalse($data->test);
+    $this->assertFalse($data->isTest);
     $this->assertEquals('FooBar/6.6.6', $data->userAgent);
 
     $data = $this->client->jsonSerialize();
     $this->assertEquals(getenv('AKISMET_API_KEY'), $data->apiKey);
     $this->assertEquals(Blog::class, $data->blog);
-    $this->assertTrue($data->test);
-    $this->assertStringStartsWith('PHP/'.PHP_VERSION, $data->userAgent);
+    $this->assertTrue($data->isTest);
     $this->assertStringStartsWith('PHP/'.mb_substr(PHP_VERSION, 5), $data->userAgent);
   }
 
@@ -100,7 +99,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
 
-    $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => $this->client->getBlog(), 'test' => $this->client->isTest()]);
+    $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => $this->client->getBlog(), 'isTest' => $this->client->isTest()]);
     $client->verifyKey()->subscribeCallback(
       function($response) { $this->assertFalse($response); },
       function(\Throwable $e) { $this->fail($e->getMessage()); }
@@ -114,7 +113,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $this->client = new Client([
       'apiKey' => getenv('AKISMET_API_KEY'),
       'blog' => 'https://github.com/cedx/akismet.php',
-      'test' => true
+      'isTest' => true
     ]);
 
     $this->ham = new Comment([

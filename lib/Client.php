@@ -59,9 +59,10 @@ class Client implements \JsonSerializable {
    * @param array $config Name-value pairs that will be used to initialize the object properties.
    */
   public function __construct(array $config = []) {
+    $versions = static::getVersions();
     $this->onRequest = new Subject();
     $this->onResponse = new Subject();
-    $this->userAgent = sprintf('PHP/%s | Akismet/3.0.0', PHP_VERSION);
+    $this->userAgent = sprintf('PHP/%s | Akismet/%s', $versions->php, $versions->package);
 
     foreach ($config as $property => $value) {
       $setter = "set$property";
@@ -267,5 +268,22 @@ class Client implements \JsonSerializable {
         $observer->onError($e);
       }
     });
+  }
+
+  /**
+   * Gets an object providing the version numbers of the package and the PHP runtime.
+   * @return \stdClass An object providing some version numbers.
+   */
+  private static function getVersions(): \stdClass {
+    static $versions;
+
+    if (!isset($versions)) {
+      $xml = @simplexml_load_file(__DIR__.'/../build.xml');
+      $versions = new \stdClass();
+      $versions->package = $xml ? (string) $xml->property[0]['value'] : '0.0.0';
+      $versions->php = preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION);
+    }
+
+    return $versions;
   }
 }

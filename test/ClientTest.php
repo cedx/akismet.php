@@ -68,6 +68,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(Blog::class, $data->blog);
     $this->assertTrue($data->test);
     $this->assertStringStartsWith('PHP/'.PHP_VERSION, $data->userAgent);
+    $this->assertStringStartsWith('PHP/'.mb_substr(PHP_VERSION, 5), $data->userAgent);
   }
 
   /**

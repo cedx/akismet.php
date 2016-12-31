@@ -165,7 +165,7 @@ class Comment implements \JsonSerializable {
    * @param Author|string $value The new author.
    * @return Comment This instance.
    */
-  public function setAuthor($value = null): self {
+  public function setAuthor($value): self {
     if ($value instanceof Author) $this->author = $value;
     else if (is_string($value)) $this->author = new Author(['name' => $value]);
     else $this->author = null;
@@ -188,7 +188,7 @@ class Comment implements \JsonSerializable {
    * @param mixed $value The new UTC timestamp of the creation of the comment.
    * @return Comment This instance.
    */
-  public function setDate($value = null): self {
+  public function setDate($value): self {
     if ($value instanceof \DateTime) $this->date = $value;
     else if (is_string($value)) $this->date = new \DateTime($value);
     else if (is_int($value)) $this->date = new \DateTime("@$value");
@@ -212,7 +212,7 @@ class Comment implements \JsonSerializable {
    * @param mixed $value The new UTC timestamp of the publication time.
    * @return Comment This instance.
    */
-  public function setPostModified($value = null): self {
+  public function setPostModified($value): self {
     if ($value instanceof \DateTime) $this->postModified = $value;
     else if (is_string($value)) $this->postModified = new \DateTime($value);
     else if (is_int($value)) $this->postModified = new \DateTime("@$value");

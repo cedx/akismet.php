@@ -67,7 +67,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
     $this->assertEquals(getenv('AKISMET_API_KEY'), $data->apiKey);
     $this->assertEquals(Blog::class, $data->blog);
     $this->assertTrue($data->isTest);
-    $this->assertStringStartsWith('PHP/'.mb_substr(PHP_VERSION, 5), $data->userAgent);
+    $this->assertStringStartsWith('PHP/'.mb_substr(PHP_VERSION, 0, 5), $data->userAgent);
   }
 
   /**

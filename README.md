@@ -1,13 +1,13 @@
 # Akismet for PHP
-![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Code quality](https://img.shields.io/codacy/grade/34982a060f094758917dddaaf4b40364.svg) ![Build](https://img.shields.io/travis/cedx/akismet.php.svg)
+![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://travis-ci.org/cedx/akismet.php.svg)
 
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net).
 
 ## Features
-- [Key Verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.
-- [Comment Check](https://akismet.com/development/api/#comment-check): checks a comment and gets a value indicating whether it is spam.
-- [Submit Spam](https://akismet.com/development/api/#submit-spam): submits a comment that was not marked as spam but should have been.
-- [Submit Ham](https://akismet.com/development/api/#submit-ham): submits a comment that was incorrectly marked as spam but should not have been.
+- [Key verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.
+- [Comment check](https://akismet.com/development/api/#comment-check): checks a comment and gets a value indicating whether it is spam.
+- [Submit spam](https://akismet.com/development/api/#submit-spam): submits a comment that was not marked as spam but should have been.
+- [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was incorrectly marked as spam but should not have been.
 
 ## Requirements
 The latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions.
@@ -23,7 +23,7 @@ $ composer require cedx/akismet
 ## Usage
 This package has an API based on [Observables](http://reactivex.io/intro.html).
 
-### Class Instantiation
+### Class instantiation
 The provided classes have standard getters and setters to access their properties.
 To ease the initialization of these classes, their constructor accepts an associative array of property values (`"property" => "value"`), and their setters have a fluent interface:
 
@@ -42,7 +42,7 @@ $client = (new Client())
   ->setBlog('http://your.blog.url');
 ```
 
-### Key Verification
+### Key verification
 
 ```php
 $client->verifyKey()->subscribeCallback(function($isValid) {
@@ -50,7 +50,7 @@ $client->verifyKey()->subscribeCallback(function($isValid) {
 });
 ```
 
-### Comment Check
+### Comment check
 
 ```php
 use akismet\{Author, Comment};
@@ -65,7 +65,7 @@ $client->checkComment($comment)->subscribeCallback(function($isSpam) {
 });
 ```
 
-### Submit Spam/Ham
+### Submit spam/ham
 
 ```php
 $client->submitSpam($comment)->subscribeCallback(function() {
@@ -83,7 +83,7 @@ The `akismet\Client` class triggers some events during its life cycle:
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as `Observables`, you can subscribe to them using the `on<EventName>` methods:
+These events are exposed as `Observable`, you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
@@ -97,7 +97,7 @@ $client->onResponse()->subscribeCallback(function(ResponseInterface $response) {
 });
 ```
 
-## Unit Tests
+## Unit tests
 In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
 
 ```shell
@@ -110,9 +110,9 @@ Then, you can run the `test` script from the command prompt:
 $ phing test
 ```
 
-## See Also
-- [Code Quality](https://www.codacy.com/app/cedx/akismet-php)
-- [Continuous Integration](https://travis-ci.org/cedx/akismet.php)
+## See also
+- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
+- [Continuous integration](https://travis-ci.org/cedx/akismet.php)
 
 ## License
 [Akismet for PHP](https://github.com/cedx/akismet.php) is distributed under the Apache License, version 2.0.

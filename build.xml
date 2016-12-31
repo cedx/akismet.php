@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<project default="dist" name="akismet.php">
-  <property name="version" value="3.0.0"/>
+<project default="test" name="akismet.php">
+  <property name="version" value="4.0.0"/>
 
   <target name="clean" description="Deletes all generated files and reset any saved state.">
     <delete>
@@ -13,13 +13,6 @@
       <arg value="clover"/>
       <arg value="var/coverage.xml"/>
     </exec>
-  </target>
-
-  <target name="dist" depends="clean" description="Creates a distribution file for this program.">
-    <zip destfile="var/${phing.project.name}-${version}.zip">
-      <fileset dir="." includes="*.json,*.md,*.txt"/>
-      <fileset dir="." includes="lib/**/*.php"/>
-    </zip>
   </target>
 
   <target name="doc" description="Builds the documentation.">

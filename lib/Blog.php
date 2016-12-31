@@ -15,9 +15,9 @@ class Blog implements \JsonSerializable {
   private $charset = '';
 
   /**
-   * @var string The language(s) in use on the blog or site, in ISO 639-1 format, comma-separated.
+   * @var array The languages in use on the blog or site, in ISO 639-1 format.
    */
-  private $language = '';
+  private $languages = [];
 
   /**
    * @var string The blog or site URL.
@@ -53,7 +53,7 @@ class Blog implements \JsonSerializable {
     if (is_array($map)) $map = (object) $map;
     return !is_object($map) ? null : new static([
       'charset' => isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
-      'language' => isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : '',
+      'languages' => isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : [],
       'url' => isset($map->blog) && is_string($map->blog) ? $map->blog : ''
     ]);
   }
@@ -67,11 +67,11 @@ class Blog implements \JsonSerializable {
   }
 
   /**
-   * Gets the language(s) in use on the blog or site, in ISO 639-1 format, comma-separated.
-   * @return string The language(s) in use on the blog or site.
+   * Gets the languages in use on the blog or site, in ISO 639-1 format.
+   * @return array The languages in use on the blog or site.
    */
-  public function getLanguage(): string {
-    return $this->language;
+  public function getLanguages(): array {
+    return $this->languages;
   }
 
   /**
@@ -90,7 +90,7 @@ class Blog implements \JsonSerializable {
     $map = new \stdClass();
     if (mb_strlen($url = $this->getURL())) $map->blog = $url;
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
-    if (mb_strlen($language = $this->getLanguage())) $map->blog_lang = $language;
+    if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages);
     return $map;
   }
 
@@ -105,12 +105,17 @@ class Blog implements \JsonSerializable {
   }
 
   /**
-   * Sets the language(s) in use on the blog or site, in ISO 639-1 format, comma-separated.
-   * @param string $value The new language(s).
+   * Sets the languages in use on the blog or site, in ISO 639-1 format.
+   * @param array|string $values The new languages.
    * @return Blog This instance.
    */
-  public function setLanguage(string $value): self {
-    $this->language = $value;
+  public function setLanguages($values): self {
+    if (is_array($values)) $this->languages = $values;
+    else if (is_string($values)) $this->languages = array_filter(array_map('trim', explode(',', $values)), function($value) {
+      return mb_strlen($value);
+    });
+    else $this->languages = [];
+
     return $this;
   }
 

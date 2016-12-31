@@ -16,12 +16,12 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
   public function testConstructor() {
     $blog = new Blog([
       'charset' => 'UTF-8',
-      'language' => 'en',
+      'languages' => 'en, fr',
       'url' => 'https://github.com/cedx/akismet.php'
     ]);
 
     $this->assertEquals('UTF-8', $blog->getCharset());
-    $this->assertEquals('en', $blog->getLanguage());
+    $this->assertEquals(['en', 'fr'], $blog->getLanguages());
     $this->assertEquals('https://github.com/cedx/akismet.php', $blog->getURL());
   }
 
@@ -32,18 +32,18 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
     $this->assertNull(Blog::fromJSON('foo'));
 
     $blog = Blog::fromJSON([]);
-    $this->assertEquals(0, mb_strlen($blog->getCharset()));
-    $this->assertEquals(0, mb_strlen($blog->getLanguage()));
-    $this->assertEquals(0, mb_strlen($blog->getURL()));
+    $this->assertEmpty($blog->getCharset());
+    $this->assertEmpty($blog->getLanguages());
+    $this->assertEmpty($blog->getURL());
 
     $blog = Blog::fromJSON([
       'blog' => 'https://github.com/cedx/akismet.php',
       'blog_charset' => 'UTF-8',
-      'blog_lang' => 'en'
+      'blog_lang' => 'en, fr'
     ]);
 
     $this->assertEquals('UTF-8', $blog->getCharset());
-    $this->assertEquals('en', $blog->getLanguage());
+    $this->assertEquals(['en', 'fr'], $blog->getLanguages());
     $this->assertEquals('https://github.com/cedx/akismet.php', $blog->getURL());
   }
 
@@ -52,16 +52,16 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
    */
   public function testJsonSerialize() {
     $data = (new Blog())->jsonSerialize();
-    $this->assertEquals(0, count((array) $data));
+    $this->assertEmpty(get_object_vars($data));
 
     $data = (new Blog([
       'charset' => 'UTF-8',
-      'language' => 'en',
+      'languages' => 'en, fr',
       'url' => 'https://github.com/cedx/akismet.php'
     ]))->jsonSerialize();
 
     $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
     $this->assertEquals('UTF-8', $data->blog_charset);
-    $this->assertEquals('en', $data->blog_lang);
+    $this->assertEquals('en,fr', $data->blog_lang);
   }
 }

@@ -32,8 +32,8 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
     $this->assertNull(Author::fromJSON('foo'));
 
     $author = Author::fromJSON([]);
-    $this->assertEquals(0, mb_strlen($author->getEmail()));
-    $this->assertEquals(0, mb_strlen($author->getURL()));
+    $this->assertEmpty($author->getEmail());
+    $this->assertEmpty($author->getURL());
 
     $author = Author::fromJSON([
       'comment_author_email' => 'cedric@belin.io',
@@ -49,7 +49,7 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
    */
   public function testJsonSerialize() {
     $data = (new Author())->jsonSerialize();
-    $this->assertEquals(0, count((array) $data));
+    $this->assertEmpty(get_object_vars($data));
 
     $data = (new Author([
       'email' => 'cedric@belin.io',

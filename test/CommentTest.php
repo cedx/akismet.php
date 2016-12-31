@@ -33,10 +33,10 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
 
     $comment = Comment::fromJSON([]);
     $this->assertNull($comment->getAuthor());
-    $this->assertEquals(0, mb_strlen($comment->getContent()));
+    $this->assertEmpty($comment->getContent());
     $this->assertNull($comment->getDate());
-    $this->assertEquals(0, mb_strlen($comment->getReferrer()));
-    $this->assertEquals(0, mb_strlen($comment->getType()));
+    $this->assertEmpty($comment->getReferrer());
+    $this->assertEmpty($comment->getType());
 
     $comment = Comment::fromJSON([
       'comment_author' => 'Cédric Belin',
@@ -64,7 +64,7 @@ class CommentTest extends \PHPUnit_Framework_TestCase {
    */
   public function testJsonSerialize() {
     $data = (new Comment())->jsonSerialize();
-    $this->assertEquals(0, count((array) $data));
+    $this->assertEmpty(get_object_vars($data));
 
     $data = (new Comment([
       'author' => new Author(['name' => 'Cédric Belin']),

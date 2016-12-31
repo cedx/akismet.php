@@ -45,7 +45,7 @@ class Author implements \JsonSerializable {
    */
   public function __construct(array $config = []) {
     foreach ($config as $property => $value) {
-      $setter = "set{$property}";
+      $setter = "set$property";
       if(method_exists($this, $setter)) $this->$setter($value);
     }
   }

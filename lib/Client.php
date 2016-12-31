@@ -64,7 +64,7 @@ class Client implements \JsonSerializable {
     $this->userAgent = sprintf('PHP/%s | Akismet/3.0.0', PHP_VERSION);
 
     foreach ($config as $property => $value) {
-      $setter = "set{$property}";
+      $setter = "set$property";
       if(method_exists($this, $setter)) $this->$setter($value);
     }
   }

@@ -31,13 +31,13 @@
     "ext-curl": "*",
     "cedx/enum": "^1.2.0",
     "guzzlehttp/guzzle": "^6.2.2",
-    "reactivex/rxphp": "^1.5.1"
+    "reactivex/rxphp": "^1.5.2"
   },
   "require-dev": {
     "phing/phing": "^2.16.0",
     "phpdocumentor/phpdocumentor": "^2.9.0",
     "phpmd/phpmd": "^2.6.0",
-    "phpunit/phpunit": "^5.7.11",
+    "phpunit/phpunit": "^5.7.12",
     "satooshi/php-coveralls": "^1.0.1"
   },
   "scripts": {

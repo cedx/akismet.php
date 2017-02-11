@@ -3,30 +3,17 @@
  * Implementation of the `akismet\test\BlogTest` class.
  */
 namespace akismet\test;
+
 use akismet\{Blog};
+use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Blog` class.
+ * @coversDefaultClass \akismet\Blog
  */
-class BlogTest extends \PHPUnit_Framework_TestCase {
+class BlogTest extends TestCase {
 
   /**
-   * Tests the `Blog` constructor.
-   */
-  public function testConstructor() {
-    $blog = new Blog([
-      'charset' => 'UTF-8',
-      'languages' => 'en, fr',
-      'url' => 'https://github.com/cedx/akismet.php'
-    ]);
-
-    $this->assertEquals('UTF-8', $blog->getCharset());
-    $this->assertEquals(['en', 'fr'], $blog->getLanguages());
-    $this->assertEquals('https://github.com/cedx/akismet.php', $blog->getURL());
-  }
-
-  /**
-   * Tests the `Blog::fromJSON()` method.
+   * @test ::fromJSON
    */
   public function testFromJSON() {
     $this->assertNull(Blog::fromJSON('foo'));
@@ -43,22 +30,20 @@ class BlogTest extends \PHPUnit_Framework_TestCase {
     ]);
 
     $this->assertEquals('UTF-8', $blog->getCharset());
-    $this->assertEquals(['en', 'fr'], $blog->getLanguages());
+    $this->assertEquals(['en', 'fr'], $blog->getLanguages()->getArrayCopy());
     $this->assertEquals('https://github.com/cedx/akismet.php', $blog->getURL());
   }
 
   /**
-   * Tests the `Blog::jsonSerialize()` method.
+   * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
     $data = (new Blog())->jsonSerialize();
     $this->assertEmpty(get_object_vars($data));
 
-    $data = (new Blog([
-      'charset' => 'UTF-8',
-      'languages' => 'en, fr',
-      'url' => 'https://github.com/cedx/akismet.php'
-    ]))->jsonSerialize();
+    $data = (new Blog('https://github.com/cedx/akismet.php', ['en', 'fr']))
+      ->setCharset('UTF-8')
+      ->jsonSerialize();
 
     $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
     $this->assertEquals('UTF-8', $data->blog_charset);

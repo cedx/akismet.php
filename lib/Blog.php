@@ -15,24 +15,23 @@ class Blog implements \JsonSerializable {
   private $charset = '';
 
   /**
-   * @var array The languages in use on the blog or site, in ISO 639-1 format.
+   * @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format.
    */
-  private $languages = [];
+  private $languages;
 
   /**
    * @var string The blog or site URL.
    */
-  private $url = '';
+  private $url;
 
   /**
    * Initializes a new instance of the class.
-   * @param array $config Name-value pairs that will be used to initialize the object properties.
+   * @param string $url The blog or site URL.
+   * @param string[] $languages The languages in use on the blog or site.
    */
-  public function __construct(array $config = []) {
-    foreach ($config as $property => $value) {
-      $setter = "set$property";
-      if(method_exists($this, $setter)) $this->$setter($value);
-    }
+  public function __construct(string $url = '', array $languages = []) {
+    $this->languages = new \ArrayObject($languages);
+    $this->setURL($url);
   }
 
   /**
@@ -51,11 +50,10 @@ class Blog implements \JsonSerializable {
    */
   public static function fromJSON($map) {
     if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : new static([
-      'charset' => isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
-      'languages' => isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : [],
-      'url' => isset($map->blog) && is_string($map->blog) ? $map->blog : ''
-    ]);
+    return !is_object($map) ? null : (new static())
+      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
+      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : '')
+      ->setURL(isset($map->blog) && is_string($map->blog) ? $map->blog : '');
   }
 
   /**
@@ -68,9 +66,9 @@ class Blog implements \JsonSerializable {
 
   /**
    * Gets the languages in use on the blog or site, in ISO 639-1 format.
-   * @return array The languages in use on the blog or site.
+   * @return \ArrayObject The languages in use on the blog or site.
    */
-  public function getLanguages(): array {
+  public function getLanguages(): \ArrayObject {
     return $this->languages;
   }
 
@@ -90,7 +88,7 @@ class Blog implements \JsonSerializable {
     $map = new \stdClass();
     if (mb_strlen($url = $this->getURL())) $map->blog = $url;
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
-    if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages);
+    if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
     return $map;
   }
 
@@ -110,11 +108,13 @@ class Blog implements \JsonSerializable {
    * @return Blog This instance.
    */
   public function setLanguages($values): self {
-    if (is_array($values)) $this->languages = $values;
-    else if (is_string($values)) $this->languages = array_filter(array_map('trim', explode(',', $values)), function($value) {
+    $languages = $this->languages;
+
+    if (is_array($values)) $languages->exchangeArray($values);
+    else if (is_string($values)) $languages->exchangeArray(array_filter(array_map('trim', explode(',', $values)), function($value) {
       return mb_strlen($value);
-    });
-    else $this->languages = [];
+    }));
+    else $languages->exchangeArray([]);
 
     return $this;
   }

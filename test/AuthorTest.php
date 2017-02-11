@@ -3,30 +3,17 @@
  * Implementation of the `akismet\test\AuthorTest` class.
  */
 namespace akismet\test;
+
 use akismet\{Author};
+use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Author` class.
+ * @coversDefaultClass \akismet\Author
  */
-class AuthorTest extends \PHPUnit_Framework_TestCase {
+class AuthorTest extends TestCase {
 
   /**
-   * Tests the `Author` constructor.
-   */
-  public function testConstructor() {
-    $author = new Author([
-      'email' => 'cedric@belin.io',
-      'ipAddress' => '192.168.0.1',
-      'name' => 'Cédric Belin'
-    ]);
-
-    $this->assertEquals('cedric@belin.io', $author->getEmail());
-    $this->assertEquals('192.168.0.1', $author->getIPAddress());
-    $this->assertEquals('Cédric Belin', $author->getName());
-  }
-
-  /**
-   * Tests the `Author::fromJSON()` method.
+   * @test ::fromJSON
    */
   public function testFromJSON() {
     $this->assertNull(Author::fromJSON('foo'));
@@ -45,18 +32,17 @@ class AuthorTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Author::jsonSerialize()` method.
+   * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
     $data = (new Author())->jsonSerialize();
     $this->assertEmpty(get_object_vars($data));
 
-    $data = (new Author([
-      'email' => 'cedric@belin.io',
-      'ipAddress' => '127.0.0.1',
-      'name' => 'Cédric Belin',
-      'url' => 'https://belin.io'
-    ]))->jsonSerialize();
+    $data = (new Author('127.0.0.1'))
+      ->setEmail('cedric@belin.io')
+      ->setName('Cédric Belin')
+      ->setURL('https://belin.io')
+      ->jsonSerialize();
 
     $this->assertEquals('Cédric Belin', $data->comment_author);
     $this->assertEquals('cedric@belin.io', $data->comment_author_email);

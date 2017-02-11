@@ -17,7 +17,7 @@ class Author implements \JsonSerializable {
   /**
    * @var string The author's IP address.
    */
-  private $ipAddress = '';
+  private $ipAddress;
 
   /**
    * @var string The author's name.
@@ -37,17 +37,16 @@ class Author implements \JsonSerializable {
   /**
    * @var string The author's user agent, that is the string identifying the Web browser used to submit comments.
    */
-  private $userAgent = '';
+  private $userAgent;
 
   /**
    * Initializes a new instance of the class.
-   * @param array $config Name-value pairs that will be used to initialize the object properties.
+   * @param string $ipAddress The author's IP address.
+   * @param string $userAgent The author's user agent.
    */
-  public function __construct(array $config = []) {
-    foreach ($config as $property => $value) {
-      $setter = "set$property";
-      if(method_exists($this, $setter)) $this->$setter($value);
-    }
+  public function __construct(string $ipAddress = '', string $userAgent = '') {
+    $this->setIPAddress($ipAddress);
+    $this->setUserAgent($userAgent);
   }
 
   /**
@@ -66,14 +65,14 @@ class Author implements \JsonSerializable {
    */
   public static function fromJSON($map) {
     if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : new static([
-      'email' => isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '',
-      'ipAddress' => isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '',
-      'name' => isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : '',
-      'role' => isset($map->user_role) && is_string($map->user_role) ? $map->user_role : '',
-      'url' => isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : '',
-      'userAgent' => isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : ''
-    ]);
+    return !is_object($map) ? null : (new static(
+        isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '',
+        isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : ''
+      ))
+      ->setEmail(isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '')
+      ->setName(isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : '')
+      ->setRole(isset($map->user_role) && is_string($map->user_role) ? $map->user_role : '')
+      ->setURL(isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : '');
   }
 
   /**

@@ -21,27 +21,27 @@
   "keywords": [
     "akismet",
     "comment",
-    "observable",
-    "rxjs",
     "spam",
     "validation"
   ],
   "require": {
     "php": ">=7.0.0",
     "ext-curl": "*",
-    "cedx/enum": "^1.2.0",
+    "ext-json": "*",
+    "ext-mbstring": "*",
+    "ext-pcre": "*",
+    "cedx/enum": "^1.3.0",
     "guzzlehttp/guzzle": "^6.2.2",
     "reactivex/rxphp": "^1.5.2"
   },
   "require-dev": {
+    "cedx/coveralls": "^0.1.0",
     "phing/phing": "^2.16.0",
     "phpdocumentor/phpdocumentor": "^2.9.0",
-    "phpmd/phpmd": "^2.6.0",
-    "phpunit/phpunit": "^5.7.12",
-    "satooshi/php-coveralls": "^1.0.1"
+    "phpunit/phpunit": "^6.0.6"
   },
   "scripts": {
-    "coverage": "coveralls --coverage_clover=var/coverage.xml",
+    "coverage": "coveralls --file=var/coverage.xml",
     "test": "phpunit"
   },
   "support": {

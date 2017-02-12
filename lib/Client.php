@@ -20,9 +20,9 @@ class Client {
   const DEBUG_HEADER = 'x-akismet-debug-help';
 
   /**
-   * @var string The URL of the remote service.
+   * @var string The URL of the default API end point.
    */
-  const SERVICE_URL = 'https://rest.akismet.com';
+  const DEFAULT_ENDPOINT = 'https://rest.akismet.com';
 
   /**
    * @var string The Akismet API key.

@@ -31,51 +31,48 @@ class ClientTest extends TestCase {
    * @test ::checkComment
    */
   public function testCheckComment() {
-    $this->client->checkComment($this->ham)->subscribeCallback(
-      function($response) { $this->assertFalse($response); },
-      function(\Throwable $e) { $this->fail($e->getMessage()); }
-    );
-
-    $this->client->checkComment($this->spam)->subscribeCallback(
-      function($response) { $this->assertTrue($response); },
-      function(\Throwable $e) { $this->fail($e->getMessage()); }
-    );
+    $this->assertFalse($this->client->checkComment($this->ham));
+    $this->assertTrue($this->client->checkComment($this->spam));
   }
 
   /**
    * @test ::submitHam
    */
   public function testSubmitHam() {
-    $this->client->submitHam($this->ham)->subscribeCallback(
-      function() { $this->assertTrue(true); },
-      function(\Throwable $e) { $this->fail($e->getMessage()); }
-    );
+    try {
+      $this->client->submitHam($this->ham);
+      $this->assertTrue(true);
+    }
+
+    catch (\Throwable $e) {
+      $this->fail($e->getMessage());
+    }
   }
 
   /**
    * @test ::submitSpam
    */
   public function testSubmitSpam() {
-    $this->client->submitSpam($this->spam)->subscribeCallback(
-      function() { $this->assertTrue(true); },
-      function(\Throwable $e) { $this->fail($e->getMessage()); }
-    );
+    try {
+      $this->client->submitSpam($this->spam);
+      $this->assertTrue(true);
+    }
+
+    catch (\Throwable $e) {
+      $this->fail($e->getMessage());
+    }
   }
 
   /**
    * @test ::verifyKey
    */
   public function testVerifyKey() {
-    $this->client->verifyKey()->subscribeCallback(
-      function($response) { $this->assertTrue($response); },
-      function(\Throwable $e) { $this->fail($e->getMessage()); }
-    );
+    $this->assertTrue($this->client->verifyKey());
 
-    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setIsTest($this->client->isTest());
-    $client->verifyKey()->subscribeCallback(
-      function($response) { $this->assertFalse($response); },
-      function(\Throwable $e) { $this->fail($e->getMessage()); }
-    );
+    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))
+      ->setIsTest($this->client->isTest());
+
+    $this->assertFalse($client->verifyKey());
   }
 
   /**

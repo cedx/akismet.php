@@ -6,7 +6,7 @@ namespace akismet;
 
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{ServerRequest};
-use Rx\{Observable, ObserverInterface};
+use Rx\{Observable};
 use Rx\Subject\{Subject};
 
 /**
@@ -81,14 +81,12 @@ class Client {
   /**
    * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
    * @param Comment $comment The comment to be checked.
-   * @return Observable A boolean value indicating whether it is spam.
+   * @return bool A boolean value indicating whether it is spam.
    */
-  public function checkComment(Comment $comment): Observable {
+  public function checkComment(Comment $comment): bool {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->jsonSerialize())->map(function($response) {
-      return $response == 'true';
-    });
+    return $this->fetch($endPoint, (array) $comment->jsonSerialize()) == 'true';
   }
 
   /**
@@ -205,89 +203,65 @@ class Client {
   /**
    * Submits the specified comment that was incorrectly marked as spam but should not have been.
    * @param Comment $comment The comment to be submitted.
-   * @return Observable Completes once the comment has been submitted.
    */
-  public function submitHam(Comment $comment): Observable {
+  public function submitHam(Comment $comment) {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->jsonSerialize());
+    $this->fetch($endPoint, (array) $comment->jsonSerialize());
   }
 
   /**
    * Submits the specified comment that was not marked as spam but should have been.
    * @param Comment $comment The comment to be submitted.
-   * @return Observable Completes once the comment has been submitted.
    */
-  public function submitSpam(Comment $comment): Observable {
+  public function submitSpam(Comment $comment) {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->jsonSerialize());
+    $this->fetch($endPoint, (array) $comment->jsonSerialize());
   }
 
   /**
    * Checks the API key against the service database, and returns a value indicating whether it is valid.
-   * @return Observable A boolean value indicating whether it is a valid API key.
+   * @return bool A boolean value indicating whether it is a valid API key.
    */
-  public function verifyKey(): Observable {
+  public function verifyKey(): bool {
     $endPoint = $this->getEndPoint().'/1.1/verify-key';
-    return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
-      return $response == 'valid';
-    });
+    return $this->fetch($endPoint, ['key' => $this->getAPIKey()]) == 'valid';
   }
 
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
    * @param string $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
-   * @return Observable The response as string.
+   * @return string The response body.
+   * @throws \InvalidArgumentException The API key or the blog URL is empty.
+   * @throws \RuntimeException An error occurred while querying the end point.
    */
-  private function fetch(string $endPoint, array $fields = []): Observable {
+  private function fetch(string $endPoint, array $fields = []): string {
     $blog = $this->getBlog();
-    if (!mb_strlen($this->getAPIKey()) || !$blog) return Observable::error(new \InvalidArgumentException('The API key or the blog URL is empty.'));
+    if (!mb_strlen($this->getAPIKey()) || !$blog) throw new \InvalidArgumentException('The API key or the blog URL is empty.');
 
     $bodyFields = array_merge((array) $blog->jsonSerialize(), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-    return Observable::create(function(ObserverInterface $observer) use($endPoint, $bodyFields) {
-      try {
-        $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyFields);
-        $this->onRequest->onNext($request);
+    try {
+      $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyFields);
+      $this->onRequest->onNext($request);
 
-        $promise = (new HTTPClient())->sendAsync($request, [
-          'form_params' => $request->getParsedBody(),
-          'headers' => ['User-Agent' => $this->getUserAgent()]
-        ]);
+      $response = (new HTTPClient())->send($request, [
+        'form_params' => $request->getParsedBody(),
+        'headers' => ['User-Agent' => $this->getUserAgent()]
+      ]);
 
-        $response = $promise->then()->wait();
-        $this->onResponse->onNext($response);
+      $this->onResponse->onNext($response);
+      if($response->hasHeader(static::DEBUG_HEADER))
+        throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
 
-        if($response->hasHeader(static::DEBUG_HEADER))
-          throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
-
-        $observer->onNext((string) $response->getBody());
-        $observer->onCompleted();
-      }
-
-      catch (\Throwable $e) {
-        $observer->onError($e);
-      }
-    });
-  }
-
-  /**
-   * Gets an object providing the version numbers of the package and the PHP runtime.
-   * @return \stdClass An object providing some version numbers.
-   */
-  private static function getVersions(): \stdClass {
-    static $versions;
-
-    if (!isset($versions)) {
-      $xml = @simplexml_load_file(__DIR__.'/../build.xml');
-      $versions = new \stdClass();
-      $versions->package = $xml ? (string) $xml->property[0]['value'] : '0.0.0';
-      $versions->php = preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION);
+      return (string) $response->getBody();
     }
 
-    return $versions;
+    catch (\Throwable $e) {
+      throw new \RuntimeException('An error occurred while querying the end point.');
+    }
   }
 }

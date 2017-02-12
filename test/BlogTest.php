@@ -49,4 +49,17 @@ class BlogTest extends TestCase {
     $this->assertEquals('UTF-8', $data->blog_charset);
     $this->assertEquals('en,fr', $data->blog_lang);
   }
+
+  /**
+   * @test ::__toString
+   */
+  public function testToString() {
+    $blog = (string) (new Blog('https://github.com/cedx/akismet.php', ['en', 'fr']))
+      ->setCharset('UTF-8');
+
+    $this->assertStringStartsWith('akismet\Blog {', $blog);
+    $this->assertContains('"blog":"https://github.com/cedx/akismet.php"', $blog);
+    $this->assertContains('"blog_charset":"UTF-8"', $blog);
+    $this->assertContains('"blog_lang":"en,fr"', $blog);
+  }
 }

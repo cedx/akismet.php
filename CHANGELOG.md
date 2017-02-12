@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Version 5.1.0
+- Restored the `jsonSerialize` and `__toString` methods of the `Client` class.
+
 ## Version 5.0.0
 - Breaking change: changed the signature of all constructors.
 - Breaking change: changed the return type of several `Client` methods.

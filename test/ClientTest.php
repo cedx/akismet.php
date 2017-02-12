@@ -36,6 +36,19 @@ class ClientTest extends TestCase {
   }
 
   /**
+   * @test ::jsonSerialize
+   */
+  public function testJsonSerialize() {
+    $map = $this->client->jsonSerialize();
+    $this->assertEquals(count(get_object_vars($map)), 5);
+    $this->assertEquals(getenv('AKISMET_API_KEY'), $map->apiKey);
+    $this->assertEquals(Blog::class, $map->blog);
+    $this->assertEquals(Client::DEFAULT_ENDPOINT, $map->endPoint);
+    $this->assertTrue($map->isTest);
+    $this->assertStringStartsWith('PHP/', $map->userAgent);
+  }
+
+  /**
    * @test ::submitHam
    */
   public function testSubmitHam() {
@@ -61,6 +74,19 @@ class ClientTest extends TestCase {
     catch (\Throwable $e) {
       $this->fail($e->getMessage());
     }
+  }
+
+  /**
+   * @test ::__toString
+   */
+  public function testToString() {
+    $value = (string) $this->client;
+    $this->assertStringStartsWith('akismet\Client {', $value);
+    $this->assertContains(sprintf('"apiKey":"%s"', getenv('AKISMET_API_KEY')), $value);
+    $this->assertContains(sprintf('"blog":"%s"', str_replace('\\', '\\\\', Blog::class)), $value);
+    $this->assertContains(sprintf('"endPoint":"%s"', Client::DEFAULT_ENDPOINT), $value);
+    $this->assertContains('"isTest":true', $value);
+    $this->assertContains('"userAgent":"PHP/', $value);
   }
 
   /**

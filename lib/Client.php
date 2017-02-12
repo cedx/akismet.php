@@ -12,7 +12,7 @@ use Rx\Subject\{Subject};
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-class Client {
+class Client implements \JsonSerializable {
 
   /**
    * @var string The HTTP header containing the Akismet error messages.
@@ -27,7 +27,7 @@ class Client {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '5.0.0';
+  const VERSION = '5.1.0';
 
   /**
    * @var string The Akismet API key.
@@ -79,6 +79,15 @@ class Client {
   }
 
   /**
+   * Returns a string representation of this object.
+   * @return string The string representation of this object.
+   */
+  public function __toString(): string {
+    $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    return static::class." $json";
+  }
+
+  /**
    * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
    * @param Comment $comment The comment to be checked.
    * @return bool A boolean value indicating whether it is spam.
@@ -127,6 +136,20 @@ class Client {
    */
   public function isTest(): bool {
     return $this->isTest;
+  }
+
+  /**
+   * Converts this object to a map in JSON format.
+   * @return \stdClass The map in JSON format corresponding to this object.
+   */
+  public function jsonSerialize(): \stdClass {
+    return (object) [
+      'apiKey' => $this->getAPIKey(),
+      'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
+      'endPoint' => $this->getEndPoint(),
+      'isTest' => $this->isTest(),
+      'userAgent' => $this->getUserAgent()
+    ];
   }
 
   /**

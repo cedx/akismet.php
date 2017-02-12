@@ -17,7 +17,7 @@ class Comment implements \JsonSerializable {
   /**
    * @var string The comment's content.
    */
-  private $content = '';
+  private $content;
 
   /**
    * @var \DateTime The UTC timestamp of the creation of the comment.
@@ -42,17 +42,18 @@ class Comment implements \JsonSerializable {
   /**
    * @var string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
    */
-  private $type = '';
+  private $type;
 
   /**
    * Initializes a new instance of the class.
-   * @param array $config Name-value pairs that will be used to initialize the object properties.
+   * @param Author $author The comment's author.
+   * @param string $content The comment's content.
+   * @param string $type The comment's type.
    */
-  public function __construct(array $config = []) {
-    foreach ($config as $property => $value) {
-      $setter = "set$property";
-      if(method_exists($this, $setter)) $this->$setter($value);
-    }
+  public function __construct(Author $author = null, string $content = '', string $type = '') {
+    $this->setAuthor($author);
+    $this->setContent($content);
+    $this->setType($type);
   }
 
   /**
@@ -78,15 +79,14 @@ class Comment implements \JsonSerializable {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;
 
-    return new static([
-      'author' => $hasAuthor ? Author::fromJSON($map) : null,
-      'content' => isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '',
-      'date' => isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null,
-      'permalink' => isset($map->permalink) && is_string($map->permalink) ? $map->permalink : '',
-      'postModified' => isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null,
-      'referrer' => isset($map->referrer) && is_string($map->referrer) ? $map->referrer : '',
-      'type' => isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ''
-    ]);
+    return (new self())
+      ->setAuthor($hasAuthor ? Author::fromJSON($map) : null)
+      ->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
+      ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
+      ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : '')
+      ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null)
+      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? $map->referrer : '')
+      ->setType(isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : '');
   }
 
   /**

@@ -162,14 +162,11 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the comment's author.
-   * @param Author|string $value The new author.
+   * @param Author $value The new author.
    * @return Comment This instance.
    */
-  public function setAuthor($value): self {
-    if ($value instanceof Author) $this->author = $value;
-    else if (is_string($value)) $this->author = new Author(['name' => $value]);
-    else $this->author = null;
-
+  public function setAuthor(Author $value = null): self {
+    $this->author = $value;
     return $this;
   }
 

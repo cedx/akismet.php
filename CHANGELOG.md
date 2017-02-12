@@ -1,6 +1,14 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Version 5.0.0
+- Breaking change: changed the signature of all constructors.
+- Breaking change: changed the return type of several `Client` methods.
+- Breaking change: renamed the `Client::SERVICE_URL` constant to `DEFAULT_ENDPOINT`.
+- Breaking change: removed the `Client::jsonSerialize` method.
+- Added the `Client::endPoint` property.
+- Updated the package dependencies.
+
 ## Version 4.0.0
 - Breaking change: changed the `Blog::language` string property for the `languages` array property.
 - Breaking change: renamed the `Client::test` property to `isTest` and the `Client::setTest` method to `setIstTest`.

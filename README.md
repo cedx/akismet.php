@@ -21,33 +21,22 @@ $ composer require cedx/akismet
 ```
 
 ## Usage
-This package has an API based on [Observables](http://reactivex.io/intro.html).
-
-### Class instantiation
-The provided classes have standard getters and setters to access their properties.
-To ease the initialization of these classes, their constructor accepts an associative array of property values (`"property" => "value"`), and their setters have a fluent interface:
-
-```php
-use akismet\{Client};
-
-// Using an associative array with the constructor.
-$client = new Client([
-  'apiKey' => 'YourAPIKey',
-  'blog' => 'http://your.blog.url'
-]);
-
-// Using the fluent interface of the setters.
-$client = (new Client())
-  ->setAPIKey('YourAPIKey')
-  ->setBlog('http://your.blog.url');
-```
 
 ### Key verification
 
 ```php
-$client->verifyKey()->subscribeCallback(function($isValid) {
-  echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
-});
+use akismet\{Client};
+
+try {
+  $client = new Client('YourAPIKey', 'http://your.blog.url');
+  echo $client->verifyKey() ?
+    'Your API key is valid.' :
+    'Your API key is invalid.';
+}
+
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 ### Comment check
@@ -55,26 +44,36 @@ $client->verifyKey()->subscribeCallback(function($isValid) {
 ```php
 use akismet\{Author, Comment};
 
-$comment = new Comment([
-  'author' => new Author(['ipAddress' => '127.0.0.1', 'userAgent' => 'Mozilla/5.0']),
-  'content' => 'A comment.'
-]);
+try {
+  $comment = new Comment(
+    new Author('127.0.0.1', 'Mozilla/5.0'),
+    'A comment.'
+  );
 
-$client->checkComment($comment)->subscribeCallback(function($isSpam) {
-  echo $isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.';
-});
+  echo $client->checkComment($comment) ?
+    'The comment is marked as spam.' :
+    'The comment is marked as ham.';
+}
+
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 ### Submit spam/ham
 
 ```php
-$client->submitSpam($comment)->subscribeCallback(function() {
+try {
+  $client->submitSpam($comment);
   echo 'Spam submitted.';
-});
 
-$client->submitHam($comment)->subscribeCallback(function() {
+  $client->submitHam($comment);
   echo 'Ham submitted.';
-});
+}
+
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 ## Events
@@ -83,7 +82,7 @@ The `akismet\Client` class triggers some events during its life cycle:
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as `Observable`, you can subscribe to them using the `on<EventName>` methods:
+These events are exposed as [Observables](http://reactivex.io/intro.html), you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};

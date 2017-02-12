@@ -35,6 +35,11 @@ class Client {
   private $blog;
 
   /**
+   * @var string The URL of the API end point.
+   */
+  private $endPoint = self::DEFAULT_ENDPOINT;
+
+  /**
    * @var bool Value indicating whether the client operates in test mode.
    */
   private $isTest = false;
@@ -109,6 +114,14 @@ class Client {
   }
 
   /**
+   * Gets the URL of the API end point.
+   * @return string The URL of the API end point.
+   */
+  public function getEndPoint(): string {
+    return $this->endPoint;
+  }
+
+  /**
    * Gets the user agent string to use when making requests.
    * @return string The user agent string to use when making requests.
    */
@@ -157,9 +170,19 @@ class Client {
    */
   public function setBlog($value): self {
     if ($value instanceof Blog) $this->blog = $value;
-    else if (is_string($value)) $this->blog = new Blog(['url' => $value]);
+    else if (is_string($value)) $this->blog = new Blog($value);
     else $this->blog = null;
 
+    return $this;
+  }
+
+  /**
+   * Sets the URL of the API end point.
+   * @param string $value The new URL of the API end point.
+   * @return Client This instance.
+   */
+  public function setEndPoint(string $value) {
+    $this->endPoint = $value;
     return $this;
   }
 

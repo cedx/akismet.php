@@ -25,9 +25,14 @@ class Client {
   const DEFAULT_ENDPOINT = 'https://rest.akismet.com';
 
   /**
+   * @var string The version number of this package.
+   */
+  const VERSION = '5.0.0';
+
+  /**
    * @var string The Akismet API key.
    */
-  private $apiKey = '';
+  private $apiKey;
 
   /**
    * @var Blog The front page or home URL of the instance making requests.
@@ -61,27 +66,16 @@ class Client {
 
   /**
    * Initializes a new instance of the class.
-   * @param array $config Name-value pairs that will be used to initialize the object properties.
+   * @param string $apiKey The Akismet API key.
+   * @param Blog|string $blog The front page or home URL of the instance making requests.
    */
-  public function __construct(array $config = []) {
-    $versions = static::getVersions();
+  public function __construct(string $apiKey = '', $blog = null) {
     $this->onRequest = new Subject();
     $this->onResponse = new Subject();
-    $this->userAgent = sprintf('PHP/%s | Akismet/%s', $versions->php, $versions->package);
 
-    foreach ($config as $property => $value) {
-      $setter = "set$property";
-      if(method_exists($this, $setter)) $this->$setter($value);
-    }
-  }
-
-  /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." $json";
+    $this->setAPIKey($apiKey);
+    $this->setBlog($blog);
+    $this->setUserAgent(sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION));
   }
 
   /**
@@ -90,7 +84,7 @@ class Client {
    * @return Observable A boolean value indicating whether it is spam.
    */
   public function checkComment(Comment $comment): Observable {
-    $serviceURL = parse_url(static::SERVICE_URL);
+    $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
     return $this->fetch($endPoint, (array) $comment->jsonSerialize())->map(function($response) {
       return $response == 'true';
@@ -214,7 +208,7 @@ class Client {
    * @return Observable Completes once the comment has been submitted.
    */
   public function submitHam(Comment $comment): Observable {
-    $serviceURL = parse_url(static::SERVICE_URL);
+    $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
     return $this->fetch($endPoint, (array) $comment->jsonSerialize());
   }
@@ -225,7 +219,7 @@ class Client {
    * @return Observable Completes once the comment has been submitted.
    */
   public function submitSpam(Comment $comment): Observable {
-    $serviceURL = parse_url(static::SERVICE_URL);
+    $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
     return $this->fetch($endPoint, (array) $comment->jsonSerialize());
   }
@@ -235,7 +229,7 @@ class Client {
    * @return Observable A boolean value indicating whether it is a valid API key.
    */
   public function verifyKey(): Observable {
-    $endPoint = static::SERVICE_URL.'/1.1/verify-key';
+    $endPoint = $this->getEndPoint().'/1.1/verify-key';
     return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
       return $response == 'valid';
     });

@@ -27,10 +27,11 @@ class Blog implements \JsonSerializable {
   /**
    * Initializes a new instance of the class.
    * @param string $url The blog or site URL.
-   * @param string[] $languages The languages in use on the blog or site.
+   * @param array|string $languages The languages in use on the blog or site.
    */
-  public function __construct(string $url = '', array $languages = []) {
-    $this->languages = new \ArrayObject($languages);
+  public function __construct(string $url = '', $languages = null) {
+    $this->languages = new \ArrayObject();
+    $this->setLanguages($languages);
     $this->setURL($url);
   }
 

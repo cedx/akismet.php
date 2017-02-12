@@ -3,12 +3,14 @@
  * Implementation of the `akismet\test\ClientTest` class.
  */
 namespace akismet\test;
+
 use akismet\{Author, Blog, Client, Comment, CommentType};
+use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Client` class.
+ * @coversDefaultClass \akismet\Client
  */
-class ClientTest extends \PHPUnit_Framework_TestCase {
+class ClientTest extends TestCase {
 
   /**
    * @var Client The client used to query the service database.
@@ -26,20 +28,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   private $spam;
 
   /**
-   * Tests the `Client` constructor.
-   */
-  public function testConstructor() {
-    $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => 'http://your.blog.url', 'userAgent' => 'FooBar/6.6.6']);
-    $this->assertEquals('0123456789-ABCDEF', $client->getAPIKey());
-    $this->assertEquals('FooBar/6.6.6', $client->getUserAgent());
-
-    $blog = $client->getBlog();
-    $this->assertInstanceOf(Blog::class, $blog);
-    $this->assertEquals('http://your.blog.url', $blog->getURL());
-  }
-
-  /**
-   * Tests the `Client::checkComment()` method.
+   * @test ::checkComment
    */
   public function testCheckComment() {
     $this->client->checkComment($this->ham)->subscribeCallback(
@@ -54,24 +43,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Client::jsonSerialize()` method.
-   */
-  public function testJsonSerialize() {
-    $data = (new Client(['apiKey' => '0123456789-ABCDEF', 'userAgent' => 'FooBar/6.6.6']))->jsonSerialize();
-    $this->assertEquals('0123456789-ABCDEF', $data->apiKey);
-    $this->assertNull($data->blog);
-    $this->assertFalse($data->isTest);
-    $this->assertEquals('FooBar/6.6.6', $data->userAgent);
-
-    $data = $this->client->jsonSerialize();
-    $this->assertEquals(getenv('AKISMET_API_KEY'), $data->apiKey);
-    $this->assertEquals(Blog::class, $data->blog);
-    $this->assertTrue($data->isTest);
-    $this->assertStringStartsWith('PHP/'.mb_substr(PHP_VERSION, 0, 5), $data->userAgent);
-  }
-
-  /**
-   * Tests the `Client::submitHam()` method.
+   * @test ::submitHam
    */
   public function testSubmitHam() {
     $this->client->submitHam($this->ham)->subscribeCallback(
@@ -81,7 +53,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Client::submitSpam()` method.
+   * @test ::submitSpam
    */
   public function testSubmitSpam() {
     $this->client->submitSpam($this->spam)->subscribeCallback(
@@ -91,7 +63,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
   }
 
   /**
-   * Tests the `Client::verifyKey()` method.
+   * @test ::verifyKey
    */
   public function testVerifyKey() {
     $this->client->verifyKey()->subscribeCallback(
@@ -99,7 +71,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
       function(\Throwable $e) { $this->fail($e->getMessage()); }
     );
 
-    $client = new Client(['apiKey' => '0123456789-ABCDEF', 'blog' => $this->client->getBlog(), 'isTest' => $this->client->isTest()]);
+    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setIsTest($this->client->isTest());
     $client->verifyKey()->subscribeCallback(
       function($response) { $this->assertFalse($response); },
       function(\Throwable $e) { $this->fail($e->getMessage()); }
@@ -110,31 +82,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase {
    * Performs a common set of tasks just before each test method is called.
    */
   protected function setUp() {
-    $this->client = new Client([
-      'apiKey' => getenv('AKISMET_API_KEY'),
-      'blog' => 'https://github.com/cedx/akismet.php',
-      'isTest' => true
-    ]);
+    $this->client = (new Client(getenv('AKISMET_API_KEY'), 'https://github.com/cedx/akismet.php'))
+      ->setIsTest(true);
 
     $this->ham = new Comment([
-      'author' => new Author([
-        'ipAddress' => '192.168.0.1',
-        'name' => 'Akismet for PHP',
-        'role' => 'administrator',
-        'url' => 'https://github.com/cedx/akismet.php',
-        'userAgent' => 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'
-      ]),
+      'author' => (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'))
+        ->setName('Akismet for PHP')
+        ->setRole('administrator')
+        ->setURL('https://github.com/cedx/akismet.php'),
       'content' => 'I\'m testing out the Service API.',
       'referrer' => 'https://packagist.org/packages/cedx/akismet',
       'type' => CommentType::COMMENT
     ]);
 
     $this->spam = new Comment([
-      'author' => new Author([
-        'ipAddress' => '127.0.0.1',
-        'name' => 'viagra-test-123',
-        'userAgent' => 'Spam Bot/6.6.6'
-      ]),
+      'author' => (new Author('127.0.0.1', 'Spam Bot/6.6.6'))->setName('viagra-test-123'),
       'content' => 'Spam!',
       'type' => CommentType::TRACKBACK
     ]);

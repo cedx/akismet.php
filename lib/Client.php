@@ -12,7 +12,7 @@ use Rx\Subject\{Subject};
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-class Client implements \JsonSerializable {
+class Client {
 
   /**
    * @var string The HTTP header containing the Akismet error messages.
@@ -122,19 +122,6 @@ class Client implements \JsonSerializable {
    */
   public function isTest(): bool {
     return $this->isTest;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function jsonSerialize(): \stdClass {
-    return (object) [
-      'apiKey' => $this->getAPIKey(),
-      'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
-      'isTest' => $this->isTest(),
-      'userAgent' => $this->getUserAgent()
-    ];
   }
 
   /**

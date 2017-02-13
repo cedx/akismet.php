@@ -12,7 +12,7 @@ class Blog implements \JsonSerializable {
   /**
    * @var string The character encoding for the values included in comments.
    */
-  private $charset = '';
+  private $charset;
 
   /**
    * @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format.

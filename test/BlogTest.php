@@ -41,8 +41,9 @@ class BlogTest extends TestCase {
     $data = (new Blog())->jsonSerialize();
     $this->assertEmpty(get_object_vars($data));
 
-    $data = (new Blog('https://github.com/cedx/akismet.php', ['en', 'fr']))
+    $data = (new Blog('https://github.com/cedx/akismet.php'))
       ->setCharset('UTF-8')
+      ->setLanguages(['en', 'fr'])
       ->jsonSerialize();
 
     $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
@@ -54,8 +55,9 @@ class BlogTest extends TestCase {
    * @test ::__toString
    */
   public function testToString() {
-    $blog = (string) (new Blog('https://github.com/cedx/akismet.php', ['en', 'fr']))
-      ->setCharset('UTF-8');
+    $blog = (string) (new Blog('https://github.com/cedx/akismet.php'))
+      ->setCharset('UTF-8')
+      ->setLanguages(['en', 'fr']);
 
     $this->assertStringStartsWith('akismet\Blog {', $blog);
     $this->assertContains('"blog":"https://github.com/cedx/akismet.php"', $blog);

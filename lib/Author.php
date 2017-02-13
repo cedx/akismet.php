@@ -65,9 +65,8 @@ class Author implements \JsonSerializable {
    */
   public static function fromJSON($map) {
     if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : (new static())
+    return !is_object($map) ? null : (new static(isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : ''))
       ->setEmail(isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '')
-      ->setIPAddress(isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '')
       ->setName(isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : '')
       ->setRole(isset($map->user_role) && is_string($map->user_role) ? $map->user_role : '')
       ->setURL(isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : '')

@@ -27,9 +27,13 @@ class Blog implements \JsonSerializable {
   /**
    * Initializes a new instance of the class.
    * @param string $url The blog or site URL.
+   * @param string $charset The character encoding for the values included in comments.
+   * @param array $languages The languages in use on the blog or site.
    */
-  public function __construct(string $url = '') {
+  public function __construct(string $url = '', string $charset = '', array $languages = []) {
     $this->languages = new \ArrayObject();
+    $this->setCharset($charset);
+    $this->setLanguages($languages);
     $this->setURL($url);
   }
 
@@ -49,10 +53,9 @@ class Blog implements \JsonSerializable {
    */
   public static function fromJSON($map) {
     if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : (new static())
+    return !is_object($map) ? null : (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : ''))
       ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
-      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : '')
-      ->setURL(isset($map->blog) && is_string($map->blog) ? $map->blog : '');
+      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : []);
   }
 
   /**

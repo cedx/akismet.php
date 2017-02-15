@@ -28,9 +28,9 @@ class Blog implements \JsonSerializable {
    * Initializes a new instance of the class.
    * @param string $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
-   * @param string[] $languages The languages in use on the blog or site.
+   * @param array|string $languages The languages in use on the blog or site.
    */
-  public function __construct(string $url = '', string $charset = '', array $languages = []) {
+  public function __construct(string $url = '', string $charset = '', $languages = null) {
     $this->languages = new \ArrayObject();
     $this->setCharset($charset);
     $this->setLanguages($languages);

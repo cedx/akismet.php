@@ -28,12 +28,11 @@ class Blog implements \JsonSerializable {
    * Initializes a new instance of the class.
    * @param string $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
-   * @param array|string $languages The languages in use on the blog or site.
+   * @param array $languages The languages in use on the blog or site.
    */
-  public function __construct(string $url = '', string $charset = '', $languages = null) {
-    $this->languages = new \ArrayObject();
+  public function __construct(string $url = '', string $charset = '', array $languages = []) {
+    $this->languages = new \ArrayObject($languages);
     $this->setCharset($charset);
-    $this->setLanguages($languages);
     $this->setURL($url);
   }
 
@@ -52,10 +51,14 @@ class Blog implements \JsonSerializable {
    * @return Blog The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
+    $transform = function(string $languages) {
+      return array_filter(array_map('trim', explode(',', $languages)));
+    };
+
     if (is_array($map)) $map = (object) $map;
     return !is_object($map) ? null : (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : ''))
       ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
-      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : []);
+      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);
   }
 
   /**
@@ -106,18 +109,11 @@ class Blog implements \JsonSerializable {
 
   /**
    * Sets the languages in use on the blog or site, in ISO 639-1 format.
-   * @param array|string $values The new languages.
+   * @param array $values The new languages.
    * @return Blog This instance.
    */
-  public function setLanguages($values): self {
-    $languages = $this->languages;
-
-    if (is_array($values)) $languages->exchangeArray($values);
-    else if (is_string($values)) $languages->exchangeArray(array_filter(array_map('trim', explode(',', $values)), function($value) {
-      return mb_strlen($value);
-    }));
-    else $languages->exchangeArray([]);
-
+  public function setLanguages(array $values): self {
+    $this->getLanguages()->exchangeArray($values);
     return $this;
   }
 

@@ -95,7 +95,7 @@ class Client implements \JsonSerializable {
   public function checkComment(Comment $comment): bool {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/comment-check', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    return $this->fetch($endPoint, (array) $comment->jsonSerialize()) == 'true';
+    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
   }
 
   /**
@@ -230,7 +230,7 @@ class Client implements \JsonSerializable {
   public function submitHam(Comment $comment) {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/submit-ham', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    $this->fetch($endPoint, (array) $comment->jsonSerialize());
+    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -240,7 +240,7 @@ class Client implements \JsonSerializable {
   public function submitSpam(Comment $comment) {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = sprintf('%s://%s.%s/1.1/submit-spam', $serviceURL['scheme'], $this->getAPIKey(), $serviceURL['host']);
-    $this->fetch($endPoint, (array) $comment->jsonSerialize());
+    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -264,7 +264,7 @@ class Client implements \JsonSerializable {
     $blog = $this->getBlog();
     if (!mb_strlen($this->getAPIKey()) || !$blog) throw new \InvalidArgumentException('The API key or the blog URL is empty.');
 
-    $bodyFields = array_merge((array) $blog->jsonSerialize(), $fields);
+    $bodyFields = array_merge(get_object_vars($blog->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
     try {

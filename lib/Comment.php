@@ -74,7 +74,7 @@ class Comment implements \JsonSerializable {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
-    $keys = array_keys((array) $map);
+    $keys = array_keys(get_object_vars($map));
     $hasAuthor = count(array_filter($keys, function($key) {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;

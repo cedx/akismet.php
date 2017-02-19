@@ -16,12 +16,15 @@ class AuthorTest extends TestCase {
    * @test ::fromJSON
    */
   public function testFromJSON() {
+    // Should return a null reference with a non-object value.
     $this->assertNull(Author::fromJSON('foo'));
 
+    // Should return an empty instance with an empty map.
     $author = Author::fromJSON([]);
     $this->assertEmpty($author->getEmail());
     $this->assertEmpty($author->getURL());
 
+    // Should return an initialized instance with a non-empty map.
     $author = Author::fromJSON([
       'comment_author_email' => 'cedric@belin.io',
       'comment_author_url' => 'https://belin.io'
@@ -35,9 +38,11 @@ class AuthorTest extends TestCase {
    * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
+    // Should return an empty map with a newly created instance.
     $data = (new Author())->jsonSerialize();
     $this->assertEmpty(get_object_vars($data));
 
+    // Should return a non-empty map with a initialized instance.
     $data = (new Author('127.0.0.1'))
       ->setEmail('cedric@belin.io')
       ->setName('Cédric Belin')
@@ -59,7 +64,10 @@ class AuthorTest extends TestCase {
       ->setName('Cédric Belin')
       ->setURL('https://belin.io');
 
+    // Should start with the class name.
     $this->assertStringStartsWith('akismet\Author {', $author);
+
+    // Should contain the instance properties.
     $this->assertContains('"comment_author":"Cédric Belin"', $author);
     $this->assertContains('"comment_author_email":"cedric@belin.io"', $author);
     $this->assertContains('"comment_author_url":"https://belin.io"', $author);

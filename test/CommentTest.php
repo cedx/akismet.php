@@ -16,8 +16,10 @@ class CommentTest extends TestCase {
    * @test ::fromJSON
    */
   public function testFromJSON() {
+    // Should return a null reference with a non-object value.
     $this->assertNull(Comment::fromJSON('foo'));
 
+    // Should return an empty instance with an empty map.
     $comment = Comment::fromJSON([]);
     $this->assertNull($comment->getAuthor());
     $this->assertEmpty($comment->getContent());
@@ -25,6 +27,7 @@ class CommentTest extends TestCase {
     $this->assertEmpty($comment->getReferrer());
     $this->assertEmpty($comment->getType());
 
+    // Should return an initialized instance with a non-empty map.
     $comment = Comment::fromJSON([
       'comment_author' => 'Cédric Belin',
       'comment_content' => 'A user comment.',
@@ -50,9 +53,11 @@ class CommentTest extends TestCase {
    * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
+    // Should return an empty map with a newly created instance.
     $data = (new Comment())->jsonSerialize();
     $this->assertEmpty(get_object_vars($data));
 
+    // Should return a non-empty map with a initialized instance.
     $data = (new Comment((new Author())->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setReferrer('https://belin.io')
       ->jsonSerialize();
@@ -70,7 +75,10 @@ class CommentTest extends TestCase {
     $comment = (string) (new Comment((new Author())->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setReferrer('https://belin.io');
 
+    // Should start with the class name.
     $this->assertStringStartsWith('akismet\Comment {', $comment);
+
+    // Should contain the instance properties.
     $this->assertContains('"comment_author":"Cédric Belin"', $comment);
     $this->assertContains('"comment_content":"A user comment."', $comment);
     $this->assertContains('"comment_type":"pingback"', $comment);

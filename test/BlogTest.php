@@ -16,13 +16,16 @@ class BlogTest extends TestCase {
    * @test ::fromJSON
    */
   public function testFromJSON() {
+    // Should return a null reference with a non-object value.
     $this->assertNull(Blog::fromJSON('foo'));
 
+    // Should return an empty instance with an empty map.
     $blog = Blog::fromJSON([]);
     $this->assertEmpty($blog->getCharset());
     $this->assertEmpty($blog->getLanguages());
     $this->assertEmpty($blog->getURL());
 
+    // Should return an initialized instance with a non-empty map.
     $blog = Blog::fromJSON([
       'blog' => 'https://github.com/cedx/akismet.php',
       'blog_charset' => 'UTF-8',
@@ -38,9 +41,11 @@ class BlogTest extends TestCase {
    * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
+    // Should return an empty map with a newly created instance.
     $data = (new Blog())->jsonSerialize();
     $this->assertEmpty(get_object_vars($data));
 
+    // Should return a non-empty map with a initialized instance.
     $data = (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']))->jsonSerialize();
     $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
     $this->assertEquals('UTF-8', $data->blog_charset);
@@ -52,7 +57,11 @@ class BlogTest extends TestCase {
    */
   public function testToString() {
     $blog = (string) (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']));
+
+    // Should start with the class name.
     $this->assertStringStartsWith('akismet\Blog {', $blog);
+
+    // Should contain the instance properties.
     $this->assertContains('"blog":"https://github.com/cedx/akismet.php"', $blog);
     $this->assertContains('"blog_charset":"UTF-8"', $blog);
     $this->assertContains('"blog_lang":"en,fr"', $blog);

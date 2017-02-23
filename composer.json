@@ -36,6 +36,7 @@
   },
   "require-dev": {
     "cedx/coveralls": "^0.3.0",
+    "codeception/specify": "^0.4.6",
     "phing/phing": "^2.16.0",
     "phpdocumentor/phpdocumentor": "^2.9.0",
     "phpunit/phpunit": "^6.0.7"

@@ -43,7 +43,7 @@
   },
   "scripts": {
     "coverage": "coveralls --file=var/coverage.xml",
-    "test": "phpunit"
+    "test": "phpunit --colors=auto"
   },
   "support": {
     "issues": "https://github.com/cedx/akismet.php/issues"

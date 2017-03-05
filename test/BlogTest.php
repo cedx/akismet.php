@@ -5,40 +5,38 @@
 namespace akismet\test;
 
 use akismet\{Blog};
-use Codeception\{Specify};
 use PHPUnit\Framework\{TestCase};
 
 /**
  * @coversDefaultClass \akismet\Blog
  */
 class BlogTest extends TestCase {
-  use Specify;
 
   /**
    * @test ::fromJSON
    */
   public function testFromJSON() {
-    $this->specify('should return a null reference with a non-object value', function() {
-      $this->assertNull(Blog::fromJSON('foo'));
+    it('should return a null reference with a non-object value', function() {
+      expect(Blog::fromJSON('foo'))->to->be->null;
     });
 
-    $this->specify('should return an empty instance with an empty map', function() {
+    it('should return an empty instance with an empty map', function() {
       $blog = Blog::fromJSON([]);
-      $this->assertEmpty($blog->getCharset());
-      $this->assertEmpty($blog->getLanguages());
-      $this->assertEmpty($blog->getURL());
+      expect($blog->getCharset())->to->be->empty;
+      expect($blog->getLanguages())->to->be->empty;
+      expect($blog->getURL())->to->be->empty;
     });
 
-    $this->specify('should return an initialized instance with a non-empty map', function() {
+    it('should return an initialized instance with a non-empty map', function() {
       $blog = Blog::fromJSON([
         'blog' => 'https://github.com/cedx/akismet.php',
         'blog_charset' => 'UTF-8',
         'blog_lang' => 'en, fr'
       ]);
 
-      $this->assertEquals('UTF-8', $blog->getCharset());
-      $this->assertEquals(['en', 'fr'], $blog->getLanguages()->getArrayCopy());
-      $this->assertEquals('https://github.com/cedx/akismet.php', $blog->getURL());
+      expect($blog->getCharset())->to->equal('UTF-8');
+      expect($blog->getLanguages()->getArrayCopy())->to->equal(['en', 'fr']);
+      expect($blog->getURL())->to->equal('https://github.com/cedx/akismet.php');
     });
   }
 
@@ -46,16 +44,16 @@ class BlogTest extends TestCase {
    * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
-    $this->specify('should return an empty map with a newly created instance', function() {
-      $data = (new Blog())->jsonSerialize();
-      $this->assertEmpty(get_object_vars($data));
+    it('should return an empty map with a newly created instance', function() {
+      expect((new Blog())->jsonSerialize())->to->be->empty;
     });
 
-    $this->specify('should return a non-empty map with a initialized instance', function() {
+    it('should return a non-empty map with a initialized instance', function() {
       $data = (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']))->jsonSerialize();
-      $this->assertEquals('https://github.com/cedx/akismet.php', $data->blog);
-      $this->assertEquals('UTF-8', $data->blog_charset);
-      $this->assertEquals('en,fr', $data->blog_lang);
+      expect(get_object_vars($data))->to->have->lengthOf(3);
+      expect($data->blog)->to->equal('https://github.com/cedx/akismet.php');
+      expect($data->blog_charset)->to->equal('UTF-8');
+      expect($data->blog_lang)->to->equal('en,fr');
     });
   }
 
@@ -65,14 +63,14 @@ class BlogTest extends TestCase {
   public function testToString() {
     $blog = (string) (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']));
 
-    $this->specify('should start with the class name', function() use ($blog) {
-      $this->assertStringStartsWith('akismet\Blog {', $blog);
+    it('should start with the class name', function() use ($blog) {
+      expect($blog)->to->startWith('akismet\Blog {');
     });
 
-    $this->specify('should contain the instance properties', function() use ($blog) {
-      $this->assertContains('"blog":"https://github.com/cedx/akismet.php"', $blog);
-      $this->assertContains('"blog_charset":"UTF-8"', $blog);
-      $this->assertContains('"blog_lang":"en,fr"', $blog);
+    it('should contain the instance properties', function() use ($blog) {
+      expect($blog)->to->contain('"blog":"https://github.com/cedx/akismet.php"')
+        ->and->contain('"blog_charset":"UTF-8"')
+        ->and->contain('"blog_lang":"en,fr"');
     });
   }
 }

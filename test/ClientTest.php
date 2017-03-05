@@ -5,7 +5,6 @@
 namespace akismet\test;
 
 use akismet\{Author, Blog, Client, Comment, CommentType};
-use Codeception\{Specify};
 use PHPUnit\Framework\{TestCase};
 use Rx\{Observable};
 use Rx\Subject\{Subject};
@@ -14,7 +13,6 @@ use Rx\Subject\{Subject};
  * @coversDefaultClass \akismet\Client
  */
 class ClientTest extends TestCase {
-  use Specify;
 
   /**
    * @var Client The client used to query the service database.
@@ -35,12 +33,12 @@ class ClientTest extends TestCase {
    * @test ::checkComment
    */
   public function testCheckComment() {
-    $this->specify('should return `false` for valid comment (e.g. ham)', function() {
-      $this->assertFalse($this->client->checkComment($this->ham));
+    it('should return `false` for valid comment (e.g. ham)', function() {
+      expect($this->client->checkComment($this->ham))->to->be->false;
     });
 
-    $this->specify('should return `true` for invalid comment (e.g. spam)', function() {
-      $this->assertTrue($this->client->checkComment($this->spam));
+    it('should return `true` for invalid comment (e.g. spam)', function() {
+      expect($this->client->checkComment($this->spam))->to->be->true;
     });
   }
 
@@ -48,28 +46,28 @@ class ClientTest extends TestCase {
    * @test ::jsonSerialize
    */
   public function testJsonSerialize() {
-    $this->specify('should return the right values for an incorrectly configured client', function() {
+    it('should return the right values for an incorrectly configured client', function() {
       $map = (new Client('0123456789-ABCDEF'))
         ->setEndPoint('http://localhost')
         ->setUserAgent('FooBar/6.6.6')
         ->jsonSerialize();
 
-      $this->assertCount(5, get_object_vars($map));
-      $this->assertEquals('0123456789-ABCDEF', $map->apiKey);
-      $this->assertNull($map->blog);
-      $this->assertEquals('http://localhost', $map->endPoint);
-      $this->assertFalse($map->isTest);
-      $this->assertEquals('FooBar/6.6.6', $map->userAgent);
+      expect(get_object_vars($map))->to->have->lengthOf(5);
+      expect($map->apiKey)->to->equal('0123456789-ABCDEF');
+      expect($map->blog)->to->be->null;
+      expect($map->endPoint)->to->equal('http://localhost');
+      expect($map->isTest)->to->be->false;
+      expect($map->userAgent)->to->equal('FooBar/6.6.6');
     });
 
-    $this->specify('should return the right values for a properly configured client', function() {
+    it('should return the right values for a properly configured client', function() {
       $map = $this->client->jsonSerialize();
-      $this->assertCount(5, get_object_vars($map));
-      $this->assertEquals(getenv('AKISMET_API_KEY'), $map->apiKey);
-      $this->assertEquals(Blog::class, $map->blog);
-      $this->assertEquals(Client::DEFAULT_ENDPOINT, $map->endPoint);
-      $this->assertTrue($map->isTest);
-      $this->assertStringStartsWith('PHP/', $map->userAgent);
+      expect(get_object_vars($map))->to->have->lengthOf(5);
+      expect($map->apiKey)->to->equal(getenv('AKISMET_API_KEY'));
+      expect($map->blog)->to->equal(Blog::class);
+      expect($map->endPoint)->to->equal(Client::DEFAULT_ENDPOINT);
+      expect($map->isTest)->to->be->true;
+      expect($map->userAgent)->to->startWith('PHP/');
     });
   }
 
@@ -77,10 +75,10 @@ class ClientTest extends TestCase {
    * @test ::onRequest
    */
   public function testOnRequest() {
-    $this->specify('should return an `Observable` instead of the underlying `Subject`', function() {
+    it('should return an `Observable` instead of the underlying `Subject`', function() {
       $stream = $this->client->onRequest();
-      $this->assertInstanceOf(Observable::class, $stream);
-      $this->assertFalse($stream instanceof Subject);
+      expect($stream)->to->be->instanceOf(Observable::class);
+      expect($stream)->to->not->be->instanceOf(Subject::class);
     });
   }
 
@@ -88,10 +86,10 @@ class ClientTest extends TestCase {
    * @test ::onRequest
    */
   public function testOnResponse() {
-    $this->specify('should return an `Observable` instead of the underlying `Subject`', function() {
+    it('should return an `Observable` instead of the underlying `Subject`', function() {
       $stream = $this->client->onResponse();
-      $this->assertInstanceOf(Observable::class, $stream);
-      $this->assertFalse($stream instanceof Subject);
+      expect($stream)->to->be->instanceOf(Observable::class);
+      expect($stream)->to->not->be->instanceOf(Subject::class);
     });
   }
 
@@ -99,14 +97,14 @@ class ClientTest extends TestCase {
    * @test ::submitHam
    */
   public function testSubmitHam() {
-    $this->specify('should complete without error', function() {
+    it('should complete without error', function() {
       try {
         $this->client->submitHam($this->ham);
-        $this->assertTrue(true);
+        expect(true)->to->be->true;
       }
 
       catch (\Throwable $e) {
-        $this->fail($e->getMessage());
+        fail($e->getMessage());
       }
     });
   }
@@ -115,14 +113,14 @@ class ClientTest extends TestCase {
    * @test ::submitSpam
    */
   public function testSubmitSpam() {
-    $this->specify('should complete without error', function() {
+    it('should complete without error', function() {
       try {
         $this->client->submitSpam($this->spam);
-        $this->assertTrue(true);
+        expect(true)->to->be->true;
       }
 
       catch (\Throwable $e) {
-        $this->fail($e->getMessage());
+        fail($e->getMessage());
       }
     });
   }
@@ -133,16 +131,16 @@ class ClientTest extends TestCase {
   public function testToString() {
     $value = (string) $this->client;
 
-    $this->specify('should start with the class name', function() use ($value) {
-      $this->assertStringStartsWith('akismet\Client {', $value);
+    it('should start with the class name', function() use ($value) {
+      expect($value)->to->startWith('akismet\Client {');
     });
 
-    $this->specify('should contain the instance properties', function() use ($value) {
-      $this->assertContains(sprintf('"apiKey":"%s"', getenv('AKISMET_API_KEY')), $value);
-      $this->assertContains(sprintf('"blog":"%s"', str_replace('\\', '\\\\', Blog::class)), $value);
-      $this->assertContains(sprintf('"endPoint":"%s"', Client::DEFAULT_ENDPOINT), $value);
-      $this->assertContains('"isTest":true', $value);
-      $this->assertContains('"userAgent":"PHP/', $value);
+    it('should contain the instance properties', function() use ($value) {
+      expect($value)->to->contain(sprintf('"apiKey":"%s"', getenv('AKISMET_API_KEY')))
+        ->and->contain(sprintf('"blog":"%s"', str_replace('\\', '\\\\', Blog::class)))
+        ->and->contain(sprintf('"endPoint":"%s"', Client::DEFAULT_ENDPOINT))
+        ->and->contain('"isTest":true')
+        ->and->contain('"userAgent":"PHP/');
     });
   }
 
@@ -150,15 +148,15 @@ class ClientTest extends TestCase {
    * @test ::verifyKey
    */
   public function testVerifyKey() {
-    $this->specify('should return `true` for a valid API key', function() {
-      $this->assertTrue($this->client->verifyKey());
+    it('should return `true` for a valid API key', function() {
+      expect($this->client->verifyKey())->to->be->true;
     });
 
-    $this->specify('should return `false` for an invalid API key', function() {
+    it('should return `false` for an invalid API key', function() {
       $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))
         ->setIsTest($this->client->isTest());
 
-      $this->assertFalse($client->verifyKey());
+      expect($client->verifyKey())->to->be->false;
     });
   }
 

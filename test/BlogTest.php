@@ -1,8 +1,8 @@
 <?php
 /**
- * Implementation of the `akismet\test\BlogTest` class.
+ * Implementation of the `akismet\BlogTest` class.
  */
-namespace akismet\test;
+namespace akismet;
 
 use akismet\{Blog};
 use PHPUnit\Framework\{TestCase};

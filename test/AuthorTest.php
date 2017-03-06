@@ -1,8 +1,8 @@
 <?php
 /**
- * Implementation of the `akismet\test\AuthorTest` class.
+ * Implementation of the `akismet\AuthorTest` class.
  */
-namespace akismet\test;
+namespace akismet;
 
 use akismet\{Author};
 use PHPUnit\Framework\{TestCase};

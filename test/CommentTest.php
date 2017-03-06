@@ -1,8 +1,8 @@
 <?php
 /**
- * Implementation of the `akismet\test\CommentTest` class.
+ * Implementation of the `akismet\CommentTest` class.
  */
-namespace akismet\test;
+namespace akismet;
 
 use akismet\{Author, Comment, CommentType};
 use PHPUnit\Framework\{TestCase};

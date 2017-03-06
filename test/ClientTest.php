@@ -1,8 +1,8 @@
 <?php
 /**
- * Implementation of the `akismet\test\ClientTest` class.
+ * Implementation of the `akismet\ClientTest` class.
  */
-namespace akismet\test;
+namespace akismet;
 
 use akismet\{Author, Blog, Client, Comment, CommentType};
 use PHPUnit\Framework\{TestCase};

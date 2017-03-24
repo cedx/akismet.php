@@ -2,7 +2,9 @@
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
 ## Version 5.2.0
+## Version 6.0.0
 - Ported the unit test assertions from [TDD](https://en.wikipedia.org/wiki/Test-driven_development) to [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development).
+- Removed the dependency on the `cedx/enum` module.
 - Updated the package dependencies.
 
 ## Version 5.1.0

@@ -1,15 +1,10 @@
 <?php
-/**
- * Implementation of the `akismet\CommentType` enumeration.
- */
 namespace akismet;
-use cedx\{EnumTrait};
 
 /**
  * Specifies the type of a comment.
  */
 final class CommentType {
-  use EnumTrait;
 
   /**
    * @var string A standard comment.

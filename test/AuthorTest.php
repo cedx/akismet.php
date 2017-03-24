@@ -1,19 +1,14 @@
 <?php
-/**
- * Implementation of the `akismet\AuthorTest` class.
- */
 namespace akismet;
-
-use akismet\{Author};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * @coversDefaultClass \akismet\Author
+ * Tests the features of the `akismet\Author` class.
  */
 class AuthorTest extends TestCase {
 
   /**
-   * @test ::fromJSON
+   * @test Author::fromJSON
    */
   public function testFromJSON() {
     it('should return a null reference with a non-object value', function() {
@@ -38,7 +33,7 @@ class AuthorTest extends TestCase {
   }
 
   /**
-   * @test ::jsonSerialize
+   * @test Author::jsonSerialize
    */
   public function testJsonSerialize() {
     it('should return an empty map with a newly created instance', function() {
@@ -60,7 +55,7 @@ class AuthorTest extends TestCase {
   }
 
   /**
-   * @test ::__toString
+   * @test Author::__toString
    */
   public function testToString() {
     $author = (string) (new Author('127.0.0.1'))

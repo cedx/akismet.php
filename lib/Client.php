@@ -6,8 +6,6 @@ namespace akismet;
 
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{ServerRequest};
-use Rx\{Observable};
-use Rx\Subject\{Subject};
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
@@ -50,16 +48,6 @@ class Client implements \JsonSerializable {
   private $isTest = false;
 
   /**
-   * @var Subject The handler of "request" events.
-   */
-  private $onRequest;
-
-  /**
-   * @var Subject The handler of "response" events.
-   */
-  private $onResponse;
-
-  /**
    * @var string The user agent string to use when making requests.
    */
   private $userAgent;
@@ -70,9 +58,6 @@ class Client implements \JsonSerializable {
    * @param Blog|string $blog The front page or home URL of the instance making requests.
    */
   public function __construct(string $apiKey = '', $blog = null) {
-    $this->onRequest = new Subject();
-    $this->onResponse = new Subject();
-
     $this->setAPIKey($apiKey);
     $this->setBlog($blog);
     $this->setUserAgent(sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION));
@@ -150,22 +135,6 @@ class Client implements \JsonSerializable {
       'isTest' => $this->isTest(),
       'userAgent' => $this->getUserAgent()
     ];
-  }
-
-  /**
-   * Gets the stream of "request" events.
-   * @return Observable The stream of "request" events.
-   */
-  public function onRequest(): Observable {
-    return $this->onRequest->asObservable();
-  }
-
-  /**
-   * Gets the stream of "response" events.
-   * @return Observable The stream of "response" events.
-   */
-  public function onResponse(): Observable {
-    return $this->onResponse->asObservable();
   }
 
   /**

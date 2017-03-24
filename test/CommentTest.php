@@ -1,19 +1,14 @@
 <?php
-/**
- * Implementation of the `akismet\CommentTest` class.
- */
 namespace akismet;
-
-use akismet\{Author, Comment, CommentType};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * @coversDefaultClass \akismet\Comment
+ * Tests the features of the `akismet\Comment` class.
  */
 class CommentTest extends TestCase {
 
   /**
-   * @test ::fromJSON
+   * @test Comment::fromJSON
    */
   public function testFromJSON() {
     it('should return a null reference with a non-object value', function() {
@@ -53,7 +48,7 @@ class CommentTest extends TestCase {
   }
 
   /**
-   * @test ::jsonSerialize
+   * @test Comment::jsonSerialize
    */
   public function testJsonSerialize() {
     it('should return an empty map with a newly created instance', function() {
@@ -75,7 +70,7 @@ class CommentTest extends TestCase {
   }
 
   /**
-   * @test ::__toString
+   * @test Comment::__toString
    */
   public function testToString() {
     $comment = (string) (new Comment((new Author())->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))

@@ -1,19 +1,14 @@
 <?php
-/**
- * Implementation of the `akismet\BlogTest` class.
- */
 namespace akismet;
-
-use akismet\{Blog};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * @coversDefaultClass \akismet\Blog
+ * Tests the features of the `akismet\Blog` class.
  */
 class BlogTest extends TestCase {
 
   /**
-   * @test ::fromJSON
+   * @test Blog::fromJSON
    */
   public function testFromJSON() {
     it('should return a null reference with a non-object value', function() {
@@ -41,7 +36,7 @@ class BlogTest extends TestCase {
   }
 
   /**
-   * @test ::jsonSerialize
+   * @test Blog::jsonSerialize
    */
   public function testJsonSerialize() {
     it('should return an empty map with a newly created instance', function() {
@@ -58,7 +53,7 @@ class BlogTest extends TestCase {
   }
 
   /**
-   * @test ::__toString
+   * @test Blog::__toString
    */
   public function testToString() {
     $blog = (string) (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']));

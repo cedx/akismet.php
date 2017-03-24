@@ -1,16 +1,9 @@
 <?php
-/**
- * Implementation of the `akismet\ClientTest` class.
- */
 namespace akismet;
-
-use akismet\{Author, Blog, Client, Comment, CommentType};
 use PHPUnit\Framework\{TestCase};
-use Rx\{Observable};
-use Rx\Subject\{Subject};
 
 /**
- * @coversDefaultClass \akismet\Client
+ * Tests the features of the `akismet\Client` class.
  */
 class ClientTest extends TestCase {
 
@@ -30,7 +23,7 @@ class ClientTest extends TestCase {
   private $spam;
 
   /**
-   * @test ::checkComment
+   * @test Client::checkComment
    */
   public function testCheckComment() {
     it('should return `false` for valid comment (e.g. ham)', function() {
@@ -43,7 +36,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::jsonSerialize
+   * @test Client::jsonSerialize
    */
   public function testJsonSerialize() {
     it('should return the right values for an incorrectly configured client', function() {
@@ -72,29 +65,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::onRequest
-   */
-  public function testOnRequest() {
-    it('should return an `Observable` instead of the underlying `Subject`', function() {
-      $stream = $this->client->onRequest();
-      expect($stream)->to->be->instanceOf(Observable::class);
-      expect($stream)->to->not->be->instanceOf(Subject::class);
-    });
-  }
-
-  /**
-   * @test ::onRequest
-   */
-  public function testOnResponse() {
-    it('should return an `Observable` instead of the underlying `Subject`', function() {
-      $stream = $this->client->onResponse();
-      expect($stream)->to->be->instanceOf(Observable::class);
-      expect($stream)->to->not->be->instanceOf(Subject::class);
-    });
-  }
-
-  /**
-   * @test ::submitHam
+   * @test Client::submitHam
    */
   public function testSubmitHam() {
     it('should complete without error', function() {
@@ -110,7 +81,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::submitSpam
+   * @test Client::submitSpam
    */
   public function testSubmitSpam() {
     it('should complete without error', function() {
@@ -126,7 +97,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::__toString
+   * @test Client::__toString
    */
   public function testToString() {
     $value = (string) $this->client;
@@ -145,7 +116,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test ::verifyKey
+   * @test Client::verifyKey
    */
   public function testVerifyKey() {
     it('should return `true` for a valid API key', function() {

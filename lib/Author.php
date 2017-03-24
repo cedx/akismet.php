@@ -1,7 +1,4 @@
 <?php
-/**
- * Implementation of the `akismet\Author` class.
- */
 namespace akismet;
 
 /**

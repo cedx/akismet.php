@@ -1,7 +1,4 @@
 <?php
-/**
- * Implementation of the `akismet\Comment` class.
- */
 namespace akismet;
 
 /**

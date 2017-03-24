@@ -30,6 +30,7 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "ext-pcre": "*",
+    "evenement/evenement": "^2.0.0",
     "guzzlehttp/guzzle": "^6.2.3"
   },
   "require-dev": {

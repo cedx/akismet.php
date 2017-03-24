@@ -3,6 +3,7 @@ This file contains highlights of what changes on each version of the [Akismet fo
 
 ## Version 6.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
+- Breaking change: the `Client` class is now an `EventEmitter`.
 - Ported the unit test assertions from [TDD](https://en.wikipedia.org/wiki/Test-driven_development) to [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development).
 - Removed the dependency on the `cedx/enum` module.
 - Updated the package dependencies.

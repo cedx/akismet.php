@@ -77,21 +77,22 @@ catch (\Throwable $e) {
 ```
 
 ## Events
-The `akismet\Client` class triggers some events during its life cycle:
+The `akismet\Client` class is an `EventEmitter`.
+During its life cycle, it emits these events:
 
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as [Observables](http://reactivex.io/intro.html), you can subscribe to them using the `on<EventName>` methods:
+You can subscribe to them using the `on()` method:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-$client->onRequest()->subscribeCallback(function(RequestInterface $request) {
+$client->on('request', function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->onResponse()->subscribeCallback(function(ResponseInterface $response) {
+$client->on('response', function(ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```

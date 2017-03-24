@@ -1,9 +1,7 @@
 <?php
-/**
- * Implementation of the `akismet\Client` class.
- */
 namespace akismet;
 
+use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{ServerRequest};
 
@@ -11,6 +9,7 @@ use GuzzleHttp\Psr7\{ServerRequest};
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
 class Client implements \JsonSerializable {
+  use EventEmitterTrait;
 
   /**
    * @var string The HTTP header containing the Akismet error messages.
@@ -25,7 +24,7 @@ class Client implements \JsonSerializable {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '5.1.0';
+  const VERSION = '6.0.0';
 
   /**
    * @var string The Akismet API key.
@@ -226,6 +225,8 @@ class Client implements \JsonSerializable {
    * @param string $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
    * @return string The response body.
+   * @emits \GuzzleHttp\Psr7\ServerRequest The "request" event.
+   * @emits \GuzzleHttp\Psr7\Response The "response" event.
    * @throws \InvalidArgumentException The API key or the blog URL is empty.
    * @throws \RuntimeException An error occurred while querying the end point.
    */
@@ -238,14 +239,14 @@ class Client implements \JsonSerializable {
 
     try {
       $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyFields);
-      $this->onRequest->onNext($request);
+      $this->emit('request', [$request]);
 
       $response = (new HTTPClient())->send($request, [
         'form_params' => $request->getParsedBody(),
         'headers' => ['User-Agent' => $this->getUserAgent()]
       ]);
 
-      $this->onResponse->onNext($response);
+      $this->emit('reponse', [$response]);
       if($response->hasHeader(static::DEBUG_HEADER))
         throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
 

@@ -29,9 +29,7 @@ use akismet\{Client};
 
 try {
   $client = new Client('YourAPIKey', 'http://your.blog.url');
-  echo $client->verifyKey() ?
-    'Your API key is valid.' :
-    'Your API key is invalid.';
+  echo $client->verifyKey() ? 'Your API key is valid.' : 'Your API key is invalid.';
 }
 
 catch (\Throwable $e) {
@@ -50,9 +48,8 @@ try {
     'A comment.'
   );
 
-  echo $client->checkComment($comment) ?
-    'The comment is marked as spam.' :
-    'The comment is marked as ham.';
+  $isSpam = $client->checkComment($comment);
+  echo $isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.';
 }
 
 catch (\Throwable $e) {

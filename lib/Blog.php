@@ -110,7 +110,7 @@ class Blog implements \JsonSerializable {
    * @return Blog This instance.
    */
   public function setLanguages(array $values): self {
-    $this->getLanguages()->exchangeArray($values);
+    $this->languages->exchangeArray($values);
     return $this;
   }
 

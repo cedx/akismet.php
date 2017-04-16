@@ -4,8 +4,6 @@
   "name": "cedx/akismet",
 
   "license": "Apache-2.0",
-  "minimum-stability": "dev",
-  "prefer-stable": true,
   "type": "library",
 
   "authors": [{

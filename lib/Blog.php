@@ -48,13 +48,16 @@ class Blog implements \JsonSerializable {
    * @return Blog The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJSON($map) {
+    if (is_array($map)) $map = (object) $map;
+    else if (!is_object($map)) return null;
+
     $transform = function(string $languages) {
       return array_filter(array_map('trim', explode(',', $languages)));
     };
 
-    if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : ''))
-      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
+    /** @var Blog $blog */
+    $blog = new static(isset($map->blog) && is_string($map->blog) ? $map->blog : '');
+    return $blog->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
       ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);
   }
 

@@ -76,8 +76,9 @@ class Comment implements \JsonSerializable {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;
 
-    return (new static($hasAuthor ? Author::fromJSON($map) : null))
-      ->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
+    /** @var Comment $comment */
+    $comment = new static($hasAuthor ? Author::fromJSON($map) : null);
+    return $comment->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
       ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
       ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : '')
       ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null)

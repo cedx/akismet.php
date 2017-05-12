@@ -147,7 +147,7 @@ class Comment implements \JsonSerializable {
    * @return \stdClass The map in JSON format corresponding to this object.
    */
   public function jsonSerialize(): \stdClass {
-    $map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass();
+    $map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass;
     if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
     if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
     if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');

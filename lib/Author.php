@@ -126,7 +126,7 @@ class Author implements \JsonSerializable {
    * @return \stdClass The map in JSON format corresponding to this object.
    */
   public function jsonSerialize(): \stdClass {
-    $map = new \stdClass();
+    $map = new \stdClass;
     if (mb_strlen($name = $this->getName())) $map->comment_author = $name;
     if (mb_strlen($email = $this->getEmail())) $map->comment_author_email = $email;
     if (mb_strlen($url = $this->getURL())) $map->comment_author_url = $url;

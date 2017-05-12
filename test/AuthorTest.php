@@ -37,7 +37,7 @@ class AuthorTest extends TestCase {
    */
   public function testJsonSerialize() {
     it('should return an empty map with a newly created instance', function() {
-      expect((new Author())->jsonSerialize())->to->be->empty;
+      expect((new Author)->jsonSerialize())->to->be->empty;
     });
 
     it('should return a non-empty map with a initialized instance', function() {

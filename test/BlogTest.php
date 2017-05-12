@@ -40,7 +40,7 @@ class BlogTest extends TestCase {
    */
   public function testJsonSerialize() {
     it('should return an empty map with a newly created instance', function() {
-      expect((new Blog())->jsonSerialize())->to->be->empty;
+      expect((new Blog)->jsonSerialize())->to->be->empty;
     });
 
     it('should return a non-empty map with a initialized instance', function() {

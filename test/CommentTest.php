@@ -52,11 +52,11 @@ class CommentTest extends TestCase {
    */
   public function testJsonSerialize() {
     it('should return an empty map with a newly created instance', function() {
-      expect((new Comment())->jsonSerialize())->to->be->empty;
+      expect((new Comment)->jsonSerialize())->to->be->empty;
     });
 
     it('should return a non-empty map with a initialized instance', function() {
-      $data = (new Comment((new Author())->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
+      $data = (new Comment((new Author)->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
         ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
         ->setReferrer('https://belin.io')
         ->jsonSerialize();
@@ -73,7 +73,7 @@ class CommentTest extends TestCase {
    * @test Comment::__toString
    */
   public function testToString() {
-    $comment = (string) (new Comment((new Author())->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
+    $comment = (string) (new Comment((new Author)->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
       ->setReferrer('https://belin.io');
 

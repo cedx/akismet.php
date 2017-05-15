@@ -32,7 +32,7 @@
     "guzzlehttp/guzzle": "^6.2.3"
   },
   "require-dev": {
-    "cedx/coveralls": "^0.4.0",
+    "cedx/coveralls": "^1.0.0",
     "cedx/phpunit-expect": "^0.1.0",
     "phing/phing": "^2.16.0",
     "phpdocumentor/phpdocumentor": "^2.9.0"

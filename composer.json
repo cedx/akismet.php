@@ -30,8 +30,8 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "ext-pcre": "*",
-    "evenement/evenement": "^2.0.0",
-    "guzzlehttp/guzzle": "^6.2.3"
+    "guzzlehttp/guzzle": "^6.3.0",
+    "reactivex/rxphp": "^2.0.2"
   },
   "require-dev": {
     "cedx/coveralls": "^1.0.0",

@@ -19,6 +19,8 @@
   "keywords": [
     "akismet",
     "comment",
+    "observable",
+    "rxphp",
     "spam",
     "validation"
   ],

@@ -1,6 +1,8 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Version 7.0.0
+
 ## Version 6.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).
 - Breaking change: the `Client` class is now an `EventEmitter`.

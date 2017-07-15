@@ -262,8 +262,8 @@ class Client implements \JsonSerializable {
    * @param string $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
    * @return Observable The response body as string.
-   * @emits \GuzzleHttp\Psr7\ServerRequest The "request" event.
-   * @emits \GuzzleHttp\Psr7\Response The "response" event.
+   * @emits \Psr\Http\Message\RequestInterface The "request" event.
+   * @emits \Psr\Http\Message\ResponseInterface The "response" event.
    */
   private function fetch(string $endPoint, array $fields = []): Observable {
     $blog = $this->getBlog();

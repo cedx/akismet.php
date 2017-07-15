@@ -2,6 +2,8 @@
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
 ## Version 7.0.0
+- Breaking change: reverted the API of the `Client` class to an [Observable](http://reactivex.io/intro.html)-based one.
+- Updated the package dependencies.
 
 ## Version 6.0.0
 - Breaking change: dropped the dependency on [Observables](http://reactivex.io/intro.html).

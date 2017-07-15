@@ -21,20 +21,17 @@ $ composer require cedx/akismet
 ```
 
 ## Usage
+This package has an API based on [Observables](http://reactivex.io/intro.html).
 
 ### Key verification
 
 ```php
 use akismet\{Client};
 
-try {
-  $client = new Client('YourAPIKey', 'http://your.blog.url');
-  echo $client->verifyKey() ? 'Your API key is valid.' : 'Your API key is invalid.';
-}
-
-catch (\Throwable $e) {
-  echo 'An error occurred: ', $e->getMessage();
-}
+$client = new Client('YourAPIKey', 'http://your.blog.url');
+$client->verifyKey()->subscribe(function(bool $isValid) {
+  echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
+});
 ```
 
 ### Comment check
@@ -42,54 +39,44 @@ catch (\Throwable $e) {
 ```php
 use akismet\{Author, Comment};
 
-try {
-  $comment = new Comment(
-    new Author('127.0.0.1', 'Mozilla/5.0'),
-    'A comment.'
-  );
+$comment = new Comment(
+  new Author('127.0.0.1', 'Mozilla/5.0'),
+  'A comment.'
+);
 
-  $isSpam = $client->checkComment($comment);
+$client->checkComment($comment)->subscribe(function(bool $isSpam) {
   echo $isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.';
-}
-
-catch (\Throwable $e) {
-  echo 'An error occurred: ', $e->getMessage();
-}
+});
 ```
 
 ### Submit spam/ham
 
 ```php
-try {
-  $client->submitSpam($comment);
+$client->submitSpam($comment)->subscribe(function() {
   echo 'Spam submitted.';
+});
 
-  $client->submitHam($comment);
+$client->submitHam($comment)->subscribe(function() {
   echo 'Ham submitted.';
-}
-
-catch (\Throwable $e) {
-  echo 'An error occurred: ', $e->getMessage();
-}
+});
 ```
 
 ## Events
-The `akismet\Client` class is an `EventEmitter`.
-During its life cycle, it emits these events:
+The `Client` class triggers some events during its life cycle:
 
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-You can subscribe to them using the `on()` method:
+These events are exposed as [Observable](http://reactivex.io/intro.html), you can subscribe to them using the `on<EventName>` methods:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-$client->on('request', function(RequestInterface $request) {
+$client->onRequest()->subscribe(function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->on('response', function(ResponseInterface $response) {
+$client->onResponse()->subscribe(function(ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```

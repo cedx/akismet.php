@@ -16,7 +16,11 @@
 
   <target name="doc" description="Builds the documentation.">
     <delete dir="doc/api" quiet="true"/>
-    <exec executable="vendor/bin/phpdoc" passthru="true"/>
+    <exec executable="vendor/bin/apigen" passthru="true">
+      <arg value="generate"/>
+      <arg value="--destination=doc/api"/>
+      <arg value="lib"/>
+    </exec>
   </target>
 
   <target name="lint" description="Performs static analysis of source code.">

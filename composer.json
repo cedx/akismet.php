@@ -34,10 +34,11 @@
     "reactivex/rxphp": "^2.0.2"
   },
   "require-dev": {
+    "apigen/apigen": "^5.0.0-RC2",
     "cedx/coveralls": "^1.0.0",
     "cedx/phpunit-expect": "^0.2.0",
     "phing/phing": "^2.16.0",
-    "phpdocumentor/phpdocumentor": "^2.9.0"
+    "roave/better-reflection": "@dev"
   },
   "scripts": {
     "coverage": "coveralls --file=var/coverage.xml",

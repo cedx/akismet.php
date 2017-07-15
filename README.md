@@ -95,6 +95,7 @@ $ phing test
 ```
 
 ## See also
+- [API reference](https://cedx.github.io/akismet.php)
 - [Code coverage](https://coveralls.io/github/cedx/akismet.php)
 - [Continuous integration](https://travis-ci.org/cedx/akismet.php)
 

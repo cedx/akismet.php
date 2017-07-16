@@ -51,7 +51,7 @@ class Blog implements \JsonSerializable {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
-    $transform = function(string $languages) {
+    $transform = function(string $languages): array {
       return array_filter(array_map('trim', explode(',', $languages)));
     };
 

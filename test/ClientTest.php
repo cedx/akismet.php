@@ -3,7 +3,6 @@ namespace akismet;
 
 use function PHPUnit\Expect\{fail, expect, it};
 use PHPUnit\Framework\{TestCase};
-use Rx\{Observable};
 use Rx\Subject\{Subject};
 
 /**
@@ -77,9 +76,7 @@ class ClientTest extends TestCase {
    */
   public function testOnRequest() {
     it('should return an `Observable` instead of the underlying `Subject`', function() {
-      $stream = $this->client->onRequest();
-      expect($stream)->to->be->instanceOf(Observable::class);
-      expect($stream)->to->not->be->instanceOf(Subject::class);
+      expect($this->client->onRequest())->to->not->be->instanceOf(Subject::class);
     });
   }
 
@@ -88,9 +85,7 @@ class ClientTest extends TestCase {
    */
   public function testOnResponse() {
     it('should return an `Observable` instead of the underlying `Subject`', function() {
-      $stream = $this->client->onResponse();
-      expect($stream)->to->be->instanceOf(Observable::class);
-      expect($stream)->to->not->be->instanceOf(Subject::class);
+      expect($this->client->onResponse())->to->not->be->instanceOf(Subject::class);
     });
   }
 

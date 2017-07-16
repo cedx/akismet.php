@@ -1,8 +1,8 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 namespace akismet;
 
-use function PHPUnit\Expect\{fail, expect, it};
+use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 use Rx\Subject\{Subject};
 

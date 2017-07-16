@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 namespace akismet;
 
 use GuzzleHttp\{Client as HTTPClient};
@@ -282,7 +283,7 @@ class Client implements \JsonSerializable {
     $this->onRequest->onNext($request);
     return static::toObservable($promise)->map(function(ResponseInterface $response): string {
       $this->onResponse->onNext($response);
-      if($response->hasHeader(static::DEBUG_HEADER)) throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
+      if ($response->hasHeader(static::DEBUG_HEADER)) throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
       return (string) $response->getBody();
     });
   }

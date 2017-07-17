@@ -5,8 +5,7 @@ namespace akismet;
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Promise\{PromiseInterface};
 use GuzzleHttp\Psr7\{ServerRequest};
-use Psr\Http\Message\{ResponseInterface};
-use Rx\{Observable, ObserverInterface};
+use Rx\{Observable};
 use Rx\Subject\{Subject};
 
 /**

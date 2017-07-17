@@ -281,28 +281,11 @@ class Client implements \JsonSerializable {
     ]);
 
     $this->onRequest->onNext($request);
-    return static::toObservable($promise)->map(function(ResponseInterface $response): string {
+    return Observable::of($promise)->map(function(PromiseInterface $promise): string {
+      $response = $promise->wait();
       $this->onResponse->onNext($response);
       if ($response->hasHeader(static::DEBUG_HEADER)) throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
       return (string) $response->getBody();
-    });
-  }
-
-  /**
-   * Converts a `Promise` to an `Observable`.
-   * @param PromiseInterface $promise The `Promise` to be converted.
-   * @return Observable An `Observable` which wraps the `Promise`.
-   */
-  private static function toObservable(PromiseInterface $promise): Observable {
-    return Observable::create(function(ObserverInterface $observer) use ($promise) {
-      try {
-        $observer->onNext($promise->wait());
-        $observer->onCompleted();
-      }
-
-      catch (\Throwable $e) {
-        $observer->onError($e);
-      }
     });
   }
 }

@@ -23,6 +23,9 @@ $ composer require cedx/akismet
 ## Usage
 This package has an API based on [Observables](http://reactivex.io/intro.html).
 
+> When running the tests, the scheduler is automatically bootstrapped.
+> When using [RxPHP](https://github.com/ReactiveX/RxPHP) within your own project, you'll need to set the default scheduler.
+
 ### Key verification
 
 ```php

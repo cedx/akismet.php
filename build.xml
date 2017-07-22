@@ -10,7 +10,7 @@
 
   <target name="coverage" depends="test" description="Sends the results of the code coverage.">
     <exec executable="vendor/bin/coveralls" passthru="true">
-      <arg value="--file=var/coverage.xml"/>
+      <arg file="var/coverage.xml"/>
     </exec>
   </target>
 

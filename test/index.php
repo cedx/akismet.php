@@ -7,4 +7,5 @@ $rootPath = dirname(__DIR__);
 require_once "$rootPath/vendor/autoload.php";
 
 // Initialize the application.
+ini_set('xdebug.max_nesting_level', '1024');
 Scheduler::setDefaultFactory([Scheduler::class, 'getImmediate']);

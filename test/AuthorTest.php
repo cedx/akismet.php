@@ -13,7 +13,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::fromJson
    */
-  public function testFromJSON() {
+  public function testFromJson() {
     it('should return a null reference with a non-object value', function() {
       expect(Author::fromJson('foo'))->to->be->null;
     });

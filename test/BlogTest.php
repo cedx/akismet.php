@@ -13,7 +13,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::fromJson
    */
-  public function testFromJSON() {
+  public function testFromJson() {
     it('should return a null reference with a non-object value', function() {
       expect(Blog::fromJson('foo'))->to->be->null;
     });

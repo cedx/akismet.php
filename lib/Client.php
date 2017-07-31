@@ -197,7 +197,7 @@ class Client implements \JsonSerializable {
    * @param string $value The new URL of the API end point.
    * @return Client This instance.
    */
-  public function setEndPoint(string $value) {
+  public function setEndPoint(string $value): self {
     $this->endPoint = $value;
     return $this;
   }

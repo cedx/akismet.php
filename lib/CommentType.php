@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 /**
  * Specifies the type of a comment.

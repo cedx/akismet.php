@@ -1,37 +1,37 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Author` class.
+ * Tests the features of the `Akismet\Author` class.
  */
 class AuthorTest extends TestCase {
 
   /**
-   * @test Author::fromJSON
+   * @test Author::fromJson
    */
   public function testFromJSON() {
     it('should return a null reference with a non-object value', function() {
-      expect(Author::fromJSON('foo'))->to->be->null;
+      expect(Author::fromJson('foo'))->to->be->null;
     });
 
     it('should return an empty instance with an empty map', function() {
-      $author = Author::fromJSON([]);
+      $author = Author::fromJson([]);
       expect($author->getEmail())->to->be->empty;
-      expect($author->getURL())->to->be->empty;
+      expect($author->getUrl())->to->be->empty;
     });
 
     it('should return an initialized instance with a non-empty map', function() {
-      $author = Author::fromJSON([
+      $author = Author::fromJson([
         'comment_author_email' => 'cedric@belin.io',
         'comment_author_url' => 'https://belin.io'
       ]);
 
       expect($author->getEmail())->to->equal('cedric@belin.io');
-      expect($author->getURL())->to->equal('https://belin.io');
+      expect($author->getUrl())->to->equal('https://belin.io');
     });
   }
 
@@ -47,7 +47,7 @@ class AuthorTest extends TestCase {
       $data = (new Author('127.0.0.1'))
         ->setEmail('cedric@belin.io')
         ->setName('Cédric Belin')
-        ->setURL('https://belin.io')
+        ->setUrl('https://belin.io')
         ->jsonSerialize();
 
       expect($data->comment_author)->to->equal('Cédric Belin');
@@ -64,10 +64,10 @@ class AuthorTest extends TestCase {
     $author = (string) (new Author('127.0.0.1'))
       ->setEmail('cedric@belin.io')
       ->setName('Cédric Belin')
-      ->setURL('https://belin.io');
+      ->setUrl('https://belin.io');
 
     it('should start with the class name', function() use ($author) {
-      expect($author)->to->startWith('akismet\Author {');
+      expect($author)->to->startWith('Akismet\Author {');
     });
 
     it('should contain the instance properties', function() use ($author) {

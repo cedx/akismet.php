@@ -1,25 +1,25 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Comment` class.
+ * Tests the features of the `Akismet\Comment` class.
  */
 class CommentTest extends TestCase {
 
   /**
-   * @test Comment::fromJSON
+   * @test Comment::fromJson
    */
   public function testFromJSON() {
     it('should return a null reference with a non-object value', function() {
-      expect(Comment::fromJSON('foo'))->to->be->null;
+      expect(Comment::fromJson('foo'))->to->be->null;
     });
 
     it('should return an empty instance with an empty map', function() {
-      $comment = Comment::fromJSON([]);
+      $comment = Comment::fromJson([]);
       expect($comment->getAuthor())->to->be->null;
       expect($comment->getContent())->to->be->empty;
       expect($comment->getDate())->to->be->null;
@@ -28,7 +28,7 @@ class CommentTest extends TestCase {
     });
 
     it('should return an initialized instance with a non-empty map', function() {
-      $comment = Comment::fromJSON([
+      $comment = Comment::fromJson([
         'comment_author' => 'Cédric Belin',
         'comment_content' => 'A user comment.',
         'comment_date_gmt' => '2000-01-01T00:00:00.000Z',
@@ -81,7 +81,7 @@ class CommentTest extends TestCase {
       ->setReferrer('https://belin.io');
 
     it('should start with the class name', function() use ($comment) {
-      expect($comment)->to->startWith('akismet\Comment {');
+      expect($comment)->to->startWith('Akismet\Comment {');
     });
 
     it('should contain the instance properties', function() use ($comment) {

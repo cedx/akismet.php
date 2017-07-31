@@ -1,13 +1,13 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 use Rx\Subject\{Subject};
 
 /**
- * Tests the features of the `akismet\Client` class.
+ * Tests the features of the `Akismet\Client` class.
  */
 class ClientTest extends TestCase {
 
@@ -31,13 +31,13 @@ class ClientTest extends TestCase {
    */
   public function testCheckComment() {
     it('should return `false` for valid comment (e.g. ham)', function() {
-      $this->client->checkComment($this->ham)->subscribe(function(bool $result) {
+      $this->client->checkComment($this->ham)->subscribe(function($result) {
         expect($result)->to->be->false;
       });
     });
 
     it('should return `true` for invalid comment (e.g. spam)', function() {
-      $this->client->checkComment($this->spam)->subscribe(function(bool $result) {
+      $this->client->checkComment($this->spam)->subscribe(function($result) {
         expect($result)->to->be->true;
       });
     });
@@ -121,7 +121,7 @@ class ClientTest extends TestCase {
     $value = (string) $this->client;
 
     it('should start with the class name', function() use ($value) {
-      expect($value)->to->startWith('akismet\Client {');
+      expect($value)->to->startWith('Akismet\Client {');
     });
 
     it('should contain the instance properties', function() use ($value) {
@@ -165,7 +165,7 @@ class ClientTest extends TestCase {
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'))
       ->setName('Akismet for PHP')
       ->setRole('administrator')
-      ->setURL('https://github.com/cedx/akismet.php');
+      ->setUrl('https://github.com/cedx/akismet.php');
 
     $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::COMMENT))
       ->setReferrer('https://packagist.org/packages/cedx/akismet');

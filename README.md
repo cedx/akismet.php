@@ -29,10 +29,10 @@ This package has an API based on [Observables](http://reactivex.io/intro.html).
 ### Key verification
 
 ```php
-use akismet\{Client};
+use Akismet\{Client};
 
-$client = new Client('YourAPIKey', 'http://your.blog.url');
-$client->verifyKey()->subscribe(function(bool $isValid) {
+$client = new Client('YourApiKey', 'http://your.blog.url');
+$client->verifyKey()->subscribe(function($isValid) {
   echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
 });
 ```
@@ -40,14 +40,14 @@ $client->verifyKey()->subscribe(function(bool $isValid) {
 ### Comment check
 
 ```php
-use akismet\{Author, Comment};
+use Akismet\{Author, Comment};
 
 $comment = new Comment(
   new Author('127.0.0.1', 'Mozilla/5.0'),
   'A comment.'
 );
 
-$client->checkComment($comment)->subscribe(function(bool $isSpam) {
+$client->checkComment($comment)->subscribe(function($isSpam) {
   echo $isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.';
 });
 ```
@@ -88,7 +88,7 @@ $client->onResponse()->subscribe(function(ResponseInterface $response) {
 In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
 
 ```shell
-$ export AKISMET_API_KEY="<YourAPIKey>"
+$ export AKISMET_API_KEY="<YourApiKey>"
 ```
 
 Then, you can run the `test` script from the command prompt:

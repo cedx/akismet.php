@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 /**
  * Represents the front page or home URL transmitted when making requests.
@@ -31,7 +31,7 @@ class Blog implements \JsonSerializable {
   public function __construct(string $url = '', string $charset = '', array $languages = []) {
     $this->languages = new \ArrayObject($languages);
     $this->setCharset($charset);
-    $this->setURL($url);
+    $this->setUrl($url);
   }
 
   /**
@@ -48,15 +48,14 @@ class Blog implements \JsonSerializable {
    * @param mixed $map A JSON map representing a blog.
    * @return Blog The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  public static function fromJSON($map) {
+  public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
-    $transform = function(string $languages): array {
+    $transform = function($languages) {
       return array_values(array_filter(array_map('trim', explode(',', $languages))));
     };
 
-    /** @var Blog $blog */
     $blog = new static(isset($map->blog) && is_string($map->blog) ? $map->blog : '');
     return $blog->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
       ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);
@@ -82,7 +81,7 @@ class Blog implements \JsonSerializable {
    * Gets the blog or site URL.
    * @return string The blog or site URL.
    */
-  public function getURL(): string {
+  public function getUrl(): string {
     return $this->url;
   }
 
@@ -92,7 +91,7 @@ class Blog implements \JsonSerializable {
    */
   public function jsonSerialize(): \stdClass {
     $map = new \stdClass;
-    if (mb_strlen($url = $this->getURL())) $map->blog = $url;
+    if (mb_strlen($url = $this->getUrl())) $map->blog = $url;
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
     if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
     return $map;
@@ -123,7 +122,7 @@ class Blog implements \JsonSerializable {
    * @param string $value The new URL.
    * @return Blog This instance.
    */
-  public function setURL(string $value): self {
+  public function setUrl(string $value): self {
     $this->url = $value;
     return $this;
   }

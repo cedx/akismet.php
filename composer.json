@@ -11,7 +11,7 @@
     "name": "Cédric Belin"
   }],
   "autoload": {
-    "psr-4": {"akismet\\": "lib/"}
+    "psr-4": {"Akismet\\": "lib/"}
   },
   "config": {
     "optimize-autoloader": true

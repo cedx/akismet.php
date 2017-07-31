@@ -1,32 +1,32 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Blog` class.
+ * Tests the features of the `Akismet\Blog` class.
  */
 class BlogTest extends TestCase {
 
   /**
-   * @test Blog::fromJSON
+   * @test Blog::fromJson
    */
   public function testFromJSON() {
     it('should return a null reference with a non-object value', function() {
-      expect(Blog::fromJSON('foo'))->to->be->null;
+      expect(Blog::fromJson('foo'))->to->be->null;
     });
 
     it('should return an empty instance with an empty map', function() {
-      $blog = Blog::fromJSON([]);
+      $blog = Blog::fromJson([]);
       expect($blog->getCharset())->to->be->empty;
       expect($blog->getLanguages())->to->be->empty;
-      expect($blog->getURL())->to->be->empty;
+      expect($blog->getUrl())->to->be->empty;
     });
 
     it('should return an initialized instance with a non-empty map', function() {
-      $blog = Blog::fromJSON([
+      $blog = Blog::fromJson([
         'blog' => 'https://github.com/cedx/akismet.php',
         'blog_charset' => 'UTF-8',
         'blog_lang' => 'en, fr'
@@ -34,7 +34,7 @@ class BlogTest extends TestCase {
 
       expect($blog->getCharset())->to->equal('UTF-8');
       expect($blog->getLanguages()->getArrayCopy())->to->equal(['en', 'fr']);
-      expect($blog->getURL())->to->equal('https://github.com/cedx/akismet.php');
+      expect($blog->getUrl())->to->equal('https://github.com/cedx/akismet.php');
     });
   }
 
@@ -62,7 +62,7 @@ class BlogTest extends TestCase {
     $blog = (string) (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']));
 
     it('should start with the class name', function() use ($blog) {
-      expect($blog)->to->startWith('akismet\Blog {');
+      expect($blog)->to->startWith('Akismet\Blog {');
     });
 
     it('should contain the instance properties', function() use ($blog) {

@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
 ## Version 7.0.0
+- Breaking change: renamed the `akismet` namespace to `Akismet`.
 - Breaking change: reverted the API of the `Client` class to an [Observable](http://reactivex.io/intro.html)-based one.
 - Enabled the strict typing.
 - Replaced [phpDocumentor](https://www.phpdoc.org) documentation generator by [ApiGen](https://github.com/ApiGen/ApiGen).

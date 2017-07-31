@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 /**
  * Represents a comment submitted by an author.
@@ -68,17 +68,16 @@ class Comment implements \JsonSerializable {
    * @param mixed $map A JSON map representing a comment.
    * @return Comment The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  public static function fromJSON($map) {
+  public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
     $keys = array_keys(get_object_vars($map));
-    $hasAuthor = count(array_filter($keys, function(string $key): bool {
+    $hasAuthor = count(array_filter($keys, function($key) {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;
 
-    /** @var Comment $comment */
-    $comment = new static($hasAuthor ? Author::fromJSON($map) : null);
+    $comment = new static($hasAuthor ? Author::fromJson($map) : null);
     return $comment->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
       ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
       ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : '')

@@ -1,8 +1,8 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
-use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Promise\{PromiseInterface};
 use GuzzleHttp\Psr7\{ServerRequest};
 use Rx\{Observable};
@@ -72,7 +72,7 @@ class Client implements \JsonSerializable {
     $this->onRequest = new Subject();
     $this->onResponse = new Subject();
 
-    $this->setAPIKey($apiKey);
+    $this->setApiKey($apiKey);
     $this->setBlog($blog);
     $this->setUserAgent(sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION));
   }
@@ -93,8 +93,8 @@ class Client implements \JsonSerializable {
    */
   public function checkComment(Comment $comment): Observable {
     $serviceURL = parse_url($this->getEndPoint());
-    $endPoint = "{$serviceURL['scheme']}://{$this->getAPIKey()}.{$serviceURL['host']}/1.1/comment-check";
-    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function(string $response): bool {
+    $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/comment-check";
+    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function($response) {
       return $response == 'true';
     });
   }
@@ -103,7 +103,7 @@ class Client implements \JsonSerializable {
    * Gets the Akismet API key.
    * @return string The Akismet API key.
    */
-  public function getAPIKey(): string {
+  public function getApiKey(): string {
     return $this->apiKey;
   }
 
@@ -145,7 +145,7 @@ class Client implements \JsonSerializable {
    */
   public function jsonSerialize(): \stdClass {
     return (object) [
-      'apiKey' => $this->getAPIKey(),
+      'apiKey' => $this->getApiKey(),
       'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
       'endPoint' => $this->getEndPoint(),
       'isTest' => $this->isTest(),
@@ -174,7 +174,7 @@ class Client implements \JsonSerializable {
    * @param string $value The new API key.
    * @return Client This instance.
    */
-  public function setAPIKey(string $value): self {
+  public function setApiKey(string $value): self {
     $this->apiKey = $value;
     return $this;
   }
@@ -231,7 +231,7 @@ class Client implements \JsonSerializable {
    */
   public function submitHam(Comment $comment): Observable {
     $serviceURL = parse_url($this->getEndPoint());
-    $endPoint = "{$serviceURL['scheme']}://{$this->getAPIKey()}.{$serviceURL['host']}/1.1/submit-ham";
+    $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/submit-ham";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
@@ -242,7 +242,7 @@ class Client implements \JsonSerializable {
    */
   public function submitSpam(Comment $comment): Observable {
     $serviceURL = parse_url($this->getEndPoint());
-    $endPoint = "{$serviceURL['scheme']}://{$this->getAPIKey()}.{$serviceURL['host']}/1.1/submit-spam";
+    $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/submit-spam";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
@@ -252,7 +252,7 @@ class Client implements \JsonSerializable {
    */
   public function verifyKey(): Observable {
     $endPoint = $this->getEndPoint().'/1.1/verify-key';
-    return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function(string $response): bool {
+    return $this->fetch($endPoint, ['key' => $this->getApiKey()])->map(function($response) {
       return $response == 'valid';
     });
   }
@@ -267,20 +267,20 @@ class Client implements \JsonSerializable {
    */
   private function fetch(string $endPoint, array $fields = []): Observable {
     $blog = $this->getBlog();
-    if (!mb_strlen($this->getAPIKey()) || !$blog)
+    if (!mb_strlen($this->getApiKey()) || !$blog)
       return Observable::error(new \InvalidArgumentException('The API key or the blog URL is empty.'));
 
     $bodyFields = array_merge(get_object_vars($blog->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
     $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyFields);
-    $promise = (new HTTPClient)->sendAsync($request, [
+    $promise = (new HttpClient)->sendAsync($request, [
       'form_params' => $request->getParsedBody(),
       'headers' => ['User-Agent' => $this->getUserAgent()]
     ]);
 
     $this->onRequest->onNext($request);
-    return Observable::of($promise)->map(function(PromiseInterface $promise): string {
+    return Observable::of($promise)->map(function(PromiseInterface $promise) {
       $response = $promise->wait();
       $this->onResponse->onNext($response);
       if ($response->hasHeader(static::DEBUG_HEADER)) throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);

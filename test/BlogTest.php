@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Blog` class.
+ * Tests the features of the `Akismet\Blog` class.
  */
 class BlogTest extends TestCase {
 
@@ -62,7 +62,7 @@ class BlogTest extends TestCase {
     $blog = (string) (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']));
 
     it('should start with the class name', function() use ($blog) {
-      expect($blog)->to->startWith('akismet\Blog {');
+      expect($blog)->to->startWith('Akismet\Blog {');
     });
 
     it('should contain the instance properties', function() use ($blog) {

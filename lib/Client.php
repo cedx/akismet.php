@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Promise\{PromiseInterface};
@@ -94,7 +94,7 @@ class Client implements \JsonSerializable {
   public function checkComment(Comment $comment): Observable {
     $serviceURL = parse_url($this->getEndPoint());
     $endPoint = "{$serviceURL['scheme']}://{$this->getAPIKey()}.{$serviceURL['host']}/1.1/comment-check";
-    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function(string $response): bool {
+    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function($response) {
       return $response == 'true';
     });
   }
@@ -252,7 +252,7 @@ class Client implements \JsonSerializable {
    */
   public function verifyKey(): Observable {
     $endPoint = $this->getEndPoint().'/1.1/verify-key';
-    return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function(string $response): bool {
+    return $this->fetch($endPoint, ['key' => $this->getAPIKey()])->map(function($response) {
       return $response == 'valid';
     });
   }
@@ -280,7 +280,7 @@ class Client implements \JsonSerializable {
     ]);
 
     $this->onRequest->onNext($request);
-    return Observable::of($promise)->map(function(PromiseInterface $promise): string {
+    return Observable::of($promise)->map(function(PromiseInterface $promise) {
       $response = $promise->wait();
       $this->onResponse->onNext($response);
       if ($response->hasHeader(static::DEBUG_HEADER)) throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);

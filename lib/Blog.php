@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 /**
  * Represents the front page or home URL transmitted when making requests.
@@ -52,11 +52,10 @@ class Blog implements \JsonSerializable {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
-    $transform = function(string $languages): array {
+    $transform = function($languages) {
       return array_values(array_filter(array_map('trim', explode(',', $languages))));
     };
 
-    /** @var Blog $blog */
     $blog = new static(isset($map->blog) && is_string($map->blog) ? $map->blog : '');
     return $blog->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
       ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);

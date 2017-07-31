@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 /**
  * Represents the author of a comment.
@@ -65,7 +65,6 @@ class Author implements \JsonSerializable {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
-    /** @var Author $author */
     $author = new static(isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '');
     return $author->setEmail(isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '')
       ->setName(isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : '')

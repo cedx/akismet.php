@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Author` class.
+ * Tests the features of the `Akismet\Author` class.
  */
 class AuthorTest extends TestCase {
 
@@ -67,7 +67,7 @@ class AuthorTest extends TestCase {
       ->setURL('https://belin.io');
 
     it('should start with the class name', function() use ($author) {
-      expect($author)->to->startWith('akismet\Author {');
+      expect($author)->to->startWith('Akismet\Author {');
     });
 
     it('should contain the instance properties', function() use ($author) {

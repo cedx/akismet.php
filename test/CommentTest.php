@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
-namespace akismet;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
- * Tests the features of the `akismet\Comment` class.
+ * Tests the features of the `Akismet\Comment` class.
  */
 class CommentTest extends TestCase {
 
@@ -81,7 +81,7 @@ class CommentTest extends TestCase {
       ->setReferrer('https://belin.io');
 
     it('should start with the class name', function() use ($comment) {
-      expect($comment)->to->startWith('akismet\Comment {');
+      expect($comment)->to->startWith('Akismet\Comment {');
     });
 
     it('should contain the instance properties', function() use ($comment) {

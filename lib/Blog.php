@@ -56,8 +56,8 @@ class Blog implements \JsonSerializable {
       return array_values(array_filter(array_map('trim', explode(',', $languages))));
     };
 
-    $blog = new static(isset($map->blog) && is_string($map->blog) ? $map->blog : '');
-    return $blog->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
+    return (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : ''))
+      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
       ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);
   }
 

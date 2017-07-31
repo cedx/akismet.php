@@ -165,7 +165,7 @@ class ClientTest extends TestCase {
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0'))
       ->setName('Akismet for PHP')
       ->setRole('administrator')
-      ->setURL('https://github.com/cedx/akismet.php');
+      ->setUrl('https://github.com/cedx/akismet.php');
 
     $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::COMMENT))
       ->setReferrer('https://packagist.org/packages/cedx/akismet');

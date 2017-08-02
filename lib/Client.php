@@ -2,9 +2,8 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use GuzzleHttp\{Client as HttpClient};
-use GuzzleHttp\Promise\{PromiseInterface};
-use GuzzleHttp\Psr7\{ServerRequest};
+use GuzzleHttp\Psr7\{Request, Response, Uri};
+use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
 use Rx\Subject\{Subject};
 
@@ -39,9 +38,9 @@ class Client implements \JsonSerializable {
   private $blog;
 
   /**
-   * @var string The URL of the API end point.
+   * @var Uri The URL of the API end point.
    */
-  private $endPoint = self::DEFAULT_ENDPOINT;
+  private $endPoint;
 
   /**
    * @var bool Value indicating whether the client operates in test mode.
@@ -74,6 +73,7 @@ class Client implements \JsonSerializable {
 
     $this->setApiKey($apiKey);
     $this->setBlog($blog);
+    $this->setEndPoint(static::DEFAULT_ENDPOINT);
     $this->setUserAgent(sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION));
   }
 
@@ -92,7 +92,7 @@ class Client implements \JsonSerializable {
    * @return Observable A boolean value indicating whether it is spam.
    */
   public function checkComment(Comment $comment): Observable {
-    $serviceURL = parse_url($this->getEndPoint());
+    $serviceURL = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/comment-check";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function($response) {
       return $response == 'true';
@@ -117,9 +117,9 @@ class Client implements \JsonSerializable {
 
   /**
    * Gets the URL of the API end point.
-   * @return string The URL of the API end point.
+   * @return UriInterface The URL of the API end point.
    */
-  public function getEndPoint(): string {
+  public function getEndPoint() {
     return $this->endPoint;
   }
 
@@ -147,7 +147,7 @@ class Client implements \JsonSerializable {
     return (object) [
       'apiKey' => $this->getApiKey(),
       'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
-      'endPoint' => $this->getEndPoint(),
+      'endPoint' => ($endPoint = $this->getEndPoint()) ? (string) $endPoint : null,
       'isTest' => $this->isTest(),
       'userAgent' => $this->getUserAgent()
     ];
@@ -194,11 +194,14 @@ class Client implements \JsonSerializable {
 
   /**
    * Sets the URL of the API end point.
-   * @param string $value The new URL of the API end point.
+   * @param string|UriInterface $value The new URL of the API end point.
    * @return Client This instance.
    */
-  public function setEndPoint(string $value): self {
-    $this->endPoint = $value;
+  public function setEndPoint($value): self {
+    if ($value instanceof UriInterface) $this->endPoint = $value;
+    else if (is_string($value)) $this->endPoint = new Uri($value);
+    else $this->endPoint = null;
+
     return $this;
   }
 
@@ -230,7 +233,7 @@ class Client implements \JsonSerializable {
    * @return Observable Completes once the comment has been submitted.
    */
   public function submitHam(Comment $comment): Observable {
-    $serviceURL = parse_url($this->getEndPoint());
+    $serviceURL = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/submit-ham";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
@@ -241,7 +244,7 @@ class Client implements \JsonSerializable {
    * @return Observable Completes once the comment has been submitted.
    */
   public function submitSpam(Comment $comment): Observable {
-    $serviceURL = parse_url($this->getEndPoint());
+    $serviceURL = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/submit-spam";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
@@ -251,7 +254,7 @@ class Client implements \JsonSerializable {
    * @return Observable A boolean value indicating whether it is a valid API key.
    */
   public function verifyKey(): Observable {
-    $endPoint = $this->getEndPoint().'/1.1/verify-key';
+    $endPoint = (string) $this->getEndPoint()->withPath('/1.1/verify-key');
     return $this->fetch($endPoint, ['key' => $this->getApiKey()])->map(function($response) {
       return $response == 'valid';
     });
@@ -262,8 +265,6 @@ class Client implements \JsonSerializable {
    * @param string $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
    * @return Observable The response body as string.
-   * @emits \Psr\Http\Message\RequestInterface The "request" event.
-   * @emits \Psr\Http\Message\ResponseInterface The "response" event.
    */
   private function fetch(string $endPoint, array $fields = []): Observable {
     $blog = $this->getBlog();

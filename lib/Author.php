@@ -2,6 +2,9 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
+use Psr\Http\Message\{UriInterface};
+
 /**
  * Represents the author of a comment.
  */
@@ -28,9 +31,9 @@ class Author implements \JsonSerializable {
   private $role = '';
 
   /**
-   * @var string The URL of the author's website.
+   * @var Uri The URL of the author's website.
    */
-  private $url = '';
+  private $url;
 
   /**
    * @var string The author's user agent, that is the string identifying the Web browser used to submit comments.
@@ -69,7 +72,7 @@ class Author implements \JsonSerializable {
       ->setEmail(isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '')
       ->setName(isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : '')
       ->setRole(isset($map->user_role) && is_string($map->user_role) ? $map->user_role : '')
-      ->setUrl(isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : '')
+      ->setUrl(isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : null)
       ->setUserAgent(isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : '');
   }
 
@@ -107,9 +110,9 @@ class Author implements \JsonSerializable {
 
   /**
    * Gets the URL of the author's website.
-   * @return string The URL of the author's website.
+   * @return UriInterface The URL of the author's website.
    */
-  public function getUrl(): string {
+  public function getUrl() {
     return $this->url;
   }
 
@@ -129,7 +132,7 @@ class Author implements \JsonSerializable {
     $map = new \stdClass;
     if (mb_strlen($name = $this->getName())) $map->comment_author = $name;
     if (mb_strlen($email = $this->getEmail())) $map->comment_author_email = $email;
-    if (mb_strlen($url = $this->getUrl())) $map->comment_author_url = $url;
+    if ($url = $this->getUrl()) $map->comment_author_url = (string) $url;
     if (mb_strlen($userAgent = $this->getUserAgent())) $map->user_agent = $userAgent;
     if (mb_strlen($ipAddress = $this->getIPAddress())) $map->user_ip = $ipAddress;
     if (mb_strlen($role = $this->getRole())) $map->user_role = $role;
@@ -178,11 +181,14 @@ class Author implements \JsonSerializable {
 
   /**
    * Sets the URL of the author's website.
-   * @param string $value The new website URL.
+   * @param string|UriInterface $value The new website URL.
    * @return Author This instance.
    */
-  public function setUrl(string $value): self {
-    $this->url = $value;
+  public function setUrl($value): self {
+    if ($value instanceof UriInterface) $this->url = $value;
+    else if (is_string($value)) $this->url = new Uri($value);
+    else $this->url = null;
+
     return $this;
   }
 

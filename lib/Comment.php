@@ -2,6 +2,9 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
+use Psr\Http\Message\{UriInterface};
+
 /**
  * Represents a comment submitted by an author.
  */
@@ -23,9 +26,9 @@ class Comment implements \JsonSerializable {
   private $date;
 
   /**
-   * @var string The permanent location of the entry the comment is submitted to.
+   * @var Uri The permanent location of the entry the comment is submitted to.
    */
-  private $permalink = '';
+  private $permalink;
 
   /**
    * @var \DateTime The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
@@ -33,9 +36,9 @@ class Comment implements \JsonSerializable {
   private $postModified;
 
   /**
-   * @var string The URL of the webpage that linked to the entry being requested.
+   * @var Uri The URL of the webpage that linked to the entry being requested.
    */
-  private $referrer = '';
+  private $referrer;
 
   /**
    * @var string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
@@ -80,9 +83,9 @@ class Comment implements \JsonSerializable {
     return (new static($hasAuthor ? Author::fromJson($map) : null))
       ->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
       ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
-      ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : '')
+      ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : null)
       ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null)
-      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? $map->referrer : '')
+      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? $map->referrer : null)
       ->setType(isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : '');
   }
 
@@ -112,9 +115,9 @@ class Comment implements \JsonSerializable {
 
   /**
    * Gets the permanent location of the entry the comment is submitted to.
-   * @return string The permanent location of the entry the comment is submitted to.
+   * @return UriInterface The permanent location of the entry the comment is submitted to.
    */
-  public function getPermalink(): string {
+  public function getPermalink() {
     return $this->permalink;
   }
 
@@ -128,9 +131,9 @@ class Comment implements \JsonSerializable {
 
   /**
    * Gets the URL of the webpage that linked to the entry being requested.
-   * @return string The URL of the webpage that linked to the entry being requested.
+   * @return UriInterface The URL of the webpage that linked to the entry being requested.
    */
-  public function getReferrer(): string {
+  public function getReferrer() {
     return $this->referrer;
   }
 
@@ -152,8 +155,8 @@ class Comment implements \JsonSerializable {
     if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
     if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
     if (mb_strlen($type = $this->getType())) $map->comment_type = $type;
-    if (mb_strlen($permalink = $this->getPermalink())) $map->permalink = $permalink;
-    if (mb_strlen($referrer = $this->getReferrer())) $map->referrer = $referrer;
+    if ($permalink = $this->getPermalink()) $map->permalink = (string) $permalink;
+    if ($referrer = $this->getReferrer()) $map->referrer = (string) $referrer;
     return $map;
   }
 
@@ -193,11 +196,14 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the permanent location of the entry the comment is submitted to.
-   * @param string $value The new permanent location of the entry.
+   * @param string|UriInterface $value The new permanent location of the entry.
    * @return Comment This instance.
    */
-  public function setPermalink(string $value): self {
-    $this->permalink = $value;
+  public function setPermalink($value): self {
+    if ($value instanceof UriInterface) $this->permalink = $value;
+    else if (is_string($value)) $this->permalink = new Uri($value);
+    else $this->permalink = null;
+
     return $this;
   }
 
@@ -217,11 +223,14 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the URL of the webpage that linked to the entry being requested.
-   * @param string $value The new URL of the webpage that linked to the entry.
+   * @param string|UriInterface $value The new URL of the webpage that linked to the entry.
    * @return Comment This instance.
    */
-  public function setReferrer(string $value): self {
-    $this->referrer = $value;
+  public function setReferrer($value): self {
+    if ($value instanceof UriInterface) $this->referrer = $value;
+    else if (is_string($value)) $this->referrer = new Uri($value);
+    else $this->referrer = null;
+
     return $this;
   }
 

@@ -2,6 +2,9 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
+use Psr\Http\Message\{UriInterface};
+
 /**
  * Represents the front page or home URL transmitted when making requests.
  */
@@ -18,17 +21,17 @@ class Blog implements \JsonSerializable {
   private $languages;
 
   /**
-   * @var string The blog or site URL.
+   * @var Uri The blog or site URL.
    */
   private $url;
 
   /**
    * Initializes a new instance of the class.
-   * @param string $url The blog or site URL.
+   * @param string|UriInterface $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
    * @param array $languages The languages in use on the blog or site.
    */
-  public function __construct(string $url = '', string $charset = '', array $languages = []) {
+  public function __construct($url = null, string $charset = '', array $languages = []) {
     $this->languages = new \ArrayObject($languages);
     $this->setCharset($charset);
     $this->setUrl($url);
@@ -56,7 +59,7 @@ class Blog implements \JsonSerializable {
       return array_values(array_filter(array_map('trim', explode(',', $languages))));
     };
 
-    return (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : ''))
+    return (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : null))
       ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
       ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);
   }
@@ -79,9 +82,9 @@ class Blog implements \JsonSerializable {
 
   /**
    * Gets the blog or site URL.
-   * @return string The blog or site URL.
+   * @return UriInterface The blog or site URL.
    */
-  public function getUrl(): string {
+  public function getUrl() {
     return $this->url;
   }
 
@@ -91,7 +94,7 @@ class Blog implements \JsonSerializable {
    */
   public function jsonSerialize(): \stdClass {
     $map = new \stdClass;
-    if (mb_strlen($url = $this->getUrl())) $map->blog = $url;
+    if ($url = $this->getUrl()) $map->blog = (string) $url;
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
     if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
     return $map;
@@ -119,11 +122,14 @@ class Blog implements \JsonSerializable {
 
   /**
    * Sets the blog or site URL.
-   * @param string $value The new URL.
+   * @param string|UriInterface $value The new URL.
    * @return Blog This instance.
    */
-  public function setUrl(string $value): self {
-    $this->url = $value;
+  public function setUrl($value): self {
+    if ($value instanceof UriInterface) $this->url = $value;
+    else if (is_string($value)) $this->url = new Uri($value);
+    else $this->url = null;
+
     return $this;
   }
 }

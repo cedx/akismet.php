@@ -4,6 +4,7 @@ namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
+use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `Akismet\Blog` class.
@@ -22,7 +23,7 @@ class BlogTest extends TestCase {
       $blog = Blog::fromJson([]);
       expect($blog->getCharset())->to->be->empty;
       expect($blog->getLanguages())->to->be->empty;
-      expect($blog->getUrl())->to->be->empty;
+      expect($blog->getUrl())->to->be->null;
     });
 
     it('should return an initialized instance with a non-empty map', function() {
@@ -34,7 +35,7 @@ class BlogTest extends TestCase {
 
       expect($blog->getCharset())->to->equal('UTF-8');
       expect($blog->getLanguages()->getArrayCopy())->to->equal(['en', 'fr']);
-      expect($blog->getUrl())->to->equal('https://github.com/cedx/akismet.php');
+      expect((string) $blog->getUrl())->to->equal('https://github.com/cedx/akismet.php');
     });
   }
 
@@ -52,6 +53,21 @@ class BlogTest extends TestCase {
       expect($data->blog)->to->equal('https://github.com/cedx/akismet.php');
       expect($data->blog_charset)->to->equal('UTF-8');
       expect($data->blog_lang)->to->equal('en,fr');
+    });
+  }
+
+  /**
+   * @test Blog::setUrl
+   */
+  public function testSetUrl() {
+    it('should return an instance of `UriInterface` for strings', function() {
+      $url = (new Blog)->setUrl('https://github.com/cedx/akismet.php')->getUrl();
+      expect($url)->to->be->instanceOf(UriInterface::class);
+      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      expect((new Blog)->setUrl(123)->getUrl())->to->be->null;
     });
   }
 

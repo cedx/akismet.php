@@ -4,6 +4,7 @@ namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
+use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `Akismet\Comment` class.
@@ -23,7 +24,7 @@ class CommentTest extends TestCase {
       expect($comment->getAuthor())->to->be->null;
       expect($comment->getContent())->to->be->empty;
       expect($comment->getDate())->to->be->null;
-      expect($comment->getReferrer())->to->be->empty;
+      expect($comment->getReferrer())->to->be->null;
       expect($comment->getType())->to->be->empty;
     });
 
@@ -45,7 +46,7 @@ class CommentTest extends TestCase {
       expect($date->format('Y'))->to->equal(2000);
 
       expect($comment->getContent())->to->equal('A user comment.');
-      expect($comment->getReferrer())->to->equal('https://belin.io');
+      expect((string) $comment->getReferrer())->to->equal('https://belin.io');
       expect($comment->getType())->to->equal(CommentType::TRACKBACK);
     });
   }
@@ -69,6 +70,64 @@ class CommentTest extends TestCase {
       expect($data->comment_date_gmt)->to->equal('2000-01-01T00:00:00+00:00');
       expect($data->comment_type)->to->equal('pingback');
       expect($data->referrer)->to->equal('https://belin.io');
+    });
+  }
+
+  /**
+   * @test Comment::setDate
+   */
+  public function testSetDate() {
+    it('should return an instance of `DateTime` for strings and timestamps', function() {
+      expect((new Comment)->setDate(time())->getDate())->to->be->instanceOf(\DateTime::class);
+      expect((new Comment)->setDate('2000-01-01T00:00:00+00:00')->getDate())->to->be->instanceOf(\DateTime::class);
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      expect((new Comment)->setDate([])->getDate())->to->be->null;
+    });
+  }
+
+  /**
+   * @test Comment::setPermalink
+   */
+  public function testSetPermalink() {
+    it('should return an instance of `UriInterface` for strings', function() {
+      $url = (new Comment)->setPermalink('https://github.com/cedx/akismet.php')->getPermalink();
+      expect($url)->to->be->instanceOf(UriInterface::class);
+      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      expect((new Comment)->setPermalink(123)->getPermalink())->to->be->null;
+    });
+  }
+
+  /**
+   * @test Comment::setPostModified
+   */
+  public function testSetPostModified() {
+    it('should return an instance of `DateTime` for strings and timestamps', function() {
+      expect((new Comment)->setPostModified(time())->getPostModified())->to->be->instanceOf(\DateTime::class);
+      expect((new Comment)->setPostModified('2000-01-01T00:00:00+00:00')->getPostModified())->to->be->instanceOf(\DateTime::class);
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      expect((new Comment)->setPostModified([])->getDate())->to->be->null;
+    });
+  }
+
+  /**
+   * @test Comment::setReferrer
+   */
+  public function testSetReferrer() {
+    it('should return an instance of `UriInterface` for strings', function() {
+      $url = (new Comment)->setReferrer('https://github.com/cedx/akismet.php')->getReferrer();
+      expect($url)->to->be->instanceOf(UriInterface::class);
+      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      expect((new Comment)->setReferrer(123)->getReferrer())->to->be->null;
     });
   }
 

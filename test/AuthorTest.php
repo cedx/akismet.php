@@ -4,6 +4,7 @@ namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
+use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `Akismet\Author` class.
@@ -21,7 +22,7 @@ class AuthorTest extends TestCase {
     it('should return an empty instance with an empty map', function() {
       $author = Author::fromJson([]);
       expect($author->getEmail())->to->be->empty;
-      expect($author->getUrl())->to->be->empty;
+      expect($author->getUrl())->to->be->null;
     });
 
     it('should return an initialized instance with a non-empty map', function() {
@@ -31,7 +32,7 @@ class AuthorTest extends TestCase {
       ]);
 
       expect($author->getEmail())->to->equal('cedric@belin.io');
-      expect($author->getUrl())->to->equal('https://belin.io');
+      expect((string) $author->getUrl())->to->equal('https://belin.io');
     });
   }
 
@@ -54,6 +55,21 @@ class AuthorTest extends TestCase {
       expect($data->comment_author_email)->to->equal('cedric@belin.io');
       expect($data->comment_author_url)->to->equal('https://belin.io');
       expect($data->user_ip)->to->equal('127.0.0.1');
+    });
+  }
+
+  /**
+   * @test Author::setUrl
+   */
+  public function testSetUrl() {
+    it('should return an instance of `UriInterface` for strings', function() {
+      $url = (new Author)->setUrl('https://github.com/cedx/akismet.php')->getUrl();
+      expect($url)->to->be->instanceOf(UriInterface::class);
+      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
+    });
+
+    it('should return a `null` reference for unsupported values', function() {
+      expect((new Author)->setUrl(123)->getUrl())->to->be->null;
     });
   }
 

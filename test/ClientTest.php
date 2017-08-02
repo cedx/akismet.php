@@ -4,6 +4,7 @@ namespace Akismet;
 
 use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
+use Psr\Http\Message\{UriInterface};
 use Rx\Subject\{Subject};
 
 /**
@@ -91,6 +92,21 @@ class ClientTest extends TestCase {
   }
 
   /**
+   * @test Client::setEndPoint
+   */
+  public function testSetEndPoint() {
+    skip('should return an instance of `UriInterface` for strings', function() {
+      $endPoint = (new Client)->setEndPoint('https://github.com/cedx/free-mobile.php')->getEndPoint();
+      expect($endPoint)->to->be->instanceOf(UriInterface::class);
+      expect((string) $endPoint)->to->equal('https://github.com/cedx/free-mobile.php');
+    });
+
+    skip('should return a `null` reference for unsupported values', function() {
+      expect((new Client)->setEndPoint(123)->getEndPoint())->to->be->null;
+    });
+  }
+
+  /**
    * @test Client::submitHam
    */
   public function testSubmitHam() {
@@ -139,7 +155,7 @@ class ClientTest extends TestCase {
   public function testVerifyKey() {
     it('should return `true` for a valid API key', function() {
       $this->client->verifyKey()->subscribe(
-        function(bool $result) { expect($result)->to->be->true; },
+        function($result) { expect($result)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
     });
@@ -149,7 +165,7 @@ class ClientTest extends TestCase {
         ->setIsTest($this->client->isTest());
 
       $client->verifyKey()->subscribe(
-        function(bool $result) { expect($result)->to->be->false; },
+        function($result) { expect($result)->to->be->false; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
     });

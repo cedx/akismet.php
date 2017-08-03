@@ -5,6 +5,7 @@ namespace Akismet;
 use GuzzleHttp\Psr7\{Request, Response, Uri};
 use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
+use Rx\React\{Http};
 use Rx\Subject\{Subject};
 
 /**
@@ -15,7 +16,7 @@ class Client implements \JsonSerializable {
   /**
    * @var string The HTTP header containing the Akismet error messages.
    */
-  const DEBUG_HEADER = 'x-akismet-debug-help';
+  const DEBUG_HEADER = 'X-akismet-debug-help';
 
   /**
    * @var string The URL of the default API end point.
@@ -274,18 +275,21 @@ class Client implements \JsonSerializable {
     $bodyFields = array_merge(get_object_vars($blog->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-    $request = (new ServerRequest('POST', $endPoint))->withParsedBody($bodyFields);
-    $promise = (new HttpClient)->sendAsync($request, [
-      'form_params' => $request->getParsedBody(),
-      'headers' => ['User-Agent' => $this->getUserAgent()]
-    ]);
+    $request = http_build_query($bodyFields);
+    $headers = [
+      'Content-Length' => strlen($request),
+      'Content-Type' => 'application/x-www-form-urlencoded',
+      'User-Agent' => $this->getUserAgent()
+    ];
 
-    $this->onRequest->onNext($request);
-    return Observable::of($promise)->map(function(PromiseInterface $promise) {
-      $response = $promise->wait();
-      $this->onResponse->onNext($response);
-      if ($response->hasHeader(static::DEBUG_HEADER)) throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
-      return (string) $response->getBody();
+    $this->onRequest->onNext(new Request('POST', $endPoint, $headers, $request));
+    return Http::post($endPoint, $request, $headers)->includeResponse()->map(function($data) {
+      /** @var \React\HttpClient\Response $response */
+      list($body, $response) = $data;
+      $headers = $response->getHeaders();
+      $this->onResponse->onNext(new Response($response->getCode(), $headers, $body));
+      if (in_array(static::DEBUG_HEADER, $headers)) throw new \UnexpectedValueException($headers[static::DEBUG_HEADER]);
+      return $body;
     });
   }
 }

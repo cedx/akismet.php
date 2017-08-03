@@ -1,6 +1,20 @@
 <?php
 declare(strict_types=1);
+
+use EventLoop\{EventLoop};
 use Rx\{Scheduler};
+
+function wait(callable $block) {
+  $loop = EventLoop::getLoop();
+  $loop->stop();
+  return function() use ($block, $loop) {
+    //$loop->futureTick([$loop, 'stop']);
+    //$loop->futureTick(function() use ($block, $loop) {
+    //});
+    call_user_func($block);
+    $loop->run();
+  };
+}
 
 // Load the class library.
 $rootPath = dirname(__DIR__);

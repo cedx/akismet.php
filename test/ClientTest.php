@@ -31,17 +31,19 @@ class ClientTest extends TestCase {
    * @test Client::checkComment
    */
   public function testCheckComment() {
-    it('should return `false` for valid comment (e.g. ham)', function() {
-      $this->client->checkComment($this->ham)->subscribe(function($result) {
-        expect($result)->to->be->false;
-      });
-    });
+    it('should return `false` for valid comment (e.g. ham)', wait(function() {
+      $this->client->checkComment($this->ham)->subscribe(
+        function($result) { expect($result)->to->be->false; },
+        function(\Throwable $e) { fail($e->getMessage()); }
+      );
+    }));
 
-    it('should return `true` for invalid comment (e.g. spam)', function() {
-      $this->client->checkComment($this->spam)->subscribe(function($result) {
-        expect($result)->to->be->true;
-      });
-    });
+    it('should return `true` for invalid comment (e.g. spam)', wait(function() {
+      $this->client->checkComment($this->spam)->subscribe(
+        function($result) { expect($result)->to->be->true; },
+        function(\Throwable $e) { fail($e->getMessage()); }
+      );
+    }));
   }
 
   /**
@@ -95,13 +97,13 @@ class ClientTest extends TestCase {
    * @test Client::setEndPoint
    */
   public function testSetEndPoint() {
-    skip('should return an instance of `UriInterface` for strings', function() {
+    it('should return an instance of `UriInterface` for strings', function() {
       $endPoint = (new Client)->setEndPoint('https://github.com/cedx/free-mobile.php')->getEndPoint();
       expect($endPoint)->to->be->instanceOf(UriInterface::class);
       expect((string) $endPoint)->to->equal('https://github.com/cedx/free-mobile.php');
     });
 
-    skip('should return a `null` reference for unsupported values', function() {
+    it('should return a `null` reference for unsupported values', function() {
       expect((new Client)->setEndPoint(123)->getEndPoint())->to->be->null;
     });
   }
@@ -110,24 +112,24 @@ class ClientTest extends TestCase {
    * @test Client::submitHam
    */
   public function testSubmitHam() {
-    it('should complete without error', function() {
+    it('should complete without error', wait(function() {
       $this->client->submitHam($this->ham)->subscribe(
         function() { expect(true)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
-    });
+    }));
   }
 
   /**
    * @test Client::submitSpam
    */
   public function testSubmitSpam() {
-    it('should complete without error', function() {
+    it('should complete without error', wait(function() {
       $this->client->submitSpam($this->spam)->subscribe(
         function() { expect(true)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
-    });
+    }));
   }
 
   /**
@@ -153,14 +155,14 @@ class ClientTest extends TestCase {
    * @test Client::verifyKey
    */
   public function testVerifyKey() {
-    it('should return `true` for a valid API key', function() {
+    it('should return `true` for a valid API key', wait(function() {
       $this->client->verifyKey()->subscribe(
         function($result) { expect($result)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
-    });
+    }));
 
-    it('should return `false` for an invalid API key', function() {
+    it('should return `false` for an invalid API key', wait(function() {
       $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))
         ->setIsTest($this->client->isTest());
 
@@ -168,7 +170,7 @@ class ClientTest extends TestCase {
         function($result) { expect($result)->to->be->false; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
-    });
+    }));
   }
 
   /**

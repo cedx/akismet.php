@@ -5,12 +5,12 @@ use EventLoop\{EventLoop};
 use Rx\{Scheduler};
 
 function wait(callable $block) {
-  $loop = EventLoop::getLoop();
-  $loop->stop();
-  return function() use ($block, $loop) {
+  return function() use ($block) {
     //$loop->futureTick([$loop, 'stop']);
     //$loop->futureTick(function() use ($block, $loop) {
     //});
+    $loop = EventLoop::getLoop();
+    $loop->stop();
     call_user_func($block);
     $loop->run();
   };

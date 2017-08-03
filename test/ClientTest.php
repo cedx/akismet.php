@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use function PHPUnit\Expect\{expect, fail, it};
+use function PHPUnit\Expect\{await, expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 use Psr\Http\Message\{UriInterface};
 use Rx\Subject\{Subject};
@@ -31,14 +31,14 @@ class ClientTest extends TestCase {
    * @test Client::checkComment
    */
   public function testCheckComment() {
-    it('should return `false` for valid comment (e.g. ham)', wait(function() {
+    it('should return `false` for valid comment (e.g. ham)', await(function() {
       $this->client->checkComment($this->ham)->subscribe(
         function($result) { expect($result)->to->be->false; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
     }));
 
-    it('should return `true` for invalid comment (e.g. spam)', wait(function() {
+    it('should return `true` for invalid comment (e.g. spam)', await(function() {
       $this->client->checkComment($this->spam)->subscribe(
         function($result) { expect($result)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
@@ -112,7 +112,7 @@ class ClientTest extends TestCase {
    * @test Client::submitHam
    */
   public function testSubmitHam() {
-    it('should complete without error', wait(function() {
+    it('should complete without error', await(function() {
       $this->client->submitHam($this->ham)->subscribe(
         function() { expect(true)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
@@ -124,7 +124,7 @@ class ClientTest extends TestCase {
    * @test Client::submitSpam
    */
   public function testSubmitSpam() {
-    it('should complete without error', wait(function() {
+    it('should complete without error', await(function() {
       $this->client->submitSpam($this->spam)->subscribe(
         function() { expect(true)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
@@ -155,14 +155,14 @@ class ClientTest extends TestCase {
    * @test Client::verifyKey
    */
   public function testVerifyKey() {
-    it('should return `true` for a valid API key', wait(function() {
+    it('should return `true` for a valid API key', await(function() {
       $this->client->verifyKey()->subscribe(
         function($result) { expect($result)->to->be->true; },
         function(\Throwable $e) { fail($e->getMessage()); }
       );
     }));
 
-    it('should return `false` for an invalid API key', wait(function() {
+    it('should return `false` for an invalid API key', await(function() {
       $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))
         ->setIsTest($this->client->isTest());
 

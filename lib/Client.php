@@ -26,7 +26,7 @@ class Client implements \JsonSerializable {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '7.0.0';
+  const VERSION = '8.0.0';
 
   /**
    * @var string The Akismet API key.

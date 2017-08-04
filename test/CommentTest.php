@@ -112,7 +112,7 @@ class CommentTest extends TestCase {
     });
 
     it('should return a `null` reference for unsupported values', function() {
-      expect((new Comment)->setPostModified([])->getDate())->to->be->null;
+      expect((new Comment)->setPostModified([])->getPostModified())->to->be->null;
     });
   }
 

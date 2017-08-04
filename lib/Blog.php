@@ -53,15 +53,9 @@ class Blog implements \JsonSerializable {
    */
   public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
-    else if (!is_object($map)) return null;
-
-    $transform = function($languages) {
-      return array_values(array_filter(array_map('trim', explode(',', $languages))));
-    };
-
-    return (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : null))
+    return !is_object($map) ? null : (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : null))
       ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
-      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []);
+      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : []);
   }
 
   /**
@@ -115,8 +109,12 @@ class Blog implements \JsonSerializable {
    * @param array $values The new languages.
    * @return Blog This instance.
    */
-  public function setLanguages(array $values): self {
-    $this->languages->exchangeArray($values);
+  public function setLanguages($values): self {
+    if (!is_array($values)) $values = is_string($values) ? explode(',', $values) : [];
+    $this->getLanguages()->exchangeArray(array_values(array_filter(array_map('trim', $values), function($value) {
+      return mb_strlen($value) > 0;
+    })));
+
     return $this;
   }
 

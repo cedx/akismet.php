@@ -98,9 +98,9 @@ class ClientTest extends TestCase {
    */
   public function testSetEndPoint() {
     it('should return an instance of `UriInterface` for strings', function() {
-      $endPoint = (new Client)->setEndPoint('https://github.com/cedx/free-mobile.php')->getEndPoint();
+      $endPoint = (new Client)->setEndPoint('https://github.com/cedx/akismet.php')->getEndPoint();
       expect($endPoint)->to->be->instanceOf(UriInterface::class);
-      expect((string) $endPoint)->to->equal('https://github.com/cedx/free-mobile.php');
+      expect((string) $endPoint)->to->equal('https://github.com/cedx/akismet.php');
     });
 
     it('should return a `null` reference for unsupported values', function() {

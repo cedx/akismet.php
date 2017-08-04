@@ -93,8 +93,8 @@ class Client implements \JsonSerializable {
    * @return Observable A boolean value indicating whether it is spam.
    */
   public function checkComment(Comment $comment): Observable {
-    $serviceURL = parse_url((string) $this->getEndPoint());
-    $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/comment-check";
+    $serviceUrl = parse_url((string) $this->getEndPoint());
+    $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function($response) {
       return $response == 'true';
     });
@@ -234,8 +234,8 @@ class Client implements \JsonSerializable {
    * @return Observable Completes once the comment has been submitted.
    */
   public function submitHam(Comment $comment): Observable {
-    $serviceURL = parse_url((string) $this->getEndPoint());
-    $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/submit-ham";
+    $serviceUrl = parse_url((string) $this->getEndPoint());
+    $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
@@ -245,8 +245,8 @@ class Client implements \JsonSerializable {
    * @return Observable Completes once the comment has been submitted.
    */
   public function submitSpam(Comment $comment): Observable {
-    $serviceURL = parse_url((string) $this->getEndPoint());
-    $endPoint = "{$serviceURL['scheme']}://{$this->getApiKey()}.{$serviceURL['host']}/1.1/submit-spam";
+    $serviceUrl = parse_url((string) $this->getEndPoint());
+    $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 

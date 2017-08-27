@@ -1,11 +1,9 @@
 {
   "description": "Prevent comment spam using Akismet service.",
   "homepage": "https://github.com/cedx/akismet.php",
-  "name": "cedx/akismet",
-
   "license": "Apache-2.0",
+  "name": "cedx/akismet",
   "type": "library",
-
   "authors": [{
     "email": "cedric@belin.io",
     "name": "Cédric Belin"

@@ -146,6 +146,10 @@ class ClientTest extends TestCase {
 
       expect($client->verifyKey())->to->be->false;
     });
+
+    it('should throw an exception if the API key is empty', function() {
+      expect(function() { (new Client)->verifyKey(); })->to->throw(\InvalidArgumentException::class);
+    });
   }
 
   /**

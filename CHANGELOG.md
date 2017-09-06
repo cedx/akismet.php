@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Version 9.0.0
+- Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
+
 ## Version 8.0.0
 - Breaking change: properties representing URLs as strings now use instances of the [`Psr\Http\Message\UriInterface`](http://www.php-fig.org/psr/psr-7/#35-psrhttpmessageuriinterface) interface.
 - Added new unit tests.

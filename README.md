@@ -103,4 +103,4 @@ $ composer test
 - [Continuous integration](https://travis-ci.org/cedx/akismet.php)
 
 ## License
-[Akismet for PHP](https://github.com/cedx/akismet.php) is distributed under the Apache License, version 2.0.
+[Akismet for PHP](https://github.com/cedx/akismet.php) is distributed under the MIT License.

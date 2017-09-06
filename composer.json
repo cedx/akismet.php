@@ -17,9 +17,6 @@
   "keywords": [
     "akismet",
     "comment",
-    "observable",
-    "reactivex",
-    "rxphp",
     "spam",
     "validation"
   ],
@@ -30,16 +27,13 @@
     "ext-json": "*",
     "ext-mbstring": "*",
     "ext-pcre": "*",
-    "reactivex/rxphp": "^2.0.3",
     "evenement/evenement": "^3.0.1",
     "guzzlehttp/guzzle": "^6.3.0"
   },
   "require-dev": {
-    "apigen/apigen": "^5.0.0-RC5",
-    "cedx/coveralls": "^4.0.0",
+    "cedx/coveralls": "^5.0.0",
     "cedx/phpunit-expect": "^0.4.0",
-    "phing/phing": "^2.16.0",
-    "roave/better-reflection": "dev-master#a402048"
+    "phing/phing": "^2.16.0"
   },
   "scripts": {
     "coverage": "coveralls var/coverage.xml",

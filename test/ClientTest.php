@@ -2,10 +2,9 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use function PHPUnit\Expect\{await, expect, fail, it};
+use function PHPUnit\Expect\{expect, fail, it};
 use PHPUnit\Framework\{TestCase};
 use Psr\Http\Message\{UriInterface};
-use Rx\Subject\{Subject};
 
 /**
  * Tests the features of the `Akismet\Client` class.
@@ -31,19 +30,13 @@ class ClientTest extends TestCase {
    * @test Client::checkComment
    */
   public function testCheckComment() {
-    it('should return `false` for valid comment (e.g. ham)', await(function() {
-      $this->client->checkComment($this->ham)->subscribe(
-        function($result) { expect($result)->to->be->false; },
-        function(\Throwable $e) { fail($e->getMessage()); }
-      );
-    }));
+    it('should return `false` for valid comment (e.g. ham)', function() {
+      expect($this->client->checkComment($this->ham))->to->be->false;
+    });
 
-    it('should return `true` for invalid comment (e.g. spam)', await(function() {
-      $this->client->checkComment($this->spam)->subscribe(
-        function($result) { expect($result)->to->be->true; },
-        function(\Throwable $e) { fail($e->getMessage()); }
-      );
-    }));
+    it('should return `true` for invalid comment (e.g. spam)', function() {
+      expect($this->client->checkComment($this->spam))->to->be->true;
+    });
   }
 
   /**
@@ -76,24 +69,6 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test Client::onRequest
-   */
-  public function testOnRequest() {
-    it('should return an `Observable` instead of the underlying `Subject`', function() {
-      expect($this->client->onRequest())->to->not->be->instanceOf(Subject::class);
-    });
-  }
-
-  /**
-   * @test Client::onResponse
-   */
-  public function testOnResponse() {
-    it('should return an `Observable` instead of the underlying `Subject`', function() {
-      expect($this->client->onResponse())->to->not->be->instanceOf(Subject::class);
-    });
-  }
-
-  /**
    * @test Client::setEndPoint
    */
   public function testSetEndPoint() {
@@ -112,24 +87,30 @@ class ClientTest extends TestCase {
    * @test Client::submitHam
    */
   public function testSubmitHam() {
-    it('should complete without error', await(function() {
-      $this->client->submitHam($this->ham)->subscribe(
-        function() { expect(true)->to->be->true; },
-        function(\Throwable $e) { fail($e->getMessage()); }
-      );
-    }));
+    it('should complete without error', function() {
+      try {
+        $this->client->submitHam($this->ham);
+        expect(true)->to->be->true;
+      }
+      catch (\Throwable $e) {
+        fail($e->getMessage());
+      }
+    });
   }
 
   /**
    * @test Client::submitSpam
    */
   public function testSubmitSpam() {
-    it('should complete without error', await(function() {
-      $this->client->submitSpam($this->spam)->subscribe(
-        function() { expect(true)->to->be->true; },
-        function(\Throwable $e) { fail($e->getMessage()); }
-      );
-    }));
+    it('should complete without error', function() {
+      try {
+        $this->client->submitSpam($this->spam);
+        expect(true)->to->be->true;
+      }
+      catch (\Throwable $e) {
+        fail($e->getMessage());
+      }
+    });
   }
 
   /**
@@ -155,22 +136,16 @@ class ClientTest extends TestCase {
    * @test Client::verifyKey
    */
   public function testVerifyKey() {
-    it('should return `true` for a valid API key', await(function() {
-      $this->client->verifyKey()->subscribe(
-        function($result) { expect($result)->to->be->true; },
-        function(\Throwable $e) { fail($e->getMessage()); }
-      );
-    }));
+    it('should return `true` for a valid API key', function() {
+      expect($this->client->verifyKey())->to->be->true;
+    });
 
-    it('should return `false` for an invalid API key', await(function() {
+    it('should return `false` for an invalid API key', function() {
       $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))
         ->setIsTest($this->client->isTest());
 
-      $client->verifyKey()->subscribe(
-        function($result) { expect($result)->to->be->false; },
-        function(\Throwable $e) { fail($e->getMessage()); }
-      );
-    }));
+      expect($client->verifyKey())->to->be->false;
+    });
   }
 
   /**

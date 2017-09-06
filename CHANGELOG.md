@@ -2,6 +2,7 @@
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
 ## Version 9.0.0
+- Breaking change: moved the `Observable` API to a synchronous one.
 - Breaking change: moved the `Subject` event API to the `EventEmitter` one.
 - Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
 - Restored the [Guzzle](http://docs.guzzlephp.org) HTTP client.

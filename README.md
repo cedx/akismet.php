@@ -21,20 +21,21 @@ $ composer require cedx/akismet
 ```
 
 ## Usage
-This package has an API based on [Observables](http://reactivex.io/intro.html).
-
-> When running the tests, the scheduler is automatically bootstrapped.
-> When using [RxPHP](https://github.com/ReactiveX/RxPHP) within your own project, you'll need to set the default scheduler.
 
 ### Key verification
 
 ```php
 use Akismet\{Client};
 
-$client = new Client('YourApiKey', 'http://your.blog.url');
-$client->verifyKey()->subscribe(function($isValid) {
+try {
+  $client = new Client('YourAPIKey', 'http://your.blog.url');
+  $isValid = $client->verifyKey();
   echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
-});
+}
+
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 ### Comment check
@@ -42,26 +43,35 @@ $client->verifyKey()->subscribe(function($isValid) {
 ```php
 use Akismet\{Author, Comment};
 
-$comment = new Comment(
-  new Author('127.0.0.1', 'Mozilla/5.0'),
-  'A comment.'
-);
+try {
+  $comment = new Comment(
+    new Author('127.0.0.1', 'Mozilla/5.0'),
+    'A comment.'
+  );
 
-$client->checkComment($comment)->subscribe(function($isSpam) {
+  $isSpam = $client->checkComment($comment);
   echo $isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.';
-});
+}
+
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 ### Submit spam/ham
 
 ```php
-$client->submitSpam($comment)->subscribe(function() {
+try {
+  $client->submitSpam($comment);
   echo 'Spam submitted.';
-});
-
-$client->submitHam($comment)->subscribe(function() {
+  
+  $client->submitHam($comment);
   echo 'Ham submitted.';
-});
+}
+
+catch (\Throwable $e) {
+  echo 'An error occurred: ', $e->getMessage();
+}
 ```
 
 ## Events

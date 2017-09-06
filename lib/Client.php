@@ -6,7 +6,6 @@ use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
-use Rx\{Observable};
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
@@ -27,7 +26,7 @@ class Client implements \JsonSerializable {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '8.0.0';
+  const VERSION = '9.0.0';
 
   /**
    * @var string The Akismet API key.
@@ -78,14 +77,13 @@ class Client implements \JsonSerializable {
   /**
    * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
    * @param Comment $comment The comment to be checked.
-   * @return Observable A boolean value indicating whether it is spam.
+   * @return bool A boolean value indicating whether it is spam.
+   * @return bool `true` if the specified comment is spam, otherwise `false`.
    */
-  public function checkComment(Comment $comment): Observable {
+  public function checkComment(Comment $comment): bool {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check";
-    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()))->map(function($response) {
-      return $response == 'true';
-    });
+    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
   }
 
   /**
@@ -203,65 +201,70 @@ class Client implements \JsonSerializable {
   /**
    * Submits the specified comment that was incorrectly marked as spam but should not have been.
    * @param Comment $comment The comment to be submitted.
-   * @return Observable Completes once the comment has been submitted.
    */
-  public function submitHam(Comment $comment): Observable {
+  public function submitHam(Comment $comment) {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham";
-    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
+    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
   /**
    * Submits the specified comment that was not marked as spam but should have been.
    * @param Comment $comment The comment to be submitted.
-   * @return Observable Completes once the comment has been submitted.
    */
-  public function submitSpam(Comment $comment): Observable {
+  public function submitSpam(Comment $comment) {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam";
-    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
+    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
   /**
    * Checks the API key against the service database, and returns a value indicating whether it is valid.
-   * @return Observable A boolean value indicating whether it is a valid API key.
+   * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
-  public function verifyKey(): Observable {
+  public function verifyKey(): bool {
     $endPoint = (string) $this->getEndPoint()->withPath('/1.1/verify-key');
-    return $this->fetch($endPoint, ['key' => $this->getApiKey()])->map(function($response) {
-      return $response == 'valid';
-    });
+    return $this->fetch($endPoint, ['key' => $this->getApiKey()]) == 'valid';
   }
 
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
    * @param string $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
-   * @return Observable The response body as string.
+   * @return string The response body.
+   * @throws \InvalidArgumentException The API key or the blog URL is empty.
+   * @throws \RuntimeException An error occurred while querying the end point.
    */
-  private function fetch(string $endPoint, array $fields = []): Observable {
+  private function fetch(string $endPoint, array $fields = []): string {
     $blog = $this->getBlog();
     if (!mb_strlen($this->getApiKey()) || !$blog)
-      return Observable::error(new \InvalidArgumentException('The API key or the blog URL is empty.'));
+      throw new \InvalidArgumentException('The API key or the blog URL is empty.');
 
-    $bodyFields = array_merge(get_object_vars($blog->jsonSerialize()), $fields);
-    if ($this->isTest()) $bodyFields['is_test'] = '1';
+    try {
+      $bodyFields = array_merge(get_object_vars($blog->jsonSerialize()), $fields);
+      if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-    $request = http_build_query($bodyFields);
-    $headers = [
-      'Content-Length' => strlen($request),
-      'Content-Type' => 'application/x-www-form-urlencoded',
-      'User-Agent' => $this->getUserAgent()
-    ];
+      $body = http_build_query($bodyFields);
+      $headers = [
+        'Content-Length' => strlen($body),
+        'Content-Type' => 'application/x-www-form-urlencoded',
+        'User-Agent' => $this->getUserAgent()
+      ];
 
-    $this->onRequest->onNext(new Request('POST', $endPoint, $headers, $request));
-    return Http::post($endPoint, $request, $headers)->includeResponse()->map(function($data) {
-      /** @var \React\HttpClient\Response $response */
-      list($body, $response) = $data;
-      $headers = $response->getHeaders();
-      $this->onResponse->onNext(new Response($response->getCode(), $headers, $body));
-      if (in_array(static::DEBUG_HEADER, $headers)) throw new \UnexpectedValueException($headers[static::DEBUG_HEADER]);
-      return $body;
-    });
+      $request = new Request('POST', $endPoint, $headers, $body);
+      $this->emit('request', [$request]);
+
+      $response = (new HTTPClient())->send($request);
+      $this->emit('reponse', [$response]);
+
+      if($response->hasHeader(static::DEBUG_HEADER))
+        throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
+
+      return (string) $response->getBody();
+    }
+
+    catch (\Throwable $e) {
+      throw new \RuntimeException('An error occurred while querying the end point.', 0, $e);
+    }
   }
 }

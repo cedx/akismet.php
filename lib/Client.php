@@ -2,10 +2,10 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use GuzzleHttp\Psr7\{Request, Response, Uri};
+use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
-use Rx\React\{Http};
 use Rx\Subject\{Subject};
 
 /**

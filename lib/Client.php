@@ -2,16 +2,17 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
 use Rx\{Observable};
-use Rx\Subject\{Subject};
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
 class Client implements \JsonSerializable {
+  use EventEmitterTrait;
 
   /**
    * @var string The HTTP header containing the Akismet error messages.
@@ -49,16 +50,6 @@ class Client implements \JsonSerializable {
   private $isTest = false;
 
   /**
-   * @var Subject The handler of "request" events.
-   */
-  private $onRequest;
-
-  /**
-   * @var Subject The handler of "response" events.
-   */
-  private $onResponse;
-
-  /**
    * @var string The user agent string to use when making requests.
    */
   private $userAgent;
@@ -69,9 +60,6 @@ class Client implements \JsonSerializable {
    * @param Blog|string $blog The front page or home URL of the instance making requests.
    */
   public function __construct(string $apiKey = '', $blog = null) {
-    $this->onRequest = new Subject();
-    $this->onResponse = new Subject();
-
     $this->setApiKey($apiKey);
     $this->setBlog($blog);
     $this->setEndPoint(static::DEFAULT_ENDPOINT);
@@ -152,22 +140,6 @@ class Client implements \JsonSerializable {
       'isTest' => $this->isTest(),
       'userAgent' => $this->getUserAgent()
     ];
-  }
-
-  /**
-   * Gets the stream of "request" events.
-   * @return Observable The stream of "request" events.
-   */
-  public function onRequest(): Observable {
-    return $this->onRequest->asObservable();
-  }
-
-  /**
-   * Gets the stream of "response" events.
-   * @return Observable The stream of "response" events.
-   */
-  public function onResponse(): Observable {
-    return $this->onResponse->asObservable();
   }
 
   /**

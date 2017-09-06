@@ -65,21 +65,21 @@ $client->submitHam($comment)->subscribe(function() {
 ```
 
 ## Events
-The `Client` class triggers some events during its life cycle:
+The `Akismet\Client` class is an [`EventEmitter`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitterInterface.php) that triggers some events during its life cycle:
 
 - `request` : emitted every time a request is made to the remote service.
 - `response` : emitted every time a response is received from the remote service.
 
-These events are exposed as [Observable](http://reactivex.io/intro.html), you can subscribe to them using the `on<EventName>` methods:
+You can subscribe to them using the `on()` method:
 
 ```php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-$client->onRequest()->subscribe(function(RequestInterface $request) {
+$client->on('request', function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->onResponse()->subscribe(function(ResponseInterface $response) {
+$client->on('response', function(ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```

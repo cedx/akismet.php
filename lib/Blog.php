@@ -31,10 +31,15 @@ class Blog implements \JsonSerializable {
    * @param string $charset The character encoding for the values included in comments.
    * @param array $languages The languages in use on the blog or site.
    */
-  public function __construct($url = null, string $charset = '', array $languages = []) {
+  public function __construct($url, string $charset = '', array $languages = []) {
+    $this->charset = $charset;
     $this->languages = new \ArrayObject($languages);
-    $this->setCharset($charset);
-    $this->setUrl($url);
+    $this->url = is_string($url) ? new Uri($url) : $url;
+
+    if (!is_array($values)) $values = is_string($values) ? explode(',', $values) : [];
+    $this->getLanguages()->exchangeArray(array_values(array_filter(array_map('trim', $values), function($value) {
+      return mb_strlen($value) > 0;
+    })));
   }
 
   /**
@@ -53,9 +58,11 @@ class Blog implements \JsonSerializable {
    */
   public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : (new static(isset($map->blog) && is_string($map->blog) ? $map->blog : null))
-      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
-      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? $map->blog_lang : []);
+    return !is_object($map) ? null : new static(
+      isset($map->blog) && is_string($map->blog) ? $map->blog : null,
+      isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
+      isset($map->blog_lang) && is_array($map->blog) ? $map->blog : []
+    );
   }
 
   /**
@@ -88,20 +95,10 @@ class Blog implements \JsonSerializable {
    */
   public function jsonSerialize(): \stdClass {
     $map = new \stdClass;
-    if ($url = $this->getUrl()) $map->blog = (string) $url;
+    $map->blog = (string) $this->getUrl();
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
     if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
     return $map;
-  }
-
-  /**
-   * Sets the character encoding for the values included in comments.
-   * @param string $value The new character encoding.
-   * @return Blog This instance.
-   */
-  public function setCharset(string $value): self {
-    $this->charset = $value;
-    return $this;
   }
 
   /**
@@ -114,19 +111,6 @@ class Blog implements \JsonSerializable {
     $this->getLanguages()->exchangeArray(array_values(array_filter(array_map('trim', $values), function($value) {
       return mb_strlen($value) > 0;
     })));
-
-    return $this;
-  }
-
-  /**
-   * Sets the blog or site URL.
-   * @param string|UriInterface $value The new URL.
-   * @return Blog This instance.
-   */
-  public function setUrl($value): self {
-    if ($value instanceof UriInterface) $this->url = $value;
-    else if (is_string($value)) $this->url = new Uri($value);
-    else $this->url = null;
 
     return $this;
   }

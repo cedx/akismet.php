@@ -41,12 +41,13 @@ catch (\Throwable $e) {
 ### Comment check
 
 ```php
-use Akismet\{Author, Comment};
+use Akismet\{Author, Comment, CommentType};
 
 try {
   $comment = new Comment(
     new Author('127.0.0.1', 'Mozilla/5.0'),
-    'A comment.'
+    'A comment.',
+    CommentType::CONTACT_FORM
   );
 
   $isSpam = $client->checkComment($comment);

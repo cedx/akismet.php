@@ -1,10 +1,17 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Verson [10.0.0](https://github.com/cedx/akismet.php/compare/v9.0.0...v10.0.0)
+- Breaking change: changed the signature of most class constructors.
+- Breaking change: most class properties are now read-only.
+- Breaking change: removed the `jsonSerialize()` and `__toString()` methods from the `Client` class.
+- Added new values to the `CommentType` enumeration.
+- Updated the package dependencies.
+
 ## Version [9.0.0](https://github.com/cedx/akismet.php/compare/v8.0.0...v9.0.0)
 - Breaking change: moved the `Observable` API to a synchronous one.
 - Breaking change: moved the `Subject` event API to the `EventEmitter` one.
-- Changed licensing for the [MIT License](https://opensource.org/licenses/MIT).
+- Changed the licensing for the [MIT License](https://opensource.org/licenses/MIT).
 - Restored the [Guzzle](http://docs.guzzlephp.org) HTTP client.
 
 ## Version [8.0.0](https://github.com/cedx/akismet.php/compare/v7.0.0...v8.0.0)

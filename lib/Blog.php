@@ -88,7 +88,7 @@ class Blog implements \JsonSerializable {
    * Gets the blog or site URL.
    * @return UriInterface The blog or site URL.
    */
-  public function getUrl() {
+  public function getUrl(): UriInterface {
     return $this->url;
   }
 

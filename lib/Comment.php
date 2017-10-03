@@ -51,10 +51,10 @@ class Comment implements \JsonSerializable {
    * @param string $content The comment's content.
    * @param string $type The comment's type.
    */
-  public function __construct(Author $author = null, string $content = '', string $type = '') {
-    $this->setAuthor($author);
-    $this->setContent($content);
-    $this->setType($type);
+  public function __construct(Author $author, string $content = '', string $type = '') {
+    $this->author = $author;
+    $this->content = $content;
+    $this->type = $type;
   }
 
   /**
@@ -80,20 +80,24 @@ class Comment implements \JsonSerializable {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;
 
-    return (new static($hasAuthor ? Author::fromJson($map) : null))
-      ->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
+    $comment = new static(
+      $hasAuthor ? Author::fromJson($map) : null,
+      isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '',
+      isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ''
+    );
+
+    return $comment
       ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
       ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : null)
       ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null)
-      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? $map->referrer : null)
-      ->setType(isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : '');
+      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? $map->referrer : null);
   }
 
   /**
    * Gets the comment's author.
    * @return Author The comment's author.
    */
-  public function getAuthor() {
+  public function getAuthor(): Author {
     return $this->author;
   }
 
@@ -150,7 +154,7 @@ class Comment implements \JsonSerializable {
    * @return \stdClass The map in JSON format corresponding to this object.
    */
   public function jsonSerialize(): \stdClass {
-    $map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass;
+    $map = $this->getAuthor()->jsonSerialize();
     if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
     if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
     if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
@@ -158,26 +162,6 @@ class Comment implements \JsonSerializable {
     if ($permalink = $this->getPermalink()) $map->permalink = (string) $permalink;
     if ($referrer = $this->getReferrer()) $map->referrer = (string) $referrer;
     return $map;
-  }
-
-  /**
-   * Sets the comment's author.
-   * @param Author $value The new author.
-   * @return Comment This instance.
-   */
-  public function setAuthor(Author $value = null): self {
-    $this->author = $value;
-    return $this;
-  }
-
-  /**
-   * Sets the comment's content.
-   * @param string $value The new content.
-   * @return Comment This instance.
-   */
-  public function setContent(string $value): self {
-    $this->content = $value;
-    return $this;
   }
 
   /**
@@ -200,10 +184,7 @@ class Comment implements \JsonSerializable {
    * @return Comment This instance.
    */
   public function setPermalink($value): self {
-    if ($value instanceof UriInterface) $this->permalink = $value;
-    else if (is_string($value)) $this->permalink = new Uri($value);
-    else $this->permalink = null;
-
+    $this->permalink = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 
@@ -227,20 +208,7 @@ class Comment implements \JsonSerializable {
    * @return Comment This instance.
    */
   public function setReferrer($value): self {
-    if ($value instanceof UriInterface) $this->referrer = $value;
-    else if (is_string($value)) $this->referrer = new Uri($value);
-    else $this->referrer = null;
-
-    return $this;
-  }
-
-  /**
-   * Sets the comment's type.
-   * @param string $value The new type.
-   * @return Comment This instance.
-   */
-  public function setType(string $value): self {
-    $this->type = $value;
+    $this->referrer = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 }

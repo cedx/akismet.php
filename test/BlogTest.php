@@ -35,7 +35,10 @@ class BlogTest extends TestCase {
 
       expect($blog->getCharset())->to->equal('UTF-8');
       expect($blog->getLanguages()->getArrayCopy())->to->equal(['en', 'fr']);
-      expect((string) $blog->getUrl())->to->equal('https://github.com/cedx/akismet.php');
+
+      $url = $blog->getUrl();
+      expect($url)->to->be->instanceOf(UriInterface::class);
+      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
     });
   }
 
@@ -43,8 +46,10 @@ class BlogTest extends TestCase {
    * @test Blog::jsonSerialize
    */
   public function testJsonSerialize() {
-    it('should return an empty map with a newly created instance', function() {
-      expect((new Blog)->jsonSerialize())->to->be->empty;
+    it('should return only the blog URL with a newly created instance', function() {
+      $data = (new Blog('https://github.com/cedx/akismet.js'))->jsonSerialize();
+      expect(get_object_vars($data))->to->have->lengthOf(1);
+      expect($data->blog)->to->equal('https://github.com/cedx/akismet.js');
     });
 
     it('should return a non-empty map with a initialized instance', function() {
@@ -53,21 +58,6 @@ class BlogTest extends TestCase {
       expect($data->blog)->to->equal('https://github.com/cedx/akismet.php');
       expect($data->blog_charset)->to->equal('UTF-8');
       expect($data->blog_lang)->to->equal('en,fr');
-    });
-  }
-
-  /**
-   * @test Blog::setUrl
-   */
-  public function testSetUrl() {
-    it('should return an instance of `UriInterface` for strings', function() {
-      $url = (new Blog)->setUrl('https://github.com/cedx/akismet.php')->getUrl();
-      expect($url)->to->be->instanceOf(UriInterface::class);
-      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
-    });
-
-    it('should return a `null` reference for unsupported values', function() {
-      expect((new Blog)->setUrl(123)->getUrl())->to->be->null;
     });
   }
 

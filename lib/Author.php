@@ -13,7 +13,7 @@ class Author implements \JsonSerializable {
   /**
    * @var string The author's mail address.
    */
-  private $email;
+  private $email = '';
 
   /**
    * @var string The author's IP address.

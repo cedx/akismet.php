@@ -51,7 +51,7 @@ class Comment implements \JsonSerializable {
    * @param string $content The comment's content.
    * @param string $type The comment's type.
    */
-  public function __construct(Author $author, string $content = '', string $type = '') {
+  public function __construct(Author $author = null, string $content = '', string $type = '') {
     $this->author = $author;
     $this->content = $content;
     $this->type = $type;
@@ -97,7 +97,7 @@ class Comment implements \JsonSerializable {
    * Gets the comment's author.
    * @return Author The comment's author.
    */
-  public function getAuthor(): Author {
+  public function getAuthor() {
     return $this->author;
   }
 

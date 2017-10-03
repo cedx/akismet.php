@@ -55,79 +55,27 @@ class CommentTest extends TestCase {
    * @test Comment::jsonSerialize
    */
   public function testJsonSerialize() {
-    it('should return an empty map with a newly created instance', function() {
-      expect((new Comment)->jsonSerialize())->to->be->empty;
+    it('should return only the author info with a newly created instance', function() {
+      $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
+      expect(get_object_vars($data))->to->have->lengthOf(2);
+      expect($data->user_agent)->to->equal('Doom/6.6.6');
+      expect($data->user_ip)->to->equal('127.0.0.1');
     });
 
     it('should return a non-empty map with a initialized instance', function() {
-      $data = (new Comment((new Author)->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
+      $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
         ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
         ->setReferrer('https://belin.io')
         ->jsonSerialize();
 
+      expect(get_object_vars($data))->to->have->lengthOf(7);
       expect($data->comment_author)->to->equal('Cédric Belin');
       expect($data->comment_content)->to->equal('A user comment.');
       expect($data->comment_date_gmt)->to->equal('2000-01-01T00:00:00+00:00');
       expect($data->comment_type)->to->equal('pingback');
       expect($data->referrer)->to->equal('https://belin.io');
-    });
-  }
-
-  /**
-   * @test Comment::setDate
-   */
-  public function testSetDate() {
-    it('should return an instance of `DateTime` for strings and timestamps', function() {
-      expect((new Comment)->setDate(time())->getDate())->to->be->instanceOf(\DateTime::class);
-      expect((new Comment)->setDate('2000-01-01T00:00:00+00:00')->getDate())->to->be->instanceOf(\DateTime::class);
-    });
-
-    it('should return a `null` reference for unsupported values', function() {
-      expect((new Comment)->setDate([])->getDate())->to->be->null;
-    });
-  }
-
-  /**
-   * @test Comment::setPermalink
-   */
-  public function testSetPermalink() {
-    it('should return an instance of `UriInterface` for strings', function() {
-      $url = (new Comment)->setPermalink('https://github.com/cedx/akismet.php')->getPermalink();
-      expect($url)->to->be->instanceOf(UriInterface::class);
-      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
-    });
-
-    it('should return a `null` reference for unsupported values', function() {
-      expect((new Comment)->setPermalink(123)->getPermalink())->to->be->null;
-    });
-  }
-
-  /**
-   * @test Comment::setPostModified
-   */
-  public function testSetPostModified() {
-    it('should return an instance of `DateTime` for strings and timestamps', function() {
-      expect((new Comment)->setPostModified(time())->getPostModified())->to->be->instanceOf(\DateTime::class);
-      expect((new Comment)->setPostModified('2000-01-01T00:00:00+00:00')->getPostModified())->to->be->instanceOf(\DateTime::class);
-    });
-
-    it('should return a `null` reference for unsupported values', function() {
-      expect((new Comment)->setPostModified([])->getPostModified())->to->be->null;
-    });
-  }
-
-  /**
-   * @test Comment::setReferrer
-   */
-  public function testSetReferrer() {
-    it('should return an instance of `UriInterface` for strings', function() {
-      $url = (new Comment)->setReferrer('https://github.com/cedx/akismet.php')->getReferrer();
-      expect($url)->to->be->instanceOf(UriInterface::class);
-      expect((string) $url)->to->equal('https://github.com/cedx/akismet.php');
-    });
-
-    it('should return a `null` reference for unsupported values', function() {
-      expect((new Comment)->setReferrer(123)->getReferrer())->to->be->null;
+      expect($data->user_agent)->to->equal('Doom/6.6.6');
+      expect($data->user_ip)->to->equal('127.0.0.1');
     });
   }
 
@@ -135,7 +83,7 @@ class CommentTest extends TestCase {
    * @test Comment::__toString
    */
   public function testToString() {
-    $comment = (string) (new Comment((new Author)->setName('Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
+    $comment = (string) (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
       ->setReferrer('https://belin.io');
 
@@ -148,7 +96,9 @@ class CommentTest extends TestCase {
         ->and->contain('"comment_content":"A user comment."')
         ->and->contain('"comment_type":"pingback"')
         ->and->contain('"comment_date_gmt":"2000-01-01T00:00:00+00:00"')
-        ->and->contain('"referrer":"https://belin.io"');
+        ->and->contain('"referrer":"https://belin.io"')
+        ->and->contain('"user_agent":"Doom/6.6.6"')
+        ->and->contain('"user_ip":"127.0.0.1"');
     });
   }
 }

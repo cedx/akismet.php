@@ -10,7 +10,7 @@ use Psr\Http\Message\{UriInterface};
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-class Client implements \JsonSerializable {
+class Client {
   use EventEmitterTrait;
 
   /**
@@ -66,18 +66,8 @@ class Client implements \JsonSerializable {
   }
 
   /**
-   * Returns a string representation of this object.
-   * @return string The string representation of this object.
-   */
-  public function __toString(): string {
-    $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." $json";
-  }
-
-  /**
    * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
    * @param Comment $comment The comment to be checked.
-   * @return bool A boolean value indicating whether it is spam.
    * @return bool `true` if the specified comment is spam, otherwise `false`.
    */
   public function checkComment(Comment $comment): bool {
@@ -124,20 +114,6 @@ class Client implements \JsonSerializable {
    */
   public function isTest(): bool {
     return $this->isTest;
-  }
-
-  /**
-   * Converts this object to a map in JSON format.
-   * @return \stdClass The map in JSON format corresponding to this object.
-   */
-  public function jsonSerialize(): \stdClass {
-    return (object) [
-      'apiKey' => $this->getApiKey(),
-      'blog' => ($blog = $this->getBlog()) ? get_class($blog) : null,
-      'endPoint' => ($endPoint = $this->getEndPoint()) ? (string) $endPoint : null,
-      'isTest' => $this->isTest(),
-      'userAgent' => $this->getUserAgent()
-    ];
   }
 
   /**

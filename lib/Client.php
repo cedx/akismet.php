@@ -26,7 +26,7 @@ class Client {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '9.0.0';
+  const VERSION = '10.0.0';
 
   /**
    * @var string The Akismet API key.
@@ -57,12 +57,13 @@ class Client {
    * Initializes a new instance of the class.
    * @param string $apiKey The Akismet API key.
    * @param Blog|string $blog The front page or home URL of the instance making requests.
+   * @param string $userAgent The user agent string to use when making requests.
    */
-  public function __construct(string $apiKey = '', $blog = null) {
-    $this->setApiKey($apiKey);
-    $this->setBlog($blog);
+  public function __construct(string $apiKey, $blog, string $userAgent = '') {
+    $this->apiKey = $apiKey;
+    $this->blog = is_string($blog) ? new Blog($blog) : $blog;
+    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION);
     $this->setEndPoint(static::DEFAULT_ENDPOINT);
-    $this->setUserAgent(sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION));
   }
 
   /**
@@ -88,7 +89,7 @@ class Client {
    * Gets the front page or home URL of the instance making requests.
    * @return Blog The front page or home URL.
    */
-  public function getBlog() {
+  public function getBlog(): Blog {
     return $this->blog;
   }
 
@@ -102,6 +103,7 @@ class Client {
 
   /**
    * Gets the user agent string to use when making requests.
+   * If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
    * @return string The user agent string to use when making requests.
    */
   public function getUserAgent(): string {
@@ -117,38 +119,12 @@ class Client {
   }
 
   /**
-   * Sets the Akismet API key.
-   * @param string $value The new API key.
-   * @return Client This instance.
-   */
-  public function setApiKey(string $value): self {
-    $this->apiKey = $value;
-    return $this;
-  }
-
-  /**
-   * Sets the front page or home URL of the instance making requests.
-   * @param Blog|string $value The new front page or home URL.
-   * @return Client This instance.
-   */
-  public function setBlog($value): self {
-    if ($value instanceof Blog) $this->blog = $value;
-    else if (is_string($value)) $this->blog = new Blog($value);
-    else $this->blog = null;
-
-    return $this;
-  }
-
-  /**
    * Sets the URL of the API end point.
    * @param string|UriInterface $value The new URL of the API end point.
    * @return Client This instance.
    */
   public function setEndPoint($value): self {
-    if ($value instanceof UriInterface) $this->endPoint = $value;
-    else if (is_string($value)) $this->endPoint = new Uri($value);
-    else $this->endPoint = null;
-
+    $this->endPoint = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 
@@ -160,17 +136,6 @@ class Client {
    */
   public function setIsTest(bool $value): self {
     $this->isTest = $value;
-    return $this;
-  }
-
-  /**
-   * Sets the user agent string to use when making requests.
-   * If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
-   * @param string $value The new user agent string.
-   * @return Client This instance.
-   */
-  public function setUserAgent(string $value): self {
-    $this->userAgent = $value;
     return $this;
   }
 
@@ -212,12 +177,8 @@ class Client {
    * @throws \RuntimeException An error occurred while querying the end point.
    */
   private function fetch(string $endPoint, array $fields = []): string {
-    $blog = $this->getBlog();
-    if (!mb_strlen($this->getApiKey()) || !$blog)
-      throw new \InvalidArgumentException('The API key or the blog URL is empty.');
-
     try {
-      $bodyFields = array_merge(get_object_vars($blog->jsonSerialize()), $fields);
+      $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
       if ($this->isTest()) $bodyFields['is_test'] = '1';
 
       $body = http_build_query($bodyFields);

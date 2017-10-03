@@ -29,17 +29,12 @@ class Blog implements \JsonSerializable {
    * Initializes a new instance of the class.
    * @param string|UriInterface $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
-   * @param array $languages The languages in use on the blog or site.
+   * @param string[] $languages The languages in use on the blog or site.
    */
   public function __construct($url, string $charset = '', array $languages = []) {
     $this->charset = $charset;
     $this->languages = new \ArrayObject($languages);
     $this->url = is_string($url) ? new Uri($url) : $url;
-
-    if (!is_array($values)) $values = is_string($values) ? explode(',', $values) : [];
-    $this->getLanguages()->exchangeArray(array_values(array_filter(array_map('trim', $values), function($value) {
-      return mb_strlen($value) > 0;
-    })));
   }
 
   /**
@@ -58,10 +53,18 @@ class Blog implements \JsonSerializable {
    */
   public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
-    return !is_object($map) ? null : new static(
+    if (!is_object($map)) return null;
+
+    $transform = function($languages) {
+      return array_values(array_filter(array_map('trim', explode(',', $languages)), function($language) {
+        return mb_strlen($language) > 0;
+      }));
+    };
+
+    return new static(
       isset($map->blog) && is_string($map->blog) ? $map->blog : null,
       isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
-      isset($map->blog_lang) && is_array($map->blog) ? $map->blog : []
+      isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog) : []
     );
   }
 
@@ -96,22 +99,9 @@ class Blog implements \JsonSerializable {
   public function jsonSerialize(): \stdClass {
     $map = new \stdClass;
     $map->blog = (string) $this->getUrl();
+
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
     if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
     return $map;
-  }
-
-  /**
-   * Sets the languages in use on the blog or site, in ISO 639-1 format.
-   * @param array $values The new languages.
-   * @return Blog This instance.
-   */
-  public function setLanguages($values): self {
-    if (!is_array($values)) $values = is_string($values) ? explode(',', $values) : [];
-    $this->getLanguages()->exchangeArray(array_values(array_filter(array_map('trim', $values), function($value) {
-      return mb_strlen($value) > 0;
-    })));
-
-    return $this;
   }
 }

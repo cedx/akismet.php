@@ -68,7 +68,7 @@ class Author implements \JsonSerializable {
    */
   public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
-    if (!is_object($map)) return null;
+    else if (!is_object($map)) return null;
 
     $author = new static(
       isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '',

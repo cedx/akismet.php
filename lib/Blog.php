@@ -53,7 +53,7 @@ class Blog implements \JsonSerializable {
    */
   public static function fromJson($map) {
     if (is_array($map)) $map = (object) $map;
-    if (!is_object($map)) return null;
+    else if (!is_object($map)) return null;
 
     $transform = function($languages) {
       return array_values(array_filter(array_map('trim', explode(',', $languages)), function($language) {

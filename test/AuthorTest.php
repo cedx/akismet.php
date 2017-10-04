@@ -4,7 +4,6 @@ namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
-use Psr\Http\Message\{UriInterface};
 
 /**
  * Tests the features of the `Akismet\Author` class.

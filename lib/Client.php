@@ -14,19 +14,19 @@ class Client {
   use EventEmitterTrait;
 
   /**
+   * @var string The version number of this package.
+   */
+  public const VERSION = '11.0.0';
+
+  /**
    * @var string The HTTP header containing the Akismet error messages.
    */
-  const DEBUG_HEADER = 'X-akismet-debug-help';
+  private const DEBUG_HEADER = 'x-akismet-debug-help';
 
   /**
    * @var string The URL of the default API end point.
    */
-  const DEFAULT_ENDPOINT = 'https://rest.akismet.com';
-
-  /**
-   * @var string The version number of this package.
-   */
-  const VERSION = '10.0.0';
+  private const DEFAULT_ENDPOINT = 'https://rest.akismet.com';
 
   /**
    * @var string The Akismet API key.
@@ -183,9 +183,9 @@ class Client {
 
       $body = http_build_query($bodyFields);
       $headers = [
-        'Content-Length' => strlen($body),
-        'Content-Type' => 'application/x-www-form-urlencoded',
-        'User-Agent' => $this->getUserAgent()
+        'content-length' => strlen($body),
+        'content-type' => 'application/x-www-form-urlencoded',
+        'user-agent' => $this->getUserAgent()
       ];
 
       $request = new Request('POST', $endPoint, $headers, $body);

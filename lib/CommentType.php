@@ -10,50 +10,50 @@ abstract class CommentType {
   /**
    * @var string A blog post.
    */
-  const BLOG_POST = 'blog-post';
+  public const BLOG_POST = 'blog-post';
 
   /**
    * @var string A blog comment.
    */
-  const COMMENT = 'comment';
+  public const COMMENT = 'comment';
 
   /**
    * @var string A contact form or feedback form submission.
    */
-  const CONTACT_FORM = 'contact-form';
+  public const CONTACT_FORM = 'contact-form';
 
   /**
    * @var string A top-level forum post.
    */
-  const FORUM_POST = 'forum-post';
+  public const FORUM_POST = 'forum-post';
 
   /**
    * @var string A message sent between just a few users.
    */
-  const MESSAGE = 'message';
+  public const MESSAGE = 'message';
 
   /**
    * @var string A [pingback](https://en.wikipedia.org/wiki/Pingback) post.
    */
-  const PINGBACK = 'pingback';
+  public const PINGBACK = 'pingback';
 
   /**
    * @var string A reply to a top-level forum post.
    */
-  const REPLY = 'reply';
+  public const REPLY = 'reply';
 
   /**
    * @var string A new user account.
    */
-  const SIGNUP = 'signup';
+  public const SIGNUP = 'signup';
 
   /**
    * @var string A [trackback](https://en.wikipedia.org/wiki/Trackback) post.
    */
-  const TRACKBACK = 'trackback';
+  public const TRACKBACK = 'trackback';
 
   /**
    * @var string A [Twitter](https://twitter.com) message.
    */
-  const TWEET = 'tweet';
+  public const TWEET = 'tweet';
 }

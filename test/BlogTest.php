@@ -14,7 +14,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::fromJson
    */
-  public function testFromJson() {
+  public function testFromJson(): void {
     it('should return a null reference with a non-object value', function() {
       expect(Blog::fromJson('foo'))->to->be->null;
     });
@@ -45,7 +45,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::jsonSerialize
    */
-  public function testJsonSerialize() {
+  public function testJsonSerialize(): void {
     it('should return only the blog URL with a newly created instance', function() {
       $data = (new Blog('https://github.com/cedx/akismet.php'))->jsonSerialize();
       expect(get_object_vars($data))->to->have->lengthOf(1);
@@ -64,7 +64,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::__toString
    */
-  public function testToString() {
+  public function testToString(): void {
     $blog = (string) (new Blog('https://github.com/cedx/akismet.php', 'UTF-8', ['en', 'fr']));
 
     it('should start with the class name', function() use ($blog) {

@@ -143,7 +143,7 @@ class Client {
    * Submits the specified comment that was incorrectly marked as spam but should not have been.
    * @param Comment $comment The comment to be submitted.
    */
-  public function submitHam(Comment $comment) {
+  public function submitHam(Comment $comment): void {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham";
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
@@ -153,7 +153,7 @@ class Client {
    * Submits the specified comment that was not marked as spam but should have been.
    * @param Comment $comment The comment to be submitted.
    */
-  public function submitSpam(Comment $comment) {
+  public function submitSpam(Comment $comment): void {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam";
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));

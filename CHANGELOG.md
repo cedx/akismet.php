@@ -1,6 +1,9 @@
 # Changelog
 This file contains highlights of what changes on each version of the [Akismet for PHP](https://github.com/cedx/akismet.php) library.
 
+## Verson [11.0.0](https://github.com/cedx/akismet.php/compare/v10.0.0...v11.0.0)
+- Breaking change: raised the required [PHP](https://secure.php.net) version.
+
 ## Verson [10.0.0](https://github.com/cedx/akismet.php/compare/v9.0.0...v10.0.0)
 - Breaking change: changed the signature of most class constructors.
 - Breaking change: most class properties are now read-only.

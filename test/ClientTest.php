@@ -28,7 +28,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::checkComment
    */
-  public function testCheckComment() {
+  public function testCheckComment(): void {
     it('should return `false` for valid comment (e.g. ham)', function() {
       expect($this->client->checkComment($this->ham))->to->be->false;
     });
@@ -41,7 +41,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::submitHam
    */
-  public function testSubmitHam() {
+  public function testSubmitHam(): void {
     it('should complete without error', function() {
       try {
         $this->client->submitHam($this->ham);
@@ -56,7 +56,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::submitSpam
    */
-  public function testSubmitSpam() {
+  public function testSubmitSpam(): void {
     it('should complete without error', function() {
       try {
         $this->client->submitSpam($this->spam);
@@ -71,7 +71,7 @@ class ClientTest extends TestCase {
   /**
    * @test Client::verifyKey
    */
-  public function testVerifyKey() {
+  public function testVerifyKey(): void {
     it('should return `true` for a valid API key', function() {
       expect($this->client->verifyKey())->to->be->true;
     });
@@ -85,7 +85,7 @@ class ClientTest extends TestCase {
   /**
    * Performs a common set of tasks just before each test method is called.
    */
-  protected function setUp() {
+  protected function setUp(): void {
     $this->client = (new Client(getenv('AKISMET_API_KEY'), 'https://github.com/cedx/akismet.php'))->setIsTest(true);
 
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0', 'Akismet'))

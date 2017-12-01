@@ -13,7 +13,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::fromJson
    */
-  public function testFromJson() {
+  public function testFromJson(): void {
     it('should return a null reference with a non-object value', function() {
       expect(Author::fromJson('foo'))->to->be->null;
     });
@@ -38,7 +38,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::jsonSerialize
    */
-  public function testJsonSerialize() {
+  public function testJsonSerialize(): void {
     it('should return only the IP address and user agent with a newly created instance', function() {
       $data = (new Author('127.0.0.1', 'Doom/6.6.6'))->jsonSerialize();
       expect(get_object_vars($data))->to->have->lengthOf(2);
@@ -64,7 +64,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::__toString
    */
-  public function testToString() {
+  public function testToString(): void {
     $author = (string) (new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'))
       ->setEmail('cedric@belin.io')
       ->setUrl('https://belin.io');

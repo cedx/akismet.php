@@ -51,7 +51,7 @@ class Comment implements \JsonSerializable {
    * @param string $content The comment's content.
    * @param string $type The comment's type.
    */
-  public function __construct(Author $author = null, string $content = '', string $type = '') {
+  public function __construct(?Author $author, string $content = '', string $type = '') {
     $this->author = $author;
     $this->content = $content;
     $this->type = $type;
@@ -71,7 +71,7 @@ class Comment implements \JsonSerializable {
    * @param mixed $map A JSON map representing a comment.
    * @return Comment The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  public static function fromJson($map) {
+  public static function fromJson($map): ?self {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
@@ -97,7 +97,7 @@ class Comment implements \JsonSerializable {
    * Gets the comment's author.
    * @return Author The comment's author.
    */
-  public function getAuthor() {
+  public function getAuthor(): ?Author {
     return $this->author;
   }
 
@@ -113,7 +113,7 @@ class Comment implements \JsonSerializable {
    * Gets the UTC timestamp of the creation of the comment.
    * @return \DateTime The UTC timestamp of the creation of the comment.
    */
-  public function getDate() {
+  public function getDate(): ?\DateTime {
     return $this->date;
   }
 
@@ -121,7 +121,7 @@ class Comment implements \JsonSerializable {
    * Gets the permanent location of the entry the comment is submitted to.
    * @return UriInterface The permanent location of the entry the comment is submitted to.
    */
-  public function getPermalink() {
+  public function getPermalink(): ?UriInterface {
     return $this->permalink;
   }
 
@@ -129,7 +129,7 @@ class Comment implements \JsonSerializable {
    * Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    * @return \DateTime The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    */
-  public function getPostModified() {
+  public function getPostModified(): ?\DateTime {
     return $this->postModified;
   }
 
@@ -137,7 +137,7 @@ class Comment implements \JsonSerializable {
    * Gets the URL of the webpage that linked to the entry being requested.
    * @return UriInterface The URL of the webpage that linked to the entry being requested.
    */
-  public function getReferrer() {
+  public function getReferrer(): ?UriInterface {
     return $this->referrer;
   }
 

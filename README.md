@@ -1,5 +1,5 @@
 # Akismet for PHP
-![Runtime](https://img.shields.io/badge/php-%3E%3D7.0-brightgreen.svg) ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://travis-ci.org/cedx/akismet.php.svg)
+![Runtime](https://img.shields.io/badge/php-%3E%3D7.1-brightgreen.svg) ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://travis-ci.org/cedx/akismet.php.svg)
 
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net).
 
@@ -65,7 +65,7 @@ catch (\Throwable $e) {
 try {
   $client->submitSpam($comment);
   echo 'Spam submitted.';
-  
+
   $client->submitHam($comment);
   echo 'Ham submitted.';
 }

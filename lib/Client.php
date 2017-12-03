@@ -192,7 +192,7 @@ class Client {
       $this->emit('request', [$request]);
 
       $response = (new HTTPClient())->send($request);
-      $this->emit('reponse', [$response]);
+      $this->emit('response', [$response]);
 
       if($response->hasHeader(static::DEBUG_HEADER))
         throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);

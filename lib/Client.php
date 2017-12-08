@@ -183,7 +183,6 @@ class Client {
 
       $body = http_build_query($bodyFields);
       $headers = [
-        'content-length' => strlen($body),
         'content-type' => 'application/x-www-form-urlencoded',
         'user-agent' => $this->getUserAgent()
       ];

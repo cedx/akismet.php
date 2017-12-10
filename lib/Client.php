@@ -26,7 +26,7 @@ class Client {
   /**
    * @var string The version number of this package.
    */
-  public const VERSION = '11.0.0';
+  public const VERSION = '11.1.0';
 
   /**
    * @var string The HTTP header containing the Akismet error messages.

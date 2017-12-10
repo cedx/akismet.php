@@ -183,7 +183,6 @@ class Client {
 
       $body = http_build_query($bodyFields);
       $headers = [
-        'content-length' => strlen($body),
         'content-type' => 'application/x-www-form-urlencoded',
         'user-agent' => $this->getUserAgent()
       ];
@@ -192,7 +191,7 @@ class Client {
       $this->emit('request', [$request]);
 
       $response = (new HTTPClient())->send($request);
-      $this->emit('response', [$response]);
+      $this->emit('response', [$request, $response]);
 
       if($response->hasHeader(static::DEBUG_HEADER))
         throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);

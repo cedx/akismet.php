@@ -90,7 +90,7 @@ $client->on('request', function(RequestInterface $request) {
   echo 'Client request: ', $request->getUri();
 });
 
-$client->on('response', function(ResponseInterface $response) {
+$client->on('response', function($request, ResponseInterface $response) {
   echo 'Server response: ', $response->getStatusCode();
 });
 ```

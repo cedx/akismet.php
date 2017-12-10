@@ -14,6 +14,16 @@ class Client {
   use EventEmitterTrait;
 
   /**
+   * @var string An event that is triggered when a request is made to the remote service.
+   */
+  public const EVENT_REQUEST = 'request';
+
+  /**
+   * @var string An event that is triggered when a response is received from the remote service.
+   */
+  public const EVENT_RESPONSE = 'response';
+
+  /**
    * @var string The version number of this package.
    */
   public const VERSION = '11.0.0';
@@ -188,10 +198,10 @@ class Client {
       ];
 
       $request = new Request('POST', $endPoint, $headers, $body);
-      $this->emit('request', [$request]);
+      $this->emit(static::EVENT_REQUEST, [$request]);
 
       $response = (new HTTPClient())->send($request);
-      $this->emit('response', [$request, $response]);
+      $this->emit(static::EVENT_RESPONSE, [$request, $response]);
 
       if($response->hasHeader(static::DEBUG_HEADER))
         throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);

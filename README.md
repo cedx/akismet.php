@@ -110,10 +110,10 @@ $ composer test
 ```
 
 ## See also
-- [User guide](https://cedx.github.io/akismet.php)
 - [API reference](https://cedx.github.io/akismet.php/api)
 - [Code coverage](https://coveralls.io/github/cedx/akismet.php)
 - [Continuous integration](https://travis-ci.org/cedx/akismet.php)
+- [Packagist package](https://packagist.org/packages/cedx/akismet)
 
 ## License
 [Akismet for PHP](https://cedx.github.io/akismet.php) is distributed under the MIT License.

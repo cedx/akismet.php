@@ -11,7 +11,8 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 
 ## Requirements
 The latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions.
-If you plan to play with the sources, you will also need the latest [Phing](https://www.phing.info) version.
+
+If you plan to play with the sources, you will also need the latest [Phing](https://www.phing.info) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material) versions.
 
 ## Installing via [Composer](https://getcomposer.org)
 From a command prompt, run:
@@ -28,12 +29,12 @@ $ composer require cedx/akismet
 use Akismet\{Client};
 
 try {
-  $client = new Client('YourAPIKey', 'http://your.blog.url');
+  $client = new Client('123YourAPIKey', 'http://www.yourblog.com');
   $isValid = $client->verifyKey();
-  echo $isValid ? 'Your API key is valid.' : 'Your API key is invalid.';
+  echo $isValid ? 'The API key is valid' : 'The API key is invalid';
 }
 
-catch (\Throwable $e) {
+catch (\RuntimeException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```
@@ -46,15 +47,15 @@ use Akismet\{Author, Comment, CommentType};
 try {
   $comment = new Comment(
     new Author('127.0.0.1', 'Mozilla/5.0'),
-    'A comment.',
+    'A user comment',
     CommentType::CONTACT_FORM
   );
 
   $isSpam = $client->checkComment($comment);
-  echo $isSpam ? 'The comment is marked as spam.' : 'The comment is marked as ham.';
+  echo $isSpam ? 'The comment is spam' : 'The comment is ham';
 }
 
-catch (\Throwable $e) {
+catch (\RuntimeException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```
@@ -64,13 +65,13 @@ catch (\Throwable $e) {
 ```php
 try {
   $client->submitSpam($comment);
-  echo 'Spam submitted.';
+  echo 'Spam submitted';
 
   $client->submitHam($comment);
-  echo 'Ham submitted.';
+  echo 'Ham submitted';
 }
 
-catch (\Throwable $e) {
+catch (\RuntimeException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```
@@ -109,9 +110,10 @@ $ composer test
 ```
 
 ## See also
-- [API reference](https://cedx.github.io/akismet.php)
+- [User guide](https://cedx.github.io/akismet.php)
+- [API reference](https://cedx.github.io/akismet.php/api)
 - [Code coverage](https://coveralls.io/github/cedx/akismet.php)
 - [Continuous integration](https://travis-ci.org/cedx/akismet.php)
 
 ## License
-[Akismet for PHP](https://github.com/cedx/akismet.php) is distributed under the MIT License.
+[Akismet for PHP](https://cedx.github.io/akismet.php) is distributed under the MIT License.

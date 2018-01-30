@@ -10,15 +10,15 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 - [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was incorrectly marked as spam but should not have been.
 
 ## Requirements
-The latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions.
+You need the latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions.
 
 If you plan to play with the sources, you will also need the latest [Phing](https://www.phing.info) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material) versions.
 
-## Installing via [Composer](https://getcomposer.org)
+## Installing with Composer package manager
 From a command prompt, run:
 
 ```shell
-$ composer require cedx/akismet
+composer require cedx/akismet
 ```
 
 ## Usage
@@ -100,13 +100,13 @@ $client->on(Client::EVENT_RESPONSE, function($request, ResponseInterface $respon
 In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
 
 ```shell
-$ export AKISMET_API_KEY="<YourApiKey>"
+export AKISMET_API_KEY="<YourApiKey>"
 ```
 
 Then, you can run the `test` script from the command prompt:
 
 ```shell
-$ composer test
+composer test
 ```
 
 ## See also

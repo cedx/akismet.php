@@ -3,6 +3,8 @@
   <autoloader autoloaderpath="vendor/autoload.php"/>
 
   <target name="clean" description="Delete the generated files">
+    <delete dir="doc/api" quiet="true"/>
+    <delete dir="www" quiet="true"/>
     <delete>
       <fileset dir="var" includes="**/*" excludes=".gitkeep"/>
     </delete>
@@ -15,8 +17,6 @@
   </target>
 
   <target name="doc" description="Build the documentation">
-    <delete dir="doc/api" quiet="true"/>
-    <delete dir="web" quiet="true"/>
     <exec executable="mkdocs" passthru="true">
       <arg value="build" />
     </exec>

@@ -201,8 +201,8 @@ class Client {
 
     try { $response = (new HTTPClient())->send($request); }
     catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
-
     $this->emit(static::EVENT_RESPONSE, [$request, $response]);
+
     if($response->hasHeader(static::DEBUG_HEADER)) throw new ClientException($response->getHeader(static::DEBUG_HEADER)[0], $endPoint);
     return (string) $response->getBody();
   }

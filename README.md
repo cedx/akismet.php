@@ -26,6 +26,7 @@ composer require cedx/akismet
 ### Key verification
 
 ```php
+<?php
 use Akismet\{Client};
 
 try {
@@ -42,6 +43,7 @@ catch (\RuntimeException $e) {
 ### Comment check
 
 ```php
+<?php
 use Akismet\{Author, Comment, CommentType};
 
 try {
@@ -63,6 +65,7 @@ catch (\RuntimeException $e) {
 ### Submit spam/ham
 
 ```php
+<?php
 try {
   $client->submitSpam($comment);
   echo 'Spam submitted';
@@ -85,6 +88,7 @@ The `Akismet\Client` class is an [`EventEmitter`](https://github.com/igorw/evene
 You can subscribe to them using the `on()` method:
 
 ```php
+<?php
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
 $client->on(Client::EVENT_REQUEST, function(RequestInterface $request) {

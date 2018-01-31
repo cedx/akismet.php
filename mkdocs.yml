@@ -38,7 +38,7 @@ pages:
 - About:
   - Changelog: about/changelog.md
   - License: about/license.md
-  - See also: see-also.md
+  - See also: about/see-also.md
 
 theme:
   name: material

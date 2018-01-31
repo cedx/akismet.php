@@ -9,7 +9,7 @@ Client::checkComment(Comment $comment): bool
 ```
 
 ## Return value
-A `bool` value indicating whether the given `Comment` is spam.
+A `bool` value indicating whether the given `Akismet\Comment` is spam.
 
 The method throws a `RuntimeException` when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.

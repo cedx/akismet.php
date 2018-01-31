@@ -1,14 +1,18 @@
 # Changelog
 
-## Verson [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)
+## Version [11.2.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v11.2.0)
+- Added a user guide based on [MkDocs](http://www.mkdocs.org).
+- Added the `ClientException` class.
+
+## Version [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)
 - Added the `EVENT_REQUEST` and `EVENT_RESPONSE` constants to the `Client` class.
 
-## Verson [11.0.0](https://github.com/cedx/akismet.php/compare/v10.0.0...v11.0.0)
+## Version [11.0.0](https://github.com/cedx/akismet.php/compare/v10.0.0...v11.0.0)
 - Breaking change: changed the signature of the `Client` events.
 - Breaking change: raised the required [PHP](https://secure.php.net) version.
 - Breaking change: using PHP 7.1 features, like nullable types and void functions.
 
-## Verson [10.0.0](https://github.com/cedx/akismet.php/compare/v9.0.0...v10.0.0)
+## Version [10.0.0](https://github.com/cedx/akismet.php/compare/v9.0.0...v10.0.0)
 - Breaking change: changed the signature of most class constructors.
 - Breaking change: most class properties are now read-only.
 - Breaking change: removed the `jsonSerialize()` and `__toString()` methods from the `Client` class.

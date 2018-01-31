@@ -41,7 +41,7 @@ class Author implements \JsonSerializable {
   private $userAgent;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new author.
    * @param string $ipAddress The author's IP address.
    * @param string $userAgent The author's user agent.
    * @param string $name The author's name.
@@ -58,7 +58,7 @@ class Author implements \JsonSerializable {
    */
   public function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." $json";
+    return static::class . " $json";
   }
 
   /**

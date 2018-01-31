@@ -46,7 +46,7 @@ class Comment implements \JsonSerializable {
   private $type;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new comment.
    * @param Author $author The comment's author.
    * @param string $content The comment's content.
    * @param string $type The comment's type.
@@ -63,7 +63,7 @@ class Comment implements \JsonSerializable {
    */
   public function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." $json";
+    return static::class . " $json";
   }
 
   /**

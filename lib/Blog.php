@@ -26,7 +26,7 @@ class Blog implements \JsonSerializable {
   private $url;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new blog.
    * @param string|UriInterface $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
    * @param string[] $languages The languages in use on the blog or site.
@@ -43,7 +43,7 @@ class Blog implements \JsonSerializable {
    */
   public function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
-    return static::class." $json";
+    return static::class . " $json";
   }
 
   /**

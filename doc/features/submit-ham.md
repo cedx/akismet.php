@@ -14,7 +14,7 @@ Client::submitHam(Comment $comment): void
 
 ```php
 <?php
-use Akismet\{Author, Client, Comment, CommentType};
+use Akismet\{Author, Client, ClientException, Comment, CommentType};
 
 try {
   $comment = new Comment(
@@ -28,7 +28,7 @@ try {
   echo 'Ham submitted';
 }
 
-catch (\RuntimeException $e) {
+catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```

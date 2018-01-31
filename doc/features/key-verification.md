@@ -14,14 +14,14 @@ None.
 ## Return value
 A `bool` value indicating whether the client's API key is valid.
 
-The method throws a `RuntimeException` when an error occurs.
+The method throws a `ClientException` when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.
 
 ## Example
 
 ```php
 <?php
-use Akismet\{Client};
+use Akismet\{Client, ClientException};
 
 try {
   $client = new Client('123YourAPIKey', 'http://www.yourblog.com');
@@ -29,7 +29,7 @@ try {
   echo $isValid ? 'The API key is valid' : 'The API key is invalid';
 }
 
-catch (\RuntimeException $e) {
+catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```

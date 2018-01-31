@@ -9,16 +9,16 @@ Client::checkComment(Comment $comment): bool
 ```
 
 ## Return value
-A `bool` value indicating whether the given `Akismet\Comment` is spam.
+A `bool` value indicating whether the given `Comment` is spam.
 
-The method throws a `RuntimeException` when an error occurs.
+The method throws a `ClientException` when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.
 
 ## Example
 
 ```php
 <?php
-use Akismet\{Author, Client, Comment, CommentType};
+use Akismet\{Author, Client, ClientException, Comment, CommentType};
 
 try {
   $client = new Client('123YourAPIKey', 'http://www.yourblog.com');
@@ -33,7 +33,7 @@ try {
   echo $isSpam ? 'The comment is spam' : 'The comment is ham';
 }
 
-catch (\RuntimeException $e) {
+catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```

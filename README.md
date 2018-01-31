@@ -35,7 +35,7 @@ try {
   echo $isValid ? 'The API key is valid' : 'The API key is invalid';
 }
 
-catch (\RuntimeException $e) {
+catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```
@@ -57,7 +57,7 @@ try {
   echo $isSpam ? 'The comment is spam' : 'The comment is ham';
 }
 
-catch (\RuntimeException $e) {
+catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```
@@ -74,7 +74,7 @@ try {
   echo 'Ham submitted';
 }
 
-catch (\RuntimeException $e) {
+catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```

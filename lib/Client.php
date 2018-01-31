@@ -4,6 +4,7 @@ namespace Akismet;
 
 use Evenement\{EventEmitterTrait};
 use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
 
@@ -26,7 +27,7 @@ class Client {
   /**
    * @var string The version number of this package.
    */
-  public const VERSION = '11.1.0';
+  public const VERSION = '11.2.0';
 
   /**
    * @var string The HTTP header containing the Akismet error messages.
@@ -64,7 +65,7 @@ class Client {
   private $userAgent;
 
   /**
-   * Initializes a new instance of the class.
+   * Creates a new client.
    * @param string $apiKey The Akismet API key.
    * @param Blog|string $blog The front page or home URL of the instance making requests.
    * @param string $userAgent The user agent string to use when making requests.
@@ -183,34 +184,26 @@ class Client {
    * @param string $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
    * @return string The response body.
-   * @throws \InvalidArgumentException The API key or the blog URL is empty.
-   * @throws \RuntimeException An error occurred while querying the end point.
+   * @throws ClientException An error occurred while querying the end point.
    */
   private function fetch(string $endPoint, array $fields = []): string {
-    try {
-      $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
-      if ($this->isTest()) $bodyFields['is_test'] = '1';
+    $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
+    if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-      $body = http_build_query($bodyFields);
-      $headers = [
-        'content-type' => 'application/x-www-form-urlencoded',
-        'user-agent' => $this->getUserAgent()
-      ];
+    $body = http_build_query($bodyFields);
+    $headers = [
+      'content-type' => 'application/x-www-form-urlencoded',
+      'user-agent' => $this->getUserAgent()
+    ];
 
-      $request = new Request('POST', $endPoint, $headers, $body);
-      $this->emit(static::EVENT_REQUEST, [$request]);
+    $request = new Request('POST', $endPoint, $headers, $body);
+    $this->emit(static::EVENT_REQUEST, [$request]);
 
-      $response = (new HTTPClient())->send($request);
-      $this->emit(static::EVENT_RESPONSE, [$request, $response]);
+    try { $response = (new HTTPClient())->send($request); }
+    catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
 
-      if($response->hasHeader(static::DEBUG_HEADER))
-        throw new \UnexpectedValueException($response->getHeader(static::DEBUG_HEADER)[0]);
-
-      return (string) $response->getBody();
-    }
-
-    catch (\Throwable $e) {
-      throw new \RuntimeException('An error occurred while querying the end point.', 0, $e);
-    }
+    $this->emit(static::EVENT_RESPONSE, [$request, $response]);
+    if($response->hasHeader(static::DEBUG_HEADER)) throw new ClientException($response->getHeader(static::DEBUG_HEADER)[0], $endPoint);
+    return (string) $response->getBody();
   }
 }

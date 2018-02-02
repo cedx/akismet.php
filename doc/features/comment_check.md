@@ -1,12 +1,15 @@
-path: blob/master
-source: lib/Client.php
+path: blob/master/lib
+source: Client.php
 
 # Comment check
 This is the call you will make the most. It takes a number of arguments and characteristics about the submitted content and then returns a thumbs up or thumbs down. **Performance can drop dramatically if you choose to exclude data points.** The more data you send Akismet about each comment, the greater the accuracy. We recommend erring on the side of including too much data.
 
-```php
-Client::checkComment(Comment $comment): bool
 ```
+Client->checkComment(Comment $comment): bool
+```
+
+## Parameters
+- `$comment` : the `Comment` providing the user message to be checked.
 
 ## Return value
 A `bool` value indicating whether the given `Comment` is spam.

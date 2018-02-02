@@ -3,6 +3,8 @@
 
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net).
 
+> For detailed instructions, see the [user guide](https://cedx.github.io/akismet.php).
+
 ## Features
 - [Key verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.
 - [Comment check](https://akismet.com/development/api/#comment-check): checks a comment and gets a value indicating whether it is spam.
@@ -10,7 +12,7 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 - [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was incorrectly marked as spam but should not have been.
 
 ## Requirements
-You need the latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions.
+You need the latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions to use the Akismet library.
 
 If you plan to play with the sources, you will also need the latest [Phing](https://www.phing.info) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material) versions.
 
@@ -27,7 +29,7 @@ composer require cedx/akismet
 
 ```php
 <?php
-use Akismet\{Client};
+use Akismet\{Client, ClientException};
 
 try {
   $client = new Client('123YourAPIKey', 'http://www.yourblog.com');
@@ -62,7 +64,7 @@ catch (ClientException $e) {
 }
 ```
 
-### Submit spam/ham
+### Submit spam / ham
 
 ```php
 <?php
@@ -104,7 +106,7 @@ $client->on(Client::EVENT_RESPONSE, function($request, ResponseInterface $respon
 In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
 
 ```shell
-export AKISMET_API_KEY="<YourApiKey>"
+export AKISMET_API_KEY="<123YourAPIKey>"
 ```
 
 Then, you can run the `test` script from the command prompt:
@@ -115,9 +117,14 @@ composer test
 
 ## See also
 - [API reference](https://cedx.github.io/akismet.php/api)
-- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
-- [Continuous integration](https://travis-ci.org/cedx/akismet.php)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
+- [Continuous integration](https://travis-ci.org/cedx/akismet.php)
+- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
+
+### Other implementations
+* Dart: [Akismet for Dart](https://cedx.github.io/akismet.dart)
+* Node.js: [Akismet for JS](https://cedx.github.io/akismet.js)
+* Yii Framework: [Akismet for Yii](https://cedx.github.io/yii2-akismet)
 
 ## License
 [Akismet for PHP](https://cedx.github.io/akismet.php) is distributed under the MIT License.

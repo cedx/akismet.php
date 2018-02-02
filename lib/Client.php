@@ -3,7 +3,7 @@ declare(strict_types=1);
 namespace Akismet;
 
 use Evenement\{EventEmitterTrait};
-use GuzzleHttp\{Client as HTTPClient};
+use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
 use Psr\Http\Message\{UriInterface};
@@ -199,7 +199,7 @@ class Client {
     $request = new Request('POST', $endPoint, $headers, $body);
     $this->emit(static::EVENT_REQUEST, [$request]);
 
-    try { $response = (new HTTPClient())->send($request); }
+    try { $response = (new HttpClient)->send($request); }
     catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
     $this->emit(static::EVENT_RESPONSE, [$request, $response]);
 

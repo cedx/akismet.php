@@ -84,6 +84,7 @@ class Author implements \JsonSerializable {
 
   /**
    * Gets the author's mail address.
+   * If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`.
    * @return string The author's mail address.
    */
   public function getEmail(): string {
@@ -149,7 +150,7 @@ class Author implements \JsonSerializable {
   }
 
   /**
-   * Sets the author's mail address.
+   * Sets the author's mail address. If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`.
    * @param string $value The new mail address.
    * @return Author This instance.
    */

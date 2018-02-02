@@ -4,7 +4,7 @@
 
   <target name="clean" description="Delete the generated files">
     <delete dir="doc/api" quiet="true"/>
-    <delete dir="www" quiet="true"/>
+    <delete dir="web" quiet="true"/>
     <delete>
       <fileset dir="var" includes="**/*" excludes=".gitkeep"/>
     </delete>

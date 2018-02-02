@@ -1,6 +1,3 @@
-path: blob/master/lib
-source: Client.php
-
 # Key verification
 Key verification authenticates your key before calling the [comment check](comment_check.md), [submit spam](submit_spam.md), or [submit ham](submit_ham.md) methods. This is the first call that you should make to Akismet and is especially useful if you will have multiple users with their own Akismet subscriptions using your application.
 

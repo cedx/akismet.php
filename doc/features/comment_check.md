@@ -1,12 +1,14 @@
-path: blob/master/lib
-source: Client.php
-
 # Comment check
 This is the call you will make the most. It takes a number of arguments and characteristics about the submitted content and then returns a thumbs up or thumbs down. **Performance can drop dramatically if you choose to exclude data points.** The more data you send Akismet about each comment, the greater the accuracy. We recommend erring on the side of including too much data.
 
 ```
 Client->checkComment(Comment $comment): bool
 ```
+
+!!! tip "Testing your data"
+    It is important to test Akismet with a significant amount of real, live data in order to draw any conclusions on accuracy.
+    Akismet works by comparing content to genuine spam activity happening right now (and this is based on more than just the content itself),
+    so artificially generating spam comments is not a viable approach.
 
 ## Parameters
 - `$comment` : the `Comment` providing the user message to be checked.
@@ -40,6 +42,3 @@ catch (ClientException $e) {
   echo 'An error occurred: ', $e->getMessage();
 }
 ```
-
-## Testing your data
-It is important to test Akismet with a significant amount of real, live data in order to draw any conclusions on accuracy. Akismet works by comparing content to genuine spam activity happening right now (and this is based on more than just the content itself), so artificially generating spam comments is not a viable approach.

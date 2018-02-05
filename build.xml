@@ -10,7 +10,7 @@
     </delete>
   </target>
 
-  <target name="coverage" depends="test" description="Upload the code coverage">
+  <target name="coverage" description="Upload the code coverage">
     <exec executable="vendor/bin/coveralls" passthru="true">
       <arg file="var/coverage.xml"/>
     </exec>

@@ -11,7 +11,9 @@ Client->checkComment(Comment $comment): bool
     so artificially generating spam comments is not a viable approach.
 
 ## Parameters
-- `$comment` : the `Comment` providing the user message to be checked.
+
+### $comment
+The `Comment` providing the user message to be checked.
 
 ## Return value
 A `bool` value indicating whether the given `Comment` is spam.

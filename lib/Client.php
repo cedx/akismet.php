@@ -73,7 +73,7 @@ class Client {
   public function __construct(string $apiKey, $blog, string $userAgent = '') {
     $this->apiKey = $apiKey;
     $this->blog = is_string($blog) ? new Blog($blog) : $blog;
-    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*/', '$1', PHP_VERSION), static::VERSION);
+    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
     $this->setEndPoint(static::DEFAULT_ENDPOINT);
   }
 

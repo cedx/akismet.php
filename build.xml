@@ -24,7 +24,7 @@
     <phpLint>
       <fileSet dir="lib" includes="**/*.php"/>
       <fileSet dir="test" includes="**/*.php"/>
-    </phplint>
+    </phpLint>
   </target>
 
   <target name="test" description="Run the tests">

@@ -1,15 +1,12 @@
 * text=auto
 
-.editorconfig text
-.gitattributes text
-.gitignore text
-.travis.yml text
-
+.* text
 *.json text
 *.md text
 *.php text diff=php
 *.txt text
 *.xml text
+*.yml text
 
 *.ico binary
 *.png binary

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use Evenement\{EventEmitterTrait};
+use Evenement\{EventEmitterInterface, EventEmitterTrait};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
@@ -11,7 +11,7 @@ use Psr\Http\Message\{UriInterface};
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-class Client {
+class Client implements EventEmitterInterface {
   use EventEmitterTrait;
 
   /**

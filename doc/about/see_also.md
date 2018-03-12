@@ -3,6 +3,7 @@
 ## Development
 - [API reference](https://cedx.github.io/akismet.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
+- [Akismet for developers](https://akismet.com/development/api)
 
 ## Testing
 - [Continuous integration](https://travis-ci.org/cedx/akismet.php)

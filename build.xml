@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 <project default="test" name="akismet">
-  <autoloader autoloaderpath="vendor/autoload.php"/>
-
   <target name="clean" description="Delete the generated files">
     <delete dir="doc/api" quiet="true"/>
     <delete dir="web" quiet="true"/>
-    <delete>
-      <fileset dir="var" includes="**/*" excludes=".gitkeep"/>
+    <delete includeEmptyDirs="true">
+      <fileSet dir="var" includes="**/*" excludes=".gitkeep"/>
     </delete>
   </target>
 
@@ -18,14 +16,14 @@
 
   <target name="doc" description="Build the documentation">
     <exec executable="mkdocs" passthru="true">
-      <arg value="build" />
+      <arg value="build"/>
     </exec>
   </target>
 
   <target name="lint" description="Perform the static analysis">
-    <phplint>
-      <fileset dir="lib" includes="**/*.php"/>
-      <fileset dir="test" includes="**/*.php"/>
+    <phpLint>
+      <fileSet dir="lib" includes="**/*.php"/>
+      <fileSet dir="test" includes="**/*.php"/>
     </phplint>
   </target>
 

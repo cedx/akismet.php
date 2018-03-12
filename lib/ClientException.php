@@ -22,7 +22,7 @@ class ClientException extends \RuntimeException {
    * @param \Throwable $previous The previous exception used for the exception chaining.
    */
   public function __construct($message, $uri = null, \Throwable $previous = null) {
-    parent::__construct($message, $previous);
+    parent::__construct($message, 0, $previous);
     $this->uri = is_string($uri) ? new Uri($uri) : $uri;
   }
 

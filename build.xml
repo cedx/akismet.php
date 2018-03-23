@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project default="test" name="akismet">
   <target name="clean" description="Delete the generated files">
+    <delete dir="build" quiet="true"/>
     <delete dir="doc/api" quiet="true"/>
     <delete dir="web" quiet="true"/>
     <delete includeEmptyDirs="true">
@@ -15,6 +16,7 @@
   </target>
 
   <target name="doc" description="Build the documentation">
+    <exec executable="vendor/bin/phpdoc" passthru="true"/>
     <exec executable="mkdocs" passthru="true">
       <arg value="build"/>
     </exec>

@@ -119,7 +119,7 @@ composer test
 - [API reference](https://cedx.github.io/akismet.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
 - [Continuous integration](https://travis-ci.org/cedx/akismet.php)
-- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
+- [Code coverage](https://coveralls.io/github/cedx/akismet.php/)
 
 ### Other implementations
 - Dart: [Akismet for Dart](https://cedx.github.io/akismet.dart)

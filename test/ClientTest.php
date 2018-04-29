@@ -88,7 +88,7 @@ class ClientTest extends TestCase {
   protected function setUp(): void {
     $this->client = (new Client(getenv('AKISMET_API_KEY'), 'https://cedx.github.io/akismet.php'))->setIsTest(true);
 
-    $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:42.0) Gecko/20100101 Firefox/42.0', 'Akismet'))
+    $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Linux x86_64) Chrome/65.0.3325.181', 'Akismet'))
       ->setRole('administrator')
       ->setUrl('https://cedx.github.io/akismet.php');
 

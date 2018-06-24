@@ -28,7 +28,7 @@ class BlogTest extends TestCase {
 
     it('should return an initialized instance with a non-empty map', function() {
       $blog = Blog::fromJson([
-        'blog' => 'https://cedx.github.io/akismet.php',
+        'blog' => 'https://dev.belin.io/akismet.php',
         'blog_charset' => 'UTF-8',
         'blog_lang' => 'en, fr'
       ]);
@@ -38,7 +38,7 @@ class BlogTest extends TestCase {
 
       $url = $blog->getUrl();
       expect($url)->to->be->instanceOf(UriInterface::class);
-      expect((string) $url)->to->equal('https://cedx.github.io/akismet.php');
+      expect((string) $url)->to->equal('https://dev.belin.io/akismet.php');
     });
   }
 
@@ -47,15 +47,15 @@ class BlogTest extends TestCase {
    */
   public function testJsonSerialize(): void {
     it('should return only the blog URL with a newly created instance', function() {
-      $data = (new Blog('https://cedx.github.io/akismet.php'))->jsonSerialize();
+      $data = (new Blog('https://dev.belin.io/akismet.php'))->jsonSerialize();
       expect(get_object_vars($data))->to->have->lengthOf(1);
-      expect($data->blog)->to->equal('https://cedx.github.io/akismet.php');
+      expect($data->blog)->to->equal('https://dev.belin.io/akismet.php');
     });
 
     it('should return a non-empty map with a initialized instance', function() {
-      $data = (new Blog('https://cedx.github.io/akismet.php', 'UTF-8', ['en', 'fr']))->jsonSerialize();
+      $data = (new Blog('https://dev.belin.io/akismet.php', 'UTF-8', ['en', 'fr']))->jsonSerialize();
       expect(get_object_vars($data))->to->have->lengthOf(3);
-      expect($data->blog)->to->equal('https://cedx.github.io/akismet.php');
+      expect($data->blog)->to->equal('https://dev.belin.io/akismet.php');
       expect($data->blog_charset)->to->equal('UTF-8');
       expect($data->blog_lang)->to->equal('en,fr');
     });
@@ -65,14 +65,14 @@ class BlogTest extends TestCase {
    * @test Blog::__toString
    */
   public function testToString(): void {
-    $blog = (string) (new Blog('https://cedx.github.io/akismet.php', 'UTF-8', ['en', 'fr']));
+    $blog = (string) (new Blog('https://dev.belin.io/akismet.php', 'UTF-8', ['en', 'fr']));
 
     it('should start with the class name', function() use ($blog) {
       expect($blog)->to->startWith('Akismet\Blog {');
     });
 
     it('should contain the instance properties', function() use ($blog) {
-      expect($blog)->to->contain('"blog":"https://cedx.github.io/akismet.php"')
+      expect($blog)->to->contain('"blog":"https://dev.belin.io/akismet.php"')
         ->and->contain('"blog_charset":"UTF-8"')
         ->and->contain('"blog_lang":"en,fr"');
     });

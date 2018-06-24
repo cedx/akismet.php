@@ -1,15 +1,15 @@
 # See also
 
 ## Development
-- [API reference](https://cedx.github.io/akismet.php/api)
+- [API reference](https://dev.belin.io/akismet.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
 - [Akismet for developers](https://akismet.com/development/api)
 
 ## Testing
-- [Continuous integration](https://travis-ci.org/cedx/akismet.php)
-- [Code coverage](https://coveralls.io/github/cedx/akismet.php/)
+- [Continuous integration](https://travis-ci.com/cedx/akismet.php)
+- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
 
 ## Other implementations
-- Dart: [Akismet for Dart](https://cedx.github.io/akismet.dart)
-- Node.js: [Akismet for JS](https://cedx.github.io/akismet.js)
-- Yii Framework: [Akismet for Yii](https://cedx.github.io/yii2-akismet)
+- Dart: [Akismet for Dart](https://dev.belin.io/akismet.dart)
+- Node.js: [Akismet for JS](https://dev.belin.io/akismet.js)
+- Yii Framework: [Akismet for Yii](https://dev.belin.io/yii2-akismet)

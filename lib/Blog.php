@@ -49,7 +49,7 @@ class Blog implements \JsonSerializable {
   /**
    * Creates a new blog from the specified JSON map.
    * @param mixed $map A JSON map representing a blog.
-   * @return Blog The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJson($map): ?self {
     if (is_array($map)) $map = (object) $map;

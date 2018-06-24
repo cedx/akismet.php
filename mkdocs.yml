@@ -1,7 +1,7 @@
 site_name: Akismet for PHP
 site_description: Prevent comment spam using the Akismet service, in PHP.
 site_author: Cédric Belin - cedric@belin.io
-site_url: https://cedx.github.io/akismet.php
+site_url: https://dev.belin.io/akismet.php
 
 docs_dir: doc
 site_dir: web

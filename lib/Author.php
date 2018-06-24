@@ -64,7 +64,7 @@ class Author implements \JsonSerializable {
   /**
    * Creates a new author from the specified JSON map.
    * @param mixed $map A JSON map representing an author.
-   * @return Author The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   public static function fromJson($map): ?self {
     if (is_array($map)) $map = (object) $map;
@@ -152,7 +152,7 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's mail address. If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`.
    * @param string $value The new mail address.
-   * @return Author This instance.
+   * @return self This instance.
    */
   public function setEmail(string $value): self {
     $this->email = $value;
@@ -162,7 +162,7 @@ class Author implements \JsonSerializable {
   /**
    * Sets the author's role. If you set it to `"administrator"`, Akismet will always return `false`.
    * @param string $value The new role.
-   * @return Author This instance.
+   * @return self This instance.
    */
   public function setRole(string $value): self {
     $this->role = $value;
@@ -172,7 +172,7 @@ class Author implements \JsonSerializable {
   /**
    * Sets the URL of the author's website.
    * @param string|UriInterface $value The new website URL.
-   * @return Author This instance.
+   * @return self This instance.
    */
   public function setUrl($value): self {
     $this->url = is_string($value) ? new Uri($value) : $value;

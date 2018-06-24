@@ -86,11 +86,11 @@ class ClientTest extends TestCase {
    * Performs a common set of tasks just before each test method is called.
    */
   protected function setUp(): void {
-    $this->client = (new Client(getenv('AKISMET_API_KEY'), 'https://cedx.github.io/akismet.php'))->setIsTest(true);
+    $this->client = (new Client(getenv('AKISMET_API_KEY'), 'https://dev.belin.io/akismet.php'))->setIsTest(true);
 
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Linux x86_64) Chrome/66.0.3359.1390', 'Akismet'))
       ->setRole('administrator')
-      ->setUrl('https://cedx.github.io/akismet.php');
+      ->setUrl('https://dev.belin.io/akismet.php');
 
     $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::COMMENT))
       ->setReferrer('https://packagist.org/packages/cedx/akismet');

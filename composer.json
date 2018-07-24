@@ -1,5 +1,5 @@
 {
-  "description": "Prevent comment spam using Akismet service.",
+  "description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
   "homepage": "https://dev.belin.io/akismet.php",
   "license": "MIT",
   "name": "cedx/akismet",

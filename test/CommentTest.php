@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use function PHPUnit\Expect\{expect, it};
 use PHPUnit\Framework\{TestCase};
 
 /**
@@ -14,68 +13,63 @@ class CommentTest extends TestCase {
    * @test Comment::fromJson
    */
   public function testFromJson(): void {
-    it('should return a null reference with a non-object value', function() {
-      expect(Comment::fromJson('foo'))->to->be->null;
-    });
+    // It should return a null reference with a non-object value.
+    assertThat(Comment::fromJson('foo'), isNull());
 
-    it('should return an empty instance with an empty map', function() {
-      $comment = Comment::fromJson([]);
-      expect($comment->getAuthor())->to->be->null;
-      expect($comment->getContent())->to->be->empty;
-      expect($comment->getDate())->to->be->null;
-      expect($comment->getReferrer())->to->be->null;
-      expect($comment->getType())->to->be->empty;
-    });
+    // It should return an empty instance with an empty map.
+    $comment = Comment::fromJson([]);
+    assertThat($comment->getAuthor(), isNull());
+    assertThat($comment->getContent(), isEmpty());
+    assertThat($comment->getDate(), isNull());
+    assertThat($comment->getReferrer(), isNull());
+    assertThat($comment->getType(), isEmpty());
 
-    it('should return an initialized instance with a non-empty map', function() {
-      $comment = Comment::fromJson([
-        'comment_author' => 'Cédric Belin',
-        'comment_content' => 'A user comment.',
-        'comment_date_gmt' => '2000-01-01T00:00:00.000Z',
-        'comment_type' => 'trackback',
-        'referrer' => 'https://belin.io'
-      ]);
+    // It should return an initialized instance with a non-empty map.
+    $comment = Comment::fromJson([
+      'comment_author' => 'Cédric Belin',
+      'comment_content' => 'A user comment.',
+      'comment_date_gmt' => '2000-01-01T00:00:00.000Z',
+      'comment_type' => 'trackback',
+      'referrer' => 'https://belin.io'
+    ]);
 
-      $author = $comment->getAuthor();
-      expect($author)->to->be->instanceOf(Author::class);
-      expect($author->getName())->to->equal('Cédric Belin');
+    $author = $comment->getAuthor();
+    assertThat($author, isInstanceOf(Author::class));
+    assertThat($author->getName(), equalTo('Cédric Belin'));
 
-      $date = $comment->getDate();
-      expect($date)->to->be->instanceOf(\DateTime::class);
-      expect($date->format('Y'))->to->equal(2000);
+    $date = $comment->getDate();
+    assertThat($date, isInstanceOf(\DateTime::class));
+    assertThat($date->format('Y'), equalTo(2000));
 
-      expect($comment->getContent())->to->equal('A user comment.');
-      expect((string) $comment->getReferrer())->to->equal('https://belin.io');
-      expect($comment->getType())->to->equal(CommentType::TRACKBACK);
-    });
+    assertThat($comment->getContent(), equalTo('A user comment.'));
+    assertThat((string) $comment->getReferrer(), equalTo('https://belin.io'));
+    assertThat($comment->getType(), equalTo(CommentType::TRACKBACK));
   }
 
   /**
    * @test Comment::jsonSerialize
    */
   public function testJsonSerialize(): void {
-    it('should return only the author info with a newly created instance', function() {
-      $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
-      expect(get_object_vars($data))->to->have->lengthOf(2);
-      expect($data->user_agent)->to->equal('Doom/6.6.6');
-      expect($data->user_ip)->to->equal('127.0.0.1');
-    });
+    // It should return only the author info with a newly created instance.
+    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
+    assertThat(get_object_vars($data), countOf(2));
+    assertThat($data->user_agent, equalTo('Doom/6.6.6'));
+    assertThat($data->user_ip, equalTo('127.0.0.1'));
 
-    it('should return a non-empty map with a initialized instance', function() {
-      $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
-        ->setDate('2000-01-01T00:00:00.000Z')
-        ->setReferrer('https://belin.io')
-        ->jsonSerialize();
+    // It should return a non-empty map with a initialized instance.
+    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
+      ->setDate('2000-01-01T00:00:00.000Z')
+      ->setReferrer('https://belin.io')
+      ->jsonSerialize();
 
-      expect(get_object_vars($data))->to->have->lengthOf(7);
-      expect($data->comment_author)->to->equal('Cédric Belin');
-      expect($data->comment_content)->to->equal('A user comment.');
-      expect($data->comment_date_gmt)->to->equal('2000-01-01T00:00:00+00:00');
-      expect($data->comment_type)->to->equal('pingback');
-      expect($data->referrer)->to->equal('https://belin.io');
-      expect($data->user_agent)->to->equal('Doom/6.6.6');
-      expect($data->user_ip)->to->equal('127.0.0.1');
-    });
+    assertThat(get_object_vars($data), countOf(7));
+    assertThat($data->comment_author, equalTo('Cédric Belin'));
+    assertThat($data->comment_content, equalTo('A user comment.'));
+    assertThat($data->comment_date_gmt, equalTo('2000-01-01T00:00:00+00:00'));
+    assertThat($data->comment_type, equalTo('pingback'));
+    assertThat($data->referrer, equalTo('https://belin.io'));
+    assertThat($data->user_agent, equalTo('Doom/6.6.6'));
+    assertThat($data->user_ip, equalTo('127.0.0.1'));
   }
 
   /**
@@ -86,18 +80,18 @@ class CommentTest extends TestCase {
       ->setDate('2000-01-01T00:00:00.000Z')
       ->setReferrer('https://belin.io');
 
-    it('should start with the class name', function() use ($comment) {
-      expect($comment)->to->startWith('Akismet\Comment {');
-    });
+    // It should start with the class name.
+    assertThat($comment, stringStartsWith('Akismet\Comment {'));
 
-    it('should contain the instance properties', function() use ($comment) {
-      expect($comment)->to->contain('"comment_author":"Cédric Belin"')
-        ->and->contain('"comment_content":"A user comment."')
-        ->and->contain('"comment_type":"pingback"')
-        ->and->contain('"comment_date_gmt":"2000-01-01T00:00:00+00:00"')
-        ->and->contain('"referrer":"https://belin.io"')
-        ->and->contain('"user_agent":"Doom/6.6.6"')
-        ->and->contain('"user_ip":"127.0.0.1"');
-    });
+    // It should contain the instance properties.
+    assertThat($comment, logicalAnd(
+      stringContains('"comment_author":"Cédric Belin"'),
+      stringContains('"comment_content":"A user comment."'),
+      stringContains('"comment_type":"pingback"'),
+      stringContains('"comment_date_gmt":"2000-01-01T00:00:00+00:00"'),
+      stringContains('"referrer":"https://belin.io"'),
+      stringContains('"user_agent":"Doom/6.6.6"'),
+      stringContains('"user_ip":"127.0.0.1"')
+    ));
   }
 }

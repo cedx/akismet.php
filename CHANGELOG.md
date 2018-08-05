@@ -3,6 +3,7 @@
 ## Version [11.2.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v11.2.0)
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added the `ClientException` class.
+- Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
 - Updated the package dependencies.
 
 ## Version [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)

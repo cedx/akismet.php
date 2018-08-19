@@ -13,7 +13,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::fromJson
    */
-  public function testFromJson(): void {
+  function testFromJson(): void {
     // It should return a null reference with a non-object value.
     assertThat(Blog::fromJson('foo'), isNull());
 
@@ -41,7 +41,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::jsonSerialize
    */
-  public function testJsonSerialize(): void {
+  function testJsonSerialize(): void {
     // It should return only the blog URL with a newly created instance.
     $data = (new Blog('https://dev.belin.io/akismet.php'))->jsonSerialize();
     assertThat(get_object_vars($data), countOf(1));
@@ -58,7 +58,7 @@ class BlogTest extends TestCase {
   /**
    * @test Blog::__toString
    */
-  public function testToString(): void {
+  function testToString(): void {
     $blog = (string) (new Blog('https://dev.belin.io/akismet.php', 'UTF-8', ['en', 'fr']));
 
     // It should start with the class name.

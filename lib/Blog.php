@@ -31,7 +31,7 @@ class Blog implements \JsonSerializable {
    * @param string $charset The character encoding for the values included in comments.
    * @param string[] $languages The languages in use on the blog or site.
    */
-  public function __construct($url, string $charset = '', array $languages = []) {
+  function __construct($url, string $charset = '', array $languages = []) {
     $this->url = is_string($url) ? new Uri($url) : $url;
     $this->charset = $charset;
     $this->languages = new \ArrayObject($languages);
@@ -41,17 +41,17 @@ class Blog implements \JsonSerializable {
    * Returns a string representation of this object.
    * @return string The string representation of this object.
    */
-  public function __toString(): string {
+  function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     return static::class . " $json";
   }
 
   /**
    * Creates a new blog from the specified JSON map.
-   * @param mixed $map A JSON map representing a blog.
+   * @param object $map A JSON map representing a blog.
    * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  public static function fromJson($map): ?self {
+  static function fromJson(object $map): self {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
@@ -72,7 +72,7 @@ class Blog implements \JsonSerializable {
    * Gets the character encoding for the values included in comments.
    * @return string The character encoding for the values included in comments.
    */
-  public function getCharset(): string {
+  function getCharset(): string {
     return $this->charset;
   }
 
@@ -80,7 +80,7 @@ class Blog implements \JsonSerializable {
    * Gets the languages in use on the blog or site, in ISO 639-1 format.
    * @return \ArrayObject The languages in use on the blog or site.
    */
-  public function getLanguages(): \ArrayObject {
+  function getLanguages(): \ArrayObject {
     return $this->languages;
   }
 
@@ -88,7 +88,7 @@ class Blog implements \JsonSerializable {
    * Gets the blog or site URL.
    * @return UriInterface The blog or site URL.
    */
-  public function getUrl(): ?UriInterface {
+  function getUrl(): ?UriInterface {
     return $this->url;
   }
 
@@ -96,7 +96,7 @@ class Blog implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  public function jsonSerialize(): \stdClass {
+  function jsonSerialize(): \stdClass {
     $map = new \stdClass;
     $map->blog = (string) $this->getUrl();
 

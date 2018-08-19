@@ -46,7 +46,7 @@ class Author implements \JsonSerializable {
    * @param string $userAgent The author's user agent.
    * @param string $name The author's name.
    */
-  public function __construct(string $ipAddress, string $userAgent, string $name = '') {
+  function __construct(string $ipAddress, string $userAgent, string $name = '') {
     $this->ipAddress = $ipAddress;
     $this->userAgent = $userAgent;
     $this->name = $name;
@@ -56,17 +56,17 @@ class Author implements \JsonSerializable {
    * Returns a string representation of this object.
    * @return string The string representation of this object.
    */
-  public function __toString(): string {
+  function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     return static::class . " $json";
   }
 
   /**
    * Creates a new author from the specified JSON map.
-   * @param mixed $map A JSON map representing an author.
+   * @param object $map A JSON map representing an author.
    * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  public static function fromJson($map): ?self {
+  static function fromJson(object $map): self {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
@@ -87,7 +87,7 @@ class Author implements \JsonSerializable {
    * If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`.
    * @return string The author's mail address.
    */
-  public function getEmail(): string {
+  function getEmail(): string {
     return $this->email;
   }
 
@@ -95,7 +95,7 @@ class Author implements \JsonSerializable {
    * Gets the author's IP address.
    * @return string The author's IP address.
    */
-  public function getIPAddress(): string {
+  function getIPAddress(): string {
     return $this->ipAddress;
   }
 
@@ -104,7 +104,7 @@ class Author implements \JsonSerializable {
    * If you set it to `"viagra-test-123"`, Akismet will always return `true`.
    * @return string The author's name.
    */
-  public function getName(): string {
+  function getName(): string {
     return $this->name;
   }
 
@@ -113,7 +113,7 @@ class Author implements \JsonSerializable {
    * If you set it to `"administrator"`, Akismet will always return `false`.
    * @return string The author's role.
    */
-  public function getRole(): string {
+  function getRole(): string {
     return $this->role;
   }
 
@@ -121,7 +121,7 @@ class Author implements \JsonSerializable {
    * Gets the URL of the author's website.
    * @return UriInterface The URL of the author's website.
    */
-  public function getUrl(): ?UriInterface {
+  function getUrl(): ?UriInterface {
     return $this->url;
   }
 
@@ -129,7 +129,7 @@ class Author implements \JsonSerializable {
    * Gets the author's user agent, that is the string identifying the Web browser used to submit comments.
    * @return string The author's user agent.
    */
-  public function getUserAgent(): string {
+  function getUserAgent(): string {
     return $this->userAgent;
   }
 
@@ -137,7 +137,7 @@ class Author implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  public function jsonSerialize(): \stdClass {
+  function jsonSerialize(): \stdClass {
     $map = new \stdClass;
     $map->user_agent = $this->getUserAgent();
     $map->user_ip = $this->getIPAddress();
@@ -154,7 +154,7 @@ class Author implements \JsonSerializable {
    * @param string $value The new mail address.
    * @return self This instance.
    */
-  public function setEmail(string $value): self {
+  function setEmail(string $value): self {
     $this->email = $value;
     return $this;
   }
@@ -164,7 +164,7 @@ class Author implements \JsonSerializable {
    * @param string $value The new role.
    * @return self This instance.
    */
-  public function setRole(string $value): self {
+  function setRole(string $value): self {
     $this->role = $value;
     return $this;
   }
@@ -174,7 +174,7 @@ class Author implements \JsonSerializable {
    * @param string|UriInterface $value The new website URL.
    * @return self This instance.
    */
-  public function setUrl($value): self {
+  function setUrl($value): self {
     $this->url = is_string($value) ? new Uri($value) : $value;
     return $this;
   }

@@ -51,7 +51,7 @@ class Comment implements \JsonSerializable {
    * @param string $content The comment's content.
    * @param string $type The comment's type.
    */
-  public function __construct(?Author $author, string $content = '', string $type = '') {
+  function __construct(?Author $author, string $content = '', string $type = '') {
     $this->author = $author;
     $this->content = $content;
     $this->type = $type;
@@ -61,17 +61,17 @@ class Comment implements \JsonSerializable {
    * Returns a string representation of this object.
    * @return string The string representation of this object.
    */
-  public function __toString(): string {
+  function __toString(): string {
     $json = json_encode($this, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     return static::class . " $json";
   }
 
   /**
    * Creates a new comment from the specified JSON map.
-   * @param mixed $map A JSON map representing a comment.
+   * @param object $map A JSON map representing a comment.
    * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
-  public static function fromJson($map): ?self {
+  static function fromJson(object $map): self {
     if (is_array($map)) $map = (object) $map;
     else if (!is_object($map)) return null;
 
@@ -97,7 +97,7 @@ class Comment implements \JsonSerializable {
    * Gets the comment's author.
    * @return Author The comment's author.
    */
-  public function getAuthor(): ?Author {
+  function getAuthor(): ?Author {
     return $this->author;
   }
 
@@ -105,7 +105,7 @@ class Comment implements \JsonSerializable {
    * Gets the comment's content.
    * @return string The comment's content.
    */
-  public function getContent(): string {
+  function getContent(): string {
     return $this->content;
   }
 
@@ -113,7 +113,7 @@ class Comment implements \JsonSerializable {
    * Gets the UTC timestamp of the creation of the comment.
    * @return \DateTime The UTC timestamp of the creation of the comment.
    */
-  public function getDate(): ?\DateTime {
+  function getDate(): ?\DateTime {
     return $this->date;
   }
 
@@ -121,7 +121,7 @@ class Comment implements \JsonSerializable {
    * Gets the permanent location of the entry the comment is submitted to.
    * @return UriInterface The permanent location of the entry the comment is submitted to.
    */
-  public function getPermalink(): ?UriInterface {
+  function getPermalink(): ?UriInterface {
     return $this->permalink;
   }
 
@@ -129,7 +129,7 @@ class Comment implements \JsonSerializable {
    * Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    * @return \DateTime The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    */
-  public function getPostModified(): ?\DateTime {
+  function getPostModified(): ?\DateTime {
     return $this->postModified;
   }
 
@@ -137,7 +137,7 @@ class Comment implements \JsonSerializable {
    * Gets the URL of the webpage that linked to the entry being requested.
    * @return UriInterface The URL of the webpage that linked to the entry being requested.
    */
-  public function getReferrer(): ?UriInterface {
+  function getReferrer(): ?UriInterface {
     return $this->referrer;
   }
 
@@ -145,7 +145,7 @@ class Comment implements \JsonSerializable {
    * Gets the comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
    * @return string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
    */
-  public function getType(): string {
+  function getType(): string {
     return $this->type;
   }
 
@@ -153,7 +153,7 @@ class Comment implements \JsonSerializable {
    * Converts this object to a map in JSON format.
    * @return \stdClass The map in JSON format corresponding to this object.
    */
-  public function jsonSerialize(): \stdClass {
+  function jsonSerialize(): \stdClass {
     $map = $this->getAuthor()->jsonSerialize();
     if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
     if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
@@ -169,7 +169,7 @@ class Comment implements \JsonSerializable {
    * @param mixed $value The new UTC timestamp of the creation of the comment.
    * @return self This instance.
    */
-  public function setDate($value): self {
+  function setDate($value): self {
     if ($value instanceof \DateTime) $this->date = $value;
     else if (is_string($value)) $this->date = new \DateTime($value);
     else if (is_int($value)) $this->date = new \DateTime("@$value");
@@ -183,7 +183,7 @@ class Comment implements \JsonSerializable {
    * @param string|UriInterface $value The new permanent location of the entry.
    * @return self This instance.
    */
-  public function setPermalink($value): self {
+  function setPermalink($value): self {
     $this->permalink = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
@@ -193,7 +193,7 @@ class Comment implements \JsonSerializable {
    * @param mixed $value The new UTC timestamp of the publication time.
    * @return self This instance.
    */
-  public function setPostModified($value): self {
+  function setPostModified($value): self {
     if ($value instanceof \DateTime) $this->postModified = $value;
     else if (is_string($value)) $this->postModified = new \DateTime($value);
     else if (is_int($value)) $this->postModified = new \DateTime("@$value");
@@ -207,7 +207,7 @@ class Comment implements \JsonSerializable {
    * @param string|UriInterface $value The new URL of the webpage that linked to the entry.
    * @return self This instance.
    */
-  public function setReferrer($value): self {
+  function setReferrer($value): self {
     $this->referrer = is_string($value) ? new Uri($value) : $value;
     return $this;
   }

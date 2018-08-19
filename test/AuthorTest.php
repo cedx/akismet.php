@@ -12,7 +12,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::fromJson
    */
-  public function testFromJson(): void {
+  function testFromJson(): void {
     // It should return a null reference with a non-object value.
     assertThat(Author::fromJson('foo'), isNull());
 
@@ -34,7 +34,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::jsonSerialize
    */
-  public function testJsonSerialize(): void {
+  function testJsonSerialize(): void {
     // It should return only the IP address and user agent with a newly created instance.
     $data = (new Author('127.0.0.1', 'Doom/6.6.6'))->jsonSerialize();
     assertThat(get_object_vars($data), countOf(2));
@@ -58,7 +58,7 @@ class AuthorTest extends TestCase {
   /**
    * @test Author::__toString
    */
-  public function testToString(): void {
+  function testToString(): void {
     $author = (string) (new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'))
       ->setEmail('cedric@belin.io')
       ->setUrl('https://belin.io');

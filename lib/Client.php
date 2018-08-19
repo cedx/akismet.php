@@ -17,17 +17,17 @@ class Client implements EventEmitterInterface {
   /**
    * @var string An event that is triggered when a request is made to the remote service.
    */
-  public const EVENT_REQUEST = 'request';
+  const EVENT_REQUEST = 'request';
 
   /**
    * @var string An event that is triggered when a response is received from the remote service.
    */
-  public const EVENT_RESPONSE = 'response';
+  const EVENT_RESPONSE = 'response';
 
   /**
    * @var string The version number of this package.
    */
-  public const VERSION = '11.2.0';
+  const VERSION = '11.2.0';
 
   /**
    * @var string The HTTP header containing the Akismet error messages.
@@ -70,7 +70,7 @@ class Client implements EventEmitterInterface {
    * @param Blog|string $blog The front page or home URL of the instance making requests.
    * @param string $userAgent The user agent string to use when making requests.
    */
-  public function __construct(string $apiKey, $blog, string $userAgent = '') {
+  function __construct(string $apiKey, $blog, string $userAgent = '') {
     $this->apiKey = $apiKey;
     $this->blog = is_string($blog) ? new Blog($blog) : $blog;
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
@@ -82,7 +82,7 @@ class Client implements EventEmitterInterface {
    * @param Comment $comment The comment to be checked.
    * @return bool `true` if the specified comment is spam, otherwise `false`.
    */
-  public function checkComment(Comment $comment): bool {
+  function checkComment(Comment $comment): bool {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check";
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
@@ -92,7 +92,7 @@ class Client implements EventEmitterInterface {
    * Gets the Akismet API key.
    * @return string The Akismet API key.
    */
-  public function getApiKey(): string {
+  function getApiKey(): string {
     return $this->apiKey;
   }
 
@@ -100,7 +100,7 @@ class Client implements EventEmitterInterface {
    * Gets the front page or home URL of the instance making requests.
    * @return Blog The front page or home URL.
    */
-  public function getBlog(): Blog {
+  function getBlog(): Blog {
     return $this->blog;
   }
 
@@ -108,7 +108,7 @@ class Client implements EventEmitterInterface {
    * Gets the URL of the API end point.
    * @return UriInterface The URL of the API end point.
    */
-  public function getEndPoint(): ?UriInterface {
+  function getEndPoint(): ?UriInterface {
     return $this->endPoint;
   }
 
@@ -117,7 +117,7 @@ class Client implements EventEmitterInterface {
    * If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
    * @return string The user agent string to use when making requests.
    */
-  public function getUserAgent(): string {
+  function getUserAgent(): string {
     return $this->userAgent;
   }
 
@@ -125,7 +125,7 @@ class Client implements EventEmitterInterface {
    * Gets a value indicating whether the client operates in test mode.
    * @return bool `true` if the client operates in test mode, otherwise `false`.
    */
-  public function isTest(): bool {
+  function isTest(): bool {
     return $this->isTest;
   }
 
@@ -134,7 +134,7 @@ class Client implements EventEmitterInterface {
    * @param string|UriInterface $value The new URL of the API end point.
    * @return self This instance.
    */
-  public function setEndPoint($value): self {
+  function setEndPoint($value): self {
     $this->endPoint = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
@@ -145,7 +145,7 @@ class Client implements EventEmitterInterface {
    * @param bool $value `true` to enable the test mode, otherwise `false`.
    * @return self This instance.
    */
-  public function setIsTest(bool $value): self {
+  function setIsTest(bool $value): self {
     $this->isTest = $value;
     return $this;
   }
@@ -154,7 +154,7 @@ class Client implements EventEmitterInterface {
    * Submits the specified comment that was incorrectly marked as spam but should not have been.
    * @param Comment $comment The comment to be submitted.
    */
-  public function submitHam(Comment $comment): void {
+  function submitHam(Comment $comment): void {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham";
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
@@ -164,7 +164,7 @@ class Client implements EventEmitterInterface {
    * Submits the specified comment that was not marked as spam but should have been.
    * @param Comment $comment The comment to be submitted.
    */
-  public function submitSpam(Comment $comment): void {
+  function submitSpam(Comment $comment): void {
     $serviceUrl = parse_url((string) $this->getEndPoint());
     $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam";
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
@@ -174,7 +174,7 @@ class Client implements EventEmitterInterface {
    * Checks the API key against the service database, and returns a value indicating whether it is valid.
    * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
-  public function verifyKey(): bool {
+  function verifyKey(): bool {
     $endPoint = (string) $this->getEndPoint()->withPath('/1.1/verify-key');
     return $this->fetch($endPoint, ['key' => $this->getApiKey()]) == 'valid';
   }

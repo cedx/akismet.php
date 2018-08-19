@@ -12,7 +12,7 @@ class CommentTest extends TestCase {
   /**
    * @test Comment::fromJson
    */
-  public function testFromJson(): void {
+  function testFromJson(): void {
     // It should return a null reference with a non-object value.
     assertThat(Comment::fromJson('foo'), isNull());
 
@@ -49,7 +49,7 @@ class CommentTest extends TestCase {
   /**
    * @test Comment::jsonSerialize
    */
-  public function testJsonSerialize(): void {
+  function testJsonSerialize(): void {
     // It should return only the author info with a newly created instance.
     $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
     assertThat(get_object_vars($data), countOf(2));
@@ -75,7 +75,7 @@ class CommentTest extends TestCase {
   /**
    * @test Comment::__toString
    */
-  public function testToString(): void {
+  function testToString(): void {
     $comment = (string) (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setDate('2000-01-01T00:00:00.000Z')
       ->setReferrer('https://belin.io');

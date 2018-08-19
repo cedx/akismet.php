@@ -12,7 +12,8 @@
     "psr-4": {"Akismet\\": "lib/"}
   },
   "autoload-dev": {
-    "files": ["vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"]
+    "files": ["vendor/phpunit/phpunit/src/Framework/Assert/Functions.php"],
+    "psr-4": {"Akismet\\": "test/"}
   },
   "config": {
     "optimize-autoloader": true
@@ -34,9 +35,10 @@
     "guzzlehttp/guzzle": "^6.3.3"
   },
   "require-dev": {
-    "cedx/coveralls": "^7.2.0",
+    "cedx/coveralls": "^8.0.0",
     "phing/phing": "^2.16.1",
-    "phpunit/phpunit": "^7.3.0"
+    "phpstan/phpstan": "^0.10.3",
+    "phpunit/phpunit": "^7.3.1"
   },
   "scripts": {
     "coverage": "coveralls var/coverage.xml",

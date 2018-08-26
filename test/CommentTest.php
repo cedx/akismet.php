@@ -31,12 +31,14 @@ class CommentTest extends TestCase {
       'referrer' => 'https://belin.io'
     ]);
 
+    /** @var Author $author */
     $author = $comment->getAuthor();
-    assertThat($author, isInstanceOf(Author::class));
+    assertThat($author, logicalNot(isNull()));
     assertThat($author->getName(), equalTo('Cédric Belin'));
 
+    /** @var \DateTime $date */
     $date = $comment->getDate();
-    assertThat($date, isInstanceOf(\DateTime::class));
+    assertThat($date, logicalNot(isNull()));
     assertThat($date->format('Y'), equalTo(2000));
 
     assertThat($comment->getContent(), equalTo('A user comment.'));

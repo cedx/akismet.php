@@ -151,7 +151,7 @@ class Comment implements \JsonSerializable {
    * @return \stdClass The map in JSON format corresponding to this object.
    */
   function jsonSerialize(): \stdClass {
-    $map = ($author = $this->getAuthor()) ? $this->getAuthor()->jsonSerialize() : new \stdClass;
+    $map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass;
     if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
     if ($date = $this->getDate()) $map->comment_date_gmt = $date->format('c');
     if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
@@ -163,7 +163,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the UTC timestamp of the creation of the comment.
-   * @param \DateTime $value The new UTC timestamp of the creation of the comment.
+   * @param \DateTime|null $value The new UTC timestamp of the creation of the comment.
    * @return self This instance.
    */
   function setDate(?\DateTime $value): self {
@@ -173,7 +173,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the permanent location of the entry the comment is submitted to.
-   * @param UriInterface $value The new permanent location of the entry.
+   * @param UriInterface|null $value The new permanent location of the entry.
    * @return self This instance.
    */
   function setPermalink(?UriInterface $value): self {
@@ -183,7 +183,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-   * @param \DateTime $value The new UTC timestamp of the publication time.
+   * @param \DateTime|null $value The new UTC timestamp of the publication time.
    * @return self This instance.
    */
   function setPostModified(?\DateTime $value): self {
@@ -193,7 +193,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the URL of the webpage that linked to the entry being requested.
-   * @param UriInterface $value The new URL of the webpage that linked to the entry.
+   * @param UriInterface|null $value The new URL of the webpage that linked to the entry.
    * @return self This instance.
    */
   function setReferrer(?UriInterface $value): self {

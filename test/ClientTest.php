@@ -82,7 +82,7 @@ class ClientTest extends TestCase {
    * Performs a common set of tasks just before each test method is called.
    */
   protected function setUp(): void {
-    $this->client = (new Client(getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setIsTest(true);
+    $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setIsTest(true);
 
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Linux x86_64) Chrome/66.0.3359.1390', 'Akismet'))
       ->setRole('administrator')

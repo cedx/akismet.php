@@ -67,9 +67,6 @@ class Author implements \JsonSerializable {
    * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   static function fromJson(object $map): self {
-    if (is_array($map)) $map = (object) $map;
-    else if (!is_object($map)) return null;
-
     $author = new static(
       isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '',
       isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : '',

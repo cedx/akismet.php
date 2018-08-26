@@ -72,9 +72,6 @@ class Comment implements \JsonSerializable {
    * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
    */
   static function fromJson(object $map): self {
-    if (is_array($map)) $map = (object) $map;
-    else if (!is_object($map)) return null;
-
     $keys = array_keys(get_object_vars($map));
     $hasAuthor = count(array_filter($keys, function($key) {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);

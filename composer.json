@@ -35,14 +35,14 @@
     "guzzlehttp/guzzle": "^6.3.3"
   },
   "require-dev": {
-    "cedx/coveralls": "^8.0.0",
+    "cedx/coveralls": "^9.0.1",
     "phing/phing": "^2.16.1",
     "phpstan/phpstan": "^0.10.3",
-    "phpunit/phpunit": "^7.3.1"
+    "phpunit/phpunit": "^7.3.2"
   },
   "scripts": {
-    "coverage": "coveralls var/coverage.xml",
-    "test": "phpunit"
+    "coverage": "phing coverage",
+    "test": "phing test"
   },
   "support": {
     "docs": "https://dev.belin.io/akismet.php/api",

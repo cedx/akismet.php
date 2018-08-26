@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
 /**
@@ -10,19 +11,16 @@ use PHPUnit\Framework\{TestCase};
 class AuthorTest extends TestCase {
 
   /**
-   * @test Author::fromJson
+   * Tests the `Author::fromJson()` method.
    */
   function testFromJson(): void {
-    // It should return a null reference with a non-object value.
-    assertThat(Author::fromJson('foo'), isNull());
-
     // It should return an empty instance with an empty map.
-    $author = Author::fromJson([]);
+    $author = Author::fromJson(new \stdClass);
     assertThat($author->getEmail(), isEmpty());
     assertThat($author->getIPAddress(), isEmpty());
 
     // It should return an initialized instance with a non-empty map.
-    $author = Author::fromJson([
+    $author = Author::fromJson((object) [
       'comment_author_email' => 'cedric@belin.io',
       'comment_author_url' => 'https://belin.io'
     ]);
@@ -32,7 +30,7 @@ class AuthorTest extends TestCase {
   }
 
   /**
-   * @test Author::jsonSerialize
+   * Tests the `Author::jsonSerialize()` method.
    */
   function testJsonSerialize(): void {
     // It should return only the IP address and user agent with a newly created instance.
@@ -44,7 +42,7 @@ class AuthorTest extends TestCase {
     // It should return a non-empty map with a initialized instance.
     $data = (new Author('192.168.0.1', 'Mozilla/5.0', 'Cédric Belin'))
       ->setEmail('cedric@belin.io')
-      ->setUrl('https://belin.io')
+      ->setUrl(new Uri('https://belin.io'))
       ->jsonSerialize();
 
     assertThat(get_object_vars($data), countOf(5));
@@ -56,12 +54,12 @@ class AuthorTest extends TestCase {
   }
 
   /**
-   * @test Author::__toString
+   * Tests the `Author::__toString()` method.
    */
   function testToString(): void {
     $author = (string) (new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'))
       ->setEmail('cedric@belin.io')
-      ->setUrl('https://belin.io');
+      ->setUrl(new Uri('https://belin.io'));
 
     // It should start with the class name.
     assertThat($author, stringStartsWith('Akismet\Author {'));

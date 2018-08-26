@@ -50,7 +50,7 @@ class Client implements EventEmitterInterface {
   private $blog;
 
   /**
-   * @var Uri The URL of the API end point.
+   * @var UriInterface The URL of the API end point.
    */
   private $endPoint;
 
@@ -67,14 +67,14 @@ class Client implements EventEmitterInterface {
   /**
    * Creates a new client.
    * @param string $apiKey The Akismet API key.
-   * @param Blog|string $blog The front page or home URL of the instance making requests.
+   * @param Blog $blog The front page or home URL of the instance making requests.
    * @param string $userAgent The user agent string to use when making requests.
    */
-  function __construct(string $apiKey, $blog, string $userAgent = '') {
+  function __construct(string $apiKey, Blog $blog, string $userAgent = '') {
     $this->apiKey = $apiKey;
-    $this->blog = is_string($blog) ? new Blog($blog) : $blog;
+    $this->blog = $blog;
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
-    $this->setEndPoint(static::DEFAULT_ENDPOINT);
+    $this->setEndPoint(new Uri('https://rest.akismet.com'));
   }
 
   /**
@@ -84,7 +84,7 @@ class Client implements EventEmitterInterface {
    */
   function checkComment(Comment $comment): bool {
     $serviceUrl = parse_url((string) $this->getEndPoint());
-    $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check";
+    $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check");
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
   }
 
@@ -108,7 +108,7 @@ class Client implements EventEmitterInterface {
    * Gets the URL of the API end point.
    * @return UriInterface The URL of the API end point.
    */
-  function getEndPoint(): ?UriInterface {
+  function getEndPoint(): UriInterface {
     return $this->endPoint;
   }
 
@@ -131,11 +131,11 @@ class Client implements EventEmitterInterface {
 
   /**
    * Sets the URL of the API end point.
-   * @param string|UriInterface $value The new URL of the API end point.
+   * @param UriInterface $value The new URL of the API end point.
    * @return self This instance.
    */
-  function setEndPoint($value): self {
-    $this->endPoint = is_string($value) ? new Uri($value) : $value;
+  function setEndPoint(UriInterface $value): self {
+    $this->endPoint = $value;
     return $this;
   }
 
@@ -156,7 +156,7 @@ class Client implements EventEmitterInterface {
    */
   function submitHam(Comment $comment): void {
     $serviceUrl = parse_url((string) $this->getEndPoint());
-    $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham";
+    $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham");
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
@@ -166,7 +166,7 @@ class Client implements EventEmitterInterface {
    */
   function submitSpam(Comment $comment): void {
     $serviceUrl = parse_url((string) $this->getEndPoint());
-    $endPoint = "{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam";
+    $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam");
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
@@ -175,18 +175,18 @@ class Client implements EventEmitterInterface {
    * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
   function verifyKey(): bool {
-    $endPoint = (string) $this->getEndPoint()->withPath('/1.1/verify-key');
+    $endPoint = $this->getEndPoint()->withPath('/1.1/verify-key');
     return $this->fetch($endPoint, ['key' => $this->getApiKey()]) == 'valid';
   }
 
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
-   * @param string $endPoint The URL of the end point to query.
+   * @param UriInterface $endPoint The URL of the end point to query.
    * @param array $fields The fields describing the query body.
    * @return string The response body.
    * @throws ClientException An error occurred while querying the end point.
    */
-  private function fetch(string $endPoint, array $fields = []): string {
+  private function fetch(UriInterface $endPoint, array $fields = []): string {
     $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
@@ -203,7 +203,7 @@ class Client implements EventEmitterInterface {
     catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
     $this->emit(static::EVENT_RESPONSE, [$request, $response]);
 
-    if($response->hasHeader(static::DEBUG_HEADER)) throw new ClientException($response->getHeader(static::DEBUG_HEADER)[0], $endPoint);
+    if($response->hasHeader('x-akismet-debug-help')) throw new ClientException($response->getHeader('x-akismet-debug-help')[0], $endPoint);
     return (string) $response->getBody();
   }
 }

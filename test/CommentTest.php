@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
 /**
@@ -10,14 +11,11 @@ use PHPUnit\Framework\{TestCase};
 class CommentTest extends TestCase {
 
   /**
-   * @test Comment::fromJson
+   * Tests the `Comment::fromJson()` method.
    */
   function testFromJson(): void {
-    // It should return a null reference with a non-object value.
-    assertThat(Comment::fromJson('foo'), isNull());
-
     // It should return an empty instance with an empty map.
-    $comment = Comment::fromJson([]);
+    $comment = Comment::fromJson(new \stdClass);
     assertThat($comment->getAuthor(), isNull());
     assertThat($comment->getContent(), isEmpty());
     assertThat($comment->getDate(), isNull());
@@ -25,7 +23,7 @@ class CommentTest extends TestCase {
     assertThat($comment->getType(), isEmpty());
 
     // It should return an initialized instance with a non-empty map.
-    $comment = Comment::fromJson([
+    $comment = Comment::fromJson((object) [
       'comment_author' => 'Cédric Belin',
       'comment_content' => 'A user comment.',
       'comment_date_gmt' => '2000-01-01T00:00:00.000Z',
@@ -47,7 +45,7 @@ class CommentTest extends TestCase {
   }
 
   /**
-   * @test Comment::jsonSerialize
+   * Tests the `Comment::jsonSerialize()` method.
    */
   function testJsonSerialize(): void {
     // It should return only the author info with a newly created instance.
@@ -59,7 +57,7 @@ class CommentTest extends TestCase {
     // It should return a non-empty map with a initialized instance.
     $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setDate('2000-01-01T00:00:00.000Z')
-      ->setReferrer('https://belin.io')
+      ->setReferrer(new Uri('https://belin.io'))
       ->jsonSerialize();
 
     assertThat(get_object_vars($data), countOf(7));
@@ -73,12 +71,12 @@ class CommentTest extends TestCase {
   }
 
   /**
-   * @test Comment::__toString
+   * Tests the `Comment::__toString()` method.
    */
   function testToString(): void {
     $comment = (string) (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
       ->setDate('2000-01-01T00:00:00.000Z')
-      ->setReferrer('https://belin.io');
+      ->setReferrer(new Uri('https://belin.io'));
 
     // It should start with the class name.
     assertThat($comment, stringStartsWith('Akismet\Comment {'));

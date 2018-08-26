@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
 /**
@@ -25,7 +26,7 @@ class ClientTest extends TestCase {
   private $spam;
 
   /**
-   * @test Client::checkComment
+   * Tests the `Client::checkComment()` method.
    */
   function testCheckComment(): void {
     // It should return `false` for valid comment (e.g. ham).
@@ -36,7 +37,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test Client::submitHam
+   * Tests the `Client::submitHam()` method.
    */
   function testSubmitHam(): void {
     // It should complete without error.
@@ -51,7 +52,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test Client::submitSpam
+   * Tests the `Client::submitSpam()` method.
    */
   function testSubmitSpam(): void {
     // It should complete without error.
@@ -66,7 +67,7 @@ class ClientTest extends TestCase {
   }
 
   /**
-   * @test Client::verifyKey
+   * Tests the `Client::verifyKey()` method.
    */
   function testVerifyKey(): void {
     // It should return `true` for a valid API key.
@@ -81,14 +82,14 @@ class ClientTest extends TestCase {
    * Performs a common set of tasks just before each test method is called.
    */
   protected function setUp(): void {
-    $this->client = (new Client(getenv('AKISMET_API_KEY'), 'https://dev.belin.io/akismet.php'))->setIsTest(true);
+    $this->client = (new Client(getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setIsTest(true);
 
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Linux x86_64) Chrome/66.0.3359.1390', 'Akismet'))
       ->setRole('administrator')
-      ->setUrl('https://dev.belin.io/akismet.php');
+      ->setUrl(new Uri('https://dev.belin.io/akismet.php'));
 
     $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::COMMENT))
-      ->setReferrer('https://packagist.org/packages/cedx/akismet');
+      ->setReferrer(new Uri('https://packagist.org/packages/cedx/akismet'));
 
     $author = (new Author('127.0.0.1', 'Spam Bot/6.6.6', 'viagra-test-123'))->setEmail('akismet-guaranteed-spam@example.com');
     $this->spam = new Comment($author, 'Spam!', CommentType::TRACKBACK);

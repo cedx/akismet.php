@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 use Psr\Http\Message\{UriInterface};
 
@@ -11,20 +12,17 @@ use Psr\Http\Message\{UriInterface};
 class BlogTest extends TestCase {
 
   /**
-   * @test Blog::fromJson
+   * Tests the `Blog::fromJson()` method.
    */
   function testFromJson(): void {
-    // It should return a null reference with a non-object value.
-    assertThat(Blog::fromJson('foo'), isNull());
-
     // It should return an empty instance with an empty map.
-    $blog = Blog::fromJson([]);
+    $blog = Blog::fromJson(new \stdClass);
     assertThat($blog->getCharset(), isEmpty());
     assertThat($blog->getLanguages(), isEmpty());
     assertThat($blog->getUrl(), isNull());
 
     // It should return an initialized instance with a non-empty map.
-    $blog = Blog::fromJson([
+    $blog = Blog::fromJson((object) [
       'blog' => 'https://dev.belin.io/akismet.php',
       'blog_charset' => 'UTF-8',
       'blog_lang' => 'en, fr'
@@ -39,16 +37,16 @@ class BlogTest extends TestCase {
   }
 
   /**
-   * @test Blog::jsonSerialize
+   * Tests the `Blog::jsonSerialize()` method.
    */
   function testJsonSerialize(): void {
     // It should return only the blog URL with a newly created instance.
-    $data = (new Blog('https://dev.belin.io/akismet.php'))->jsonSerialize();
+    $data = (new Blog(new Uri('https://dev.belin.io/akismet.php')))->jsonSerialize();
     assertThat(get_object_vars($data), countOf(1));
     assertThat($data->blog, equalTo('https://dev.belin.io/akismet.php'));
 
     // It should return a non-empty map with a initialized instance.
-    $data = (new Blog('https://dev.belin.io/akismet.php', 'UTF-8', ['en', 'fr']))->jsonSerialize();
+    $data = (new Blog(new Uri('https://dev.belin.io/akismet.php'), 'UTF-8', ['en', 'fr']))->jsonSerialize();
     assertThat(get_object_vars($data), countOf(3));
     assertThat($data->blog, equalTo('https://dev.belin.io/akismet.php'));
     assertThat($data->blog_charset, equalTo('UTF-8'));
@@ -56,10 +54,10 @@ class BlogTest extends TestCase {
   }
 
   /**
-   * @test Blog::__toString
+   * Tests the `Blog::__toString()` method.
    */
   function testToString(): void {
-    $blog = (string) (new Blog('https://dev.belin.io/akismet.php', 'UTF-8', ['en', 'fr']));
+    $blog = (string) (new Blog(new Uri('https://dev.belin.io/akismet.php'), 'UTF-8', ['en', 'fr']));
 
     // It should start with the class name.
     assertThat($blog, stringStartsWith('Akismet\Blog {'));

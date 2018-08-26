@@ -21,18 +21,18 @@ class Blog implements \JsonSerializable {
   private $languages;
 
   /**
-   * @var Uri The blog or site URL.
+   * @var UriInterface The blog or site URL.
    */
   private $url;
 
   /**
    * Creates a new blog.
-   * @param string|UriInterface $url The blog or site URL.
+   * @param UriInterface $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
    * @param string[] $languages The languages in use on the blog or site.
    */
-  function __construct($url, string $charset = '', array $languages = []) {
-    $this->url = is_string($url) ? new Uri($url) : $url;
+  function __construct(?UriInterface $url, string $charset = '', array $languages = []) {
+    $this->url = $url;
     $this->charset = $charset;
     $this->languages = new \ArrayObject($languages);
   }
@@ -59,7 +59,7 @@ class Blog implements \JsonSerializable {
     };
 
     return new static(
-      isset($map->blog) && is_string($map->blog) ? $map->blog : null,
+      isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null,
       isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
       isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []
     );

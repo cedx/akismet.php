@@ -27,17 +27,7 @@ class Client implements EventEmitterInterface {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '11.2.0';
-
-  /**
-   * @var string The HTTP header containing the Akismet error messages.
-   */
-  private const DEBUG_HEADER = 'x-akismet-debug-help';
-
-  /**
-   * @var string The URL of the default API end point.
-   */
-  private const DEFAULT_ENDPOINT = 'https://rest.akismet.com';
+  const VERSION = '12.0.0';
 
   /**
    * @var string The Akismet API key.

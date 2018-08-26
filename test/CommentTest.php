@@ -56,7 +56,7 @@ class CommentTest extends TestCase {
 
     // It should return a non-empty map with a initialized instance.
     $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
-      ->setDate('2000-01-01T00:00:00.000Z')
+      ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
       ->setReferrer(new Uri('https://belin.io'))
       ->jsonSerialize();
 
@@ -75,7 +75,7 @@ class CommentTest extends TestCase {
    */
   function testToString(): void {
     $comment = (string) (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
-      ->setDate('2000-01-01T00:00:00.000Z')
+      ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
       ->setReferrer(new Uri('https://belin.io'));
 
     // It should start with the class name.

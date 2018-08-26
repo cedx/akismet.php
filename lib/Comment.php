@@ -21,7 +21,7 @@ class Comment implements \JsonSerializable {
   private $content;
 
   /**
-   * @var \DateTime The UTC timestamp of the creation of the comment.
+   * @var \DateTime|null The UTC timestamp of the creation of the comment.
    */
   private $date;
 
@@ -31,7 +31,7 @@ class Comment implements \JsonSerializable {
   private $permalink;
 
   /**
-   * @var \DateTime The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
+   * @var \DateTime|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    */
   private $postModified;
 
@@ -84,9 +84,9 @@ class Comment implements \JsonSerializable {
     );
 
     return $comment
-      ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
+      ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTime($map->comment_date_gmt) : null)
       ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? new Uri($map->permalink) : null)
-      ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null)
+      ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTime($map->comment_post_modified_gmt) : null)
       ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? new Uri($map->referrer) : null);
   }
 
@@ -163,15 +163,11 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the UTC timestamp of the creation of the comment.
-   * @param mixed $value The new UTC timestamp of the creation of the comment.
+   * @param \DateTime $value The new UTC timestamp of the creation of the comment.
    * @return self This instance.
    */
-  function setDate($value): self {
-    if ($value instanceof \DateTime) $this->date = $value;
-    else if (is_string($value)) $this->date = new \DateTime($value);
-    else if (is_int($value)) $this->date = new \DateTime("@$value");
-    else $this->date = null;
-
+  function setDate(?\DateTime $value): self {
+    $this->date = $value;
     return $this;
   }
 
@@ -187,15 +183,11 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-   * @param mixed $value The new UTC timestamp of the publication time.
+   * @param \DateTime $value The new UTC timestamp of the publication time.
    * @return self This instance.
    */
-  function setPostModified($value): self {
-    if ($value instanceof \DateTime) $this->postModified = $value;
-    else if (is_string($value)) $this->postModified = new \DateTime($value);
-    else if (is_int($value)) $this->postModified = new \DateTime("@$value");
-    else $this->postModified = null;
-
+  function setPostModified(?\DateTime $value): self {
+    $this->postModified = $value;
     return $this;
   }
 

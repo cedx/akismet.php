@@ -27,7 +27,7 @@ class Client implements EventEmitterInterface {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '12.0.0';
+  const VERSION = '11.1.0';
 
   /**
    * @var string The Akismet API key.

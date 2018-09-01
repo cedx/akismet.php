@@ -20,6 +20,17 @@ class RoboFile extends Tasks {
   }
 
   /**
+   * Builds the project.
+   */
+  function build(): void {
+    $version = $this->taskSemVer('.semver')->setFormat('%M.%m.%p')->__toString();
+    $this->taskReplaceInFile('lib/Client.php')
+      ->regex("/const VERSION = '\d+(\.\d+){2}'/")
+      ->to("const VERSION = '$version'")
+      ->run();
+  }
+
+  /**
    * Deletes all generated files and reset any saved state.
    */
   function clean(): void {
@@ -76,11 +87,21 @@ class RoboFile extends Tasks {
   }
 
   /**
+   * Increments the version number of the package.
+   * @param string $component The part in the version number to increment.
+   */
+  function version(string $component = 'patch'): void {
+    $this->taskSemVer('.semver')->increment($component)->run();
+  }
+
+  /**
    * Watches for file changes.
    */
   function watch(): void {
+    $this->build();
     $this->taskWatch()
-      ->monitor(['lib', 'test'], function() { $this->test(); })
+      ->monitor('lib', function() { $this->build(); })
+      ->monitor('test', function() { $this->test(); })
       ->run();
   }
 }

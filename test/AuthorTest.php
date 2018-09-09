@@ -12,6 +12,7 @@ class AuthorTest extends TestCase {
 
   /**
    * Tests the `Author::fromJson()` method.
+   * @test
    */
   function testFromJson(): void {
     // It should return an empty instance with an empty map.
@@ -31,6 +32,7 @@ class AuthorTest extends TestCase {
 
   /**
    * Tests the `Author::jsonSerialize()` method.
+   * @test
    */
   function testJsonSerialize(): void {
     // It should return only the IP address and user agent with a newly created instance.
@@ -55,6 +57,7 @@ class AuthorTest extends TestCase {
 
   /**
    * Tests the `Author::__toString()` method.
+   * @test
    */
   function testToString(): void {
     $author = (string) (new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'))

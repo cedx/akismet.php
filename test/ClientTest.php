@@ -27,6 +27,7 @@ class ClientTest extends TestCase {
 
   /**
    * Tests the `Client::checkComment()` method.
+   * @test
    */
   function testCheckComment(): void {
     // It should return `false` for valid comment (e.g. ham).
@@ -38,6 +39,7 @@ class ClientTest extends TestCase {
 
   /**
    * Tests the `Client::submitHam()` method.
+   * @test
    */
   function testSubmitHam(): void {
     // It should complete without error.
@@ -53,6 +55,7 @@ class ClientTest extends TestCase {
 
   /**
    * Tests the `Client::submitSpam()` method.
+   * @test
    */
   function testSubmitSpam(): void {
     // It should complete without error.
@@ -68,6 +71,7 @@ class ClientTest extends TestCase {
 
   /**
    * Tests the `Client::verifyKey()` method.
+   * @test
    */
   function testVerifyKey(): void {
     // It should return `true` for a valid API key.
@@ -80,6 +84,7 @@ class ClientTest extends TestCase {
 
   /**
    * Performs a common set of tasks just before each test method is called.
+   * @before
    */
   protected function setUp(): void {
     $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setIsTest(true);

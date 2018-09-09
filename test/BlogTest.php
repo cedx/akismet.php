@@ -13,6 +13,7 @@ class BlogTest extends TestCase {
 
   /**
    * Tests the `Blog::fromJson()` method.
+   * @test
    */
   function testFromJson(): void {
     // It should return an empty instance with an empty map.
@@ -38,6 +39,7 @@ class BlogTest extends TestCase {
 
   /**
    * Tests the `Blog::jsonSerialize()` method.
+   * @test
    */
   function testJsonSerialize(): void {
     // It should return only the blog URL with a newly created instance.
@@ -55,6 +57,7 @@ class BlogTest extends TestCase {
 
   /**
    * Tests the `Blog::__toString()` method.
+   * @test
    */
   function testToString(): void {
     $blog = (string) (new Blog(new Uri('https://dev.belin.io/akismet.php'), 'UTF-8', ['en', 'fr']));

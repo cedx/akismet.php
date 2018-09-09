@@ -12,6 +12,7 @@ class CommentTest extends TestCase {
 
   /**
    * Tests the `Comment::fromJson()` method.
+   * @test
    */
   function testFromJson(): void {
     // It should return an empty instance with an empty map.
@@ -48,6 +49,7 @@ class CommentTest extends TestCase {
 
   /**
    * Tests the `Comment::jsonSerialize()` method.
+   * @test
    */
   function testJsonSerialize(): void {
     // It should return only the author info with a newly created instance.
@@ -74,6 +76,7 @@ class CommentTest extends TestCase {
 
   /**
    * Tests the `Comment::__toString()` method.
+   * @test
    */
   function testToString(): void {
     $comment = (string) (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))

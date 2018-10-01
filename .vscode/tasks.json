@@ -2,33 +2,39 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "command": "phing clean",
-      "label": "phing : clean",
-      "problemMatcher": [],
-      "type": "shell"
-    },
-    {
-      "command": "phing doc",
-      "label": "phing : doc",
-      "problemMatcher": [],
-      "type": "shell"
-    },
-    {
-      "command": "phing lint",
-      "label": "phing : lint",
-      "problemMatcher": [],
-      "type": "shell"
-    },
-    {
-      "command": "phing test",
+      "command": "robo build",
       "group": {"isDefault": true, "kind": "build"},
-      "label": "phing : test",
+      "label": "robo : build",
       "problemMatcher": [],
       "type": "shell"
     },
     {
-      "command": "phing upgrade",
-      "label": "phing : upgrade",
+      "command": "robo clean",
+      "label": "robo : clean",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "robo doc",
+      "label": "robo : doc",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "robo lint",
+      "label": "robo : lint",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "robo test",
+      "label": "robo : test",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "robo upgrade",
+      "label": "robo : upgrade",
       "problemMatcher": [],
       "type": "shell"
     }

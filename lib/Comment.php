@@ -69,7 +69,7 @@ class Comment implements \JsonSerializable {
   /**
    * Creates a new comment from the specified JSON map.
    * @param object $map A JSON map representing a comment.
-   * @return self The instance corresponding to the specified JSON map, or `null` if a parsing error occurred.
+   * @return static The instance corresponding to the specified JSON map.
    */
   static function fromJson(object $map): self {
     $keys = array_keys(get_object_vars($map));
@@ -164,7 +164,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the UTC timestamp of the creation of the comment.
    * @param \DateTime|null $value The new UTC timestamp of the creation of the comment.
-   * @return self This instance.
+   * @return $this This instance.
    */
   function setDate(?\DateTime $value): self {
     $this->date = $value;
@@ -174,7 +174,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the permanent location of the entry the comment is submitted to.
    * @param UriInterface|null $value The new permanent location of the entry.
-   * @return self This instance.
+   * @return $this This instance.
    */
   function setPermalink(?UriInterface $value): self {
     $this->permalink = $value;
@@ -184,7 +184,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
    * @param \DateTime|null $value The new UTC timestamp of the publication time.
-   * @return self This instance.
+   * @return $this This instance.
    */
   function setPostModified(?\DateTime $value): self {
     $this->postModified = $value;
@@ -194,7 +194,7 @@ class Comment implements \JsonSerializable {
   /**
    * Sets the URL of the webpage that linked to the entry being requested.
    * @param UriInterface|null $value The new URL of the webpage that linked to the entry.
-   * @return self This instance.
+   * @return $this This instance.
    */
   function setReferrer(?UriInterface $value): self {
     $this->referrer = $value;

@@ -122,7 +122,7 @@ class Client implements EventEmitterInterface {
   /**
    * Sets the URL of the API end point.
    * @param UriInterface $value The new URL of the API end point.
-   * @return self This instance.
+   * @return $this This instance.
    */
   function setEndPoint(UriInterface $value): self {
     $this->endPoint = $value;
@@ -133,7 +133,7 @@ class Client implements EventEmitterInterface {
    * Sets a value indicating whether the client operates in test mode.
    * You can use it when submitting test queries to Akismet.
    * @param bool $value `true` to enable the test mode, otherwise `false`.
-   * @return self This instance.
+   * @return $this This instance.
    */
   function setIsTest(bool $value): self {
     $this->isTest = $value;

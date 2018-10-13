@@ -22,7 +22,7 @@ use Akismet\{Blog, Client, ClientException};
 use GuzzleHttp\Psr7\{Uri};
 
 try {
-  $client = new Client('123YourAPIKey', new Blog(new Uri('http://www.yourblog.com')));
+  $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
   $isValid = $client->verifyKey();
   echo $isValid ? 'The API key is valid' : 'The API key is invalid';
 }

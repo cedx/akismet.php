@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\{Uri};
 $author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
 $comment = new Comment($author, 'A user comment');
 
-$client = new Client('123YourAPIKey', new Blog(new Uri('http://www.yourblog.com')));
+$client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
 $isSpam = $client->checkComment($comment);
 print("It should be 'true': $isSpam");
 ```
@@ -32,7 +32,7 @@ use GuzzleHttp\Psr7\{Uri};
 $author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setRole('administrator');
 $comment = new Comment($author, 'A user comment');
 
-$client = new Client('123YourAPIKey', new Blog(new Uri('http://www.yourblog.com')));
+$client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
 $isSpam = $client->checkComment($comment);
 print("It should be 'false': $isSpam");
 ```
@@ -49,7 +49,7 @@ use GuzzleHttp\Psr7\{Uri};
 
 $author = new Author('127.0.0.1', 'Mozilla/5.0');
 $comment = new Comment($author, 'A user comment');
-$client = (new Client('123YourAPIKey', new Blog(new Uri('http://www.yourblog.com'))))
+$client = (new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com'))))
   ->setIsTest(true);
 
 echo 'It should not influence subsequent calls';

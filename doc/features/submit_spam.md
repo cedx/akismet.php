@@ -34,7 +34,7 @@ try {
     'An invalid user comment (spam)'
   );
 
-  $client = new Client('123YourAPIKey', new Blog(new Uri('http://www.yourblog.com')));
+  $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
   $isSpam = $client->checkComment($comment); // `false`, but `true` expected.
 
   echo 'The comment was incorrectly classified as ham';

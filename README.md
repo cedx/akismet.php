@@ -3,7 +3,11 @@
 
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net).
 
-> For detailed instructions, see the [user guide](https://dev.belin.io/akismet.php).
+## Resources
+- [Documentation](https://dev.belin.io/akismet.php)
+- [API reference](https://dev.belin.io/akismet.php/api)
+- [Packagist package](https://packagist.org/packages/cedx/akismet)
+- [GitHub repository](https://github.com/cedx/akismet.php)
 
 ## Features
 - [Key verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.
@@ -115,17 +119,6 @@ Then, you can run the `test` script from the command prompt:
 ```shell
 composer test
 ```
-
-## See also
-- [API reference](https://dev.belin.io/akismet.php/api)
-- [Packagist package](https://packagist.org/packages/cedx/akismet)
-- [Continuous integration](https://travis-ci.com/cedx/akismet.php)
-- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
-
-### Other implementations
-* Dart: [Akismet for Dart](https://dev.belin.io/akismet.dart)
-* Node.js: [Akismet for JS](https://dev.belin.io/akismet.js)
-* Yii Framework: [Akismet for Yii](https://dev.belin.io/yii2-akismet)
 
 ## License
 [Akismet for PHP](https://dev.belin.io/akismet.php) is distributed under the MIT License.

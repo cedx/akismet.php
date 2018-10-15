@@ -1,5 +1,7 @@
 # Comment check
-This is the call you will make the most. It takes a number of arguments and characteristics about the submitted content and then returns a thumbs up or thumbs down. **Performance can drop dramatically if you choose to exclude data points.** The more data you send Akismet about each comment, the greater the accuracy. We recommend erring on the side of including too much data.
+This is the call you will make the most. It takes a number of arguments and characteristics about the submitted content
+and then returns a thumbs up or thumbs down. **Performance can drop dramatically if you choose to exclude data points.**
+The more data you send Akismet about each comment, the greater the accuracy. We recommend erring on the side of including too much data.
 
 ```
 Client->checkComment(Comment $comment): bool
@@ -12,7 +14,7 @@ Client->checkComment(Comment $comment): bool
 
 ## Parameters
 
-### $comment
+### Comment **$comment**
 The `Comment` providing the user message to be checked.
 
 ## Return value
@@ -28,20 +30,21 @@ The exception `getMessage()` usually includes some debug information, provided b
 use Akismet\{Author, Blog, Client, ClientException, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};
 
-try {
-  $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+function main(): void {
+  try {
+    $comment = new Comment(
+      new Author('127.0.0.1', 'Mozilla/5.0'),
+      'A user comment',
+      CommentType::CONTACT_FORM
+    );
 
-  $comment = new Comment(
-    new Author('127.0.0.1', 'Mozilla/5.0'),
-    'A user comment',
-    CommentType::CONTACT_FORM
-  );
+    $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+    $isSpam = $client->checkComment($comment);
+    echo $isSpam ? 'The comment is spam' : 'The comment is ham';
+  }
 
-  $isSpam = $client->checkComment($comment);
-  echo $isSpam ? 'The comment is spam' : 'The comment is ham';
-}
-
-catch (ClientException $e) {
-  echo 'An error occurred: ', $e->getMessage();
+  catch (ClientException $e) {
+    echo 'An error occurred: ', $e->getMessage();
+  }
 }
 ```

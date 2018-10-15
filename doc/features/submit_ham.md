@@ -1,7 +1,9 @@
 # Submit ham
-This call is intended for the submission of false positives - items that were incorrectly classified as spam by Akismet. It takes identical arguments as [comment check](comment_check.md) and [submit spam](submit_spam.md).
+This call is intended for the submission of false positives - items that were incorrectly classified as spam by Akismet.
+It takes identical arguments as [comment check](comment_check.md) and [submit spam](submit_spam.md).
 
-Remember that, as explained in the [submit spam](submit_spam.md) documentation, you should ensure that any values you're passing here match up with the original and corresponding [comment check](comment_check.md) call.
+Remember that, as explained in the [submit spam](submit_spam.md) documentation, you should ensure
+that any values you're passing here match up with the original and corresponding [comment check](comment_check.md) call.
 
 ```
 Client->submitHam(Comment $comment): void
@@ -9,7 +11,7 @@ Client->submitHam(Comment $comment): void
 
 ## Parameters
 
-### $comment
+### Comment **$comment**
 The user `Comment` to be submitted, incorrectly classified as spam.
 
 !!! tip
@@ -28,20 +30,22 @@ The exception `getMessage()` usually includes some debug information, provided b
 use Akismet\{Author, Blog, Client, ClientException, Comment};
 use GuzzleHttp\Psr7\{Uri};
 
-try {
-  $comment = new Comment(
-    new Author('127.0.0.1', 'Mozilla/5.0'),
-    'A valid user comment (ham)'
-  );
+function main(): void {
+  try {
+    $comment = new Comment(
+      new Author('127.0.0.1', 'Mozilla/5.0'),
+      'A valid user comment (ham)'
+    );
 
-  $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
-  $isSpam = $client->checkComment($comment); // `true`, but `false` expected.
+    $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+    $isSpam = $client->checkComment($comment); // `true`, but `false` expected.
 
-  echo 'The comment was incorrectly classified as spam';
-  $client->submitHam($comment);
-}
+    echo 'The comment was incorrectly classified as spam';
+    $client->submitHam($comment);
+  }
 
-catch (ClientException $e) {
-  echo 'An error occurred: ', $e->getMessage();
+  catch (ClientException $e) {
+    echo 'An error occurred: ', $e->getMessage();
+  }
 }
 ```

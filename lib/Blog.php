@@ -52,16 +52,10 @@ class Blog implements \JsonSerializable {
    * @return static The instance corresponding to the specified JSON map.
    */
   static function fromJson(object $map): self {
-    $transform = function($languages) {
-      return array_values(array_filter(array_map('trim', explode(',', $languages)), function($language) {
-        return mb_strlen($language) > 0;
-      }));
-    };
-
     return new static(
       isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null,
       isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
-      isset($map->blog_lang) && is_string($map->blog_lang) ? $transform($map->blog_lang) : []
+      isset($map->blog_lang) && is_string($map->blog_lang) ? array_map('trim', explode(',', $map->blog_lang)) : []
     );
   }
 
@@ -96,7 +90,6 @@ class Blog implements \JsonSerializable {
   function jsonSerialize(): \stdClass {
     $map = new \stdClass;
     $map->blog = (string) $this->getUrl();
-
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
     if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
     return $map;

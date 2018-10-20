@@ -116,7 +116,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Gets the permanent location of the entry the comment is submitted to.
-   * @return UriInterface The permanent location of the entry the comment is submitted to.
+   * @return UriInterface|null The permanent location of the entry the comment is submitted to.
    */
   function getPermalink(): ?UriInterface {
     return $this->permalink;
@@ -132,7 +132,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Gets the URL of the webpage that linked to the entry being requested.
-   * @return UriInterface The URL of the webpage that linked to the entry being requested.
+   * @return UriInterface|null The URL of the webpage that linked to the entry being requested.
    */
   function getReferrer(): ?UriInterface {
     return $this->referrer;

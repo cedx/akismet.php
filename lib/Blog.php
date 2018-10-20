@@ -21,13 +21,13 @@ class Blog implements \JsonSerializable {
   private $languages;
 
   /**
-   * @var UriInterface The blog or site URL.
+   * @var UriInterface|null The blog or site URL.
    */
   private $url;
 
   /**
    * Creates a new blog.
-   * @param UriInterface $url The blog or site URL.
+   * @param UriInterface|null $url The blog or site URL.
    * @param string $charset The character encoding for the values included in comments.
    * @param string[] $languages The languages in use on the blog or site.
    */
@@ -77,7 +77,7 @@ class Blog implements \JsonSerializable {
 
   /**
    * Gets the blog or site URL.
-   * @return UriInterface The blog or site URL.
+   * @return UriInterface|null The blog or site URL.
    */
   function getUrl(): ?UriInterface {
     return $this->url;

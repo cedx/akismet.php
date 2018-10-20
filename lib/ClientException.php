@@ -37,7 +37,7 @@ class ClientException extends \RuntimeException {
 
   /**
    * Gets the URL of the HTTP request or response that failed.
-   * @return UriInterface The URL of the HTTP request or response that failed.
+   * @return UriInterface|null The URL of the HTTP request or response that failed.
    */
   function getUri(): ?UriInterface {
     return $this->uri;

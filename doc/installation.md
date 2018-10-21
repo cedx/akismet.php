@@ -14,7 +14,7 @@ php --version
 # PHP 7.2.10-0ubuntu0.18.04.1 (cli) (built: Sep 13 2018 13:45:02) ( NTS )
 
 composer --version
-# Composer version 1.7.1 2018-08-07 09:39:23
+# Composer version 1.7.2 2018-08-16 16:57:12
 ```
 
 !!! info

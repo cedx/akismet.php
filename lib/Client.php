@@ -64,7 +64,7 @@ class Client implements EventEmitterInterface {
     $this->apiKey = $apiKey;
     $this->blog = $blog;
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
-    $this->setEndPoint(new Uri('https://rest.akismet.com'));
+    $this->setEndPoint('https://rest.akismet.com');
   }
 
   /**
@@ -121,11 +121,11 @@ class Client implements EventEmitterInterface {
 
   /**
    * Sets the URL of the API end point.
-   * @param UriInterface $value The new URL of the API end point.
+   * @param UriInterface|string $value The new URL of the API end point.
    * @return $this This instance.
    */
-  function setEndPoint(UriInterface $value): self {
-    $this->endPoint = $value;
+  function setEndPoint($value): self {
+    $this->endPoint = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 

@@ -76,7 +76,7 @@ class Author implements \JsonSerializable {
     return $author
       ->setEmail(isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '')
       ->setRole(isset($map->user_role) && is_string($map->user_role) ? $map->user_role : '')
-      ->setUrl(isset($map->comment_author_url) && is_string($map->comment_author_url) ? new Uri($map->comment_author_url) : null);
+      ->setUrl(isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : null);
   }
 
   /**
@@ -168,11 +168,11 @@ class Author implements \JsonSerializable {
 
   /**
    * Sets the URL of the author's website.
-   * @param UriInterface|null $value The new website URL.
+   * @param UriInterface|string|null $value The new website URL.
    * @return $this This instance.
    */
-  function setUrl(?UriInterface $value): self {
-    $this->url = $value;
+  function setUrl($value): self {
+    $this->url = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 }

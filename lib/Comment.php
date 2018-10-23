@@ -84,10 +84,10 @@ class Comment implements \JsonSerializable {
     );
 
     return $comment
-      ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTime($map->comment_date_gmt) : null)
-      ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? new Uri($map->permalink) : null)
-      ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTime($map->comment_post_modified_gmt) : null)
-      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? new Uri($map->referrer) : null);
+      ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? $map->comment_date_gmt : null)
+      ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? $map->permalink : null)
+      ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? $map->comment_post_modified_gmt : null)
+      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? $map->referrer : null);
   }
 
   /**
@@ -163,41 +163,41 @@ class Comment implements \JsonSerializable {
 
   /**
    * Sets the UTC timestamp of the creation of the comment.
-   * @param \DateTime|null $value The new UTC timestamp of the creation of the comment.
+   * @param \DateTime|string|null $value The new UTC timestamp of the creation of the comment.
    * @return $this This instance.
    */
-  function setDate(?\DateTime $value): self {
-    $this->date = $value;
+  function setDate($value): self {
+    $this->date = is_string($value) ? new \DateTime($value) : $value;
     return $this;
   }
 
   /**
    * Sets the permanent location of the entry the comment is submitted to.
-   * @param UriInterface|null $value The new permanent location of the entry.
+   * @param UriInterface|string|null $value The new permanent location of the entry.
    * @return $this This instance.
    */
-  function setPermalink(?UriInterface $value): self {
-    $this->permalink = $value;
+  function setPermalink($value): self {
+    $this->permalink = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 
   /**
    * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-   * @param \DateTime|null $value The new UTC timestamp of the publication time.
+   * @param \DateTime|string|null $value The new UTC timestamp of the publication time.
    * @return $this This instance.
    */
-  function setPostModified(?\DateTime $value): self {
-    $this->postModified = $value;
+  function setPostModified($value): self {
+    $this->postModified = is_string($value) ? new \DateTime($value) : $value;
     return $this;
   }
 
   /**
    * Sets the URL of the webpage that linked to the entry being requested.
-   * @param UriInterface|null $value The new URL of the webpage that linked to the entry.
+   * @param UriInterface|string|null $value The new URL of the webpage that linked to the entry.
    * @return $this This instance.
    */
-  function setReferrer(?UriInterface $value): self {
-    $this->referrer = $value;
+  function setReferrer($value): self {
+    $this->referrer = is_string($value) ? new Uri($value) : $value;
     return $this;
   }
 }

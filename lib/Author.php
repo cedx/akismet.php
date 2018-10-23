@@ -116,7 +116,7 @@ class Author implements \JsonSerializable {
 
   /**
    * Gets the URL of the author's website.
-   * @return UriInterface The URL of the author's website.
+   * @return UriInterface|null The URL of the author's website.
    */
   function getUrl(): ?UriInterface {
     return $this->url;

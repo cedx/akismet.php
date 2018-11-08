@@ -135,7 +135,7 @@ class Client implements EventEmitterInterface {
    * @param bool $value `true` to enable the test mode, otherwise `false`.
    * @return $this This instance.
    */
-  function setIsTest(bool $value): self {
+  function setTest(bool $value): self {
     $this->isTest = $value;
     return $this;
   }

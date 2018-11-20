@@ -10,7 +10,7 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 ## Development
 - [Git repository](https://git.belin.io/cedx/akismet.php)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
-- [Submit an issue](https://git.belin.io/cedx/akismet.php/issues)
+- [Submit an issue](https://github.com/cedx/akismet.php/issues)
 
 ## Features
 - [Key verification](https://akismet.com/development/api/#verify-key): checks an Akismet API key and gets a value indicating whether it is valid.

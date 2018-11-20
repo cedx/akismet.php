@@ -4,7 +4,7 @@
 - [Akismet for developers](https://akismet.com/development/api)
 - [API reference](https://dev.belin.io/akismet.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
-- [Submit an issue](https://git.belin.io/cedx/akismet.php/issues)
+- [Submit an issue](https://github.com/cedx/akismet.php/issues)
 
 ## Testing
 - [Continuous integration](https://travis-ci.com/cedx/akismet.php)

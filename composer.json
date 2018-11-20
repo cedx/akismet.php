@@ -47,6 +47,6 @@
   },
   "support": {
     "docs": "https://dev.belin.io/akismet.php/api",
-    "issues": "https://git.belin.io/cedx/akismet.php/issues"
+    "issues": "https://github.com/cedx/akismet.php/issues"
   }
 }

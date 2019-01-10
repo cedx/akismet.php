@@ -8,7 +8,7 @@
 
 ## Testing
 - [Continuous integration](https://travis-ci.com/cedx/akismet.php)
-- [Code coverage](https://coveralls.io/github/cedx/akismet.php)
+- [Code coverage](https://coveralls.io/github/cedx/akismet.php/)
 
 ## Other implementations
 - Dart: [Akismet for Dart](https://dev.belin.io/akismet.dart)

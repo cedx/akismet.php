@@ -8,7 +8,7 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 - [API reference](https://dev.belin.io/akismet.php/api)
 
 ## Development
-- [Git repository](https://git.belin.io/cedx/akismet.php)
+- [Git repository](https://github.com/cedx/akismet.php)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
 - [Submit an issue](https://github.com/cedx/akismet.php/issues)
 

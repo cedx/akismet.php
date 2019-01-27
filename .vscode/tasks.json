@@ -15,6 +15,12 @@
       "type": "shell"
     },
     {
+      "command": "robo coverage",
+      "label": "robo : coverage",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
       "command": "robo doc",
       "label": "robo : doc",
       "problemMatcher": [],
@@ -35,6 +41,18 @@
     {
       "command": "robo upgrade",
       "label": "robo : upgrade",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "robo version",
+      "label": "robo : version",
+      "problemMatcher": [],
+      "type": "shell"
+    },
+    {
+      "command": "robo watch",
+      "label": "robo : watch",
       "problemMatcher": [],
       "type": "shell"
     }

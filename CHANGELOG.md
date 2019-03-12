@@ -5,6 +5,7 @@
 - Added an example code.
 - Added the `ClientException` class.
 - Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
+- Replaced [Événement](https://github.com/igorw/evenement) library by [PHP League](https://event.thephpleague.com) for event handling.
 - Updated the package dependencies.
 
 ## Version [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)

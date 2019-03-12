@@ -3,16 +3,16 @@ declare(strict_types=1);
 namespace Akismet;
 
 use function League\Uri\parse as parseUri;
-use Evenement\{EventEmitter};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
+use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-class Client extends EventEmitter {
+class Client extends Emitter {
 
   /**
    * @var string An event that is triggered when a request is made to the remote service.

@@ -2,6 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
+use function League\Uri\parse as parseUri;
 use Evenement\{EventEmitter};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
@@ -72,7 +73,7 @@ class Client extends EventEmitter {
    * @return bool `true` if the specified comment is spam, otherwise `false`.
    */
   function checkComment(Comment $comment): bool {
-    $serviceUrl = parse_url((string) $this->getEndPoint());
+    $serviceUrl = parseUri((string) $this->getEndPoint());
     $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check");
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
   }
@@ -144,7 +145,7 @@ class Client extends EventEmitter {
    * @param Comment $comment The comment to be submitted.
    */
   function submitHam(Comment $comment): void {
-    $serviceUrl = parse_url((string) $this->getEndPoint());
+    $serviceUrl = parseUri((string) $this->getEndPoint());
     $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham");
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
@@ -154,7 +155,7 @@ class Client extends EventEmitter {
    * @param Comment $comment The comment to be submitted.
    */
   function submitSpam(Comment $comment): void {
-    $serviceUrl = parse_url((string) $this->getEndPoint());
+    $serviceUrl = parseUri((string) $this->getEndPoint());
     $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam");
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }

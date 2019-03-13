@@ -34,8 +34,7 @@
     "ext-mbstring": "*",
     "ext-pcre": "*",
     "guzzlehttp/guzzle": "^6.3.3",
-    "league/event": "^2.2.0",
-    "league/uri-parser": "^1.4.1"
+    "league/event": "^2.2.0"
   },
   "require-dev": {
     "cedx/coveralls": "^9.1.2",

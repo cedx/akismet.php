@@ -2,7 +2,6 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use function League\Uri\{parse as parseUri};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
@@ -27,7 +26,7 @@ class Client extends Emitter {
   /**
    * @var string The version number of this package.
    */
-  const VERSION = '11.1.0';
+  const VERSION = '11.2.0';
 
   /**
    * @var string The Akismet API key.
@@ -73,8 +72,8 @@ class Client extends Emitter {
    * @return bool `true` if the specified comment is spam, otherwise `false`.
    */
   function checkComment(Comment $comment): bool {
-    $serviceUrl = parseUri((string) $this->getEndPoint());
-    $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/comment-check");
+    $apiUrl = $this->getEndPoint();
+    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getHost()}/1.1/comment-check");
     return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
   }
 
@@ -121,11 +120,11 @@ class Client extends Emitter {
 
   /**
    * Sets the URL of the API end point.
-   * @param UriInterface|string $value The new URL of the API end point.
+   * @param UriInterface $value The new URL of the API end point.
    * @return $this This instance.
    */
-  function setEndPoint($value): self {
-    $this->endPoint = is_string($value) ? new Uri($value) : $value;
+  function setEndPoint(UriInterface $value): self {
+    $this->endPoint = $value;
     return $this;
   }
 
@@ -145,8 +144,8 @@ class Client extends Emitter {
    * @param Comment $comment The comment to be submitted.
    */
   function submitHam(Comment $comment): void {
-    $serviceUrl = parseUri((string) $this->getEndPoint());
-    $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-ham");
+    $apiUrl = $this->getEndPoint();
+    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getHost()}/1.1/submit-ham");
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
@@ -155,8 +154,8 @@ class Client extends Emitter {
    * @param Comment $comment The comment to be submitted.
    */
   function submitSpam(Comment $comment): void {
-    $serviceUrl = parseUri((string) $this->getEndPoint());
-    $endPoint = new Uri("{$serviceUrl['scheme']}://{$this->getApiKey()}.{$serviceUrl['host']}/1.1/submit-spam");
+    $apiUrl = $this->getEndPoint();
+    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getHost()}/1.1/submit-spam");
     $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 

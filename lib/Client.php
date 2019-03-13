@@ -5,7 +5,7 @@ namespace Akismet;
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
-use League\Event\{Emitter};
+use League\Event\{Emitter, Event};
 use Psr\Http\Message\{UriInterface};
 
 /**
@@ -186,11 +186,11 @@ class Client extends Emitter {
     ];
 
     $request = new Request('POST', $endPoint, $headers, $body);
-    $this->emit(static::EVENT_REQUEST, [$request]);
+    $this->emit(Event::named(static::EVENT_REQUEST), $request);
 
     try { $response = (new HttpClient)->send($request); }
     catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
-    $this->emit(static::EVENT_RESPONSE, [$request, $response]);
+    $this->emit(Event::named(static::EVENT_RESPONSE), $request, $response);
 
     if($response->hasHeader('x-akismet-debug-help')) throw new ClientException($response->getHeader('x-akismet-debug-help')[0], $endPoint);
     return (string) $response->getBody();

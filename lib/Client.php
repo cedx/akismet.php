@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace Akismet;
 
-use function League\Uri\parse as parseUri;
+use function League\Uri\{parse as parseUri};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};

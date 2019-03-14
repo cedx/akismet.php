@@ -5,7 +5,7 @@ namespace Akismet;
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri};
-use League\Event\{Emitter, Event};
+use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
 /**
@@ -16,12 +16,12 @@ class Client extends Emitter {
   /**
    * @var string An event that is triggered when a request is made to the remote service.
    */
-  const EVENT_REQUEST = 'request';
+  const EVENT_REQUEST = RequestEvent::class;
 
   /**
    * @var string An event that is triggered when a response is received from the remote service.
    */
-  const EVENT_RESPONSE = 'response';
+  const EVENT_RESPONSE = ResponseEvent::class;
 
   /**
    * @var string The version number of this package.
@@ -62,8 +62,8 @@ class Client extends Emitter {
   function __construct(string $apiKey, Blog $blog, string $userAgent = '') {
     $this->apiKey = $apiKey;
     $this->blog = $blog;
+    $this->endPoint = new Uri('https://rest.akismet.com');
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
-    $this->setEndPoint('https://rest.akismet.com');
   }
 
   /**
@@ -186,11 +186,11 @@ class Client extends Emitter {
     ];
 
     $request = new Request('POST', $endPoint, $headers, $body);
-    $this->emit(Event::named(static::EVENT_REQUEST), $request);
+    $this->emit(new RequestEvent($request));
 
     try { $response = (new HttpClient)->send($request); }
     catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
-    $this->emit(Event::named(static::EVENT_RESPONSE), $request, $response);
+    $this->emit(new ResponseEvent($request, $response));
 
     if($response->hasHeader('x-akismet-debug-help')) throw new ClientException($response->getHeader('x-akismet-debug-help')[0], $endPoint);
     return (string) $response->getBody();

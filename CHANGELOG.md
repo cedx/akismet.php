@@ -1,12 +1,12 @@
 # Changelog
 
 ## Version [12.0.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v12.0.0)
+- Breaking change: replaced [Événement](https://github.com/igorw/evenement) library by [PHP League Event](https://robo.li) for event handling.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added an example code.
 - Added the `ClientException` exception class.
 - Added the `RequestEvent` and `ResponseEvent` event classes.
 - Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
-- Replaced [Événement](https://github.com/igorw/evenement) library by [PHP League](https://event.thephpleague.com) for event handling.
 - Updated the package dependencies.
 
 ## Version [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)

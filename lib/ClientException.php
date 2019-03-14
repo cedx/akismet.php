@@ -18,7 +18,7 @@ class ClientException extends \RuntimeException {
    * Creates a new client exception.
    * @param string $message A message describing the error.
    * @param UriInterface|null $uri The URL of the HTTP request or response that failed.
-   * @param \Throwable $previous The previous exception used for the exception chaining.
+   * @param \Throwable|null $previous The previous exception used for the exception chaining.
    */
   function __construct(string $message, UriInterface $uri = null, \Throwable $previous = null) {
     parent::__construct($message, 0, $previous);

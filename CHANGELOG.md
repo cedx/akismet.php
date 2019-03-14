@@ -1,6 +1,6 @@
 # Changelog
 
-## Version [11.2.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v11.2.0)
+## Version [12.0.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v12.0.0)
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added an example code.
 - Added the `ClientException` class.

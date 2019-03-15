@@ -90,24 +90,29 @@ catch (ClientException $e) {
 ```
 
 ## Events
-The `Akismet\Client` class is an [`EventEmitter`](https://github.com/igorw/evenement/blob/master/src/Evenement/EventEmitter.php) that triggers some events during its life cycle:
+The `Akismet\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle:
 
-- `request` : emitted every time a request is made to the remote service.
-- `response` : emitted every time a response is received from the remote service.
+- `Client::EVENT_REQUEST` : emitted every time a request is made to the remote service.
+- `Client::EVENT_RESPONSE` : emitted every time a response is received from the remote service.
 
-You can subscribe to them using the `on()` method:
+You can subscribe to them using the `addListener()` method:
 
 ```php
 <?php
-use Psr\Http\Message\{RequestInterface, ResponseInterface};
+use Akismet\{Blog, Client, RequestEvent, ResponseEvent};
+use GuzzleHttp\Psr7\{Uri};
 
-$client->addListener(Client::EVENT_REQUEST, function(RequestInterface $request) {
-  echo 'Client request: ', $request->getUri();
-});
+function main(): void {
+  $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+  
+  $client->addListener(Client::EVENT_REQUEST, function(RequestEvent $event) {
+    echo 'Client request: ', $event->getRequest()->getUri();
+  });
 
-$client->addListener(Client::EVENT_RESPONSE, function($request, ResponseInterface $response) {
-  echo 'Server response: ', $response->getStatusCode();
-});
+  $client->addListener(Client::EVENT_RESPONSE, function(ResponseEvent $event) {
+    echo 'Server response: ', $event->getResponse()->getStatusCode();
+  });
+}
 ```
 
 ## Unit tests

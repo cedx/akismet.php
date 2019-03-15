@@ -11,7 +11,7 @@ use Psr\Http\Message\{UriInterface};
 class Comment implements \JsonSerializable {
 
   /**
-   * @var Author The comment's author.
+   * @var Author|null The comment's author.
    */
   private $author;
 
@@ -47,7 +47,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Creates a new comment.
-   * @param Author $author The comment's author.
+   * @param Author|null $author The comment's author.
    * @param string $content The comment's content.
    * @param string $type The comment's type.
    */
@@ -92,7 +92,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Gets the comment's author.
-   * @return Author The comment's author.
+   * @return Author|null The comment's author.
    */
   function getAuthor(): ?Author {
     return $this->author;

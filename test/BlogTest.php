@@ -31,10 +31,7 @@ class BlogTest extends TestCase {
 
     assertThat($blog->getCharset(), equalTo('UTF-8'));
     assertThat($blog->getLanguages()->getArrayCopy(), equalTo(['en', 'fr']));
-
-    $url = $blog->getUrl();
-    assertThat($url, isInstanceOf(UriInterface::class));
-    assertThat((string) $url, equalTo('https://dev.belin.io/akismet.php'));
+    assertThat((string) $blog->getUrl(), equalTo('https://dev.belin.io/akismet.php'));
   }
 
   /**

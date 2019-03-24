@@ -73,28 +73,4 @@ class CommentTest extends TestCase {
     assertThat($data->user_agent, equalTo('Doom/6.6.6'));
     assertThat($data->user_ip, equalTo('127.0.0.1'));
   }
-
-  /**
-   * Tests the `Comment::__toString()` method.
-   * @test
-   */
-  function testToString(): void {
-    $comment = (string) (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
-      ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
-      ->setReferrer(new Uri('https://belin.io'));
-
-    // It should start with the class name.
-    assertThat($comment, stringStartsWith('Akismet\Comment {'));
-
-    // It should contain the instance properties.
-    assertThat($comment, logicalAnd(
-      stringContains('"comment_author":"Cédric Belin"'),
-      stringContains('"comment_content":"A user comment."'),
-      stringContains('"comment_type":"pingback"'),
-      stringContains('"comment_date_gmt":"2000-01-01T00:00:00+00:00"'),
-      stringContains('"referrer":"https://belin.io"'),
-      stringContains('"user_agent":"Doom/6.6.6"'),
-      stringContains('"user_ip":"127.0.0.1"')
-    ));
-  }
 }

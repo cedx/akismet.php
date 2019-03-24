@@ -54,26 +54,4 @@ class AuthorTest extends TestCase {
     assertThat($data->user_agent, equalTo('Mozilla/5.0'));
     assertThat($data->user_ip, equalTo('192.168.0.1'));
   }
-
-  /**
-   * Tests the `Author::__toString()` method.
-   * @test
-   */
-  function testToString(): void {
-    $author = (string) (new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'))
-      ->setEmail('cedric@belin.io')
-      ->setUrl(new Uri('https://belin.io'));
-
-    // It should start with the class name.
-    assertThat($author, stringStartsWith('Akismet\Author {'));
-
-    // It should contain the instance properties.
-    assertThat($author, logicalAnd(
-      stringContains('"comment_author":"Cédric Belin"'),
-      stringContains('"comment_author_email":"cedric@belin.io"'),
-      stringContains('"comment_author_url":"https://belin.io"'),
-      stringContains('"user_agent":"Doom/6.6.6"'),
-      stringContains('"user_ip":"127.0.0.1"')
-    ));
-  }
 }

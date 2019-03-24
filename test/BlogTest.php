@@ -51,22 +51,4 @@ class BlogTest extends TestCase {
     assertThat($data->blog_charset, equalTo('UTF-8'));
     assertThat($data->blog_lang, equalTo('en,fr'));
   }
-
-  /**
-   * Tests the `Blog::__toString()` method.
-   * @test
-   */
-  function testToString(): void {
-    $blog = (string) (new Blog(new Uri('https://dev.belin.io/akismet.php'), 'UTF-8', ['en', 'fr']));
-
-    // It should start with the class name.
-    assertThat($blog, stringStartsWith('Akismet\Blog {'));
-
-    // It should contain the instance properties.
-    assertThat($blog, logicalAnd(
-      stringContains('"blog":"https://dev.belin.io/akismet.php"'),
-      stringContains('"blog_charset":"UTF-8"'),
-      stringContains('"blog_lang":"en,fr"')
-    ));
-  }
 }

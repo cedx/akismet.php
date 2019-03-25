@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 use Akismet\{Author, Blog, Client, ClientException, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};

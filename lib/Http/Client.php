@@ -61,7 +61,7 @@ class Client extends Emitter {
   function __construct(string $apiKey, Blog $blog, string $userAgent = '') {
     $this->apiKey = $apiKey;
     $this->blog = $blog;
-    $this->endPoint = new Uri('https://rest.akismet.com');
+    $this->endPoint = new Uri('https://rest.akismet.com/1.1/');
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
   }
 
@@ -72,8 +72,9 @@ class Client extends Emitter {
    */
   function checkComment(Comment $comment): bool {
     $apiUrl = $this->getEndPoint();
-    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getHost()}/1.1/comment-check");
-    return $this->fetch($endPoint, get_object_vars($comment->jsonSerialize())) == 'true';
+    $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
+    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
+    return $this->fetch($endPoint->withPath('comment-check'), get_object_vars($comment->jsonSerialize())) == 'true';
   }
 
   /**
@@ -144,8 +145,9 @@ class Client extends Emitter {
    */
   function submitHam(Comment $comment): void {
     $apiUrl = $this->getEndPoint();
-    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getHost()}/1.1/submit-ham");
-    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
+    $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
+    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
+    $this->fetch($endPoint->withPath('submit-ham'), get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -154,8 +156,9 @@ class Client extends Emitter {
    */
   function submitSpam(Comment $comment): void {
     $apiUrl = $this->getEndPoint();
-    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getHost()}/1.1/submit-spam");
-    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
+    $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
+    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
+    $this->fetch($endPoint->withPath('submit-spam'), get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -163,8 +166,7 @@ class Client extends Emitter {
    * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
   function verifyKey(): bool {
-    $endPoint = $this->getEndPoint()->withPath('/1.1/verify-key');
-    return $this->fetch($endPoint, ['key' => $this->getApiKey()]) == 'valid';
+    return $this->fetch($this->getEndPoint()->withPath('verify-key'), ['key' => $this->getApiKey()]) == 'valid';
   }
 
   /**

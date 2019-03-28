@@ -77,7 +77,7 @@ class ClientTest extends TestCase {
     assertThat($this->client->verifyKey(), isTrue());
 
     // It should return `false` for an invalid API key.
-    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setIsTest($this->client->isTest());
+    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setTest($this->client->isTest());
     assertThat($client->verifyKey(), isFalse());
   }
 
@@ -86,7 +86,7 @@ class ClientTest extends TestCase {
    * @before
    */
   protected function setUp(): void {
-    $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setIsTest(true);
+    $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setTest(true);
 
     $author = (new Author('192.168.0.1', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36', 'Akismet'))
       ->setRole('administrator')

@@ -50,7 +50,7 @@ use GuzzleHttp\Psr7\{Uri};
 $author = new Author('127.0.0.1', 'Mozilla/5.0');
 $comment = new Comment($author, 'A user comment');
 $client = (new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com'))))
-  ->setIsTest(true);
+  ->setTest(true);
 
 echo 'It should not influence subsequent calls';
 $client->checkComment($comment);

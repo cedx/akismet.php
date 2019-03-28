@@ -1,9 +1,10 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
+use function GuzzleHttp\Psr7\{build_query};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
-use GuzzleHttp\Psr7\{Request, Uri};
+use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
@@ -74,7 +75,7 @@ class Client extends Emitter {
     $apiUrl = $this->getEndPoint();
     $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
     $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
-    return $this->fetch($endPoint->withPath('comment-check'), get_object_vars($comment->jsonSerialize())) == 'true';
+    return $this->fetch(UriResolver::resolve($endPoint, new Uri('comment-check')), get_object_vars($comment->jsonSerialize())) == 'true';
   }
 
   /**
@@ -147,7 +148,7 @@ class Client extends Emitter {
     $apiUrl = $this->getEndPoint();
     $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
     $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
-    $this->fetch($endPoint->withPath('submit-ham'), get_object_vars($comment->jsonSerialize()));
+    $this->fetch(UriResolver::resolve($endPoint, new Uri('submit-ham')), get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -158,7 +159,7 @@ class Client extends Emitter {
     $apiUrl = $this->getEndPoint();
     $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
     $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
-    $this->fetch($endPoint->withPath('submit-spam'), get_object_vars($comment->jsonSerialize()));
+    $this->fetch(UriResolver::resolve($endPoint, new Uri('submit-spam')), get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -166,7 +167,7 @@ class Client extends Emitter {
    * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
   function verifyKey(): bool {
-    return $this->fetch($this->getEndPoint()->withPath('verify-key'), ['key' => $this->getApiKey()]) == 'valid';
+    return $this->fetch(UriResolver::resolve($this->getEndPoint(), new Uri('verify-key')), ['key' => $this->getApiKey()]) == 'valid';
   }
 
   /**
@@ -180,13 +181,12 @@ class Client extends Emitter {
     $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-    $body = http_build_query($bodyFields);
     $headers = [
       'content-type' => 'application/x-www-form-urlencoded',
       'user-agent' => $this->getUserAgent()
     ];
 
-    $request = new Request('POST', $endPoint, $headers, $body);
+    $request = new Request('POST', $endPoint, $headers, build_query($bodyFields));
     $this->emit(new RequestEvent($request));
 
     try { $response = (new HttpClient)->send($request); }

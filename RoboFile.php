@@ -24,7 +24,7 @@ class RoboFile extends Tasks {
    */
   function build(): Result {
     $version = $this->taskSemVer('.semver')->setFormat('%M.%m.%p')->__toString();
-    return $this->taskReplaceInFile('lib/Client.php')
+    return $this->taskReplaceInFile('src/Client.php')
       ->regex("/const VERSION = '\d+(\.\d+){2}'/")
       ->to("const VERSION = '$version'")
       ->run();
@@ -107,7 +107,7 @@ class RoboFile extends Tasks {
   function watch(): void {
     $this->build();
     $this->taskWatch()
-      ->monitor('lib', function() { $this->build(); })
+      ->monitor('src', function() { $this->build(); })
       ->monitor('test', function() { $this->test(); })
       ->run();
   }

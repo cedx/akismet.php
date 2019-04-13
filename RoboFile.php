@@ -16,6 +16,7 @@ class RoboFile extends Tasks {
     $path = (string) getenv('PATH');
     $vendor = (string) realpath('vendor/bin');
     if (strpos($path, $vendor) === false) putenv("PATH=$vendor".PATH_SEPARATOR.$path);
+    $this->stopOnFail();
   }
 
   /**
@@ -33,9 +34,11 @@ class RoboFile extends Tasks {
   /**
    * Deletes all generated files and reset any saved state.
    */
-  function clean(): void {
-    $this->_cleanDir('var');
-    $this->_deleteDir(['build', 'doc/api', 'web']);
+  function clean(): Result {
+    return $this->collectionBuilder()
+      ->addTask($this->taskCleanDir('var'))
+      ->addTask($this->taskDeleteDir(['build', 'doc/api', 'web']))
+      ->run();
   }
 
   /**
@@ -51,12 +54,14 @@ class RoboFile extends Tasks {
    * @return Result The task result.
    */
   function doc(): Result {
-    $this->taskFilesystemStack()
-      ->copy('CHANGELOG.md', 'doc/about/changelog.md')
-      ->copy('LICENSE.md', 'doc/about/license.md')
+    return $this->collectionBuilder()
+      ->addTask($this->taskFilesystemStack()
+        ->copy('CHANGELOG.md', 'doc/about/changelog.md')
+        ->copy('LICENSE.md', 'doc/about/license.md'))
+      ->addTask($this->taskExec('mkdocs build --config-file=doc/mkdocs.yml'))
+      ->addTask($this->taskFilesystemStack()
+        ->remove(['doc/about/changelog.md', 'doc/about/license.md', 'web/mkdocs.yml', 'web/phpdoc.xml']))
       ->run();
-
-    return $this->_exec('mkdocs build --config-file=doc/mkdocs.yml');
   }
 
   /**
@@ -84,7 +89,7 @@ class RoboFile extends Tasks {
    */
   function upgrade(): Result {
     $composer = escapeshellarg(PHP_OS_FAMILY == 'Windows' ? 'C:\Program Files\PHP\share\composer.phar' : '/usr/local/bin/composer');
-    return $this->taskExecStack()->stopOnFail()
+    return $this->taskExecStack()
       ->exec('git reset --hard')
       ->exec('git fetch --all --prune')
       ->exec('git pull --rebase')
@@ -104,9 +109,9 @@ class RoboFile extends Tasks {
   /**
    * Watches for file changes.
    */
-  function watch(): void {
+  function watch(): Result {
     $this->build();
-    $this->taskWatch()
+    return $this->taskWatch()
       ->monitor('src', function() { $this->build(); })
       ->monitor('test', function() { $this->test(); })
       ->run();

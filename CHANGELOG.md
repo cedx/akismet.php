@@ -8,6 +8,7 @@
 - Added the `RequestEvent` and `ResponseEvent` event classes.
 - Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
 - Updated the package dependencies.
+- Updated the URL of the default API endpoint.
 
 ## Version [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)
 - Added the `EVENT_REQUEST` and `EVENT_RESPONSE` constants to the `Client` class.

@@ -25,14 +25,12 @@ class RoboFile extends Tasks {
    */
   function build(): Result {
     $version = $this->taskSemVer('.semver')->setFormat('%M.%m.%p')->__toString();
-    return $this->taskReplaceInFile('src/Client.php')
-      ->regex("/const VERSION = '\d+(\.\d+){2}'/")
-      ->to("const VERSION = '$version'")
-      ->run();
+    return $this->taskReplaceInFile('src/Client.php')->regex("/const VERSION = '\d+(\.\d+){2}'/")->to("const VERSION = '$version'")->run();
   }
 
   /**
    * Deletes all generated files and reset any saved state.
+   * @return Result The task result.
    */
   function clean(): Result {
     return $this->collectionBuilder()
@@ -108,6 +106,7 @@ class RoboFile extends Tasks {
 
   /**
    * Watches for file changes.
+   * @return Result The task result.
    */
   function watch(): Result {
     $this->build();

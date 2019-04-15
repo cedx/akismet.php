@@ -4,14 +4,10 @@ use Robo\{Result, Tasks};
 // Load the dependencies.
 require_once __DIR__.'/vendor/autoload.php';
 
-/**
- * Provides tasks for the build system.
- */
+/** Provides tasks for the build system. */
 class RoboFile extends Tasks {
 
-  /**
-   * Creates a new task runner.
-   */
+  /** Creates a new task runner. */
   function __construct() {
     $path = (string) getenv('PATH');
     $vendor = (string) realpath('vendor/bin');

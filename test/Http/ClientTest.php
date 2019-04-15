@@ -4,9 +4,7 @@ namespace Akismet;
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/**
- * Tests the features of the `Akismet\Client` class.
- */
+/** Tests the features of the `Akismet\Client` class. */
 class ClientTest extends TestCase {
 
   /**
@@ -81,10 +79,7 @@ class ClientTest extends TestCase {
     assertThat($client->verifyKey(), isFalse());
   }
 
-  /**
-   * This method is called before each test.
-   * @before
-   */
+  /** @before This method is called before each test. */
   protected function setUp(): void {
     $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setTest(true);
 

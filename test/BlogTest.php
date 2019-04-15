@@ -5,9 +5,7 @@ use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 use Psr\Http\Message\{UriInterface};
 
-/**
- * Tests the features of the `Akismet\Blog` class.
- */
+/** Tests the features of the `Akismet\Blog` class. */
 class BlogTest extends TestCase {
 
   /**

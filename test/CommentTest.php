@@ -4,9 +4,7 @@ namespace Akismet;
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/**
- * Tests the features of the `Akismet\Comment` class.
- */
+/** Tests the features of the `Akismet\Comment` class. */
 class CommentTest extends TestCase {
 
   /**

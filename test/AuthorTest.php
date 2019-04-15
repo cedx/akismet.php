@@ -4,9 +4,7 @@ namespace Akismet;
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/**
- * Tests the features of the `Akismet\Author` class.
- */
+/** Tests the features of the `Akismet\Author` class. */
 class AuthorTest extends TestCase {
 
   /**

@@ -4,39 +4,25 @@ namespace Akismet;
 use GuzzleHttp\Psr7\{Uri};
 use Psr\Http\Message\{UriInterface};
 
-/**
- * Represents the author of a comment.
- */
+/** Represents the author of a comment. */
 class Author implements \JsonSerializable {
 
-  /**
-   * @var string The author's mail address.
-   */
+  /** @var string The author's mail address. */
   private $email = '';
 
-  /**
-   * @var string The author's IP address.
-   */
+  /** @var string The author's IP address. */
   private $ipAddress;
 
-  /**
-   * @var string The author's name.
-   */
+  /** @var string The author's name. */
   private $name;
 
-  /**
-   * @var string The author's role.
-   */
+  /** @var string The author's role. */
   private $role = '';
 
-  /**
-   * @var UriInterface|null The URL of the author's website.
-   */
+  /** @var UriInterface|null The URL of the author's website. */
   private $url;
 
-  /**
-   * @var string The author's user agent, that is the string identifying the Web browser used to submit comments.
-   */
+  /** @var string The author's user agent, that is the string identifying the Web browser used to submit comments. */
   private $userAgent;
 
   /**

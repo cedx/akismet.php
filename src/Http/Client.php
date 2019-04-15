@@ -1,56 +1,39 @@
 <?php declare(strict_types=1);
-namespace Akismet;
+namespace Akismet\Http;
 
 use function GuzzleHttp\Psr7\{build_query};
+use Akismet\{Blog, Comment};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use League\Event\{Emitter};
 use Psr\Http\Message\{UriInterface};
 
-/**
- * Submits comments to the [Akismet](https://akismet.com) service.
- */
+/** Submits comments to the [Akismet](https://akismet.com) service. */
 class Client extends Emitter {
 
-  /**
-   * @var string An event that is triggered when a request is made to the remote service.
-   */
+  /** @var string An event that is triggered when a request is made to the remote service. */
   const EVENT_REQUEST = RequestEvent::class;
 
-  /**
-   * @var string An event that is triggered when a response is received from the remote service.
-   */
+  /** @var string An event that is triggered when a response is received from the remote service. */
   const EVENT_RESPONSE = ResponseEvent::class;
 
-  /**
-   * @var string The version number of this package.
-   */
-  const VERSION = '11.2.0';
+  /** @var string The version number of this package. */
+  const version = '11.2.0';
 
-  /**
-   * @var string The Akismet API key.
-   */
+  /** @var string The Akismet API key. */
   private $apiKey;
 
-  /**
-   * @var Blog The front page or home URL of the instance making requests.
-   */
+  /** @var Blog The front page or home URL of the instance making requests. */
   private $blog;
 
-  /**
-   * @var UriInterface The URL of the API end point.
-   */
+  /** @var UriInterface The URL of the API end point. */
   private $endPoint;
 
-  /**
-   * @var bool Value indicating whether the client operates in test mode.
-   */
+  /** @var bool Value indicating whether the client operates in test mode. */
   private $isTest = false;
 
-  /**
-   * @var string The user agent string to use when making requests.
-   */
+  /** @var string The user agent string to use when making requests. */
   private $userAgent;
 
   /**
@@ -63,7 +46,7 @@ class Client extends Emitter {
     $this->apiKey = $apiKey;
     $this->blog = $blog;
     $this->endPoint = new Uri('https://rest.akismet.com/1.1/');
-    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::VERSION);
+    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::version);
   }
 
   /**

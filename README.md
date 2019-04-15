@@ -60,7 +60,7 @@ try {
   $comment = new Comment(
     new Author('127.0.0.1', 'Mozilla/5.0'),
     'A user comment',
-    CommentType::CONTACT_FORM
+    CommentType::contactForm
   );
 
   $isSpam = $client->checkComment($comment);
@@ -90,7 +90,7 @@ catch (ClientException $e) {
 ```
 
 ## Events
-The `Akismet\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle:
+The `Akismet\Http\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle:
 
 - `Client::EVENT_REQUEST` : emitted every time a request is made to the remote service.
 - `Client::EVENT_RESPONSE` : emitted every time a response is received from the remote service.

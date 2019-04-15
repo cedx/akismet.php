@@ -16,7 +16,7 @@ function main(): void {
     $comment = new Comment(
       new Author('127.0.0.1', 'Mozilla/5.0'),
       'A user comment',
-      CommentType::CONTACT_FORM
+      CommentType::contactForm
     );
 
     $isSpam = $client->checkComment($comment);

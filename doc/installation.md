@@ -35,8 +35,6 @@ Now in your [PHP](https://secure.php.net) code, you can use:
 
 ```php
 <?php
-use Akismet\{
-  Author, Blog, Comment, CommentType,
-  Client, ClientException
-};
+use Akismet\{Author, Blog, Comment, CommentType};
+use Akismet\Http\{Client, ClientException};
 ```

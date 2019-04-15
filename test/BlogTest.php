@@ -3,15 +3,11 @@ namespace Akismet;
 
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
-use Psr\Http\Message\{UriInterface};
 
 /** Tests the features of the `Akismet\Blog` class. */
 class BlogTest extends TestCase {
 
-  /**
-   * Tests the `Blog::fromJson()` method.
-   * @test
-   */
+  /** @test Tests the `Blog::fromJson()` method. */
   function testFromJson(): void {
     // It should return an empty instance with an empty map.
     $blog = Blog::fromJson(new \stdClass);
@@ -31,10 +27,7 @@ class BlogTest extends TestCase {
     assertThat((string) $blog->getUrl(), equalTo('https://dev.belin.io/akismet.php'));
   }
 
-  /**
-   * Tests the `Blog::jsonSerialize()` method.
-   * @test
-   */
+  /** @test Tests the `Blog::jsonSerialize()` method. */
   function testJsonSerialize(): void {
     // It should return only the blog URL with a newly created instance.
     $data = (new Blog(new Uri('https://dev.belin.io/akismet.php')))->jsonSerialize();

@@ -8,13 +8,16 @@ The Akismet API will always return a `true` response to a valid request with one
 
 ```php
 <?php
-use Akismet\{Author, Blog, Client, Comment};
+use Akismet\{Author, Blog, Comment};
+use Akismet\Http\{Client};
 use GuzzleHttp\Psr7\{Uri};
 
 $author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
 $comment = new Comment($author, 'A user comment');
 
-$client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+$blog = new Blog(new Uri('https://www.yourblog.com'));
+$client = new Client('123YourAPIKey', $blog);
+
 $isSpam = $client->checkComment($comment);
 print("It should be 'true': $isSpam");
 ```
@@ -26,13 +29,16 @@ The Akismet API will always return a `false` response. Any other response indica
 
 ```php
 <?php
-use Akismet\{Author, Blog, Client, Comment};
+use Akismet\{Author, Blog, Comment};
+use Akismet\Http\{Client};
 use GuzzleHttp\Psr7\{Uri};
 
 $author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setRole('administrator');
 $comment = new Comment($author, 'A user comment');
 
-$client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+$blog = new Blog(new Uri('https://www.yourblog.com'));
+$client = new Client('123YourAPIKey', $blog);
+
 $isSpam = $client->checkComment($comment);
 print("It should be 'false': $isSpam");
 ```
@@ -44,13 +50,15 @@ That will tell Akismet not to change its behaviour based on those API calls – 
 
 ```php
 <?php
-use Akismet\{Author, Blog, Client, Comment};
+use Akismet\{Author, Blog, Comment};
+use Akismet\Http\{Client};
 use GuzzleHttp\Psr7\{Uri};
 
 $author = new Author('127.0.0.1', 'Mozilla/5.0');
 $comment = new Comment($author, 'A user comment');
-$client = (new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com'))))
-  ->setTest(true);
+
+$blog = new Blog(new Uri('https://www.yourblog.com'));
+$client = (new Client('123YourAPIKey', $blog))->setTest(true);
 
 echo 'It should not influence subsequent calls';
 $client->checkComment($comment);

@@ -1,31 +1,23 @@
 <?php declare(strict_types=1);
-namespace Akismet;
+namespace Akismet\Http;
 
+use Akismet\{Author, Blog, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/** Tests the features of the `Akismet\Client` class. */
+/** Tests the features of the `Akismet\Http\Client` class. */
 class ClientTest extends TestCase {
 
-  /**
-   * @var Client The client used to query the service database.
-   */
+  /** @var Client The client used to query the service database. */
   private $client;
 
-  /**
-   * @var Comment A comment with content marked as ham.
-   */
+  /** @var Comment A comment with content marked as ham. */
   private $ham;
 
-  /**
-   * @var Comment A comment with content marked as spam.
-   */
+  /** @var Comment A comment with content marked as spam. */
   private $spam;
 
-  /**
-   * Tests the `Client::checkComment()` method.
-   * @test
-   */
+  /** @test Tests the `Client::checkComment()` method. */
   function testCheckComment(): void {
     // It should return `false` for valid comment (e.g. ham).
     assertThat($this->client->checkComment($this->ham), isFalse());
@@ -34,10 +26,7 @@ class ClientTest extends TestCase {
     assertThat($this->client->checkComment($this->spam), isTrue());
   }
 
-  /**
-   * Tests the `Client::submitHam()` method.
-   * @test
-   */
+  /** @test Tests the `Client::submitHam()` method. */
   function testSubmitHam(): void {
     // It should complete without error.
     try {
@@ -50,10 +39,7 @@ class ClientTest extends TestCase {
     }
   }
 
-  /**
-   * Tests the `Client::submitSpam()` method.
-   * @test
-   */
+  /** @test Tests the `Client::submitSpam()` method. */
   function testSubmitSpam(): void {
     // It should complete without error.
     try {
@@ -66,10 +52,7 @@ class ClientTest extends TestCase {
     }
   }
 
-  /**
-   * Tests the `Client::verifyKey()` method.
-   * @test
-   */
+  /** @test Tests the `Client::verifyKey()` method. */
   function testVerifyKey(): void {
     // It should return `true` for a valid API key.
     assertThat($this->client->verifyKey(), isTrue());
@@ -87,10 +70,10 @@ class ClientTest extends TestCase {
       ->setRole('administrator')
       ->setUrl(new Uri('https://dev.belin.io/akismet.php'));
 
-    $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::COMMENT))
+    $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::comment))
       ->setReferrer(new Uri('https://packagist.org/packages/cedx/akismet'));
 
     $author = (new Author('127.0.0.1', 'Spam Bot/6.6.6', 'viagra-test-123'))->setEmail('akismet-guaranteed-spam@example.com');
-    $this->spam = new Comment($author, 'Spam!', CommentType::TRACKBACK);
+    $this->spam = new Comment($author, 'Spam!', CommentType::trackback);
   }
 }

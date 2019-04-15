@@ -4,24 +4,16 @@ namespace Akismet;
 use GuzzleHttp\Psr7\{Uri};
 use Psr\Http\Message\{UriInterface};
 
-/**
- * Represents the front page or home URL transmitted when making requests.
- */
+/** Represents the front page or home URL transmitted when making requests. */
 class Blog implements \JsonSerializable {
 
-  /**
-   * @var string The character encoding for the values included in comments.
-   */
+  /** @var string The character encoding for the values included in comments. */
   private $charset;
 
-  /**
-   * @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format.
-   */
+  /** @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format. */
   private $languages;
 
-  /**
-   * @var UriInterface|null The blog or site URL.
-   */
+  /** @var UriInterface|null The blog or site URL. */
   private $url;
 
   /**

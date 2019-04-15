@@ -20,12 +20,14 @@ The exception `getMessage()` usually includes some debug information, provided b
 
 ```php
 <?php
-use Akismet\{Blog, Client, ClientException};
+use Akismet\{Blog};
+use Akismet\Http\{Client, ClientException};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {
   try {
-    $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+    $blog = new Blog(new Uri('https://www.yourblog.com'));
+    $client = new Client('123YourAPIKey', $blog);
     $isValid = $client->verifyKey();
     echo $isValid ? 'The API key is valid' : 'The API key is invalid';
   }

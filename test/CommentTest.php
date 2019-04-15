@@ -7,10 +7,7 @@ use PHPUnit\Framework\{TestCase};
 /** Tests the features of the `Akismet\Comment` class. */
 class CommentTest extends TestCase {
 
-  /**
-   * Tests the `Comment::fromJson()` method.
-   * @test
-   */
+  /** @test Tests the `Comment::fromJson()` method. */
   function testFromJson(): void {
     // It should return an empty instance with an empty map.
     $comment = Comment::fromJson(new \stdClass);
@@ -41,13 +38,10 @@ class CommentTest extends TestCase {
 
     assertThat($comment->getContent(), equalTo('A user comment.'));
     assertThat((string) $comment->getReferrer(), equalTo('https://belin.io'));
-    assertThat($comment->getType(), equalTo(CommentType::TRACKBACK));
+    assertThat($comment->getType(), equalTo(CommentType::trackback));
   }
 
-  /**
-   * Tests the `Comment::jsonSerialize()` method.
-   * @test
-   */
+  /** @test Tests the `Comment::jsonSerialize()` method. */
   function testJsonSerialize(): void {
     // It should return only the author info with a newly created instance.
     $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
@@ -56,7 +50,7 @@ class CommentTest extends TestCase {
     assertThat($data->user_ip, equalTo('127.0.0.1'));
 
     // It should return a non-empty map with a initialized instance.
-    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::PINGBACK))
+    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::pingback))
       ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
       ->setReferrer(new Uri('https://belin.io'))
       ->jsonSerialize();

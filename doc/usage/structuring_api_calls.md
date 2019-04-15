@@ -18,4 +18,4 @@ Application Name/Version | Plugin Name/Version
 ```
 
 !!! info
-    The default user agent string looks like: `PHP/7.1.11 | Akismet/11.2.0`
+    The default user agent string looks like: `PHP/7.2.15 | Akismet/12.0.0`

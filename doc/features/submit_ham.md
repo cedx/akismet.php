@@ -27,7 +27,8 @@ The exception `getMessage()` usually includes some debug information, provided b
 
 ```php
 <?php
-use Akismet\{Author, Blog, Client, ClientException, Comment};
+use Akismet\{Author, Blog, Comment};
+use Akismet\Http\{Client, ClientException};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {
@@ -37,7 +38,8 @@ function main(): void {
       'A valid user comment (ham)'
     );
 
-    $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+    $blog = new Blog(new Uri('https://www.yourblog.com'));
+    $client = new Client('123YourAPIKey', $blog);
     $isSpam = $client->checkComment($comment); // `true`, but `false` expected.
 
     echo 'The comment was incorrectly classified as spam';

@@ -90,26 +90,37 @@ catch (ClientException $e) {
 ```
 
 ## Events
-The `Akismet\Http\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle:
+The `Akismet\Http\Client` class is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle.
 
-- `Client::EVENT_REQUEST` : emitted every time a request is made to the remote service.
-- `Client::EVENT_RESPONSE` : emitted every time a response is received from the remote service.
-
-You can subscribe to them using the `addListener()` method:
+### The `Client::eventRequest` event
+Emitted every time a request is made to the remote service:
 
 ```php
 <?php
-use Akismet\{Blog, Client, RequestEvent, ResponseEvent};
+use Akismet\{Blog};
+use Akismet\Http\{Client, RequestEvent};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {
   $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
-  
-  $client->addListener(Client::EVENT_REQUEST, function(RequestEvent $event) {
+  $client->addListener(Client::eventRequest, function(RequestEvent $event) {
     echo 'Client request: ', $event->getRequest()->getUri();
   });
+}
+```
 
-  $client->addListener(Client::EVENT_RESPONSE, function(ResponseEvent $event) {
+### The `Client::eventResponse` event
+Emitted every time a response is received from the remote service:
+
+```php
+<?php
+use Akismet\{Blog};
+use Akismet\Http\{Client, ResponseEvent};
+use GuzzleHttp\Psr7\{Uri};
+
+function main(): void {
+  $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
+  $client->addListener(Client::eventResponse, function(ResponseEvent $event) {
     echo 'Server response: ', $event->getResponse()->getStatusCode();
   });
 }

@@ -136,7 +136,7 @@ export AKISMET_API_KEY="<123YourAPIKey>"
 Then, you can run the `test` script from the command prompt:
 
 ```shell
-composer test
+composer run-script test
 ```
 
 ## License

@@ -52,7 +52,7 @@ class RoboFile extends Tasks {
       ->addTask($this->taskFilesystemStack()
         ->copy('CHANGELOG.md', 'doc/about/changelog.md')
         ->copy('LICENSE.md', 'doc/about/license.md'))
-      ->addTask($this->taskExec('mkdocs build --config-file=etc/mkdocs.yml'))
+      ->addTask($this->taskExec('mkdocs build --config-file=etc/mkdocs.yaml'))
       ->addTask($this->taskFilesystemStack()
         ->remove(['doc/about/changelog.md', 'doc/about/license.md']))
       ->run();

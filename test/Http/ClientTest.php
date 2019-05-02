@@ -17,7 +17,7 @@ class ClientTest extends TestCase {
   /** @var Comment A comment with content marked as spam. */
   private $spam;
 
-  /** @test Tests the `Client::checkComment()` method. */
+  /** @test Client->checkComment() */
   function testCheckComment(): void {
     // It should return `false` for valid comment (e.g. ham).
     assertThat($this->client->checkComment($this->ham), isFalse());
@@ -26,7 +26,7 @@ class ClientTest extends TestCase {
     assertThat($this->client->checkComment($this->spam), isTrue());
   }
 
-  /** @test Tests the `Client::submitHam()` method. */
+  /** @test Client->submitHam() */
   function testSubmitHam(): void {
     // It should complete without error.
     try {
@@ -39,7 +39,7 @@ class ClientTest extends TestCase {
     }
   }
 
-  /** @test Tests the `Client::submitSpam()` method. */
+  /** @test Client->submitSpam() */
   function testSubmitSpam(): void {
     // It should complete without error.
     try {
@@ -52,7 +52,7 @@ class ClientTest extends TestCase {
     }
   }
 
-  /** @test Tests the `Client::verifyKey()` method. */
+  /** @test Client->verifyKey() */
   function testVerifyKey(): void {
     // It should return `true` for a valid API key.
     assertThat($this->client->verifyKey(), isTrue());

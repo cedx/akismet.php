@@ -7,7 +7,7 @@ use PHPUnit\Framework\{TestCase};
 /** Tests the features of the `Akismet\Comment` class. */
 class CommentTest extends TestCase {
 
-  /** @test Tests the `Comment::fromJson()` method. */
+  /** @test Comment::fromJson() */
   function testFromJson(): void {
     // It should return an empty instance with an empty map.
     $comment = Comment::fromJson(new \stdClass);
@@ -41,7 +41,7 @@ class CommentTest extends TestCase {
     assertThat($comment->getType(), equalTo(CommentType::trackback));
   }
 
-  /** @test Tests the `Comment::jsonSerialize()` method. */
+  /** @test Comment->jsonSerialize() */
   function testJsonSerialize(): void {
     // It should return only the author info with a newly created instance.
     $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();

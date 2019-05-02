@@ -13,10 +13,10 @@ use Psr\Http\Message\{UriInterface};
 class Client extends Emitter {
 
   /** @var string An event that is triggered when a request is made to the remote service. */
-  const EVENT_REQUEST = RequestEvent::class;
+  const eventRequest = RequestEvent::class;
 
   /** @var string An event that is triggered when a response is received from the remote service. */
-  const EVENT_RESPONSE = ResponseEvent::class;
+  const eventResponse = ResponseEvent::class;
 
   /** @var string The version number of this package. */
   const version = '11.2.0';

@@ -18,9 +18,6 @@ class Client extends Emitter {
   /** @var string An event that is triggered when a response is received from the remote service. */
   const eventResponse = ResponseEvent::class;
 
-  /** @var string The version number of this package. */
-  const version = '11.2.0';
-
   /** @var string The Akismet API key. */
   private $apiKey;
 
@@ -46,7 +43,9 @@ class Client extends Emitter {
     $this->apiKey = $apiKey;
     $this->blog = $blog;
     $this->endPoint = new Uri('https://rest.akismet.com/1.1/');
-    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), static::version);
+    $this->userAgent = mb_strlen($userAgent)
+      ? $userAgent
+      : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), require __DIR__.'/../version.g.php');
   }
 
   /**

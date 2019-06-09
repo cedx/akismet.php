@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-use Robo\{Result, Tasks};
+use Robo\{Result, ResultData, Tasks};
 
 // Load the dependencies.
 require_once __DIR__.'/vendor/autoload.php';
@@ -17,11 +17,17 @@ class RoboFile extends Tasks {
 
   /**
    * Builds the project.
-   * @return Result The task result.
+   * @return ResultData The task result.
    */
-  function build(): Result {
+  function build(): ResultData {
     $version = $this->taskSemVer('.semver')->setFormat('%M.%m.%p')->__toString();
-    return $this->taskReplaceInFile('lib/Http/Client.php')->regex("/const version = '\d+(\.\d+){2}'/")->to("const version = '$version'")->run();
+    $success = (bool) @file_put_contents('lib/version.g.php', implode(PHP_EOL, [
+      '<?php declare(strict_types=1);', '',
+      '/** @var string The version number of the package. */',
+      "return \$packageVersion = '$version';", ''
+    ]));
+
+    return new ResultData($success ? ResultData::EXITCODE_OK : ResultData::EXITCODE_ERROR);
   }
 
   /**

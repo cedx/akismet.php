@@ -173,7 +173,7 @@ class Client extends Emitter {
 
     try { $response = (new HttpClient)->send($request); }
     catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
-    $this->emit(new ResponseEvent($request, $response));
+    $this->emit(new ResponseEvent($response, $request));
 
     if($response->hasHeader('x-akismet-debug-help')) throw new ClientException($response->getHeader('x-akismet-debug-help')[0], $endPoint);
     return (string) $response->getBody();

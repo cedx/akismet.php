@@ -11,7 +11,7 @@ class RequestEvent extends AbstractEvent {
   private $request;
 
   /**
-   * Creates a new event parameter.
+   * Creates a new request event.
    * @param RequestInterface $request The related HTTP request.
    */
   function __construct(RequestInterface $request) {

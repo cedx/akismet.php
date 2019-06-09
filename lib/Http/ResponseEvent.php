@@ -3,18 +3,18 @@ namespace Akismet\Http;
 
 use Psr\Http\Message\{RequestInterface, ResponseInterface};
 
-/** Represents the event parameter used for request events. */
+/** Represents the event parameter used for response events. */
 class ResponseEvent extends RequestEvent {
 
   /** @var ResponseInterface The related HTTP response. */
   private $response;
 
   /**
-   * Creates a new event parameter.
-   * @param RequestInterface $request The related HTTP request.
+   * Creates a new response event.
    * @param ResponseInterface $response The related HTTP response.
+   * @param RequestInterface $request The request that triggered this response.
    */
-  function __construct(RequestInterface $request, ResponseInterface $response) {
+  function __construct(ResponseInterface $response, RequestInterface $request) {
     parent::__construct($request);
     $this->response = $response;
   }

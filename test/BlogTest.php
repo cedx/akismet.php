@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
+use function PHPUnit\Expect\{expect, it};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
@@ -9,36 +10,40 @@ class BlogTest extends TestCase {
 
   /** @test Blog::fromJson() */
   function testFromJson(): void {
-    // It should return an empty instance with an empty map.
-    $blog = Blog::fromJson(new \stdClass);
-    assertThat($blog->getCharset(), isEmpty());
-    assertThat($blog->getLanguages(), isEmpty());
-    assertThat($blog->getUrl(), isNull());
+    it('should return an empty instance with an empty map', function() {
+      $blog = Blog::fromJson(new \stdClass);
+      expect($blog->getCharset())->to->be->empty;
+      expect($blog->getLanguages())->to->be->empty;
+      expect($blog->getUrl())->to->be->null;
+    });
 
-    // It should return an initialized instance with a non-empty map.
-    $blog = Blog::fromJson((object) [
-      'blog' => 'https://dev.belin.io/akismet.php',
-      'blog_charset' => 'UTF-8',
-      'blog_lang' => 'en, fr'
-    ]);
+    it('should return an initialized instance with a non-empty map', function() {
+      $blog = Blog::fromJson((object) [
+        'blog' => 'https://dev.belin.io/akismet.php',
+        'blog_charset' => 'UTF-8',
+        'blog_lang' => 'en, fr'
+      ]);
 
-    assertThat($blog->getCharset(), equalTo('UTF-8'));
-    assertThat($blog->getLanguages()->getArrayCopy(), equalTo(['en', 'fr']));
-    assertThat((string) $blog->getUrl(), equalTo('https://dev.belin.io/akismet.php'));
+      expect($blog->getCharset())->to->equal('UTF-8');
+      expect($blog->getLanguages()->getArrayCopy())->to->equal(['en', 'fr']);
+      expect((string) $blog->getUrl())->to->equal('https://dev.belin.io/akismet.php');
+    });
   }
 
   /** @test Blog->jsonSerialize() */
   function testJsonSerialize(): void {
-    // It should return only the blog URL with a newly created instance.
-    $data = (new Blog(new Uri('https://dev.belin.io/akismet.php')))->jsonSerialize();
-    assertThat(get_object_vars($data), countOf(1));
-    assertThat($data->blog, equalTo('https://dev.belin.io/akismet.php'));
+    it('should return only the blog URL with a newly created instance', function() {
+      $data = (new Blog(new Uri('https://dev.belin.io/akismet.php')))->jsonSerialize();
+      expect(get_object_vars($data))->to->have->lengthOf(1);
+      expect($data->blog)->to->equal('https://dev.belin.io/akismet.php');
+    });
 
-    // It should return a non-empty map with a initialized instance.
-    $data = (new Blog(new Uri('https://dev.belin.io/akismet.php'), 'UTF-8', ['en', 'fr']))->jsonSerialize();
-    assertThat(get_object_vars($data), countOf(3));
-    assertThat($data->blog, equalTo('https://dev.belin.io/akismet.php'));
-    assertThat($data->blog_charset, equalTo('UTF-8'));
-    assertThat($data->blog_lang, equalTo('en,fr'));
+    it('should return a non-empty map with a initialized instance', function() {
+      $data = (new Blog(new Uri('https://dev.belin.io/akismet.php'), 'UTF-8', ['en', 'fr']))->jsonSerialize();
+      expect(get_object_vars($data))->to->have->lengthOf(3);
+      expect($data->blog)->to->equal('https://dev.belin.io/akismet.php');
+      expect($data->blog_charset)->to->equal('UTF-8');
+      expect($data->blog_lang)->to->equal('en,fr');
+    });
   }
 }

@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
+use function PHPUnit\Expect\{expect, it};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
@@ -9,59 +10,63 @@ class CommentTest extends TestCase {
 
   /** @test Comment::fromJson() */
   function testFromJson(): void {
-    // It should return an empty instance with an empty map.
-    $comment = Comment::fromJson(new \stdClass);
-    assertThat($comment->getAuthor(), isNull());
-    assertThat($comment->getContent(), isEmpty());
-    assertThat($comment->getDate(), isNull());
-    assertThat($comment->getReferrer(), isNull());
-    assertThat($comment->getType(), isEmpty());
+    it('should return an empty instance with an empty map', function() {
+      $comment = Comment::fromJson(new \stdClass);
+      expect($comment->getAuthor())->to->be->null;
+      expect($comment->getContent())->to->be->empty;
+      expect($comment->getDate())->to->be->null;
+      expect($comment->getReferrer())->to->be->null;
+      expect($comment->getType())->to->be->empty;
+    });
 
-    // It should return an initialized instance with a non-empty map.
-    $comment = Comment::fromJson((object) [
-      'comment_author' => 'Cédric Belin',
-      'comment_content' => 'A user comment.',
-      'comment_date_gmt' => '2000-01-01T00:00:00.000Z',
-      'comment_type' => 'trackback',
-      'referrer' => 'https://belin.io'
-    ]);
+    it('should return an initialized instance with a non-empty map', function() {
+      $comment = Comment::fromJson((object) [
+        'comment_author' => 'Cédric Belin',
+        'comment_content' => 'A user comment.',
+        'comment_date_gmt' => '2000-01-01T00:00:00.000Z',
+        'comment_type' => 'trackback',
+        'referrer' => 'https://belin.io'
+      ]);
 
-    /** @var Author $author */
-    $author = $comment->getAuthor();
-    assertThat($author, logicalNot(isNull()));
-    assertThat($author->getName(), equalTo('Cédric Belin'));
+      /** @var Author $author */
+      $author = $comment->getAuthor();
+      expect($author)->to->not->be->null;
+      expect($author->getName())->to->equal('Cédric Belin');
 
-    /** @var \DateTime $date */
-    $date = $comment->getDate();
-    assertThat($date, logicalNot(isNull()));
-    assertThat($date->format('Y'), equalTo(2000));
+      /** @var \DateTime $date */
+      $date = $comment->getDate();
+      expect($date)->to->not->be->null;
+      expect($date->format('Y'))->to->equal(2000);
 
-    assertThat($comment->getContent(), equalTo('A user comment.'));
-    assertThat((string) $comment->getReferrer(), equalTo('https://belin.io'));
-    assertThat($comment->getType(), equalTo(CommentType::trackback));
+      expect($comment->getContent())->to->equal('A user comment.');
+      expect((string) $comment->getReferrer())->to->equal('https://belin.io');
+      expect($comment->getType())->to->equal(CommentType::trackback);
+    });
   }
 
   /** @test Comment->jsonSerialize() */
   function testJsonSerialize(): void {
-    // It should return only the author info with a newly created instance.
-    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
-    assertThat(get_object_vars($data), countOf(2));
-    assertThat($data->user_agent, equalTo('Doom/6.6.6'));
-    assertThat($data->user_ip, equalTo('127.0.0.1'));
+    it('should return only the author info with a newly created instance', function() {
+      $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();
+      expect(get_object_vars($data))->to->have->lengthOf(2);
+      expect($data->user_agent)->to->equal('Doom/6.6.6');
+      expect($data->user_ip)->to->equal('127.0.0.1');
+    });
 
-    // It should return a non-empty map with a initialized instance.
-    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::pingback))
-      ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
-      ->setReferrer(new Uri('https://belin.io'))
-      ->jsonSerialize();
+    it('should return a non-empty map with a initialized instance', function() {
+      $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::pingback))
+        ->setDate(new \DateTime('2000-01-01T00:00:00.000Z'))
+        ->setReferrer(new Uri('https://belin.io'))
+        ->jsonSerialize();
 
-    assertThat(get_object_vars($data), countOf(7));
-    assertThat($data->comment_author, equalTo('Cédric Belin'));
-    assertThat($data->comment_content, equalTo('A user comment.'));
-    assertThat($data->comment_date_gmt, equalTo('2000-01-01T00:00:00+00:00'));
-    assertThat($data->comment_type, equalTo('pingback'));
-    assertThat($data->referrer, equalTo('https://belin.io'));
-    assertThat($data->user_agent, equalTo('Doom/6.6.6'));
-    assertThat($data->user_ip, equalTo('127.0.0.1'));
+      expect(get_object_vars($data))->to->have->lengthOf(7);
+      expect($data->comment_author)->to->equal('Cédric Belin');
+      expect($data->comment_content)->to->equal('A user comment.');
+      expect($data->comment_date_gmt)->to->equal('2000-01-01T00:00:00+00:00');
+      expect($data->comment_type)->to->equal('pingback');
+      expect($data->referrer)->to->equal('https://belin.io');
+      expect($data->user_agent)->to->equal('Doom/6.6.6');
+      expect($data->user_ip)->to->equal('127.0.0.1');
+    });
   }
 }

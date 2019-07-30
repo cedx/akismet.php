@@ -51,7 +51,7 @@ class Comment implements \JsonSerializable {
       return preg_match('/^comment_author/', $key) || preg_match('/^user/', $key);
     })) > 0;
 
-    $comment = new static(
+    $comment = new self(
       $hasAuthor ? Author::fromJson($map) : null,
       isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '',
       isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ''

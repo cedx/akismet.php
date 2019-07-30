@@ -43,7 +43,7 @@ class Author implements \JsonSerializable {
    * @return static The instance corresponding to the specified JSON map.
    */
   static function fromJson(object $map): self {
-    $author = new static(
+    $author = new self(
       isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '',
       isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : '',
       isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : ''

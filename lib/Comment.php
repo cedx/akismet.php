@@ -41,9 +41,9 @@ class Comment implements \JsonSerializable {
   }
 
   /**
-   * Creates a new comment from the specified JSON map.
-   * @param object $map A JSON map representing a comment.
-   * @return static The instance corresponding to the specified JSON map.
+   * Creates a new comment from the specified JSON object.
+   * @param object $map A JSON object representing a comment.
+   * @return static The instance corresponding to the specified JSON object.
    */
   static function fromJson(object $map): self {
     $keys = array_keys(get_object_vars($map));

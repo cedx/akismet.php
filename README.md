@@ -1,7 +1,7 @@
 # Akismet for PHP
 ![Runtime](https://img.shields.io/packagist/php-v/cedx/akismet.svg) ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://travis-ci.com/cedx/akismet.php.svg)
 
-Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://secure.php.net).
+Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://www.php.net).
 
 ## Documentation
 - [User guide](https://dev.belin.io/akismet.php)
@@ -19,7 +19,7 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 - [Submit ham](https://akismet.com/development/api/#submit-ham): submits a comment that was incorrectly marked as spam but should not have been.
 
 ## Requirements
-You need the latest [PHP](https://secure.php.net) and [Composer](https://getcomposer.org) versions to use the Akismet library.
+You need the latest [PHP](https://www.php.net) and [Composer](https://getcomposer.org) versions to use the Akismet library.
 
 If you plan to play with the sources, you will also need the latest [Robo](https://robo.li) and [Material for MkDocs](https://squidfunk.github.io/mkdocs-material) versions.
 

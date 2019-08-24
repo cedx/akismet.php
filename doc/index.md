@@ -5,7 +5,7 @@
 
 ## Stop spam
 Used by millions of websites, [Akismet](https://akismet.com) filters out hundreds of millions of spam comments from the Web every day.
-Add Akismet to your [PHP](https://secure.php.net) applications so you don't have to worry about spam again.
+Add Akismet to your [PHP](https://www.php.net) applications so you don't have to worry about spam again.
 
 ## Quick start
 

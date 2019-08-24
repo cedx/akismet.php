@@ -16,7 +16,7 @@
 
 ## Version [11.0.0](https://github.com/cedx/akismet.php/compare/v10.0.0...v11.0.0)
 - Breaking change: changed the signature of the `Client` events.
-- Breaking change: raised the required [PHP](https://secure.php.net) version.
+- Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: using PHP 7.1 features, like nullable types and void functions.
 
 ## Version [10.0.0](https://github.com/cedx/akismet.php/compare/v9.0.0...v10.0.0)

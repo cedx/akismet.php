@@ -40,7 +40,7 @@ class Author implements \JsonSerializable {
   /**
    * Creates a new author from the specified JSON object.
    * @param object $map A JSON object representing an author.
-   * @return static The instance corresponding to the specified JSON object.
+   * @return self The instance corresponding to the specified JSON object.
    */
   static function fromJson(object $map): self {
     $author = new self(

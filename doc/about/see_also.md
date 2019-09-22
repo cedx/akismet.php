@@ -12,5 +12,5 @@
 
 ## Other implementations
 - Dart: [Akismet for Dart](https://dev.belin.io/akismet.dart)
-- Node.js: [Akismet for JS](https://dev.belin.io/akismet.js)
+- JavaScript: [Akismet for JS](https://dev.belin.io/akismet.js)
 - Yii Framework: [Akismet for Yii](https://dev.belin.io/yii2-akismet)

@@ -1,5 +1,5 @@
 # Akismet for PHP
-![Runtime](https://img.shields.io/packagist/php-v/cedx/akismet.svg) ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://travis-ci.com/cedx/akismet.php.svg)
+![Runtime](https://img.shields.io/packagist/php-v/cedx/akismet.svg) ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://github.com/cedx/akismet.php/workflows/build/badge.svg)
 
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://www.php.net).
 

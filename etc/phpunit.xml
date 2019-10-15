@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="../vendor/autoload.php" cacheResult="false">
+<phpunit bootstrap="../vendor/autoload.php" cacheResult="false" testdox="true">
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">../lib</directory>

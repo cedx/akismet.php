@@ -5,10 +5,10 @@ use function PHPUnit\Expect\{expect, it};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/** Tests the features of the `Akismet\Comment` class. */
+/** @testdox Akismet\Comment */
 class CommentTest extends TestCase {
 
-  /** @test Comment::fromJson() */
+  /** @testdox ::fromJson() */
   function testFromJson(): void {
     it('should return an empty instance with an empty map', function() {
       $comment = Comment::fromJson(new \stdClass);
@@ -44,7 +44,7 @@ class CommentTest extends TestCase {
     });
   }
 
-  /** @test Comment->jsonSerialize() */
+  /** @testdox ->jsonSerialize() */
   function testJsonSerialize(): void {
     it('should return only the author info with a newly created instance', function() {
       $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6')))->jsonSerialize();

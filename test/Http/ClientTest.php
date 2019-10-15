@@ -6,7 +6,7 @@ use Akismet\{Author, Blog, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/** Tests the features of the `Akismet\Http\Client` class. */
+/** @testdox Akismet\Http\Client */
 class ClientTest extends TestCase {
 
   /** @var Client The client used to query the service database. */
@@ -18,7 +18,7 @@ class ClientTest extends TestCase {
   /** @var Comment A comment with content marked as spam. */
   private $spam;
 
-  /** @test Client->checkComment() */
+  /** @testdox ->checkComment() */
   function testCheckComment(): void {
     it('should return `false` for valid comment (e.g. ham)', function() {
       expect($this->client->checkComment($this->ham))->to->be->false;
@@ -29,21 +29,21 @@ class ClientTest extends TestCase {
     });
   }
 
-  /** @test Client->submitHam() */
+  /** @testdox ->submitHam() */
   function testSubmitHam(): void {
     it('should complete without error', function() {
       expect(function() { $this->client->submitHam($this->ham); })->to->not->throw;
     });
   }
 
-  /** @test Client->submitSpam() */
+  /** @testdox ->submitSpam() */
   function testSubmitSpam(): void {
     it('should complete without error', function() {
       expect(function() { $this->client->submitSpam($this->spam); })->to->not->throw;
     });
   }
 
-  /** @test Client->verifyKey() */
+  /** @testdox ->verifyKey() */
   function testVerifyKey(): void {
     it('should return `true` for a valid API key', function() {
       expect($this->client->verifyKey())->to->be->true;

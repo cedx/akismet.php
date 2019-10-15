@@ -5,10 +5,10 @@ use function PHPUnit\Expect\{expect, it};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/** Tests the features of the `Akismet\Author` class. */
+/** @testdox Akismet\Author */
 class AuthorTest extends TestCase {
 
-  /** @test Author::fromJson() */
+  /** @testdox ::fromJson() */
   function testFromJson(): void {
     it('should return an empty instance with an empty map', function() {
       $author = Author::fromJson(new \stdClass);
@@ -27,7 +27,7 @@ class AuthorTest extends TestCase {
     });
   }
 
-  /** @test Author->jsonSerialize() */
+  /** @testdox ->jsonSerialize() */
   function testJsonSerialize(): void {
     it('should return only the IP address and user agent with a newly created instance', function() {
       $data = (new Author('127.0.0.1', 'Doom/6.6.6'))->jsonSerialize();

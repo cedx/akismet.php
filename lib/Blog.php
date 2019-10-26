@@ -11,7 +11,7 @@ class Blog implements \JsonSerializable {
   private string $charset;
 
   /** @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format. */
-  private \ArrayObject  $languages;
+  private \ArrayObject $languages;
 
   /** @var UriInterface|null The blog or site URL. */
   private ?UriInterface $url;

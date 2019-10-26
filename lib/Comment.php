@@ -8,25 +8,25 @@ use Psr\Http\Message\{UriInterface};
 class Comment implements \JsonSerializable {
 
   /** @var Author|null The comment's author. */
-  private $author;
+  private ?Author $author;
 
   /** @var string The comment's content. */
-  private $content;
+  private string $content;
 
   /** @var \DateTime|null The UTC timestamp of the creation of the comment. */
-  private $date;
+  private ?\DateTime $date = null;
 
   /** @var UriInterface|null The permanent location of the entry the comment is submitted to. */
-  private $permalink;
+  private ?UriInterface $permalink = null;
 
   /** @var \DateTime|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
-  private $postModified;
+  private ?\DateTime $postModified = null;
 
   /** @var UriInterface|null The URL of the webpage that linked to the entry being requested. */
-  private $referrer;
+  private ?UriInterface $referrer = null;
 
   /** @var string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
-  private $type;
+  private string $type;
 
   /**
    * Creates a new comment.

@@ -8,13 +8,13 @@ use Psr\Http\Message\{UriInterface};
 class Blog implements \JsonSerializable {
 
   /** @var string The character encoding for the values included in comments. */
-  private $charset;
+  private string $charset;
 
   /** @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format. */
-  private $languages;
+  private \ArrayObject  $languages;
 
   /** @var UriInterface|null The blog or site URL. */
-  private $url;
+  private ?UriInterface $url;
 
   /**
    * Creates a new blog.

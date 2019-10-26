@@ -19,19 +19,19 @@ class Client extends Emitter {
   const eventResponse = ResponseEvent::class;
 
   /** @var string The Akismet API key. */
-  private $apiKey;
+  private string $apiKey;
 
   /** @var Blog The front page or home URL of the instance making requests. */
-  private $blog;
+  private Blog $blog;
 
   /** @var UriInterface The URL of the API end point. */
-  private $endPoint;
+  private UriInterface $endPoint;
 
   /** @var bool Value indicating whether the client operates in test mode. */
-  private $isTest = false;
+  private bool $isTest = false;
 
   /** @var string The user agent string to use when making requests. */
-  private $userAgent;
+  private string $userAgent;
 
   /**
    * Creates a new client.

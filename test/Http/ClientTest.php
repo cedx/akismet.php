@@ -10,13 +10,13 @@ use PHPUnit\Framework\{TestCase};
 class ClientTest extends TestCase {
 
   /** @var Client The client used to query the service database. */
-  private $client;
+  private Client $client;
 
   /** @var Comment A comment with content marked as ham. */
-  private $ham;
+  private Comment $ham;
 
   /** @var Comment A comment with content marked as spam. */
-  private $spam;
+  private Comment $spam;
 
   /** @testdox ->checkComment() */
   function testCheckComment(): void {

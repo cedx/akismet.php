@@ -7,7 +7,7 @@ use Psr\Http\Message\{RequestInterface, ResponseInterface};
 class ResponseEvent extends RequestEvent {
 
   /** @var ResponseInterface The related HTTP response. */
-  private $response;
+  private ResponseInterface $response;
 
   /**
    * Creates a new response event.

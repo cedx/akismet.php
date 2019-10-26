@@ -8,7 +8,7 @@ use Psr\Http\Message\{RequestInterface};
 class RequestEvent extends AbstractEvent {
 
   /** @var RequestInterface The related HTTP request. */
-  private $request;
+  private RequestInterface $request;
 
   /**
    * Creates a new request event.

@@ -1,3 +1,5 @@
 parameters:
   level: max
   paths: [lib, test]
+  ignoreErrors:
+    - '/Result of method .* \(void\) is used/'

@@ -32,14 +32,14 @@ class ClientTest extends TestCase {
   /** @testdox ->submitHam() */
   function testSubmitHam(): void {
     it('should complete without error', function() {
-      expect(function() { $this->client->submitHam($this->ham); })->to->not->throw;
+      expect(fn() => $this->client->submitHam($this->ham))->to->not->throw;
     });
   }
 
   /** @testdox ->submitSpam() */
   function testSubmitSpam(): void {
     it('should complete without error', function() {
-      expect(function() { $this->client->submitSpam($this->spam); })->to->not->throw;
+      expect(fn() => $this->client->submitSpam($this->spam))->to->not->throw;
     });
   }
 

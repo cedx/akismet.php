@@ -113,8 +113,8 @@ class RoboFile extends Tasks {
   function watch(): Result {
     $this->build();
     return $this->taskWatch()
-      ->monitor('lib', function() { $this->build(); })
-      ->monitor('test', function() { $this->test(); })
+      ->monitor('lib', fn() => $this->build())
+      ->monitor('test', fn() => $this->test())
       ->run();
   }
 }

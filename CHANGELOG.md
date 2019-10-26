@@ -2,12 +2,13 @@
 
 ## Version [12.0.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v12.0.0)
 - Breaking change: replaced [Événement](https://github.com/igorw/evenement) library by [PHP League Event](https://event.thephpleague.com) for event handling.
+- Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: using camelcase instead of all caps for constants.
+- Breaking change: using PHP 7.4 features, like arrow functions and typed properties.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added an example code.
 - Added the `ClientException` exception class.
 - Added the `RequestEvent` and `ResponseEvent` event classes.
-- Dropped the dependency on [PHPUnit-Expect](https://dev.belin.io/phpunit-expect).
 - Updated the package dependencies.
 - Updated the URL of the default API endpoint.
 

@@ -59,7 +59,7 @@ class ClientTest extends TestCase {
   protected function setUp(): void {
     $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setTest(true);
 
-    $author = (new Author('192.168.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3851.0 Safari/537.36 Edg/77.0.223.0', 'Akismet'))
+    $author = (new Author('192.168.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0', 'Akismet'))
       ->setRole('administrator')
       ->setUrl(new Uri('https://dev.belin.io/akismet.php'));
 

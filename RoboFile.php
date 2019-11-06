@@ -105,16 +105,4 @@ class RoboFile extends Tasks {
   function version(string $component = 'patch'): Result {
     return $this->taskSemVer('.semver')->increment($component)->run();
   }
-
-  /**
-   * Watches for file changes.
-   * @return Result The task result.
-   */
-  function watch(): Result {
-    $this->build();
-    return $this->taskWatch()
-      ->monitor('lib', fn() => $this->build())
-      ->monitor('test', fn() => $this->test())
-      ->run();
-  }
 }

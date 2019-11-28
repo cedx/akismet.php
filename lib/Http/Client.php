@@ -160,7 +160,7 @@ class Client extends Emitter {
    * @throws ClientException An error occurred while querying the end point.
    */
   private function fetch(UriInterface $endPoint, array $fields = []): string {
-    $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
+    $bodyFields = [...get_object_vars($this->getBlog()->jsonSerialize()), ...$fields];
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
     $headers = [

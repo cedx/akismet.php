@@ -155,7 +155,7 @@ class Client extends Emitter {
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
    * @param UriInterface $endPoint The URL of the end point to query.
-   * @param array $fields The fields describing the query body.
+   * @param array<string, string> $fields The fields describing the query body.
    * @return string The response body.
    * @throws ClientException An error occurred while querying the end point.
    */

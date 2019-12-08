@@ -23,7 +23,7 @@ class RoboFile extends Tasks {
     $version = $this->taskSemVer('.semver')->setFormat('%M.%m.%p')->__toString();
     $success = (bool) @file_put_contents('lib/version.g.php', implode(PHP_EOL, [
       '<?php declare(strict_types=1);', '',
-      '/** @var string The version number of the package. */',
+      '// The version number of the package.',
       "return \$packageVersion = '$version';", ''
     ]));
 

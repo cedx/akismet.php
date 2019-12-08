@@ -10,7 +10,7 @@ class Blog implements \JsonSerializable {
   /** @var string The character encoding for the values included in comments. */
   private string $charset;
 
-  /** @var \ArrayObject The languages in use on the blog or site, in ISO 639-1 format. */
+  /** @var \ArrayObject<int, string> The languages in use on the blog or site, in ISO 639-1 format. */
   private \ArrayObject $languages;
 
   /** @var UriInterface|null The blog or site URL. */
@@ -51,7 +51,7 @@ class Blog implements \JsonSerializable {
 
   /**
    * Gets the languages in use on the blog or site, in ISO 639-1 format.
-   * @return \ArrayObject The languages in use on the blog or site.
+   * @return \ArrayObject<int, string> The languages in use on the blog or site.
    */
   function getLanguages(): \ArrayObject {
     return $this->languages;

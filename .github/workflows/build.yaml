@@ -12,7 +12,7 @@ jobs:
         with:
           php-version: 7.4
           coverage: xdebug
-          extension-csv: curl, mbstring, simplexml
+          extensions: curl, mbstring, simplexml
       - name: Check environment
         run: |
           php --version

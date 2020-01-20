@@ -164,8 +164,8 @@ class Client extends Emitter {
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
     $headers = [
-      'content-type' => 'application/x-www-form-urlencoded',
-      'user-agent' => $this->getUserAgent()
+      'Content-Type' => 'application/x-www-form-urlencoded',
+      'User-Agent' => $this->getUserAgent()
     ];
 
     $request = new Request('POST', $endPoint, $headers, build_query($bodyFields));

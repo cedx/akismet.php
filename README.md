@@ -126,18 +126,5 @@ function main(): void {
 }
 ```
 
-## Unit tests
-In order to run the tests, you must set the `AKISMET_API_KEY` environment variable to the value of your Akismet API key:
-
-```shell
-export AKISMET_API_KEY="<123YourAPIKey>"
-```
-
-Then, you can run the `test` script from the command prompt:
-
-```shell
-composer run-script test
-```
-
 ## License
 [Akismet for PHP](https://dev.belin.io/akismet.php) is distributed under the MIT License.

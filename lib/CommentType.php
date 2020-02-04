@@ -16,17 +16,8 @@ abstract class CommentType {
   /** @var string A top-level forum post. */
   const forumPost = 'forum-post';
 
-  /** @var string A message sent between just a few users. */
-  const message = 'message';
-
   /** @var string A [pingback](https://en.wikipedia.org/wiki/Pingback) post. */
   const pingback = 'pingback';
-
-  /** @var string A reply to a top-level forum post. */
-  const reply = 'reply';
-
-  /** @var string A new user account. */
-  const signup = 'signup';
 
   /** @var string A [trackback](https://en.wikipedia.org/wiki/Trackback) post. */
   const trackback = 'trackback';

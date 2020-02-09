@@ -22,6 +22,9 @@ class Comment implements \JsonSerializable {
   /** @var \DateTimeInterface|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
   private ?\DateTimeInterface $postModified = null;
 
+  /** @var string A string describing why the content is being rechecked. */
+  private string $recheckReason = '';
+
   /** @var UriInterface|null The URL of the webpage that linked to the entry being requested. */
   private ?UriInterface $referrer = null;
 
@@ -59,6 +62,7 @@ class Comment implements \JsonSerializable {
       ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTimeImmutable($map->comment_date_gmt) : null)
       ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? new Uri($map->permalink) : null)
       ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTimeImmutable($map->comment_post_modified_gmt) : null)
+      ->setRecheckReason(isset($map->recheck_reason) && is_string($map->recheck_reason) ? $map->recheck_reason : '')
       ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? new Uri($map->referrer) : null);
   }
 
@@ -103,6 +107,14 @@ class Comment implements \JsonSerializable {
   }
 
   /**
+   * Gets the string describing why the content is being rechecked.
+   * @return string A string describing why the content is being rechecked.
+   */
+  function getRecheckReason(): string {
+    return $this->recheckReason;
+  }
+
+  /**
    * Gets the URL of the webpage that linked to the entry being requested.
    * @return UriInterface|null The URL of the webpage that linked to the entry being requested.
    */
@@ -112,7 +124,7 @@ class Comment implements \JsonSerializable {
 
   /**
    * Gets the comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
-   * @return string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
+   * @return string The comment's type.
    */
   function getType(): string {
     return $this->type;
@@ -129,6 +141,7 @@ class Comment implements \JsonSerializable {
     if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format('c');
     if (mb_strlen($type = $this->getType())) $map->comment_type = $type;
     if ($permalink = $this->getPermalink()) $map->permalink = (string) $permalink;
+    if (mb_strlen($recheckReason = $this->getRecheckReason())) $map->recheck_reason = $recheckReason;
     if ($referrer = $this->getReferrer()) $map->referrer = (string) $referrer;
     return $map;
   }
@@ -160,6 +173,16 @@ class Comment implements \JsonSerializable {
    */
   function setPostModified(?\DateTimeInterface $value): self {
     $this->postModified = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the string describing why the content is being rechecked.
+   * @param string $value A string describing why the content is being rechecked.
+   * @return $this This instance.
+   */
+  function setRecheckReason(string $value): self {
+    $this->recheckReason = $value;
     return $this;
   }
 

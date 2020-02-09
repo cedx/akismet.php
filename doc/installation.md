@@ -35,6 +35,9 @@ Now in your [PHP](https://www.php.net) code, you can use:
 
 ```php
 <?php
-use Akismet\{Author, Blog, Comment, CommentType};
+use Akismet\{Author, Blog, CheckResult, Comment, CommentType};
 use Akismet\Http\{Client, ClientException};
 ```
+
+### 3. Use it
+See the [usage information](usage.md).

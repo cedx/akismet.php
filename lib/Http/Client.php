@@ -39,12 +39,14 @@ class Client extends Emitter {
    * @param string $userAgent The user agent string to use when making requests.
    */
   function __construct(string $apiKey, Blog $blog, string $userAgent = '') {
+    assert(mb_strlen($apiKey) > 0);
+
     $this->apiKey = $apiKey;
     $this->blog = $blog;
     $this->endPoint = new Uri('https://rest.akismet.com/1.1/');
-    $this->userAgent = mb_strlen($userAgent)
-      ? $userAgent
-      : sprintf('PHP/%s | Akismet/%s', preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION), require __DIR__.'/../version.g.php');
+
+    $phpVersion = preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION);
+    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/../version.g.php');
   }
 
   /**

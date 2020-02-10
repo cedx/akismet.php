@@ -16,7 +16,7 @@ use GuzzleHttp\Psr7\{Uri};
 function main(): void {
   $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
   $client->addListener(Client::eventRequest, fn(RequestEvent $event) =>
-    echo 'Client request: ', $event->getRequest()->getUri()
+    print("Client request: {$event->getRequest()->getUri()}")
   );
 }
 ```
@@ -33,7 +33,7 @@ use GuzzleHttp\Psr7\{Uri};
 function main(): void {
   $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
   $client->addListener(Client::eventResponse, fn(ResponseEvent $event) =>
-    echo 'Server response: ', $event->getResponse()->getStatusCode()
+    print("Server response: {$event->getResponse()->getStatusCode()}")
   );
 }
 ```

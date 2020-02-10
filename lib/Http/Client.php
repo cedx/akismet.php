@@ -2,12 +2,11 @@
 namespace Akismet\Http;
 
 use function GuzzleHttp\Psr7\{build_query};
-use Akismet\{Blog, Comment};
+use Akismet\{Blog, CheckResult, Comment};
 use GuzzleHttp\{Client as HttpClient};
-use GuzzleHttp\Exception\{RequestException};
 use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use League\Event\{Emitter};
-use Psr\Http\Message\{UriInterface};
+use Psr\Http\Message\{ResponseInterface, UriInterface};
 
 /** Submits comments to the [Akismet](https://akismet.com) service. */
 class Client extends Emitter {
@@ -51,13 +50,18 @@ class Client extends Emitter {
   /**
    * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
    * @param Comment $comment The comment to be checked.
-   * @return bool `true` if the specified comment is spam, otherwise `false`.
+   * @return string A `CheckResult` value indicating whether the specified comment is spam.
    */
-  function checkComment(Comment $comment): bool {
+  function checkComment(Comment $comment): string {
     $apiUrl = $this->getEndPoint();
     $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
     $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
-    return $this->fetch(UriResolver::resolve($endPoint, new Uri('comment-check')), get_object_vars($comment->jsonSerialize())) == 'true';
+
+    $response = $this->fetch(UriResolver::resolve($endPoint, new Uri('comment-check')), get_object_vars($comment->jsonSerialize()));
+    if (((string) $response->getBody()) == 'false') return CheckResult::isHam;
+
+    $header = $response->getHeader('X-akismet-pro-tip');
+    return count($header) && $header[0] == 'discard' ? CheckResult::isPervasiveSpam : CheckResult::isSpam;
   }
 
   /**
@@ -149,18 +153,19 @@ class Client extends Emitter {
    * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
   function verifyKey(): bool {
-    return $this->fetch(UriResolver::resolve($this->getEndPoint(), new Uri('verify-key')), ['key' => $this->getApiKey()]) == 'valid';
+    $response = $this->fetch(UriResolver::resolve($this->getEndPoint(), new Uri('verify-key')), ['key' => $this->getApiKey()]);
+    return ((string) $response->getBody()) == 'valid';
   }
 
   /**
    * Queries the service by posting the specified fields to a given end point, and returns the response as a string.
    * @param UriInterface $endPoint The URL of the end point to query.
    * @param array<string, string> $fields The fields describing the query body.
-   * @return string The response body.
+   * @return ResponseInterface The server response.
    * @throws ClientException An error occurred while querying the end point.
    */
-  private function fetch(UriInterface $endPoint, array $fields = []): string {
-    $bodyFields = [...get_object_vars($this->getBlog()->jsonSerialize()), ...$fields];
+  private function fetch(UriInterface $endPoint, array $fields = []): ResponseInterface {
+    $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
     $headers = [
@@ -168,14 +173,20 @@ class Client extends Emitter {
       'User-Agent' => $this->getUserAgent()
     ];
 
-    $request = new Request('POST', $endPoint, $headers, build_query($bodyFields));
-    $this->emit(new RequestEvent($request));
+    try {
+      $request = new Request('POST', $endPoint, $headers, build_query($bodyFields));
+      $this->emit(new RequestEvent($request));
 
-    try { $response = (new HttpClient)->send($request); }
-    catch (RequestException $e) { throw new ClientException($e->getMessage(), $endPoint, $e); }
-    $this->emit(new ResponseEvent($response, $request));
+      $response = (new HttpClient)->send($request);
+      $this->emit(new ResponseEvent($response, $request));
 
-    if($response->hasHeader('X-akismet-debug-help')) throw new ClientException($response->getHeader('X-akismet-debug-help')[0], $endPoint);
-    return (string) $response->getBody();
+      if ($response->hasHeader('X-akismet-debug-help')) throw new ClientException($response->getHeader('X-akismet-debug-help')[0], $endPoint);
+      return $response;
+    }
+
+    catch (\Throwable $e) {
+      if ($e instanceof ClientException) throw $e;
+      throw new ClientException($e->getMessage(), $endPoint, $e);
+    }
   }
 }

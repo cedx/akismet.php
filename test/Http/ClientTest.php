@@ -2,7 +2,7 @@
 namespace Akismet\Http;
 
 use function PHPUnit\Expect\{expect, it};
-use Akismet\{Author, Blog, Comment, CommentType};
+use Akismet\{Author, Blog, CheckResult, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
@@ -21,11 +21,11 @@ class ClientTest extends TestCase {
   /** @testdox ->checkComment() */
   function testCheckComment(): void {
     it('should return `false` for valid comment (e.g. ham)', function() {
-      expect($this->client->checkComment($this->ham))->to->be->false;
+      expect($this->client->checkComment($this->ham))->to->equal(CheckResult::isHam);
     });
 
     it('should return `true` for invalid comment (e.g. spam)', function() {
-      expect($this->client->checkComment($this->spam))->to->be->true;
+      expect($this->client->checkComment($this->spam))->to->be->oneOf([CheckResult::isSpam, CheckResult::isPervasiveSpam]);
     });
   }
 

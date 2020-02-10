@@ -1,10 +1,10 @@
 # Testing
-When you will integrate the library with your own application, you will of course need to test it. Often we see developers get ahead of themselves, making a few trivial API calls with minimal values and drawing the wrong conclusions about Akismet's accuracy.
+When you will integrate this library with your own application, you will of course need to test it. Often we see developers get ahead of themselves, making a few trivial API calls with minimal values and drawing the wrong conclusions about Akismet's accuracy.
 
 ## Simulate a positive (spam) result
 Make a [comment check](../features/comment_check.md) API call with the `Author->getName()` set to `"viagra-test-123"` or `Author->getEmail()` set to `"akismet-guaranteed-spam@example.com"`. Populate all other required fields with typical values.
 
-The Akismet API will always return a `true` response to a valid request with one of those values. If you receive anything else, something is wrong in your client, data, or communications.
+The Akismet API will always return a `CheckResult::isSpam` response to a valid request with one of those values. If you receive anything else, something is wrong in your client, data, or communications.
 
 ```php
 <?php
@@ -12,20 +12,22 @@ use Akismet\{Author, Blog, Comment};
 use Akismet\Http\{Client};
 use GuzzleHttp\Psr7\{Uri};
 
-$author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
-$comment = new Comment($author, 'A user comment');
-
-$blog = new Blog(new Uri('https://www.yourblog.com'));
-$client = new Client('123YourAPIKey', $blog);
-
-$isSpam = $client->checkComment($comment);
-print("It should be 'true': $isSpam");
+function main(): void {
+  $author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
+  $comment = new Comment($author, 'A user comment');
+    
+  $blog = new Blog(new Uri('https://www.yourblog.com'));
+  $client = new Client('123YourAPIKey', $blog);
+    
+  $result = $client->checkComment($comment);
+  echo 'It should be "CheckResult.isSpam": ', $result;
+}
 ```
 
 ## Simulate a negative (not spam) result
 Make a [comment check](../features/comment_check.md) API call with the `Author->getRole()` set to `"administrator"` and all other required fields populated with typical values.
 
-The Akismet API will always return a `false` response. Any other response indicates a data or communication problem.
+The Akismet API will always return a `CheckResult::isHam` response. Any other response indicates a data or communication problem.
 
 ```php
 <?php
@@ -33,14 +35,16 @@ use Akismet\{Author, Blog, Comment};
 use Akismet\Http\{Client};
 use GuzzleHttp\Psr7\{Uri};
 
-$author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setRole('administrator');
-$comment = new Comment($author, 'A user comment');
-
-$blog = new Blog(new Uri('https://www.yourblog.com'));
-$client = new Client('123YourAPIKey', $blog);
-
-$isSpam = $client->checkComment($comment);
-print("It should be 'false': $isSpam");
+function main(): void {
+  $author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setRole('administrator');
+  $comment = new Comment($author, 'A user comment');
+    
+  $blog = new Blog(new Uri('https://www.yourblog.com'));
+  $client = new Client('123YourAPIKey', $blog);
+    
+  $result = $client->checkComment($comment);
+  echo 'It should be "CheckResult.isHam": ', $result;
+}
 ```
 
 ## Automated testing
@@ -54,12 +58,14 @@ use Akismet\{Author, Blog, Comment};
 use Akismet\Http\{Client};
 use GuzzleHttp\Psr7\{Uri};
 
-$author = new Author('127.0.0.1', 'Mozilla/5.0');
-$comment = new Comment($author, 'A user comment');
-
-$blog = new Blog(new Uri('https://www.yourblog.com'));
-$client = (new Client('123YourAPIKey', $blog))->setTest(true);
-
-echo 'It should not influence subsequent calls';
-$client->checkComment($comment);
+function main(): void {
+  $author = new Author('127.0.0.1', 'Mozilla/5.0');
+  $comment = new Comment($author, 'A user comment');
+    
+  $blog = new Blog(new Uri('https://www.yourblog.com'));
+  $client = (new Client('123YourAPIKey', $blog))->setTest(true);
+    
+  echo 'It should not influence subsequent calls.';
+  $client->checkComment($comment);
+}
 ```

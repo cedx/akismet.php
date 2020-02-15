@@ -20,7 +20,7 @@ class RoboFile extends Tasks {
    * @return ResultData The task result.
    */
   function build(): ResultData {
-    $version = $this->taskSemVer('.semver')->setFormat('%M.%m.%p')->__toString();
+    $version = $this->taskSemVer()->setFormat('%M.%m.%p')->__toString();
     $success = (bool) @file_put_contents('lib/version.g.php', implode(PHP_EOL, [
       '<?php declare(strict_types=1);', '',
       '// The version number of the package.',
@@ -103,6 +103,6 @@ class RoboFile extends Tasks {
    * @return Result The task result.
    */
   function version(string $component = 'patch'): Result {
-    return $this->taskSemVer('.semver')->increment($component)->run();
+    return $this->taskSemVer()->increment($component)->run();
   }
 }

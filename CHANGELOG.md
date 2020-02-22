@@ -55,21 +55,21 @@
 - Updated the package dependencies.
 
 ## Version [5.1.0](https://github.com/cedx/akismet.php/compare/v5.0.0...v5.1.0)
-- Restored the `jsonSerialize` and `__toString` methods of the `Client` class.
+- Restored the `jsonSerialize()` and `__toString()` methods of the `Client` class.
 
 ## Version [5.0.0](https://github.com/cedx/akismet.php/compare/v4.0.0...v5.0.0)
 - Breaking change: changed the signature of all constructors.
 - Breaking change: changed the return type of several `Client` methods.
 - Breaking change: renamed the `Client::SERVICE_URL` constant to `DEFAULT_ENDPOINT`.
-- Breaking change: removed the `Client::jsonSerialize` method.
-- Added the `Client::endPoint` property.
+- Breaking change: removed the `Client->jsonSerialize()` method.
+- Added the `Client->endPoint` property.
 - Updated the package dependencies.
 
 ## Version [4.0.0](https://github.com/cedx/akismet.php/compare/v3.0.0...v4.0.0)
-- Breaking change: changed the `Blog::language` string property for the `languages` array property.
-- Breaking change: renamed the `Client::test` property to `isTest` and the `Client::setTest` method to `setIstTest`.
+- Breaking change: changed the `Blog->language` string property for the `languages` array property.
+- Breaking change: renamed the `Client->test` property to `isTest` and the `Client->setTest()` method to `setIsTest`.
 - Replaced the [Codacy](https://www.codacy.com) code coverage service by the [Coveralls](https://coveralls.io) one.
-- Removed the vendor suffix from the PHP version number in the `Client::userAgent` property.
+- Removed the vendor suffix from the PHP version number in the `Client->userAgent` property.
 - Removed the `dist` build task.
 - Updated the package dependencies.
 

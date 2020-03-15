@@ -1,12 +1,11 @@
 <?php declare(strict_types=1);
-namespace Akismet\Http;
+namespace Akismet;
 
 use function PHPUnit\Expect\{expect, it};
-use Akismet\{Author, Blog, CheckResult, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};
 use PHPUnit\Framework\{TestCase};
 
-/** @testdox Akismet\Http\Client */
+/** @testdox Akismet\Client */
 class ClientTest extends TestCase {
 
   /** @var Client The client used to query the service database. */

@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 
-use Akismet\{Author, Blog, CheckResult, Comment, CommentType};
-use Akismet\Http\{Client, ClientException};
+use Akismet\{Author, Blog, CheckResult, Client, ClientException, Comment, CommentType};
 use GuzzleHttp\Psr7\{Uri};
 
 /** Queries the Akismet service. */

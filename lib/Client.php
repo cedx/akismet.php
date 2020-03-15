@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
-namespace Akismet\Http;
+namespace Akismet;
 
 use function GuzzleHttp\Psr7\{build_query};
-use Akismet\{Blog, CheckResult, Comment};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use League\Event\{Emitter};
@@ -46,7 +45,7 @@ class Client extends Emitter {
     $this->endPoint = new Uri('https://rest.akismet.com/1.1/');
 
     $phpVersion = preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION);
-    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/../version.g.php');
+    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
   }
 
   /**

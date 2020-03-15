@@ -29,8 +29,7 @@ The exception `getMessage()` usually includes some debug information, provided b
 
 ```php
 <?php
-use Akismet\{Author, Blog, Comment};
-use Akismet\Http\{Client, ClientException};
+use Akismet\{Author, Blog, Client, ClientException, Comment};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {

@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace Akismet\Http;
+namespace Akismet;
 
 use Psr\Http\Message\{UriInterface};
 

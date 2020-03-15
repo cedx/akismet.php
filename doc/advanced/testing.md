@@ -8,8 +8,7 @@ The Akismet API will always return a `CheckResult::isSpam` response to a valid r
 
 ```php
 <?php
-use Akismet\{Author, Blog, Comment};
-use Akismet\Http\{Client};
+use Akismet\{Author, Blog, Client, Comment};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {
@@ -31,8 +30,7 @@ The Akismet API will always return a `CheckResult::isHam` response. Any other re
 
 ```php
 <?php
-use Akismet\{Author, Blog, Comment};
-use Akismet\Http\{Client};
+use Akismet\{Author, Blog, Client, Comment};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {
@@ -54,8 +52,7 @@ That will tell Akismet not to change its behaviour based on those API calls – 
 
 ```php
 <?php
-use Akismet\{Author, Blog, Comment};
-use Akismet\Http\{Client};
+use Akismet\{Author, Blog, Client, Comment};
 use GuzzleHttp\Psr7\{Uri};
 
 function main(): void {

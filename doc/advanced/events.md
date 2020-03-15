@@ -1,5 +1,5 @@
 path: blob/master
-source: lib/Http/Client.php
+source: lib/Client.php
 
 # Events
 The `Akismet\Client` class, used to query the Akismet service, is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle.

@@ -50,7 +50,7 @@ class Comment implements \JsonSerializable {
    */
   static function fromJson(object $map): self {
     $keys = array_keys(get_object_vars($map));
-    $hasAuthor = count(array_filter($keys, fn($key) => preg_match('/^comment_author/', $key) || preg_match('/^user/', $key))) > 0;
+    $hasAuthor = count(array_filter($keys, fn($key) => preg_match('/^(comment_author|user)/', $key))) > 0;
 
     $comment = new self(
       $hasAuthor ? Author::fromJson($map) : null,

@@ -1,10 +1,10 @@
 # See also
 
 ## Development
-- [Akismet for developers](https://akismet.com/development/api)
 - [API reference](https://dev.belin.io/akismet.php/api)
 - [Packagist package](https://packagist.org/packages/cedx/akismet)
 - [Submit an issue](https://github.com/cedx/akismet.php/issues)
+- [Akismet for developers](https://akismet.com/development/api)
 
 ## Testing
 - [Continuous integration](https://github.com/cedx/akismet.php/actions)

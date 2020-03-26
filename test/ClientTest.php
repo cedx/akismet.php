@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use function PHPUnit\Expect\{expect, it};
-use GuzzleHttp\Psr7\{Uri};
-use PHPUnit\Framework\{TestCase};
+use Nyholm\Psr7\{Uri};
+use PHPUnit\Framework\{Assert, TestCase};
+use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr};
 
 /** @testdox Akismet\Client */
 class ClientTest extends TestCase {
@@ -19,39 +19,38 @@ class ClientTest extends TestCase {
 
   /** @testdox ->checkComment() */
   function testCheckComment(): void {
-    it('should return `false` for valid comment (e.g. ham)', function() {
-      expect($this->client->checkComment($this->ham))->to->equal(CheckResult::isHam);
-    });
+    // It should return `false` for valid comment (e.g. ham).
+    assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::isHam));
 
-    it('should return `true` for invalid comment (e.g. spam)', function() {
-      expect($this->client->checkComment($this->spam))->to->be->oneOf([CheckResult::isSpam, CheckResult::isPervasiveSpam]);
-    });
+    // It should return `true` for invalid comment (e.g. spam).
+    assertThat($this->client->checkComment($this->spam), logicalOr(
+      equalTo(CheckResult::isSpam),
+      equalTo(CheckResult::isPervasiveSpam)
+    ));
   }
 
   /** @testdox ->submitHam() */
   function testSubmitHam(): void {
-    it('should complete without error', function() {
-      expect(fn() => $this->client->submitHam($this->ham))->to->not->throw;
-    });
+    // It should complete without error.
+    try { $this->client->submitHam($this->ham); }
+    catch (\Throwable $e) { Assert::fail($e->getMessage()); }
   }
 
   /** @testdox ->submitSpam() */
   function testSubmitSpam(): void {
-    it('should complete without error', function() {
-      expect(fn() => $this->client->submitSpam($this->spam))->to->not->throw;
-    });
+    // It should complete without error.
+    try { $this->client->submitSpam($this->spam); }
+    catch (\Throwable $e) { Assert::fail($e->getMessage()); }
   }
 
   /** @testdox ->verifyKey() */
   function testVerifyKey(): void {
-    it('should return `true` for a valid API key', function() {
-      expect($this->client->verifyKey())->to->be->true;
-    });
+    // It should return `true` for a valid API key.
+    assertThat($this->client->verifyKey(), isTrue());
 
-    it('should return `false` for an invalid API key', function() {
-      $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setTest($this->client->isTest());
-      expect($client->verifyKey())->to->be->false;
-    });
+    // It should return `false` for an invalid API key.
+    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setTest($this->client->isTest());
+    assertThat($client->verifyKey(), isFalse());
   }
 
   /** @before This method is called before each test. */

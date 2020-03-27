@@ -10,12 +10,6 @@ use Symfony\Component\EventDispatcher\{EventDispatcher};
 /** Submits comments to the [Akismet](https://akismet.com) service. */
 class Client {
 
-  /** @var string An event that is triggered when a request is made to the remote service. */
-  const eventRequest = RequestEvent::class;
-
-  /** @var string An event that is triggered when a response is received from the remote service. */
-  const eventResponse = ResponseEvent::class;
-
   /** @var string The Akismet API key. */
   private string $apiKey;
 

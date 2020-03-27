@@ -104,6 +104,22 @@ class Client {
   }
 
   /**
+   * Subscribes to the `request` events.
+   * @param callable $listener The listener to register.
+   */
+  function onRequest(callable $listener): void {
+    $this->dispatcher->addListener(RequestEvent::class, $listener);
+  }
+
+  /**
+   * Subscribes to the `response` events.
+   * @param callable $listener The listener to register.
+   */
+  function onResponse(callable $listener): void {
+    $this->dispatcher->addListener(ResponseEvent::class, $listener);
+  }
+
+  /**
    * Sets the URL of the API end point.
    * @param UriInterface $value The new URL of the API end point.
    * @return $this This instance.

@@ -37,7 +37,7 @@ composer require cedx/akismet
 ```php
 <?php
 use Akismet\{Blog, Client, ClientException};
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 
 try {
   $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));

@@ -9,7 +9,7 @@ The Akismet API will always return a `CheckResult::isSpam` response to a valid r
 ```php
 <?php
 use Akismet\{Author, Blog, Client, Comment};
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
@@ -31,7 +31,7 @@ The Akismet API will always return a `CheckResult::isHam` response. Any other re
 ```php
 <?php
 use Akismet\{Author, Blog, Client, Comment};
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setRole('administrator');
@@ -48,12 +48,12 @@ function main(): void {
 ## Automated testing
 Enable the `Client->isTest()` option in your tests.
 
-That will tell Akismet not to change its behaviour based on those API calls – they will have no training effect. That means your tests will be somewhat repeatable, in the sense that one test won't influence subsequent calls.
+That will tell Akismet not to change its behaviour based on those API calls: they will have no training effect. That means your tests will be somewhat repeatable, in the sense that one test won't influence subsequent calls.
 
 ```php
 <?php
 use Akismet\{Author, Blog, Client, Comment};
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $author = new Author('127.0.0.1', 'Mozilla/5.0');

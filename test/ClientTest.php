@@ -29,14 +29,20 @@ class ClientTest extends TestCase {
     ));
   }
 
-  /** @testdox ->submitHam() */
+  /**
+   * @testdox ->submitHam()
+   * @doesNotPerformAssertions
+   */
   function testSubmitHam(): void {
     // It should complete without error.
     try { $this->client->submitHam($this->ham); }
     catch (\Throwable $e) { Assert::fail($e->getMessage()); }
   }
 
-  /** @testdox ->submitSpam() */
+  /**
+   * @testdox ->submitSpam()
+   * @doesNotPerformAssertions
+   */
   function testSubmitSpam(): void {
     // It should complete without error.
     try { $this->client->submitSpam($this->spam); }

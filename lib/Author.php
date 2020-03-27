@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 use Psr\Http\Message\{UriInterface};
 
 /** Represents the author of a comment. */
@@ -33,8 +33,8 @@ class Author implements \JsonSerializable {
    */
   function __construct(string $ipAddress, string $userAgent, string $name = '') {
     $this->ipAddress = $ipAddress;
-    $this->userAgent = $userAgent;
     $this->name = $name;
+    $this->userAgent = $userAgent;
   }
 
   /**

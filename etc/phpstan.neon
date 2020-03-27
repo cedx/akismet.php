@@ -1,6 +1,3 @@
 parameters:
   level: max
   paths: [../lib, ../test]
-  ignoreErrors:
-    - '/on a separate line does not do anything/'
-    - '/Result of method .* \(void\) is used/'

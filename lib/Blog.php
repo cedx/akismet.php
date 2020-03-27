@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 use Psr\Http\Message\{UriInterface};
 
 /** Represents the front page or home URL transmitted when making requests. */
@@ -23,9 +23,9 @@ class Blog implements \JsonSerializable {
    * @param string[] $languages The languages in use on the blog or site.
    */
   function __construct(?UriInterface $url, string $charset = '', array $languages = []) {
-    $this->url = $url;
     $this->charset = $charset;
     $this->languages = new \ArrayObject($languages);
+    $this->url = $url;
   }
 
   /**

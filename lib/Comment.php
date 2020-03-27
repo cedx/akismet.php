@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 use Psr\Http\Message\{UriInterface};
 
 /** Represents a comment submitted by an author. */
@@ -50,7 +50,7 @@ class Comment implements \JsonSerializable {
    */
   static function fromJson(object $map): self {
     $keys = array_keys(get_object_vars($map));
-    $hasAuthor = count(array_filter($keys, fn($key) => preg_match('/^(comment_author|user)/', $key))) > 0;
+    $hasAuthor = count(array_filter($keys, fn($key) => (bool) preg_match('/^(comment_author|user)/', $key))) > 0;
 
     $comment = new self(
       $hasAuthor ? Author::fromJson($map) : null,

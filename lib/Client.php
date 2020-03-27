@@ -1,11 +1,9 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use function GuzzleHttp\Psr7\{build_query};
-use GuzzleHttp\{Client as HttpClient};
-use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
 use Psr\Http\Message\{ResponseInterface, UriInterface};
 use Symfony\Component\EventDispatcher\{EventDispatcher};
+use Symfony\Component\HttpClient\{Psr18Client};
 
 /** Submits comments to the [Akismet](https://akismet.com) service. */
 class Client {
@@ -21,6 +19,9 @@ class Client {
 
   /** @var UriInterface The URL of the API end point. */
   private UriInterface $endPoint;
+
+  /** @var Psr18Client The HTTP client. */
+  private Psr18Client $http;
 
   /** @var bool Value indicating whether the client operates in test mode. */
   private bool $isTest = false;
@@ -40,6 +41,8 @@ class Client {
     $this->apiKey = $apiKey;
     $this->blog = $blog;
     $this->dispatcher = new EventDispatcher;
+    $this->http = new Psr18Client;
+    $this->endPoint = $this->http->createUri('https://rest.akismet.com/1.1/');
 
     $phpVersion = preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION);
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
@@ -52,10 +55,9 @@ class Client {
    */
   function checkComment(Comment $comment): string {
     $apiUrl = $this->getEndPoint();
-    $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
-    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
+    $endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}comment-check");
 
-    $response = $this->fetch(UriResolver::resolve($endPoint, new Uri('comment-check')), get_object_vars($comment->jsonSerialize()));
+    $response = $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
     if (((string) $response->getBody()) == 'false') return CheckResult::isHam;
 
     $header = $response->getHeader('X-akismet-pro-tip');
@@ -125,7 +127,7 @@ class Client {
    * @return $this This instance.
    */
   function setEndPoint(UriInterface $value): self {
-    $this->endPoint = $value;
+    $this->endPoint = $value->withUserInfo('');
     return $this;
   }
 
@@ -146,9 +148,8 @@ class Client {
    */
   function submitHam(Comment $comment): void {
     $apiUrl = $this->getEndPoint();
-    $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
-    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
-    $this->fetch(UriResolver::resolve($endPoint, new Uri('submit-ham')), get_object_vars($comment->jsonSerialize()));
+    $endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}submit-ham");
+    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -157,9 +158,8 @@ class Client {
    */
   function submitSpam(Comment $comment): void {
     $apiUrl = $this->getEndPoint();
-    $host = $apiUrl->getHost() . (($port = $apiUrl->getPort()) ? ":$port" : '');
-    $endPoint = new Uri("{$apiUrl->getScheme()}://{$this->getApiKey()}.$host{$apiUrl->getPath()}");
-    $this->fetch(UriResolver::resolve($endPoint, new Uri('submit-spam')), get_object_vars($comment->jsonSerialize()));
+    $endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}submit-spam");
+    $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
   }
 
   /**
@@ -167,7 +167,8 @@ class Client {
    * @return bool `true` if the specified API key is valid, otherwise `false`.
    */
   function verifyKey(): bool {
-    $response = $this->fetch(UriResolver::resolve($this->getEndPoint(), new Uri('verify-key')), ['key' => $this->getApiKey()]);
+    $apiUrl = $this->getEndPoint();
+    $response = $this->fetch($apiUrl->withPath("{$apiUrl->getPath()}verify-key"), ['key' => $this->getApiKey()]);
     return ((string) $response->getBody()) == 'valid';
   }
 
@@ -182,14 +183,10 @@ class Client {
     $bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
     if ($this->isTest()) $bodyFields['is_test'] = '1';
 
-    $headers = [
-      'Content-Type' => 'application/x-www-form-urlencoded',
-      'User-Agent' => $this->getUserAgent()
-    ];
-
     try {
-      $request = new Request('POST', $endPoint, $headers, build_query($bodyFields));
-      $this->emit(new RequestEvent($request));
+      $request = $this->http->createRequest('POST', $endPoint)
+        ->withBody($this->http->createStream(http_build_query($bodyFields, '', '&', PHP_QUERY_RFC1738)))
+        ->withHeader('User-Agent', $this->getUserAgent());
 
       $this->dispatcher->dispatch(new RequestEvent($request));
       $response = $this->http->sendRequest($request);

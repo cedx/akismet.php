@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use Akismet\{Author, Blog, CheckResult, Client, ClientException, Comment, CommentType};
-use GuzzleHttp\Psr7\{Uri};
+use Nyholm\Psr7\{Uri};
 
 /** Queries the Akismet service. */
 function main(): void {
@@ -21,7 +21,7 @@ function main(): void {
     ))->setEmail('john.doe@domain.com')->setRole('guest');
 
     $comment = (new Comment($author, 'A user comment', CommentType::contactForm))
-      ->setDate(new \DateTimeImmutable);
+      ->setDate(new DateTimeImmutable);
 
     $result = $client->checkComment($comment);
     echo $result == CheckResult::isHam ? 'The comment is ham' : 'The comment is spam';

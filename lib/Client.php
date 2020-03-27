@@ -4,11 +4,11 @@ namespace Akismet;
 use function GuzzleHttp\Psr7\{build_query};
 use GuzzleHttp\{Client as HttpClient};
 use GuzzleHttp\Psr7\{Request, Uri, UriResolver};
-use League\Event\{Emitter};
 use Psr\Http\Message\{ResponseInterface, UriInterface};
+use Symfony\Component\EventDispatcher\{EventDispatcher};
 
 /** Submits comments to the [Akismet](https://akismet.com) service. */
-class Client extends Emitter {
+class Client {
 
   /** @var string An event that is triggered when a request is made to the remote service. */
   const eventRequest = RequestEvent::class;
@@ -21,6 +21,9 @@ class Client extends Emitter {
 
   /** @var Blog The front page or home URL of the instance making requests. */
   private Blog $blog;
+
+  /** @var EventDispatcher The event dispatcher. */
+  private EventDispatcher $dispatcher;
 
   /** @var UriInterface The URL of the API end point. */
   private UriInterface $endPoint;
@@ -42,7 +45,7 @@ class Client extends Emitter {
 
     $this->apiKey = $apiKey;
     $this->blog = $blog;
-    $this->endPoint = new Uri('https://rest.akismet.com/1.1/');
+    $this->dispatcher = new EventDispatcher;
 
     $phpVersion = preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION);
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
@@ -178,8 +181,9 @@ class Client extends Emitter {
       $request = new Request('POST', $endPoint, $headers, build_query($bodyFields));
       $this->emit(new RequestEvent($request));
 
-      $response = (new HttpClient)->send($request);
-      $this->emit(new ResponseEvent($response, $request));
+      $this->dispatcher->dispatch(new RequestEvent($request));
+      $response = $this->http->sendRequest($request);
+      $this->dispatcher->dispatch(new ResponseEvent($response, $request));
 
       if ($response->hasHeader('X-akismet-debug-help')) throw new ClientException($response->getHeader('X-akismet-debug-help')[0], $endPoint);
       return $response;

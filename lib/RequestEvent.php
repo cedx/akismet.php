@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use League\Event\{AbstractEvent};
 use Psr\Http\Message\{RequestInterface};
+use Symfony\Contracts\EventDispatcher\{Event};
 
 /** Represents the event parameter used for request events. */
-class RequestEvent extends AbstractEvent {
+class RequestEvent extends Event {
 
   /** @var RequestInterface The related HTTP request. */
   private RequestInterface $request;

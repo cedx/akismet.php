@@ -44,7 +44,7 @@ class Client {
     $this->http = new Psr18Client;
     $this->endPoint = $this->http->createUri('https://rest.akismet.com/1.1/');
 
-    $phpVersion = preg_replace('/^(\d+(\.\d+){2}).*$/', '$1', PHP_VERSION);
+    $phpVersion = implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
     $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
   }
 

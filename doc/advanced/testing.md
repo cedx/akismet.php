@@ -13,7 +13,7 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
-  $comment = new Comment($author, 'A user comment');
+  $comment = (new Comment($author))->setContent('A user comment');
     
   $blog = new Blog(new Uri('https://www.yourblog.com'));
   $client = new Client('123YourAPIKey', $blog);
@@ -35,7 +35,7 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setRole('administrator');
-  $comment = new Comment($author, 'A user comment');
+  $comment = (new Comment($author))->setContent('A user comment');
     
   $blog = new Blog(new Uri('https://www.yourblog.com'));
   $client = new Client('123YourAPIKey', $blog);
@@ -57,7 +57,7 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $author = new Author('127.0.0.1', 'Mozilla/5.0');
-  $comment = new Comment($author, 'A user comment');
+  $comment = (new Comment($author))->setContent('A user comment');
     
   $blog = new Blog(new Uri('https://www.yourblog.com'));
   $client = (new Client('123YourAPIKey', $blog))->setTest(true);

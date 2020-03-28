@@ -2,7 +2,7 @@ path: blob/master
 source: lib/Client.php
 
 # Events
-The `Akismet\Client` class, used to query the Akismet service, is a [`League\Event\Emitter`](https://event.thephpleague.com/2.0/emitter/basic-usage) that triggers some events during its life cycle.
+The `Akismet\Client` class, used to query the Akismet service, is an [EventDispatcher](https://symfony.com/doc/current/components/event_dispatcher.html) that triggers some events during its life cycle.
 
 ### The `Client::eventRequest` event
 Emitted every time a request is made to the remote service:
@@ -14,9 +14,9 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
-  $client->addListener(Client::eventRequest, fn(RequestEvent $event) =>
-    print("Client request: {$event->getRequest()->getUri()}")
-  );
+  $client->addListener(Client::eventRequest, function(RequestEvent $event) {
+    echo 'Client request: ', $event->getRequest()->getUri();
+  });
 }
 ```
 
@@ -30,8 +30,8 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   $client = new Client('123YourAPIKey', new Blog(new Uri('https://www.yourblog.com')));
-  $client->addListener(Client::eventResponse, fn(ResponseEvent $event) =>
-    print("Server response: {$event->getResponse()->getStatusCode()}")
-  );
+  $client->addListener(Client::eventResponse, function(ResponseEvent $event) {
+    echo 'Server response: ', $event->getResponse()->getStatusCode();
+  });
 }
 ```

@@ -1,8 +1,12 @@
 # Changelog
 
 ## Version [12.0.0](https://github.com/cedx/akismet.php/compare/v11.1.0...v12.0.0)
-- Breaking change: replaced [Événement](https://github.com/igorw/evenement) library by [PHP League Event](https://event.thephpleague.com) for event handling.
+- Breaking change: changed the signature of the class constructors.
+- Breaking change: changed the signature of the `fromJson()` methods.
+- Breaking change: replaced [Événement](https://github.com/igorw/evenement) library by [Symfony EventDispatcher](https://symfony.com/doc/current/components/event_dispatcher.html) for event handling.
 - Breaking change: raised the required [PHP](https://www.php.net) version.
+- Breaking change: removed the `Client::VERSION` constant.
+- Breaking change: removed the `__toString()` methods.
 - Breaking change: using camelcase instead of all caps for constants.
 - Breaking change: using PHP 7.4 features, like arrow functions and typed properties.
 - Added support for the `X-akismet-pro-tip` HTTP header.
@@ -12,6 +16,7 @@
 - Added the `RequestEvent` and `ResponseEvent` event classes.
 - Added a user guide based on [MkDocs](http://www.mkdocs.org).
 - Added an example code.
+- Replaced the [Guzzle HTTP client](http://docs.guzzlephp.org) by the [Symfony one](https://symfony.com/doc/current/components/http_client.html).
 - Updated the package dependencies.
 
 ## Version [11.1.0](https://github.com/cedx/akismet.php/compare/v11.0.0...v11.1.0)

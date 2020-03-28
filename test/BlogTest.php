@@ -24,7 +24,7 @@ class BlogTest extends TestCase {
     ]);
 
     assertThat($blog->getCharset(), equalTo('UTF-8'));
-    assertThat($blog->getLanguages()->getArrayCopy(), equalTo(['en', 'fr']));
+    assertThat((array) $blog->getLanguages(), equalTo(['en', 'fr']));
     assertThat((string) $blog->getUrl(), equalTo('https://dev.belin.io/akismet.php'));
   }
 

@@ -73,7 +73,7 @@ class Blog implements \JsonSerializable {
     $map = new \stdClass;
     $map->blog = (string) $this->getUrl();
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
-    if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', $languages->getArrayCopy());
+    if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', (array) $languages);
     return $map;
   }
 }

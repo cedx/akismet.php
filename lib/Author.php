@@ -14,7 +14,7 @@ class Author implements \JsonSerializable {
   private string $ipAddress;
 
   /** @var string The author's name. */
-  private string $name;
+  private string $name = '';
 
   /** @var string The author's role. */
   private string $role = '';
@@ -29,11 +29,9 @@ class Author implements \JsonSerializable {
    * Creates a new author.
    * @param string $ipAddress The author's IP address.
    * @param string $userAgent The author's user agent.
-   * @param string $name The author's name.
    */
-  function __construct(string $ipAddress, string $userAgent, string $name = '') {
+  function __construct(string $ipAddress, string $userAgent) {
     $this->ipAddress = $ipAddress;
-    $this->name = $name;
     $this->userAgent = $userAgent;
   }
 
@@ -45,19 +43,18 @@ class Author implements \JsonSerializable {
   static function fromJson(object $map): self {
     $author = new self(
       isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : '',
-      isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : '',
-      isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : ''
+      isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : ''
     );
 
     return $author
       ->setEmail(isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : '')
+      ->setName(isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : '')
       ->setRole(isset($map->user_role) && is_string($map->user_role) ? $map->user_role : '')
       ->setUrl(isset($map->comment_author_url) && is_string($map->comment_author_url) ? new Uri($map->comment_author_url) : null);
   }
 
   /**
    * Gets the author's mail address.
-   * If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`.
    * @return string The author's mail address.
    */
   function getEmail(): string {
@@ -74,7 +71,6 @@ class Author implements \JsonSerializable {
 
   /**
    * Gets the author's name.
-   * If you set it to `"viagra-test-123"`, Akismet will always return `true`.
    * @return string The author's name.
    */
   function getName(): string {
@@ -83,7 +79,6 @@ class Author implements \JsonSerializable {
 
   /**
    * Gets the author's role.
-   * If you set it to `"administrator"`, Akismet will always return `false`.
    * @return string The author's role.
    */
   function getRole(): string {
@@ -129,6 +124,16 @@ class Author implements \JsonSerializable {
    */
   function setEmail(string $value): self {
     $this->email = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`.
+   * @param string $value The new name.
+   * @return $this This instance.
+   */
+  function setName(string $value): self {
+    $this->name = $value;
     return $this;
   }
 

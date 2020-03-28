@@ -34,8 +34,9 @@ class AuthorTest extends TestCase {
     assertThat($data->user_ip, equalTo('127.0.0.1'));
 
     // It should return a non-empty map with a initialized instance.
-    $data = (new Author('192.168.0.1', 'Mozilla/5.0', 'Cédric Belin'))
+    $data = (new Author('192.168.0.1', 'Mozilla/5.0'))
       ->setEmail('cedric@belin.io')
+      ->setName('Cédric Belin')
       ->setUrl(new Uri('https://belin.io'))
       ->jsonSerialize();
 

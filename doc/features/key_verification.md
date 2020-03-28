@@ -1,11 +1,18 @@
+path: blob/master
+source: lib/Client.php
+
 # Key verification
-Key verification authenticates your key before calling the [comment check](comment_check.md), [submit spam](submit_spam.md), 
-or [submit ham](submit_ham.md) methods. This is the first call that you should make to Akismet and is especially useful
-if you will have multiple users with their own Akismet subscriptions using your application.
+Key verification authenticates your key before calling the [comment check](comment_check.md),
+[submit spam](submit_spam.md) or [submit ham](submit_ham.md) methods.
 
 ```
 Client->verifyKey(): bool
 ```
+
+This is the first call that you should make to Akismet and is especially useful
+if you will have multiple users with their own Akismet subscriptions using your application.
+
+See the [Akismet API documentation](https://akismet.com/development/api/#verify-key) for more information.
 
 ## Parameters
 None.
@@ -27,8 +34,9 @@ function main(): void {
   try {
     $blog = new Blog(new Uri('https://www.yourblog.com'));
     $client = new Client('123YourAPIKey', $blog);
+
     $isValid = $client->verifyKey();
-    echo $isValid ? 'The API key is valid' : 'The API key is invalid';
+    echo $isValid ? 'The API key is valid.' : 'The API key is invalid.';
   }
 
   catch (ClientException $e) {

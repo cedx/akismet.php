@@ -1,15 +1,17 @@
 # Submit spam
 This call is for submitting comments that weren't marked as spam but should have been.
 
+```
+Client->submitSpam(Comment $comment): void
+```
+
 It is very important that the values you submit with this call match those of your [comment check](comment_check.md) calls as closely as possible.
 In order to learn from its mistakes, Akismet needs to match your missed spam and false positive reports
 to the original [comment check](comment_check.md) API calls made when the content was first posted. While it is normal for less information
 to be available for [submit spam](submit_spam.md) and [submit ham](submit_ham.md) calls (most comment systems and forums will not store all metadata),
 you should ensure that the values that you do send match those of the original content.
 
-```
-Client->submitSpam(Comment $comment): void
-```
+See the [Akismet API documentation](https://akismet.com/development/api/#submit-spam) for more information.
 
 ## Parameters
 
@@ -34,16 +36,16 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   try {
-    $comment = new Comment(
-      new Author('127.0.0.1', 'Mozilla/5.0'),
-      'An invalid user comment (spam)'
-    );
+    $author = new Author($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
+    $comment = (new Comment($author))->setContent('An invalid user comment (spam)');
 
     $blog = new Blog(new Uri('https://www.yourblog.com'));
     $client = new Client('123YourAPIKey', $blog);
-    $isSpam = $client->checkComment($comment); // `false`, but `true` expected.
 
-    echo 'The comment was incorrectly classified as ham';
+    $result = $client->checkComment($comment);
+    // Got `CheckResult::isHam`, but `CheckResult::isSpam` expected.
+
+    echo 'The comment was incorrectly classified as ham.';
     $client->submitSpam($comment);
   }
 

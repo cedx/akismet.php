@@ -12,14 +12,14 @@ use Akismet\{Author, Blog, Client, Comment};
 use Nyholm\Psr7\{Uri};
 
 function main(): void {
-  $author = new Author('127.0.0.1', 'Mozilla/5.0', 'viagra-test-123');
+  $author = (new Author('127.0.0.1', 'Mozilla/5.0'))->setName('viagra-test-123');
   $comment = (new Comment($author))->setContent('A user comment');
     
   $blog = new Blog(new Uri('https://www.yourblog.com'));
   $client = new Client('123YourAPIKey', $blog);
     
   $result = $client->checkComment($comment);
-  echo 'It should be "CheckResult.isSpam": ', $result;
+  echo 'It should be "CheckResult::isSpam": ', $result;
 }
 ```
 
@@ -41,7 +41,7 @@ function main(): void {
   $client = new Client('123YourAPIKey', $blog);
     
   $result = $client->checkComment($comment);
-  echo 'It should be "CheckResult.isHam": ', $result;
+  echo 'It should be "CheckResult::isHam": ', $result;
 }
 ```
 

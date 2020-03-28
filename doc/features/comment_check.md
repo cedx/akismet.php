@@ -39,14 +39,14 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   try {
-    $comment = new Comment(
-      new Author('127.0.0.1', 'Mozilla/5.0'),
-      'A user comment',
-      CommentType::contactForm
-    );
+    $author = new Author($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
+    $comment = (new Comment($author))
+      ->setContent('A user comment')
+      ->setType(CommentType::contactForm);
 
     $blog = new Blog(new Uri('https://www.yourblog.com'));
     $client = new Client('123YourAPIKey', $blog);
+
     $result = $client->checkComment($comment);
     echo $result == CheckResult::isHam ? 'The comment is ham.' : 'The comment is spam.';
   }

@@ -27,15 +27,14 @@
   ],
   "require": {
     "php": ">=7.4.0",
-    "ext-curl": "*",
     "ext-date": "*",
     "ext-json": "*",
     "ext-mbstring": "*",
     "ext-pcre": "*",
     "nyholm/psr7": "^1.2.1",
     "psr/http-client": "^1.0.0",
-    "symfony/event-dispatcher": "^4.4.6 || ^5.0.5",
-    "symfony/http-client": "^5.0.5"
+    "symfony/event-dispatcher": "^4.4.6 || ^5.0.6",
+    "symfony/http-client": "^5.0.6"
   },
   "require-dev": {
     "cedx/coveralls": "^12.0.0",

@@ -11,7 +11,7 @@ class Comment implements \JsonSerializable {
   private ?Author $author;
 
   /** @var string The comment's content. */
-  private string $content;
+  private string $content = '';
 
   /** @var \DateTimeInterface|null The UTC timestamp of the creation of the comment. */
   private ?\DateTimeInterface $date = null;
@@ -29,18 +29,14 @@ class Comment implements \JsonSerializable {
   private ?UriInterface $referrer = null;
 
   /** @var string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
-  private string $type;
+  private string $type = '';
 
   /**
    * Creates a new comment.
    * @param Author|null $author The comment's author.
-   * @param string $content The comment's content.
-   * @param string $type The comment's type.
-   */
-  function __construct(?Author $author, string $content = '', string $type = '') {
+n   */
+  function __construct(?Author $author) {
     $this->author = $author;
-    $this->content = $content;
-    $this->type = $type;
   }
 
   /**
@@ -51,19 +47,14 @@ class Comment implements \JsonSerializable {
   static function fromJson(object $map): self {
     $keys = array_keys(get_object_vars($map));
     $hasAuthor = count(array_filter($keys, fn($key) => (bool) preg_match('/^(comment_author|user)/', $key))) > 0;
-
-    $comment = new self(
-      $hasAuthor ? Author::fromJson($map) : null,
-      isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '',
-      isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ''
-    );
-
-    return $comment
+    return (new self($hasAuthor ? Author::fromJson($map) : null))
+      ->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : '')
       ->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTimeImmutable($map->comment_date_gmt) : null)
       ->setPermalink(isset($map->permalink) && is_string($map->permalink) ? new Uri($map->permalink) : null)
       ->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTimeImmutable($map->comment_post_modified_gmt) : null)
       ->setRecheckReason(isset($map->recheck_reason) && is_string($map->recheck_reason) ? $map->recheck_reason : '')
-      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? new Uri($map->referrer) : null);
+      ->setReferrer(isset($map->referrer) && is_string($map->referrer) ? new Uri($map->referrer) : null)
+      ->setType(isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : '');
   }
 
   /**
@@ -147,6 +138,16 @@ class Comment implements \JsonSerializable {
   }
 
   /**
+   * Sets the comment's content.
+   * @param string $value The new content.
+   * @return $this This instance.
+   */
+  function setContent(string $value): self {
+    $this->content = $value;
+    return $this;
+  }
+
+  /**
    * Sets the UTC timestamp of the creation of the comment.
    * @param \DateTimeInterface|null $value The new UTC timestamp of the creation of the comment.
    * @return $this This instance.
@@ -193,6 +194,16 @@ class Comment implements \JsonSerializable {
    */
   function setReferrer(?UriInterface $value): self {
     $this->referrer = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the comment's type.
+   * @param string $value The new type.
+   * @return $this This instance.
+   */
+  function setType(string $value): self {
+    $this->type = $value;
     return $this;
   }
 }

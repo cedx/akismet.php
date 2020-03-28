@@ -51,9 +51,12 @@ class CommentTest extends TestCase {
     assertThat($data->user_ip, equalTo('127.0.0.1'));
 
     // It should return a non-empty map with a initialized instance.
-    $data = (new Comment(new Author('127.0.0.1', 'Doom/6.6.6', 'Cédric Belin'), 'A user comment.', CommentType::pingback))
+    $author = (new Author('127.0.0.1', 'Doom/6.6.6'))->setName('Cédric Belin');
+    $data = (new Comment($author))
+      ->setContent('A user comment.')
       ->setDate(new \DateTimeImmutable('2000-01-01T00:00:00.000Z'))
       ->setReferrer(new Uri('https://belin.io'))
+      ->setType(CommentType::pingback)
       ->jsonSerialize();
 
     assertThat(get_object_vars($data), countOf(7));

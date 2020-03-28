@@ -14,14 +14,15 @@ function main(): void {
     echo $isValid ? 'The API key is valid' : 'The API key is invalid';
 
     // Comment check.
-    $author = (new Author(
-      '192.168.123.456',
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:72.0) Gecko/20100101 Firefox/72.0',
-      'John Doe'
-    ))->setEmail('john.doe@domain.com')->setRole('guest');
+    $author = (new Author($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']))
+      ->setEmail('john.doe@domain.com')
+      ->setName('John Doe')
+      ->setRole('guest');
 
-    $comment = (new Comment($author, 'A user comment', CommentType::contactForm))
-      ->setDate(new DateTimeImmutable);
+    $comment = (new Comment($author))
+      ->setContent('A user comment')
+      ->setDate(new DateTimeImmutable)
+      ->setType(CommentType::contactForm);
 
     $result = $client->checkComment($comment);
     echo $result == CheckResult::isHam ? 'The comment is ham' : 'The comment is spam';

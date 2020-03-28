@@ -55,22 +55,31 @@ class ClientTest extends TestCase {
     assertThat($this->client->verifyKey(), isTrue());
 
     // It should return `false` for an invalid API key.
-    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setTest($this->client->isTest());
+    $client = (new Client('0123456789-ABCDEF', $this->client->getBlog()))->setTest(true);
     assertThat($client->verifyKey(), isFalse());
   }
 
   /** @before This method is called before each test. */
   protected function setUp(): void {
-    $this->client = (new Client((string) getenv('AKISMET_API_KEY'), new Blog(new Uri('https://dev.belin.io/akismet.php'))))->setTest(true);
+    $blog = new Blog(new Uri('https://dev.belin.io/akismet.php'));
+    $this->client = (new Client((string) getenv('AKISMET_API_KEY'), $blog))->setTest(true);
 
-    $author = (new Author('192.168.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0', 'Akismet'))
+    $author = (new Author('192.168.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'))
+      ->setName('Akismet')
       ->setRole('administrator')
       ->setUrl(new Uri('https://dev.belin.io/akismet.php'));
 
-    $this->ham = (new Comment($author, 'I\'m testing out the Service API.', CommentType::comment))
-      ->setReferrer(new Uri('https://packagist.org/packages/cedx/akismet'));
+    $this->ham = (new Comment($author))
+      ->setContent('I\'m testing out the Service API.')
+      ->setReferrer(new Uri('https://packagist.org/packages/cedx/akismet'))
+      ->setType(CommentType::comment);
 
-    $author = (new Author('127.0.0.1', 'Spam Bot/6.6.6', 'viagra-test-123'))->setEmail('akismet-guaranteed-spam@example.com');
-    $this->spam = new Comment($author, 'Spam!', CommentType::trackback);
+    $author = (new Author('127.0.0.1', 'Spam Bot/6.6.6'))
+      ->setEmail('akismet-guaranteed-spam@example.com')
+      ->setName('viagra-test-123');
+
+    $this->spam = (new Comment($author))
+      ->setContent('Spam!')
+      ->setType(CommentType::trackback);
   }
 }

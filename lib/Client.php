@@ -6,16 +6,19 @@ use Symfony\Component\EventDispatcher\{EventDispatcher};
 use Symfony\Component\HttpClient\{Psr18Client};
 
 /** Submits comments to the [Akismet](https://akismet.com) service. */
-class Client {
+class Client extends EventDispatcher {
+
+  /** @var string An event that is triggered when a request is made to the remote service. */
+  const eventRequest = RequestEvent::class;
+
+  /** @var string An event that is triggered when a response is received from the remote service. */
+  const eventResponse = ResponseEvent::class;
 
   /** @var string The Akismet API key. */
   private string $apiKey;
 
   /** @var Blog The front page or home URL of the instance making requests. */
   private Blog $blog;
-
-  /** @var EventDispatcher The event dispatcher. */
-  private EventDispatcher $dispatcher;
 
   /** @var UriInterface The URL of the API end point. */
   private UriInterface $endPoint;
@@ -33,19 +36,18 @@ class Client {
    * Creates a new client.
    * @param string $apiKey The Akismet API key.
    * @param Blog $blog The front page or home URL of the instance making requests.
-   * @param string $userAgent The user agent string to use when making requests.
    */
-  function __construct(string $apiKey, Blog $blog, string $userAgent = '') {
+  function __construct(string $apiKey, Blog $blog) {
     assert(mb_strlen($apiKey) > 0);
+    parent::__construct();
 
     $this->apiKey = $apiKey;
     $this->blog = $blog;
-    $this->dispatcher = new EventDispatcher;
     $this->http = new Psr18Client;
     $this->endPoint = $this->http->createUri('https://rest.akismet.com/1.1/');
 
     $phpVersion = implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-    $this->userAgent = mb_strlen($userAgent) ? $userAgent : sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
+    $this->userAgent = sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
   }
 
   /**
@@ -106,22 +108,6 @@ class Client {
   }
 
   /**
-   * Subscribes to the `request` events.
-   * @param callable $listener The listener to register.
-   */
-  function onRequest(callable $listener): void {
-    $this->dispatcher->addListener(RequestEvent::class, $listener);
-  }
-
-  /**
-   * Subscribes to the `response` events.
-   * @param callable $listener The listener to register.
-   */
-  function onResponse(callable $listener): void {
-    $this->dispatcher->addListener(ResponseEvent::class, $listener);
-  }
-
-  /**
    * Sets the URL of the API end point.
    * @param UriInterface $value The new URL of the API end point.
    * @return $this This instance.
@@ -139,6 +125,17 @@ class Client {
    */
   function setTest(bool $value): self {
     $this->isTest = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the user agent string to use when making requests.
+   * @param string $value The new user agent.
+   * @return $this This instance.
+   */
+  function setUserAgent(string $value): self {
+    assert(mb_strlen($value) > 0);
+    $this->userAgent = $value;
     return $this;
   }
 
@@ -188,9 +185,9 @@ class Client {
         ->withBody($this->http->createStream(http_build_query($bodyFields, '', '&', PHP_QUERY_RFC1738)))
         ->withHeader('User-Agent', $this->getUserAgent());
 
-      $this->dispatcher->dispatch(new RequestEvent($request));
+      $this->dispatch(new RequestEvent($request));
       $response = $this->http->sendRequest($request);
-      $this->dispatcher->dispatch(new ResponseEvent($response, $request));
+      $this->dispatch(new ResponseEvent($response, $request));
 
       if ($response->hasHeader('X-akismet-debug-help')) throw new ClientException($response->getHeader('X-akismet-debug-help')[0], $endPoint);
       return $response;

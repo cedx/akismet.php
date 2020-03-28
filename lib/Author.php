@@ -27,12 +27,12 @@ class Author implements \JsonSerializable {
 
   /**
    * Creates a new author.
-   * @param string $ipAddress The author's IP address.
-   * @param string $userAgent The author's user agent.
+   * @param string|null $ipAddress The author's IP address. Defaults to `$_SERVER['REMOTE_ADDR']`.
+   * @param string|null $userAgent The author's user agent. Defaults to `$_SERVER['HTTP_USER_AGENT']`.
    */
-  function __construct(string $ipAddress, string $userAgent) {
-    $this->ipAddress = $ipAddress;
-    $this->userAgent = $userAgent;
+  function __construct(?string $ipAddress = null, ?string $userAgent = null) {
+    $this->ipAddress = $ipAddress ?? ($_SERVER['REMOTE_ADDR'] ?: '');
+    $this->userAgent = $userAgent ?? ($_SERVER['HTTP_USER_AGENT'] ?: '');
   }
 
   /**

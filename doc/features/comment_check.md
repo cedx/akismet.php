@@ -39,8 +39,7 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   try {
-    $author = new Author($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
-    $comment = (new Comment($author))
+    $comment = (new Comment(new Author))
       ->setContent('A user comment')
       ->setType(CommentType::contactForm);
 

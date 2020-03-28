@@ -34,12 +34,10 @@ use Nyholm\Psr7\{Uri};
 
 function main(): void {
   try {
-    $author = new Author($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']);
-    $comment = (new Comment($author))->setContent('A valid user comment (ham)');
-
     $blog = new Blog(new Uri('https://www.yourblog.com'));
     $client = new Client('123YourAPIKey', $blog);
 
+    $comment = (new Comment(new Author))->setContent('A valid user comment (ham)');
     $result = $client->checkComment($comment);
     // Got `CheckResult::isSpam`, but `CheckResult::isHam` expected.
 

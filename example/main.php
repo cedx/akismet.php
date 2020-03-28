@@ -15,7 +15,7 @@ function main(): void {
     echo $isValid ? 'The API key is valid' : 'The API key is invalid';
 
     // Comment check.
-    $author = (new Author($_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']))
+    $author = (new Author)
       ->setEmail('john.doe@domain.com')
       ->setName('John Doe')
       ->setRole('guest');

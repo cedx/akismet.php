@@ -6,7 +6,8 @@ use Nyholm\Psr7\{Uri};
 /** Queries the Akismet service. */
 function main(): void {
   try {
-    $blog = new Blog(new Uri('https://www.yourblog.com'), 'UTF-8', ['fr']);
+    $blog = (new Blog(new Uri('https://www.yourblog.com')))->setCharset('UTF-8');
+    $blog->getLanguages()->append('fr');
     $client = new Client('123YourAPIKey', $blog);
 
     // Key verification.

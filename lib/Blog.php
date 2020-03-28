@@ -8,7 +8,7 @@ use Psr\Http\Message\{UriInterface};
 class Blog implements \JsonSerializable {
 
   /** @var string The character encoding for the values included in comments. */
-  private string $charset;
+  private string $charset = '';
 
   /** @var \ArrayObject<int, string> The languages in use on the blog or site, in ISO 639-1 format. */
   private \ArrayObject $languages;
@@ -19,12 +19,9 @@ class Blog implements \JsonSerializable {
   /**
    * Creates a new blog.
    * @param UriInterface|null $url The blog or site URL.
-   * @param string $charset The character encoding for the values included in comments.
-   * @param string[] $languages The languages in use on the blog or site.
    */
-  function __construct(?UriInterface $url, string $charset = '', array $languages = []) {
-    $this->charset = $charset;
-    $this->languages = new \ArrayObject($languages);
+  function __construct(?UriInterface $url) {
+    $this->languages = new \ArrayObject;
     $this->url = $url;
   }
 
@@ -34,11 +31,10 @@ class Blog implements \JsonSerializable {
    * @return self The instance corresponding to the specified JSON object.
    */
   static function fromJson(object $map): self {
-    return new self(
-      isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null,
-      isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '',
-      isset($map->blog_lang) && is_string($map->blog_lang) ? array_map('trim', explode(',', $map->blog_lang)) : []
-    );
+    $blog = (new self(isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null))
+      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '');
+    $blog->getLanguages()->exchangeArray(isset($map->blog_lang) && is_string($map->blog_lang) ? array_map('trim', explode(',', $map->blog_lang)) : []);
+    return $blog;
   }
 
   /**
@@ -75,5 +71,15 @@ class Blog implements \JsonSerializable {
     if (mb_strlen($charset = $this->getCharset())) $map->blog_charset = $charset;
     if (count($languages = $this->getLanguages())) $map->blog_lang = implode(',', (array) $languages);
     return $map;
+  }
+
+  /**
+   * Sets the character encoding for the values included in comments.
+   * @param string $value The new character encoding.
+   * @return $this This instance.
+   */
+  function setCharset(string $value): self {
+    $this->charset = $value;
+    return $this;
   }
 }

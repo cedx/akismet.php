@@ -19,10 +19,10 @@ class ClientTest extends TestCase {
 
   /** @testdox ->checkComment() */
   function testCheckComment(): void {
-    // It should return `false` for valid comment (e.g. ham).
+    // It should return `CheckResult::isHam` for valid comment (e.g. ham).
     assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::isHam));
 
-    // It should return `true` for invalid comment (e.g. spam).
+    // It should return `CheckResult::isSpam` for invalid comment (e.g. spam).
     assertThat($this->client->checkComment($this->spam), logicalOr(
       equalTo(CheckResult::isSpam),
       equalTo(CheckResult::isPervasiveSpam)

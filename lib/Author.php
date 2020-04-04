@@ -31,8 +31,8 @@ class Author implements \JsonSerializable {
    * @param string|null $userAgent The author's user agent. Defaults to `$_SERVER['HTTP_USER_AGENT']`.
    */
   function __construct(?string $ipAddress = null, ?string $userAgent = null) {
-    $this->ipAddress = $ipAddress ?? ($_SERVER['REMOTE_ADDR'] ?: '');
-    $this->userAgent = $userAgent ?? ($_SERVER['HTTP_USER_AGENT'] ?: '');
+    $this->ipAddress = $ipAddress ?? ($_SERVER['REMOTE_ADDR'] ?? '');
+    $this->userAgent = $userAgent ?? ($_SERVER['HTTP_USER_AGENT'] ?? '');
   }
 
   /**

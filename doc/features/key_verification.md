@@ -1,5 +1,5 @@
 path: blob/master
-source: lib/Client.php
+source: src/Client.php
 
 # Key verification
 Key verification authenticates your key before calling the [comment check](comment_check.md),

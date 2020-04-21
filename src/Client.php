@@ -61,9 +61,7 @@ class Client extends EventDispatcher {
 
     $response = $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
     if (((string) $response->getBody()) == 'false') return CheckResult::isHam;
-
-    $header = $response->getHeader('X-akismet-pro-tip');
-    return count($header) && $header[0] == 'discard' ? CheckResult::isPervasiveSpam : CheckResult::isSpam;
+    return $response->getHeaderLine('X-akismet-pro-tip') == 'discard' ? CheckResult::isPervasiveSpam : CheckResult::isSpam;
   }
 
   /**
@@ -189,7 +187,7 @@ class Client extends EventDispatcher {
       $response = $this->http->sendRequest($request);
       $this->dispatch(new ResponseEvent($response, $request));
 
-      if ($response->hasHeader('X-akismet-debug-help')) throw new ClientException($response->getHeader('X-akismet-debug-help')[0], $endPoint);
+      if ($response->hasHeader('X-akismet-debug-help')) throw new ClientException($response->getHeaderLine('X-akismet-debug-help'), $endPoint);
       return $response;
     }
 

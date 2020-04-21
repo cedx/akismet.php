@@ -31,10 +31,9 @@ class Blog implements \JsonSerializable {
    * @return self The instance corresponding to the specified JSON object.
    */
   static function fromJson(object $map): self {
-    $blog = (new self(isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null))
-      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '');
-    $blog->getLanguages()->exchangeArray(isset($map->blog_lang) && is_string($map->blog_lang) ? array_map('trim', explode(',', $map->blog_lang)) : []);
-    return $blog;
+    return (new self(isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null))
+      ->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : '')
+      ->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? array_map('trim', explode(',', $map->blog_lang)) : []);
   }
 
   /**
@@ -80,6 +79,16 @@ class Blog implements \JsonSerializable {
    */
   function setCharset(string $value): self {
     $this->charset = $value;
+    return $this;
+  }
+
+  /**
+   * Sets the languages in use on the blog or site, in ISO 639-1 format.
+   * @param array<int, string> $values The languages in use on the blog or site.
+   * @return $this This instance.
+   */
+  function setLanguages(array $values): self {
+    $this->getLanguages()->exchangeArray($values);
     return $this;
   }
 }

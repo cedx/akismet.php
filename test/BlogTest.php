@@ -36,8 +36,9 @@ class BlogTest extends TestCase {
     assertThat($data->blog, equalTo('https://dev.belin.io/akismet.php'));
 
     // It should return a non-empty map with a initialized instance.
-    $blog = (new Blog(new Uri('https://dev.belin.io/akismet.php')))->setCharset('UTF-8');
-    $blog->getLanguages()->exchangeArray(['en', 'fr']);
+    $blog = (new Blog(new Uri('https://dev.belin.io/akismet.php')))
+      ->setCharset('UTF-8')
+      ->setLanguages(['en', 'fr']);
 
     $data = $blog->jsonSerialize();
     assertThat(get_object_vars($data), countOf(3));

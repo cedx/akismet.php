@@ -1,5 +1,7 @@
 site_name: Akismet for PHP
-site_description: Prevent comment spam using the Akismet service, in PHP.
+site_description: >
+  Prevent comment spam using the Akismet service, in PHP.
+  Add Akismet to your PHP applications so you don't have to worry about spam again.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://docs.belin.io/akismet.php
 

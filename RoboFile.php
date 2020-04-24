@@ -54,13 +54,8 @@ class RoboFile extends Tasks {
   function doc(): Result {
     $phpdoc = PHP_OS_FAMILY == 'Windows' ? 'php '.escapeshellarg('C:\Program Files\PHP\share\phpDocumentor.phar') : 'phpdoc';
     return $this->collectionBuilder()
-      ->addTask($this->taskFilesystemStack()
-        ->copy('CHANGELOG.md', 'doc/about/changelog.md')
-        ->copy('LICENSE.md', 'doc/about/license.md'))
       ->addTask($this->taskExec("$phpdoc --config=etc/phpdoc.xml"))
-      ->addTask($this->taskExec('mkdocs build --config-file=doc/mkdocs.yaml'))
-      ->addTask($this->taskFilesystemStack()
-        ->remove(['doc/about/changelog.md', 'doc/about/license.md', 'www/mkdocs.yaml']))
+      ->addTask($this->taskExec('mkdocs build --config-file=etc/mkdocs.yaml'))
       ->run();
   }
 

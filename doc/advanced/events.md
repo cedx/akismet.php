@@ -1,5 +1,7 @@
-path: blob/master
+---
+path: src/branch/master
 source: src/Client.php
+---
 
 # Events
 The `Akismet\Client` class, used to query the Akismet service, is an [EventDispatcher](https://symfony.com/doc/current/components/event_dispatcher.html) that triggers some events during its life cycle.

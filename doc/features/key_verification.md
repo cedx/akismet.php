@@ -1,5 +1,7 @@
-path: blob/master
+---
+path: src/branch/master
 source: src/Client.php
+---
 
 # Key verification
 Key verification authenticates your key before calling the [comment check](comment_check.md),

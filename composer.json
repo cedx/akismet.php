@@ -34,12 +34,11 @@
     "ext-pcre": "*",
     "nyholm/psr7": "^1.2.1",
     "psr/http-client": "^1.0.0",
-    "symfony/event-dispatcher": "^4.4.8 || ^5.0.8",
+    "symfony/event-dispatcher": "^5.0.8",
     "symfony/http-client": "^5.0.8"
   },
   "require-dev": {
     "cedx/coveralls": "^13.0.0",
-    "consolidation/robo": "^2.0.3",
     "phpstan/phpstan": "^0.12.23",
     "phpunit/phpunit": "^9.1.4"
   },

@@ -47,7 +47,8 @@ class Client extends EventDispatcher {
     $this->endPoint = $this->http->createUri('https://rest.akismet.com/1.1/');
 
     $phpVersion = implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-    $this->userAgent = sprintf("PHP/$phpVersion | Akismet/".require __DIR__.'/version.g.php');
+    $pkgVersion = require __DIR__.'/version.g.php';
+    $this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion";
   }
 
   /**

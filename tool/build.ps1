@@ -9,5 +9,4 @@ $lines = @(
   "return `$packageVersion = '$version';"
 )
 
-$eol = $IsWindows ? "`r`n" : "`n"
-Set-Content src/version.g.php ($lines -join $eol)
+Set-Content src/version.g.php ($lines -join [Environment]::NewLine)

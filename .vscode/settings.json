@@ -5,7 +5,7 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "rest-client.environmentVariables": {
-    "test": {
+    "$shared": {
       "baseUrl": "https://<your-api-key>.rest.akismet.com/1.1"
     }
   }

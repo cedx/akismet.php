@@ -1,5 +1,5 @@
 # Akismet <small>for PHP</small>
-![Runtime](https://img.shields.io/packagist/php-v/cedx/akismet.svg) ![Release](https://img.shields.io/packagist/v/cedx/akismet.svg) ![License](https://img.shields.io/packagist/l/cedx/akismet.svg) ![Downloads](https://img.shields.io/packagist/dt/cedx/akismet.svg) ![Coverage](https://coveralls.io/repos/github/cedx/akismet.php/badge.svg) ![Build](https://github.com/cedx/akismet.php/workflows/build/badge.svg)
+![Runtime](https://badgen.net/packagist/php/cedx/akismet) ![Release](https://badgen.net/packagist/v/cedx/akismet) ![License](https://badgen.net/packagist/license/cedx/akismet) ![Downloads](https://badgen.net/packagist/dt/cedx/akismet) ![Coverage](https://badgen.net/coveralls/c/github/cedx/akismet.php) ![Build](https://badgen.net/github/checks/cedx/akismet.php)
 
 ![Akismet](img/akismet.png)
 

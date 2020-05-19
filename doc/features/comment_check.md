@@ -27,34 +27,34 @@ The `Comment` providing the user message to be checked.
 A `CheckResult` value indicating whether the given `Comment` is ham, spam or pervasive spam.
 
 !!! tip
-    A comment classified as pervasive spam can be safely discarded.
+	A comment classified as pervasive spam can be safely discarded.
 
 The method throws a `ClientException` when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.
 
 ## Example
 
-```php
+``` php
 <?php
 use Akismet\{Author, Blog, CheckResult, Client, ClientException, Comment, CommentType};
 use Nyholm\Psr7\{Uri};
 
 function main(): void {
-  try {
-    $comment = (new Comment(new Author))
-      ->setContent('A user comment')
-      ->setType(CommentType::contactForm);
+	try {
+		$comment = (new Comment(new Author))
+			->setContent("A user comment")
+			->setType(CommentType::contactForm);
 
-    $blog = new Blog(new Uri('https://www.yourblog.com'));
-    $client = new Client('123YourAPIKey', $blog);
+		$blog = new Blog(new Uri("https://www.yourblog.com"));
+		$client = new Client("123YourAPIKey", $blog);
 
-    $result = $client->checkComment($comment);
-    echo $result == CheckResult::isHam ? 'The comment is ham.' : 'The comment is spam.';
-  }
+		$result = $client->checkComment($comment);
+		echo $result == CheckResult::isHam ? "The comment is ham." : "The comment is spam.";
+	}
 
-  catch (ClientException $e) {
-    echo 'An error occurred: ', $e->getMessage();
-  }
+	catch (ClientException $e) {
+		echo "An error occurred: ", $e->getMessage();
+	}
 }
 ```
 

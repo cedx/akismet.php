@@ -14,13 +14,13 @@ You first need to [sign up for a developer key](https://akismet.com/signup/?plan
 This will give you access to the API and will allow Akismet to monitor its results to make sure things are running as smoothly as possible.
 
 !!! warning
-    All Akismet endpoints require an API key. If you are not already registered,
-    [join the developer program](https://akismet.com/signup/?plan=developer).
+	All Akismet endpoints require an API key. If you are not already registered,
+	[join the developer program](https://akismet.com/signup/?plan=developer).
 
 ### Get the library
 Install the latest version of **Akismet for PHP** with [Composer](https://getcomposer.org):
 
-```shell
+``` shell
 composer require cedx/akismet
 ```
 

@@ -19,7 +19,7 @@ See the [Akismet API documentation](https://akismet.com/development/api/#submit-
 The user `Comment` to be submitted, incorrectly classified as ham.
 
 !!! tip
-    Ideally, it should be the same object as the one passed to the original [comment check](comment_check.md) API call.
+	Ideally, it should be the same object as the one passed to the original [comment check](comment_check.md) API call.
 
 ## Return value
 None.
@@ -29,26 +29,26 @@ The exception `getMessage()` usually includes some debug information, provided b
 
 ## Example
 
-```php
+``` php
 <?php
 use Akismet\{Author, Blog, Client, ClientException, Comment};
 use Nyholm\Psr7\{Uri};
 
 function main(): void {
-  try {
-    $blog = new Blog(new Uri('https://www.yourblog.com'));
-    $client = new Client('123YourAPIKey', $blog);
+	try {
+		$blog = new Blog(new Uri("https://www.yourblog.com"));
+		$client = new Client("123YourAPIKey", $blog);
 
-    $comment = (new Comment(new Author))->setContent('An invalid user comment (spam)');
-    $result = $client->checkComment($comment);
-    // Got `CheckResult::isHam`, but `CheckResult::isSpam` expected.
+		$comment = (new Comment(new Author))->setContent("An invalid user comment (spam)");
+		$result = $client->checkComment($comment);
+		// Got `CheckResult::isHam`, but `CheckResult::isSpam` expected.
 
-    echo 'The comment was incorrectly classified as ham.';
-    $client->submitSpam($comment);
-  }
+		echo "The comment was incorrectly classified as ham.";
+		$client->submitSpam($comment);
+	}
 
-  catch (ClientException $e) {
-    echo 'An error occurred: ', $e->getMessage();
-  }
+	catch (ClientException $e) {
+		echo "An error occurred: ", $e->getMessage();
+	}
 }
 ```

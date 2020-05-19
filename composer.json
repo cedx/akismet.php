@@ -1,53 +1,53 @@
 {
-  "description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
-  "homepage": "https://docs.belin.io/akismet.php",
-  "license": "MIT",
-  "name": "cedx/akismet",
-  "type": "library",
-  "version": "12.1.0",
-  "authors": [
-    {"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
-  ],
-  "autoload": {
-    "psr-4": {"Akismet\\": "src/"}
-  },
-  "autoload-dev": {
-    "psr-4": {"Akismet\\": "test/"}
-  },
-  "config": {
-    "optimize-autoloader": true
-  },
-  "funding": [
-    {"type": "patreon", "url": "https://www.patreon.com/cedx"}
-  ],
-  "keywords": [
-    "akismet",
-    "comment",
-    "spam",
-    "validation"
-  ],
-  "require": {
-    "php": ">=7.4.0",
-    "ext-date": "*",
-    "ext-json": "*",
-    "ext-mbstring": "*",
-    "ext-pcre": "*",
-    "nyholm/psr7": "^1.2.1",
-    "psr/http-client": "^1.0.0",
-    "symfony/event-dispatcher": "^5.0.8",
-    "symfony/http-client": "^5.0.8"
-  },
-  "require-dev": {
-    "cedx/coveralls": "^13.0.0",
-    "phpstan/phpstan": "^0.12.25",
-    "phpunit/phpunit": "^9.1.4"
-  },
-  "scripts": {
-    "coverage": "coveralls var/coverage.xml",
-    "test": "phpunit --configuration=etc/phpunit.xml"
-  },
-  "support": {
-    "docs": "https://api.belin.io/akismet.php",
-    "issues": "https://git.belin.io/cedx/akismet.php/issues"
-  }
+	"description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
+	"homepage": "https://docs.belin.io/akismet.php",
+	"license": "MIT",
+	"name": "cedx/akismet",
+	"type": "library",
+	"version": "12.1.0",
+	"authors": [
+		{"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
+	],
+	"autoload": {
+		"psr-4": {"Akismet\\": "src/"}
+	},
+	"autoload-dev": {
+		"psr-4": {"Akismet\\": "test/"}
+	},
+	"config": {
+		"optimize-autoloader": true
+	},
+	"funding": [
+		{"type": "patreon", "url": "https://www.patreon.com/cedx"}
+	],
+	"keywords": [
+		"akismet",
+		"comment",
+		"spam",
+		"validation"
+	],
+	"require": {
+		"php": ">=7.4.0",
+		"ext-date": "*",
+		"ext-json": "*",
+		"ext-mbstring": "*",
+		"ext-pcre": "*",
+		"nyholm/psr7": "^1.2.1",
+		"psr/http-client": "^1.0.0",
+		"symfony/event-dispatcher": "^5.0.8",
+		"symfony/http-client": "^5.0.8"
+	},
+	"require-dev": {
+		"cedx/coveralls": "^13.0.0",
+		"phpstan/phpstan": "^0.12.25",
+		"phpunit/phpunit": "^9.1.4"
+	},
+	"scripts": {
+		"coverage": "coveralls var/coverage.xml",
+		"test": "phpunit --configuration=etc/phpunit.xml"
+	},
+	"support": {
+		"docs": "https://api.belin.io/akismet.php",
+		"issues": "https://git.belin.io/cedx/akismet.php/issues"
+	}
 }

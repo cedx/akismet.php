@@ -27,22 +27,22 @@ The exception `getMessage()` usually includes some debug information, provided b
 
 ## Example
 
-```php
+``` php
 <?php
 use Akismet\{Blog, Client, ClientException};
 use Nyholm\Psr7\{Uri};
 
 function main(): void {
   try {
-    $blog = new Blog(new Uri('https://www.yourblog.com'));
-    $client = new Client('123YourAPIKey', $blog);
+    $blog = new Blog(new Uri("https://www.yourblog.com"));
+    $client = new Client("123YourAPIKey", $blog);
 
     $isValid = $client->verifyKey();
-    echo $isValid ? 'The API key is valid.' : 'The API key is invalid.';
+    echo $isValid ? "The API key is valid." : "The API key is invalid.";
   }
 
   catch (ClientException $e) {
-    echo 'An error occurred: ', $e->getMessage();
+    echo "An error occurred: ", $e->getMessage();
   }
 }
 ```

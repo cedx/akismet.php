@@ -25,9 +25,9 @@ jobs:
       - name: Run tests
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
-        run: composer run-script test
+        run: composer run test
       - name: Collect code coverage
         env:
           COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
         if: success()
-        run: composer run-script coverage
+        run: composer run coverage

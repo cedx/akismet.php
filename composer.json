@@ -48,7 +48,7 @@
 		"coverage": "coveralls var/coverage.xml",
 		"doc": "pwsh tool/doc.ps1",
 		"lint": "phpstan analyse --configuration=etc/phpstan.neon",
-		"publish": "pwsh tool/publish.ps1",
+		"publish": ["@build", "@clean", "@version", "pwsh tool/publish.ps1"],
 		"test": "phpunit --configuration=etc/phpunit.xml",
 		"version": "pwsh tool/version.ps1",
 		"watch": "pwsh tool/watch.ps1"

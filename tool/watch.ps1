@@ -7,7 +7,7 @@ $action = {
 	if ($EventArgs.Name -notlike "*.g.php") {
 		$changeType = [String] $EventArgs.ChangeType
 		Write-Host "'$($EventArgs.Name)' was $($changeType.ToLower()): starting a new build..."
-		$timeSpan = Measure-Command { tool/build.ps1 }
+		$timeSpan = Measure-Command { tool/build.ps1 | Out-Host }
 		Write-Host "> Finished the build after $($timeSpan.TotalSeconds) seconds."
 	}
 }

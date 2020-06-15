@@ -32,7 +32,7 @@ class CommentTest extends TestCase {
 		assertThat($author, logicalNot(isNull()));
 		assertThat($author->getName(), equalTo("Cédric Belin"));
 
-		/** @var \DateTimeInterface $date */
+		/** @var \DateTimeImmutable $date */
 		$date = $comment->getDate();
 		assertThat($date, logicalNot(isNull()));
 		assertThat($date->format("Y"), equalTo(2000));

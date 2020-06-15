@@ -13,14 +13,14 @@ class Comment implements \JsonSerializable {
 	/** @var string The comment's content. */
 	private string $content = "";
 
-	/** @var \DateTimeInterface|null The UTC timestamp of the creation of the comment. */
-	private ?\DateTimeInterface $date = null;
+	/** @var \DateTimeImmutable|null The UTC timestamp of the creation of the comment. */
+	private ?\DateTimeImmutable $date = null;
 
 	/** @var UriInterface|null The permanent location of the entry the comment is submitted to. */
 	private ?UriInterface $permalink = null;
 
-	/** @var \DateTimeInterface|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
-	private ?\DateTimeInterface $postModified = null;
+	/** @var \DateTimeImmutable|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
+	private ?\DateTimeImmutable $postModified = null;
 
 	/** @var string A string describing why the content is being rechecked. */
 	private string $recheckReason = "";
@@ -75,9 +75,9 @@ n   */
 
 	/**
 	 * Gets the UTC timestamp of the creation of the comment.
-	 * @return \DateTimeInterface|null The UTC timestamp of the creation of the comment.
+	 * @return \DateTimeImmutable|null The UTC timestamp of the creation of the comment.
 	 */
-	function getDate(): ?\DateTimeInterface {
+	function getDate(): ?\DateTimeImmutable {
 		return $this->date;
 	}
 
@@ -91,9 +91,9 @@ n   */
 
 	/**
 	 * Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 * @return \DateTimeInterface|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
+	 * @return \DateTimeImmutable|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
 	 */
-	function getPostModified(): ?\DateTimeInterface {
+	function getPostModified(): ?\DateTimeImmutable {
 		return $this->postModified;
 	}
 
@@ -153,7 +153,7 @@ n   */
 	 * @return $this This instance.
 	 */
 	function setDate(?\DateTimeInterface $value): self {
-		$this->date = $value;
+		$this->date = $value ? new \DateTimeImmutable("@{$value->getTimestamp()}") : null;
 		return $this;
 	}
 
@@ -173,7 +173,7 @@ n   */
 	 * @return $this This instance.
 	 */
 	function setPostModified(?\DateTimeInterface $value): self {
-		$this->postModified = $value;
+		$this->postModified = $value ? new \DateTimeImmutable("@{$value->getTimestamp()}") : null;
 		return $this;
 	}
 

@@ -12,7 +12,7 @@ Emitted every time a request is made to the remote service:
 ``` php
 <?php
 use Akismet\{Blog, Client, RequestEvent};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 function main(): void {
   $client = new Client("123YourAPIKey", new Blog(new Uri("https://www.yourblog.com")));
@@ -28,7 +28,7 @@ Emitted every time a response is received from the remote service:
 ``` php
 <?php
 use Akismet\{Blog, Client, ResponseEvent};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 function main(): void {
   $client = new Client("123YourAPIKey", new Blog(new Uri("https://www.yourblog.com")));

@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use Nyholm\Psr7\{Uri};
-use Psr\Http\Message\{UriInterface};
+use Nyholm\Psr7\Uri;
+use Psr\Http\Message\UriInterface;
 
 /** Represents the front page or home URL transmitted when making requests. */
 class Blog implements \JsonSerializable {

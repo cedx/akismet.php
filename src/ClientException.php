@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use Psr\Http\Message\{UriInterface};
+use Psr\Http\Message\UriInterface;
 
 /** An exception caused by an error in a `Client` request. */
 class ClientException extends \RuntimeException {

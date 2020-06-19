@@ -2,8 +2,8 @@
 namespace Akismet;
 
 use Psr\Http\Message\{ResponseInterface, UriInterface};
-use Symfony\Component\EventDispatcher\{EventDispatcher};
-use Symfony\Component\HttpClient\{Psr18Client};
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpClient\Psr18Client;
 
 /** Submits comments to the [Akismet](https://akismet.com) service. */
 class Client extends EventDispatcher {

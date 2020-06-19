@@ -9,7 +9,7 @@ The Akismet API will always return a `CheckResult::isSpam` response to a valid r
 ``` php
 <?php
 use Akismet\{Author, Blog, Client, Comment};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 function main(): void {
   $author = (new Author("127.0.0.1", "Mozilla/5.0"))->setName("viagra-test-123");
@@ -31,7 +31,7 @@ The Akismet API will always return a `CheckResult::isHam` response. Any other re
 ``` php
 <?php
 use Akismet\{Author, Blog, Client, Comment};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 function main(): void {
   $author = (new Author("127.0.0.1", "Mozilla/5.0"))->setRole("administrator");
@@ -53,7 +53,7 @@ That will tell Akismet not to change its behaviour based on those API calls: the
 ``` php
 <?php
 use Akismet\{Author, Blog, Client, Comment};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 function main(): void {
   $author = new Author("127.0.0.1", "Mozilla/5.0");

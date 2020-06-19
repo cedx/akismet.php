@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use Psr\Http\Message\{RequestInterface};
-use Symfony\Contracts\EventDispatcher\{Event};
+use Psr\Http\Message\RequestInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /** Represents the event parameter used for request events. */
 class RequestEvent extends Event {

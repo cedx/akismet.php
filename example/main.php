@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 use Akismet\{Author, Blog, CheckResult, Client, ClientException, Comment, CommentType};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 /** Queries the Akismet service. */
 function main(): void {

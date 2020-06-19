@@ -30,7 +30,7 @@ The exception `getMessage()` usually includes some debug information, provided b
 ``` php
 <?php
 use Akismet\{Blog, Client, ClientException};
-use Nyholm\Psr7\{Uri};
+use Nyholm\Psr7\Uri;
 
 function main(): void {
   try {

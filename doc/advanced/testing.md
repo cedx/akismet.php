@@ -19,7 +19,7 @@ function main(): void {
   $client = new Client("123YourAPIKey", $blog);
     
   $result = $client->checkComment($comment);
-  echo "It should be `CheckResult::isSpam`: ", $result;
+  print "It should be `CheckResult::isSpam`: $result";
 }
 ```
 
@@ -41,7 +41,7 @@ function main(): void {
   $client = new Client("123YourAPIKey", $blog);
     
   $result = $client->checkComment($comment);
-  echo "It should be `CheckResult::isHam`: ", $result;
+  print "It should be `CheckResult::isHam`: $result";
 }
 ```
 
@@ -62,7 +62,7 @@ function main(): void {
   $blog = new Blog(new Uri("https://www.yourblog.com"));
   $client = (new Client("123YourAPIKey", $blog))->setTest(true);
     
-  echo "It should not influence subsequent calls.";
+  print "It should not influence subsequent calls.";
   $client->checkComment($comment);
 }
 ```

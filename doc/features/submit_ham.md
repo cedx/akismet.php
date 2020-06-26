@@ -41,12 +41,12 @@ function main(): void {
 		$result = $client->checkComment($comment);
 		// Got `CheckResult::isSpam`, but `CheckResult::isHam` expected.
 
-		echo "The comment was incorrectly classified as spam.";
+		print "The comment was incorrectly classified as spam.";
 		$client->submitHam($comment);
 	}
 
 	catch (ClientException $e) {
-		echo "An error occurred: ", $e->getMessage();
+		print "An error occurred: {$e->getMessage()}";
 	}
 }
 ```

@@ -38,11 +38,11 @@ function main(): void {
     $client = new Client("123YourAPIKey", $blog);
 
     $isValid = $client->verifyKey();
-    echo $isValid ? "The API key is valid." : "The API key is invalid.";
+    print $isValid ? "The API key is valid." : "The API key is invalid.";
   }
 
   catch (ClientException $e) {
-    echo "An error occurred: ", $e->getMessage();
+    print "An error occurred: {$e->getMessage()}";
   }
 }
 ```

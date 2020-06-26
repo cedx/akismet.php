@@ -16,9 +16,9 @@ use Nyholm\Psr7\Uri;
 
 function main(): void {
   $client = new Client("123YourAPIKey", new Blog(new Uri("https://www.yourblog.com")));
-  $client->addListener(Client::eventRequest, function(RequestEvent $event) {
-    echo "Client request: ", $event->getRequest()->getUri();
-  });
+  $client->addListener(Client::eventRequest, fn(RequestEvent $event) =>
+    print "Client request: {$event->getRequest()->getUri()}"
+  );
 }
 ```
 
@@ -32,8 +32,8 @@ use Nyholm\Psr7\Uri;
 
 function main(): void {
   $client = new Client("123YourAPIKey", new Blog(new Uri("https://www.yourblog.com")));
-  $client->addListener(Client::eventResponse, function(ResponseEvent $event) {
-    echo "Server response: ", $event->getResponse()->getStatusCode();
-  });
+  $client->addListener(Client::eventResponse, fn(ResponseEvent $event) =>
+    print "Server response: {$event->getResponse()->getStatusCode()}"
+  );
 }
 ```

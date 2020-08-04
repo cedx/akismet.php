@@ -64,7 +64,7 @@ class ClientTest extends TestCase {
 		$blog = new Blog(new Uri("https://docs.belin.io/akismet.php"));
 		$this->client = (new Client((string) getenv("AKISMET_API_KEY"), $blog))->setTest(true);
 
-		$userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 Edg/83.0.478.45";
+		$userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0";
 		$author = (new Author("192.168.0.1", $userAgent))
 			->setName("Akismet")
 			->setRole("administrator")

@@ -40,7 +40,7 @@
 	"require-dev": {
 		"cedx/coveralls": "^13.2.0",
 		"phpstan/phpstan": "^0.12.42",
-		"phpunit/phpunit": "^9.3.8"
+		"phpunit/phpunit": "^9.3.10"
 	},
 	"scripts": {
 		"build": "pwsh tool/build.ps1",

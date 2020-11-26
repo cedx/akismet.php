@@ -1,13 +1,13 @@
 # Submit ham
 This call is intended for the submission of false positives - items that were incorrectly classified as spam by Akismet.
-It takes identical arguments as [comment check](comment_check.md) and [submit spam](submit_spam.md).
+It takes identical arguments as [comment check](features/comment_check.md) and [submit spam](features/submit_spam.md).
 
-```
+```php
 Client->submitHam(Comment $comment): void
 ```
 
-Remember that, as explained in the [submit spam](submit_spam.md) documentation, you should ensure
-that any values you're passing here match up with the original and corresponding [comment check](comment_check.md) call.
+Remember that, as explained in the [submit spam](features/submit_spam.md) documentation, you should ensure
+that any values you're passing here match up with the original and corresponding [comment check](features/comment_check.md) call.
 
 See the [Akismet API documentation](https://akismet.com/development/api/#submit-ham) for more information.
 
@@ -16,8 +16,7 @@ See the [Akismet API documentation](https://akismet.com/development/api/#submit-
 ### Comment **$comment**
 The user `Comment` to be submitted, incorrectly classified as spam.
 
-!!! tip
-	Ideally, it should be the same object as the one passed to the original [comment check](comment_check.md) API call.
+?> Ideally, it should be the same object as the one passed to the original [comment check](features/comment_check.md) API call.
 
 ## Return value
 None.
@@ -27,8 +26,7 @@ The exception `getMessage()` usually includes some debug information, provided b
 
 ## Example
 
-``` php
-<?php
+```php
 use Akismet\{Author, Blog, Client, ClientException, Comment};
 use Nyholm\Psr7\Uri;
 

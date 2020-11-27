@@ -19,7 +19,6 @@ foreach ($event in "Changed", "Created", "Deleted", "Renamed") {
 	Register-ObjectEvent $watcher $event -Action $action | Out-Null
 }
 
-
 try {
 	tool/build.ps1
 	do { Wait-Event -Timeout 1 } while ($true)

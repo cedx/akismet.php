@@ -181,7 +181,7 @@ class Client extends EventDispatcher {
 			$response = $this->http->sendRequest($request);
 			$this->dispatch(new ResponseEvent($response, $request));
 
-			if ($response->hasHeader("X-akismet-debug-help")) throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), $endPoint);
+			$response->hasHeader("X-akismet-debug-help") && throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), $endPoint);
 			return $response;
 		}
 

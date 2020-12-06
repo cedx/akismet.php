@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [13.0.0](https://git.belin.io/cedx/akismet.php/compare/v12.1.0...v13.0.0)
+- Breaking change: using PHP 8.0 features, like constructor property promotion and throw expressions.
+- Updated the package dependencies.
+
 ## Version [12.1.0](https://git.belin.io/cedx/akismet.php/compare/v12.0.0...v12.1.0)
 - Added the `Blog->setLanguages()` method.
 - Updated the documentation.

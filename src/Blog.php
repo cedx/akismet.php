@@ -13,16 +13,12 @@ class Blog implements \JsonSerializable {
 	/** @var \ArrayObject<int, string> The languages in use on the blog or site, in ISO 639-1 format. */
 	private \ArrayObject $languages;
 
-	/** @var UriInterface|null The blog or site URL. */
-	private ?UriInterface $url;
-
 	/**
 	 * Creates a new blog.
 	 * @param UriInterface|null $url The blog or site URL.
 	 */
-	function __construct(?UriInterface $url) {
+	function __construct(private ?UriInterface $url) {
 		$this->languages = new \ArrayObject;
-		$this->url = $url;
 	}
 
 	/**

@@ -7,9 +7,6 @@ use Psr\Http\Message\UriInterface;
 /** Represents a comment submitted by an author. */
 class Comment implements \JsonSerializable {
 
-	/** @var Author|null The comment's author. */
-	private ?Author $author;
-
 	/** @var string The comment's content. */
 	private string $content = "";
 
@@ -34,10 +31,8 @@ class Comment implements \JsonSerializable {
 	/**
 	 * Creates a new comment.
 	 * @param Author|null $author The comment's author.
-n   */
-	function __construct(?Author $author) {
-		$this->author = $author;
-	}
+   */
+	function __construct(private ?Author $author) {}
 
 	/**
 	 * Creates a new comment from the specified JSON object.

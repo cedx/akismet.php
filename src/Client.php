@@ -14,12 +14,6 @@ class Client extends EventDispatcher {
 	/** @var string An event that is triggered when a response is received from the remote service. */
 	const eventResponse = ResponseEvent::class;
 
-	/** @var string The Akismet API key. */
-	private string $apiKey;
-
-	/** @var Blog The front page or home URL of the instance making requests. */
-	private Blog $blog;
-
 	/** @var UriInterface The URL of the API end point. */
 	private UriInterface $endPoint;
 
@@ -37,8 +31,7 @@ class Client extends EventDispatcher {
 	 * @param string $apiKey The Akismet API key.
 	 * @param Blog $blog The front page or home URL of the instance making requests.
 	 */
-	function __construct(string $apiKey, Blog $blog) {
-		assert(mb_strlen($apiKey) > 0);
+	function __construct(private string $apiKey, private Blog $blog) {
 		parent::__construct();
 
 		$this->apiKey = $apiKey;

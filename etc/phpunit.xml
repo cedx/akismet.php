@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <phpunit bootstrap="../vendor/autoload.php" cacheResult="false" testdox="true">
-	<filter>
-		<whitelist processUncoveredFilesFromWhitelist="true">
+	<coverage processUncoveredFiles="true">
+		<include>
 			<directory suffix=".php">../src</directory>
-		</whitelist>
-	</filter>
-
-	<logging>
-		<log type="coverage-clover" target="../var/coverage.xml"/>
-	</logging>
+		</include>
+		<report>
+			<clover outputFile="../var/coverage.xml"/>
+		</report>
+	</coverage>
 
 	<testsuites>
 		<testsuite name="all">

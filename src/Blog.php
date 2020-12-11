@@ -7,59 +7,40 @@ use Psr\Http\Message\UriInterface;
 /** Represents the front page or home URL transmitted when making requests. */
 class Blog implements \JsonSerializable {
 
-	/** @var string The character encoding for the values included in comments. */
+	/** The character encoding for the values included in comments. */
 	private string $charset = "";
 
-	/** @var \ArrayObject<int, string> The languages in use on the blog or site, in ISO 639-1 format. */
+	/** The languages in use on the blog or site, in ISO 639-1 format. */
 	private \ArrayObject $languages;
 
-	/**
-	 * Creates a new blog.
-	 * @param UriInterface|null $url The blog or site URL.
-	 */
+	/** Creates a new blog. */
 	function __construct(private ?UriInterface $url) {
 		$this->languages = new \ArrayObject;
 	}
 
-	/**
-	 * Creates a new blog from the specified JSON object.
-	 * @param object $map A JSON object representing a blog.
-	 * @return self The instance corresponding to the specified JSON object.
-	 */
+	/** Creates a new blog from the specified JSON object. */
 	static function fromJson(object $map): self {
 		return (new self(isset($map->blog) && is_string($map->blog) ? new Uri($map->blog) : null))
 			->setCharset(isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : "")
 			->setLanguages(isset($map->blog_lang) && is_string($map->blog_lang) ? array_map("trim", explode(",", $map->blog_lang)) : []);
 	}
 
-	/**
-	 * Gets the character encoding for the values included in comments.
-	 * @return string The character encoding for the values included in comments.
-	 */
+	/** Gets the character encoding for the values included in comments. */
 	function getCharset(): string {
 		return $this->charset;
 	}
 
-	/**
-	 * Gets the languages in use on the blog or site, in ISO 639-1 format.
-	 * @return \ArrayObject<int, string> The languages in use on the blog or site.
-	 */
+	/** Gets the languages in use on the blog or site, in ISO 639-1 format. */
 	function getLanguages(): \ArrayObject {
 		return $this->languages;
 	}
 
-	/**
-	 * Gets the blog or site URL.
-	 * @return UriInterface|null The blog or site URL.
-	 */
+	/** Gets the blog or site URL. */
 	function getUrl(): ?UriInterface {
 		return $this->url;
 	}
 
-	/**
-	 * Converts this object to a map in JSON format.
-	 * @return \stdClass The map in JSON format corresponding to this object.
-	 */
+	/** Converts this object to a map in JSON format. */
 	function jsonSerialize(): \stdClass {
 		$map = new \stdClass;
 		$map->blog = (string) $this->getUrl();

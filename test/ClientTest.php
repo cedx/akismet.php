@@ -8,13 +8,13 @@ use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr}
 /** @testdox Akismet\Client */
 class ClientTest extends TestCase {
 
-	/** @var Client The client used to query the service database. */
+	/** The client used to query the service database. */
 	private Client $client;
 
-	/** @var Comment A comment with content marked as ham. */
+	/** A comment with content marked as ham. */
 	private Comment $ham;
 
-	/** @var Comment A comment with content marked as spam. */
+	/** A comment with content marked as spam. */
 	private Comment $spam;
 
 	/** @testdox ->checkComment() */

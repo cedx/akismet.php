@@ -7,38 +7,31 @@ use Psr\Http\Message\UriInterface;
 /** Represents a comment submitted by an author. */
 class Comment implements \JsonSerializable {
 
-	/** @var string The comment's content. */
+	/** The comment's content. */
 	private string $content = "";
 
-	/** @var \DateTimeImmutable|null The UTC timestamp of the creation of the comment. */
+	/** The UTC timestamp of the creation of the comment. */
 	private ?\DateTimeImmutable $date = null;
 
-	/** @var UriInterface|null The permanent location of the entry the comment is submitted to. */
+	/** The permanent location of the entry the comment is submitted to. */
 	private ?UriInterface $permalink = null;
 
-	/** @var \DateTimeImmutable|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
+	/** The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
 	private ?\DateTimeImmutable $postModified = null;
 
-	/** @var string A string describing why the content is being rechecked. */
+	/** A string describing why the content is being rechecked. */
 	private string $recheckReason = "";
 
-	/** @var UriInterface|null The URL of the webpage that linked to the entry being requested. */
+	/** The URL of the webpage that linked to the entry being requested. */
 	private ?UriInterface $referrer = null;
 
-	/** @var string The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
+	/** The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
 	private string $type = "";
 
-	/**
-	 * Creates a new comment.
-	 * @param Author|null $author The comment's author.
-   */
+	/** Creates a new comment. */
 	function __construct(private ?Author $author) {}
 
-	/**
-	 * Creates a new comment from the specified JSON object.
-	 * @param object $map A JSON object representing a comment.
-	 * @return self The instance corresponding to the specified JSON object.
-	 */
+	/** Creates a new comment from the specified JSON object. */
 	static function fromJson(object $map): self {
 		$keys = array_keys(get_object_vars($map));
 		$hasAuthor = count(array_filter($keys, fn($key) => (bool) preg_match('/^(comment_author|user)/', $key))) > 0;
@@ -52,74 +45,47 @@ class Comment implements \JsonSerializable {
 			->setType(isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : "");
 	}
 
-	/**
-	 * Gets the comment's author.
-	 * @return Author|null The comment's author.
-	 */
+	/** Gets the comment's author. */
 	function getAuthor(): ?Author {
 		return $this->author;
 	}
 
-	/**
-	 * Gets the comment's content.
-	 * @return string The comment's content.
-	 */
+	/** Gets the comment's content. */
 	function getContent(): string {
 		return $this->content;
 	}
 
-	/**
-	 * Gets the UTC timestamp of the creation of the comment.
-	 * @return \DateTimeImmutable|null The UTC timestamp of the creation of the comment.
-	 */
+	/** Gets the UTC timestamp of the creation of the comment. */
 	function getDate(): ?\DateTimeImmutable {
 		return $this->date;
 	}
 
-	/**
-	 * Gets the permanent location of the entry the comment is submitted to.
-	 * @return UriInterface|null The permanent location of the entry the comment is submitted to.
-	 */
+	/** Gets the permanent location of the entry the comment is submitted to. */
 	function getPermalink(): ?UriInterface {
 		return $this->permalink;
 	}
 
-	/**
-	 * Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 * @return \DateTimeImmutable|null The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 */
+	/** Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
 	function getPostModified(): ?\DateTimeImmutable {
 		return $this->postModified;
 	}
 
-	/**
-	 * Gets the string describing why the content is being rechecked.
-	 * @return string A string describing why the content is being rechecked.
-	 */
+	/** Gets the string describing why the content is being rechecked. */
 	function getRecheckReason(): string {
 		return $this->recheckReason;
 	}
 
-	/**
-	 * Gets the URL of the webpage that linked to the entry being requested.
-	 * @return UriInterface|null The URL of the webpage that linked to the entry being requested.
-	 */
+	/** Gets the URL of the webpage that linked to the entry being requested. */
 	function getReferrer(): ?UriInterface {
 		return $this->referrer;
 	}
 
-	/**
-	 * Gets the comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
-	 * @return string The comment's type.
-	 */
+	/** Gets the comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
 	function getType(): string {
 		return $this->type;
 	}
 
-	/**
-	 * Converts this object to a map in JSON format.
-	 * @return \stdClass The map in JSON format corresponding to this object.
-	 */
+	/** Converts this object to a map in JSON format. */
 	function jsonSerialize(): \stdClass {
 		$map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass;
 		if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;

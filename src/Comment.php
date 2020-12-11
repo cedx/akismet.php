@@ -148,7 +148,7 @@ class Comment implements \JsonSerializable {
 	 * @return $this This instance.
 	 */
 	function setDate(?\DateTimeInterface $value): self {
-		$this->date = $value ? new \DateTimeImmutable("@{$value->getTimestamp()}") : null;
+		$this->date = $value ? \DateTimeImmutable::createFromInterface($value) : null;
 		return $this;
 	}
 
@@ -168,7 +168,7 @@ class Comment implements \JsonSerializable {
 	 * @return $this This instance.
 	 */
 	function setPostModified(?\DateTimeInterface $value): self {
-		$this->postModified = $value ? new \DateTimeImmutable("@{$value->getTimestamp()}") : null;
+		$this->postModified = $value ? \DateTimeImmutable::createFromInterface($value) : null;
 		return $this;
 	}
 

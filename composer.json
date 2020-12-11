@@ -38,8 +38,8 @@
 		"symfony/http-client": "^5.2.0"
 	},
 	"require-dev": {
-		"cedx/coveralls": "^13.2.0",
-		"phpstan/phpstan": "^0.12.58",
+		"cedx/coveralls": "^14.0.0",
+		"phpstan/phpstan": "^0.12.59",
 		"phpunit/phpunit": "^9.5.0"
 	},
 	"scripts": {

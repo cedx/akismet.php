@@ -6,6 +6,8 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
+      - name: Fetch sources
+        uses: actions/checkout@v2
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -13,11 +15,7 @@ jobs:
           coverage: xdebug
           extensions: curl, mbstring, simplexml
       - name: Check environment
-        run: |
-          php --version
-          composer --version
-      - name: Fetch sources
-        uses: actions/checkout@v2
+        run: php --version
       - name: Install dependencies
         run: composer install --no-interaction
       - name: Run tests

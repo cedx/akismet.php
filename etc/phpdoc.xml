@@ -1,10 +1,5 @@
 <?xml version="1.0"?>
-<phpdocumentor
-	configVersion="3"
-	xmlns="http://www.phpdoc.org"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="http://docs.phpdoc.org/latest/phpdoc.xsd">
-
+<phpdocumentor configVersion="3">
 	<title>Akismet for PHP</title>
 	<paths>
 		<cache>../var/phpdoc</cache>

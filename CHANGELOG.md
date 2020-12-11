@@ -1,7 +1,10 @@
 # Changelog
 
 ## Version [13.0.0](https://git.belin.io/cedx/akismet.php/compare/v12.1.0...v13.0.0)
-- Breaking change: using PHP 8.0 features, like constructor property promotion and throw expressions.
+- Breaking change: raised the required [PHP](https://www.php.net) version.
+- Breaking change: using PHP 8.0 features, like constructor property promotion, static return type and throw expressions.
+- Ported the documentation to [docsify](https://docsify.js.org).
+- Replaced the build system based on [Robo](https://robo.li) by [PowerShell](https://docs.microsoft.com/en-us/powershell) scripts.
 - Updated the package dependencies.
 
 ## Version [12.1.0](https://git.belin.io/cedx/akismet.php/compare/v12.0.0...v12.1.0)

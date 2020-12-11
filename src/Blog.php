@@ -49,22 +49,14 @@ class Blog implements \JsonSerializable {
 		return $map;
 	}
 
-	/**
-	 * Sets the character encoding for the values included in comments.
-	 * @param string $value The new character encoding.
-	 * @return $this This instance.
-	 */
-	function setCharset(string $value): self {
+	/** Sets the character encoding for the values included in comments. */
+	function setCharset(string $value): static {
 		$this->charset = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the languages in use on the blog or site, in ISO 639-1 format.
-	 * @param array<int, string> $values The languages in use on the blog or site.
-	 * @return $this This instance.
-	 */
-	function setLanguages(array $values): self {
+	/** Sets the languages in use on the blog or site, in ISO 639-1 format. */
+	function setLanguages(array $values): static {
 		$this->getLanguages()->exchangeArray($values);
 		return $this;
 	}

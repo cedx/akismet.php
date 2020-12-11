@@ -98,72 +98,44 @@ class Comment implements \JsonSerializable {
 		return $map;
 	}
 
-	/**
-	 * Sets the comment's content.
-	 * @param string $value The new content.
-	 * @return $this This instance.
-	 */
-	function setContent(string $value): self {
+	/** Sets the comment's content. */
+	function setContent(string $value): static {
 		$this->content = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the UTC timestamp of the creation of the comment.
-	 * @param \DateTimeInterface|null $value The new UTC timestamp of the creation of the comment.
-	 * @return $this This instance.
-	 */
-	function setDate(?\DateTimeInterface $value): self {
+	/** Sets the UTC timestamp of the creation of the comment. */
+	function setDate(?\DateTimeInterface $value): static {
 		$this->date = $value ? \DateTimeImmutable::createFromInterface($value) : null;
 		return $this;
 	}
 
-	/**
-	 * Sets the permanent location of the entry the comment is submitted to.
-	 * @param UriInterface|null $value The new permanent location of the entry.
-	 * @return $this This instance.
-	 */
-	function setPermalink(?UriInterface $value): self {
+	/** Sets the permanent location of the entry the comment is submitted to. */
+	function setPermalink(?UriInterface $value): static {
 		$this->permalink = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 * @param \DateTimeInterface|null $value The new UTC timestamp of the publication time.
-	 * @return $this This instance.
-	 */
-	function setPostModified(?\DateTimeInterface $value): self {
+	/** Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
+	function setPostModified(?\DateTimeInterface $value): static {
 		$this->postModified = $value ? \DateTimeImmutable::createFromInterface($value) : null;
 		return $this;
 	}
 
-	/**
-	 * Sets the string describing why the content is being rechecked.
-	 * @param string $value A string describing why the content is being rechecked.
-	 * @return $this This instance.
-	 */
-	function setRecheckReason(string $value): self {
+	/** Sets the string describing why the content is being rechecked. */
+	function setRecheckReason(string $value): static {
 		$this->recheckReason = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the URL of the webpage that linked to the entry being requested.
-	 * @param UriInterface|null $value The new URL of the webpage that linked to the entry.
-	 * @return $this This instance.
-	 */
-	function setReferrer(?UriInterface $value): self {
+	/** Sets the URL of the webpage that linked to the entry being requested. */
+	function setReferrer(?UriInterface $value): static {
 		$this->referrer = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the comment's type.
-	 * @param string $value The new type.
-	 * @return $this This instance.
-	 */
-	function setType(string $value): self {
+	/** Sets the comment's type. */
+	function setType(string $value): static {
 		$this->type = $value;
 		return $this;
 	}

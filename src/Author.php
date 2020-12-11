@@ -88,42 +88,26 @@ class Author implements \JsonSerializable {
 		return $map;
 	}
 
-	/**
-	 * Sets the author's mail address. If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`.
-	 * @param string $value The new mail address.
-	 * @return $this This instance.
-	 */
-	function setEmail(string $value): self {
+	/** Sets the author's mail address. If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`. */
+	function setEmail(string $value): static {
 		$this->email = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`.
-	 * @param string $value The new name.
-	 * @return $this This instance.
-	 */
-	function setName(string $value): self {
+	/** Sets the author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`. */
+	function setName(string $value): static {
 		$this->name = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the author's role. If you set it to `"administrator"`, Akismet will always return `false`.
-	 * @param string $value The new role.
-	 * @return $this This instance.
-	 */
-	function setRole(string $value): self {
+	/** Sets the author's role. If you set it to `"administrator"`, Akismet will always return `false`. */
+	function setRole(string $value): static {
 		$this->role = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the URL of the author's website.
-	 * @param UriInterface|null $value The new website URL.
-	 * @return $this This instance.
-	 */
-	function setUrl(?UriInterface $value): self {
+	/** Sets the URL of the author's website. */
+	function setUrl(?UriInterface $value): static {
 		$this->url = $value;
 		return $this;
 	}

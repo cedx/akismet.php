@@ -78,12 +78,8 @@ class Client extends EventDispatcher {
 		return $this->isTest;
 	}
 
-	/**
-	 * Sets the URL of the API end point.
-	 * @param UriInterface $value The new URL of the API end point.
-	 * @return $this This instance.
-	 */
-	function setEndPoint(UriInterface $value): self {
+	/** Sets the URL of the API end point. */
+	function setEndPoint(UriInterface $value): static {
 		$this->endPoint = $value->withUserInfo("");
 		return $this;
 	}
@@ -91,49 +87,33 @@ class Client extends EventDispatcher {
 	/**
 	 * Sets a value indicating whether the client operates in test mode.
 	 * You can use it when submitting test queries to Akismet.
-	 * @param bool $value `true` to enable the test mode, otherwise `false`.
-	 * @return $this This instance.
 	 */
-	function setTest(bool $value): self {
+	function setTest(bool $value): static {
 		$this->isTest = $value;
 		return $this;
 	}
 
-	/**
-	 * Sets the user agent string to use when making requests.
-	 * @param string $value The new user agent.
-	 * @return $this This instance.
-	 */
-	function setUserAgent(string $value): self {
-		assert(mb_strlen($value) > 0);
+	/** Sets the user agent string to use when making requests. */
+	function setUserAgent(string $value): static {
 		$this->userAgent = $value;
 		return $this;
 	}
 
-	/**
-	 * Submits the specified comment that was incorrectly marked as spam but should not have been.
-	 * @param Comment $comment The comment to be submitted.
-	 */
+	/** Submits the specified comment that was incorrectly marked as spam but should not have been. */
 	function submitHam(Comment $comment): void {
 		$apiUrl = $this->getEndPoint();
 		$endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}submit-ham");
 		$this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
 	}
 
-	/**
-	 * Submits the specified comment that was not marked as spam but should have been.
-	 * @param Comment $comment The comment to be submitted.
-	 */
+	/** Submits the specified comment that was not marked as spam but should have been. */
 	function submitSpam(Comment $comment): void {
 		$apiUrl = $this->getEndPoint();
 		$endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}submit-spam");
 		$this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
 	}
 
-	/**
-	 * Checks the API key against the service database, and returns a value indicating whether it is valid.
-	 * @return bool `true` if the specified API key is valid, otherwise `false`.
-	 */
+	/** Checks the API key against the service database, and returns a value indicating whether it is valid. */
 	function verifyKey(): bool {
 		$apiUrl = $this->getEndPoint();
 		$response = $this->fetch($apiUrl->withPath("{$apiUrl->getPath()}verify-key"), ["key" => $this->getApiKey()]);

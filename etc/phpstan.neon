@@ -1,4 +1,6 @@
 parameters:
+	checkGenericClassInNonGenericObjectType: false
+	checkMissingIterableValueType: false
 	level: max
 	paths: [../src, ../test]
 	ignoreErrors:

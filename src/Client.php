@@ -130,7 +130,7 @@ class Client extends EventDispatcher {
 
 		try {
 			$request = $this->http->createRequest("POST", $endPoint)
-				->withBody($this->http->createStream(http_build_query($bodyFields, enc_type: PHP_QUERY_RFC1738)))
+				->withBody($this->http->createStream(http_build_query($bodyFields, encoding_type: PHP_QUERY_RFC1738)))
 				->withHeader("User-Agent", $this->getUserAgent());
 
 			$this->dispatch(new RequestEvent($request));

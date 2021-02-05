@@ -51,4 +51,4 @@ function main(): void {
 }
 ```
 
-See the [API reference](https://api.belin.io/akismet.php) of this library for detailed information about the `Author` and `Comment` classes, and their properties.
+See the [API reference](https://cedx.github.io/akismet.php/api) of this library for detailed information about the `Author` and `Comment` classes, and their properties.

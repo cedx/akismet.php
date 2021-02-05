@@ -1,6 +1,6 @@
 {
 	"description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
-	"homepage": "https://docs.belin.io/akismet.php",
+	"homepage": "https://cedx.github.io/akismet.php",
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",
@@ -54,7 +54,7 @@
 		"watch": "pwsh tool/watch.ps1"
 	},
 	"support": {
-		"docs": "https://api.belin.io/akismet.php",
-		"issues": "https://git.belin.io/cedx/akismet.php/issues"
+		"docs": "https://cedx.github.io/akismet.php/api",
+		"issues": "https://github.com/cedx/akismet.php/issues"
 	}
 }

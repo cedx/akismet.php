@@ -2,7 +2,7 @@
 Set-StrictMode -Version Latest
 Set-Location (Split-Path $PSScriptRoot)
 
-foreach ($item in "build", "docs/api") {
+foreach ($item in "build") {
 	if (Test-Path $item) { Remove-Item $item -Force -Recurse }
 }
 

@@ -13,11 +13,11 @@ jobs:
         with:
           php-version: 8.0
           coverage: xdebug
-          extensions: curl, mbstring, simplexml
+          extensions: curl, intl, mbstring, simplexml
       - name: Check environment
         run: php --version
       - name: Install dependencies
-        run: composer install --no-interaction
+        run: composer update --no-interaction
       - name: Run tests
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}

@@ -15,7 +15,7 @@ jobs:
           coverage: xdebug
           extensions: curl, intl, mbstring, simplexml
       - name: Install dependencies
-        run: composer update --no-interaction
+        run: composer update
       - name: Run tests
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}

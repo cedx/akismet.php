@@ -14,8 +14,6 @@ jobs:
           php-version: 8.0
           coverage: xdebug
           extensions: curl, intl, mbstring, simplexml
-      - name: Check environment
-        run: php --version
       - name: Install dependencies
         run: composer update --no-interaction
       - name: Run tests

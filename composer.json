@@ -1,4 +1,5 @@
 {
+	"abandoned": true,
 	"description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
 	"homepage": "https://cedx.github.io/akismet.php",
 	"license": "MIT",
@@ -39,8 +40,8 @@
 	},
 	"require-dev": {
 		"cedx/coveralls": "^14.0.0",
-		"phpstan/phpstan": "^0.12.80",
-		"phpunit/phpunit": "^9.5.2"
+		"phpstan/phpstan": "^0.12.82",
+		"phpunit/phpunit": "^9.5.3"
 	},
 	"scripts": {
 		"build": "pwsh tool/build.ps1",

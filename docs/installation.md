@@ -8,7 +8,7 @@ You can verify if you're already good to go with the following commands:
 
 ```shell
 php --version
-# PHP 8.0.2 (cli) (built: Feb  3 2021 18:36:37) ( NTS Visual C++ 2019 x64 )
+# PHP 8.0.3 (cli) (built: Mar  2 2021 23:33:56) ( NTS Visual C++ 2019 x64 )
 
 composer --version
 # Composer version 2.0.11 2021-02-24 14:57:23

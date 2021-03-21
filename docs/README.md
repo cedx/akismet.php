@@ -1,9 +1,11 @@
 # Akismet <small>for PHP</small>
 ![Runtime](https://badgen.net/packagist/php/cedx/akismet) ![Release](https://badgen.net/packagist/v/cedx/akismet) ![License](https://badgen.net/packagist/license/cedx/akismet) ![Downloads](https://badgen.net/packagist/dt/cedx/akismet) ![Coverage](https://badgen.net/coveralls/c/github/cedx/akismet.php) ![Build](https://badgen.net/github/checks/cedx/akismet.php/main)
 
+!> WARNING: this package is **abandoned** and no longer maintained.
+
 ## Stop spam
-> Used by millions of websites, [Akismet](https://akismet.com) filters out hundreds of millions of spam comments from the Web every day.
-> Add Akismet to your [PHP](https://www.php.net) applications so you don't have to worry about spam again.
+Used by millions of websites, [Akismet](https://akismet.com) filters out hundreds of millions of spam comments from the Web every day.
+Add Akismet to your [PHP](https://www.php.net) applications so you don't have to worry about spam again.
 
 ## Quick start
 

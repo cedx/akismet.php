@@ -28,34 +28,31 @@
 		"validation"
 	],
 	"require": {
-		"php": ">=8.0.0",
+		"php": ">=7.4.0",
 		"ext-date": "*",
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-pcre": "*",
-		"nyholm/psr7": "^1.4.0",
+		"nyholm/psr7": "^1.4.1",
 		"psr/http-client": "^1.0.1",
-		"symfony/event-dispatcher": "^5.2.4",
-		"symfony/http-client": "^5.2.4"
+		"psr/log": "^1.1.4",
+		"symfony/event-dispatcher": "^5.3.7",
+		"symfony/http-client": "^5.3.10"
 	},
 	"require-dev": {
-		"cedx/coveralls": "^14.0.0",
-		"phpstan/phpstan": "^0.12.82",
-		"phpunit/phpunit": "^9.5.3"
+		"phpunit/phpunit": "^9.5.10"
 	},
 	"scripts": {
 		"build": "pwsh tool/build.ps1",
 		"clean": "pwsh tool/clean.ps1",
-		"coverage": "coveralls var/coverage.xml",
 		"doc": ["@version", "pwsh tool/doc.ps1"],
-		"lint": "phpstan analyse --configuration=etc/phpstan.neon",
 		"publish": ["@clean", "@version", "@build", "pwsh tool/publish.ps1"],
 		"test": "phpunit --configuration=etc/phpunit.xml",
 		"version": "pwsh tool/version.ps1",
 		"watch": "pwsh tool/watch.ps1"
 	},
 	"support": {
-		"docs": "https://cedx.github.io/akismet.php/api",
-		"issues": "https://github.com/cedx/akismet.php/issues"
+		"docs": "https://bitbucket.org/cedx/akismet.php/wiki",
+		"issues": "https://bitbucket.org/cedx/akismet.php/issues"
 	}
 }

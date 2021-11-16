@@ -3,7 +3,7 @@
 	<title>Akismet for PHP</title>
 	<paths>
 		<cache>../var/phpdoc</cache>
-		<output>../docs/api</output>
+		<output>../docs</output>
 	</paths>
 	<version number="13.0.0">
 		<api>

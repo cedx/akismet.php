@@ -1,8 +1,0 @@
-parameters:
-	checkGenericClassInNonGenericObjectType: false
-	checkMissingIterableValueType: false
-	level: max
-	paths: [../src, ../test]
-	ignoreErrors:
-		- '/Function PHPUnit\\Framework\\logical\w+ invoked with \d parameters, \d required/'
-		- '/Right side of && is always false/'

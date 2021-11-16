@@ -114,7 +114,7 @@ class Comment implements \JsonSerializable {
 
 	/** Sets the UTC timestamp of the creation of the comment. */
 	function setDate(?\DateTimeInterface $value): self {
-		$this->date = $value ? \DateTimeImmutable::createFromInterface($value) : null;
+		$this->date = $value ? new \DateTimeImmutable($value->format("c")) : null;
 		return $this;
 	}
 
@@ -126,7 +126,7 @@ class Comment implements \JsonSerializable {
 
 	/** Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
 	function setPostModified(?\DateTimeInterface $value): self {
-		$this->postModified = $value ? \DateTimeImmutable::createFromInterface($value) : null;
+		$this->postModified = $value ? new \DateTimeImmutable($value->format("c")) : null;
 		return $this;
 	}
 

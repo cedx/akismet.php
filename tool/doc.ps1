@@ -2,8 +2,8 @@
 Set-StrictMode -Version Latest
 Set-Location (Split-Path $PSScriptRoot)
 
-if (Test-Path docs/api) { Remove-Item docs/api -Force -Recurse }
+if (Test-Path docs) { Remove-Item docs -Force -Recurse }
 phpdoc --config=etc/phpdoc.xml
 
-if (-not (Test-Path docs/api/images)) { New-Item docs/api/images -ItemType Directory | Out-Null }
-Copy-Item docs/favicon.ico docs/api/images
+if (-not (Test-Path docs/images)) { New-Item docs/images -ItemType Directory | Out-Null }
+Copy-Item www/favicon.ico docs/images

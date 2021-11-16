@@ -89,25 +89,25 @@ class Author implements \JsonSerializable {
 	}
 
 	/** Sets the author's mail address. If you set it to `"akismet-guaranteed-spam@example.com"`, Akismet will always return `true`. */
-	function setEmail(string $value): static {
+	function setEmail(string $value): self {
 		$this->email = $value;
 		return $this;
 	}
 
 	/** Sets the author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`. */
-	function setName(string $value): static {
+	function setName(string $value): self {
 		$this->name = $value;
 		return $this;
 	}
 
 	/** Sets the author's role. If you set it to `"administrator"`, Akismet will always return `false`. */
-	function setRole(string $value): static {
+	function setRole(string $value): self {
 		$this->role = $value;
 		return $this;
 	}
 
 	/** Sets the URL of the author's website. */
-	function setUrl(?UriInterface $value): static {
+	function setUrl(?UriInterface $value): self {
 		$this->url = $value;
 		return $this;
 	}

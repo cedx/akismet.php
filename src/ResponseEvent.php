@@ -6,9 +6,17 @@ use Psr\Http\Message\{RequestInterface, ResponseInterface};
 /** Represents the event parameter used for response events. */
 class ResponseEvent extends RequestEvent {
 
-	/** Creates a new response event. */
-	function __construct(private ResponseInterface $response, RequestInterface $request) {
+	/** @var ResponseInterface The related HTTP response. */
+	private ResponseInterface $response;
+
+	/**
+	 * Creates a new response event.
+	 * @param ResponseInterface $response The related HTTP response.
+	 * @param RequestInterface $request The request that triggered this response.
+	 */
+	function __construct(ResponseInterface $response, RequestInterface $request) {
 		parent::__construct($request);
+		$this->response = $response;
 	}
 
 	/** Gets the related HTTP response. */

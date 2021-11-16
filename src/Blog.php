@@ -13,9 +13,16 @@ class Blog implements \JsonSerializable {
 	/** The languages in use on the blog or site, in ISO 639-1 format. */
 	private \ArrayObject $languages;
 
-	/** Creates a new blog. */
-	function __construct(private ?UriInterface $url) {
+	/** @var UriInterface|null The blog or site URL. */
+	private ?UriInterface $url;
+
+	/**
+	 * Creates a new blog.
+	 * @param UriInterface|null $url The blog or site URL.
+	 */
+	function __construct(?UriInterface $url) {
 		$this->languages = new \ArrayObject;
+		$this->url = $url;
 	}
 
 	/** Creates a new blog from the specified JSON object. */
@@ -50,13 +57,13 @@ class Blog implements \JsonSerializable {
 	}
 
 	/** Sets the character encoding for the values included in comments. */
-	function setCharset(string $value): static {
+	function setCharset(string $value): self {
 		$this->charset = $value;
 		return $this;
 	}
 
 	/** Sets the languages in use on the blog or site, in ISO 639-1 format. */
-	function setLanguages(array $values): static {
+	function setLanguages(array $values): self {
 		$this->getLanguages()->exchangeArray($values);
 		return $this;
 	}

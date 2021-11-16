@@ -14,6 +14,12 @@ class Client extends EventDispatcher {
 	/** An event that is triggered when a response is received from the remote service. */
 	const eventResponse = ResponseEvent::class;
 
+	/** The Akismet API key. */
+	private string $apiKey;
+
+	/** The front page or home URL of the instance making requests. */
+	private Blog $blog;
+
 	/** The URL of the API end point. */
 	private UriInterface $endPoint;
 
@@ -27,7 +33,7 @@ class Client extends EventDispatcher {
 	private string $userAgent;
 
 	/** Creates a new client. */
-	function __construct(private string $apiKey, private Blog $blog) {
+	function __construct(string $apiKey, Blog $blog) {
 		parent::__construct();
 
 		$this->apiKey = $apiKey;
@@ -79,7 +85,7 @@ class Client extends EventDispatcher {
 	}
 
 	/** Sets the URL of the API end point. */
-	function setEndPoint(UriInterface $value): static {
+	function setEndPoint(UriInterface $value): self {
 		$this->endPoint = $value->withUserInfo("");
 		return $this;
 	}
@@ -88,13 +94,13 @@ class Client extends EventDispatcher {
 	 * Sets a value indicating whether the client operates in test mode.
 	 * You can use it when submitting test queries to Akismet.
 	 */
-	function setTest(bool $value): static {
+	function setTest(bool $value): self {
 		$this->isTest = $value;
 		return $this;
 	}
 
 	/** Sets the user agent string to use when making requests. */
-	function setUserAgent(string $value): static {
+	function setUserAgent(string $value): self {
 		$this->userAgent = $value;
 		return $this;
 	}
@@ -130,14 +136,14 @@ class Client extends EventDispatcher {
 
 		try {
 			$request = $this->http->createRequest("POST", $endPoint)
-				->withBody($this->http->createStream(http_build_query($bodyFields, encoding_type: PHP_QUERY_RFC1738)))
+				->withBody($this->http->createStream(http_build_query($bodyFields, "", "&", PHP_QUERY_RFC1738)))
 				->withHeader("User-Agent", $this->getUserAgent());
 
 			$this->dispatch(new RequestEvent($request));
 			$response = $this->http->sendRequest($request);
 			$this->dispatch(new ResponseEvent($response, $request));
 
-			$response->hasHeader("X-akismet-debug-help") && throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), $endPoint);
+			if ($response->hasHeader("X-akismet-debug-help")) throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), $endPoint);
 			return $response;
 		}
 

@@ -1,0 +1,12 @@
+clone:
+  depth: 1
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Testing
+          caches: [composer]
+          image: cedxbelin/haxe.php
+          script:
+            - composer install
+            - composer run test

@@ -61,14 +61,14 @@ class ClientTest extends TestCase {
 
 	/** @before This method is called before each test. */
 	protected function setUp(): void {
-		$blog = new Blog(new Uri("https://bitbucket.org/cedx/akismet.php"));
+		$blog = new Blog(new Uri("https://github.com/cedx/akismet.php"));
 		$this->client = (new Client((string) getenv("AKISMET_API_KEY"), $blog))->setTest(true);
 
 		$userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:79.0) Gecko/20100101 Firefox/79.0";
 		$author = (new Author("192.168.0.1", $userAgent))
 			->setName("Akismet")
 			->setRole("administrator")
-			->setUrl(new Uri("https://bitbucket.org/cedx/akismet.php"));
+			->setUrl(new Uri("https://github.com/cedx/akismet.php"));
 
 		$this->ham = (new Comment($author))
 			->setContent("I\"m testing out the Service API.")

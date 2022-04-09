@@ -1,7 +1,7 @@
 {
 	"abandoned": true,
 	"description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
-	"homepage": "https://bitbucket.org/cedx/akismet.php",
+	"homepage": "https://github.com/cedx/akismet.php",
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",
@@ -53,7 +53,7 @@
 		"watch": "pwsh tool/watch.ps1"
 	},
 	"support": {
-		"docs": "https://bitbucket.org/cedx/akismet.php/wiki",
-		"issues": "https://bitbucket.org/cedx/akismet.php/issues"
+		"docs": "https://github.com/cedx/akismet.php/wiki",
+		"issues": "https://github.com/cedx/akismet.php/issues"
 	}
 }

@@ -10,6 +10,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.1
+          coverage: xdebug
           extensions: curl, intl, mbstring, simplexml
       - name: Get cache directory
         id: composer-cache
@@ -28,7 +29,8 @@ jobs:
         run: composer run test
       - name: Collect code coverage
         if: success()
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          path-to-lcov: var/lcov.info
+        env:
+          COVERALLS_REPO_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        run: |
+          composer global require php-coveralls/php-coveralls
+          php-coveralls --coverage_clover=var/coverage.xml --json_path=var/coverage.json

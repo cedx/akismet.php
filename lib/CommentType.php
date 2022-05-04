@@ -1,27 +1,29 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-/** Specifies the type of a comment. */
-abstract class CommentType {
+/**
+ * Specifies the type of a comment.
+ */
+enum CommentType: string {
 
 	/** A blog post. */
-	const blogPost = "blog-post";
+	case blogPost = "blog-post";
 
 	/** A blog comment. */
-	const comment = "comment";
+	case comment = "comment";
 
 	/** A contact form or feedback form submission. */
-	const contactForm = "contact-form";
+	case contactForm = "contact-form";
 
 	/** A top-level forum post. */
-	const forumPost = "forum-post";
+	case forumPost = "forum-post";
 
-	/** A [pingback](https://en.wikipedia.org/wiki/Pingback) post. */
-	const pingback = "pingback";
+	/** A message sent between just a few users. */
+	case message = "message";
 
-	/** A [trackback](https://en.wikipedia.org/wiki/Trackback) post. */
-	const trackback = "trackback";
+	/** A reply to a top-level forum post. */
+	case reply = "reply";
 
-	/** A [Twitter](https://twitter.com) message. */
-	const tweet = "tweet";
+	/** A new user account. */
+	case signup = "signup";
 }

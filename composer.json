@@ -1,16 +1,15 @@
 {
-	"abandoned": true,
-	"description": "Prevent comment spam using the Akismet service. Add Akismet to your applications so you don't have to worry about spam again.",
+	"description": "Prevent comment spam using the Akismet service.",
 	"homepage": "https://github.com/cedx/akismet.php",
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",
-	"version": "13.0.0",
+	"version": "14.0.0",
 	"authors": [
 		{"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
 	],
 	"autoload": {
-		"psr-4": {"Akismet\\": "src/"}
+		"psr-4": {"Akismet\\": "lib/"}
 	},
 	"autoload-dev": {
 		"psr-4": {"Akismet\\": "test/"}
@@ -24,6 +23,8 @@
 	],
 	"keywords": [
 		"akismet",
+		"api",
+		"client",
 		"comment",
 		"spam",
 		"validation"
@@ -36,21 +37,14 @@
 		"ext-pcre": "*",
 		"nyholm/psr7": "^1.5.0",
 		"psr/http-client": "^1.0.1",
-		"psr/log": "^3.0.0",
-		"symfony/event-dispatcher": "^6.0.3",
-		"symfony/http-client": "^6.0.7"
+		"symfony/http-client": "^6.0.8"
 	},
 	"require-dev": {
+		"phpstan/phpstan": "^1.6.5",
 		"phpunit/phpunit": "^9.5.20"
 	},
 	"scripts": {
-		"build": "pwsh tool/build.ps1",
-		"clean": "pwsh tool/clean.ps1",
-		"doc": ["@version", "pwsh tool/doc.ps1"],
-		"publish": ["@clean", "@version", "@build", "pwsh tool/publish.ps1"],
-		"test": "phpunit --configuration=etc/phpunit.xml",
-		"version": "pwsh tool/version.ps1",
-		"watch": "pwsh tool/watch.ps1"
+		"test": "phpunit --configuration=etc/phpunit.xml"
 	},
 	"support": {
 		"docs": "https://github.com/cedx/akismet.php/wiki",

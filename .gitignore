@@ -1,7 +1,5 @@
-/build/
+/**/.DS_Store
+/node_modules/
+/npm-debug.log
 /var/
 /vendor/
-
-/*.code-workspace
-/*.iml
-/**/.DS_Store

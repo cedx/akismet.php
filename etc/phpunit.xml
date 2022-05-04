@@ -1,17 +1,23 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="../vendor/autoload.php" cacheResult="false" testdox="true">
+<phpunit
+	bootstrap="../vendor/autoload.php"
+	cacheResultFile="../var/phpunit.json"
+	testdox="true"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd">
+
 	<coverage processUncoveredFiles="true">
 		<include>
-			<directory suffix=".php">../src</directory>
+			<directory>../lib</directory>
 		</include>
 		<report>
 			<clover outputFile="../var/coverage.xml"/>
 		</report>
 	</coverage>
-
+	<logging/>
 	<testsuites>
-		<testsuite name="all">
-			<directory suffix="Test.php">../test</directory>
+		<testsuite name="main">
+			<directory>../test</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

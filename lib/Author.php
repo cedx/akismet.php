@@ -31,7 +31,11 @@ class Author implements \JsonSerializable {
 		$this->userAgent = $userAgent ?? ($_SERVER["HTTP_USER_AGENT"] ?? "");
 	}
 
-	/** Creates a new author from the specified JSON object. */
+	/**
+	 * Creates a new author from the specified JSON object.
+	 * @param object $map A JSON object representing an author.
+	 * @return self The instance corresponding to the specified JSON object.
+	 */
 	static function fromJson(object $map): self {
 		$author = new self(
 			isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : "",
@@ -75,7 +79,10 @@ class Author implements \JsonSerializable {
 		return $this->userAgent;
 	}
 
-	/** Converts this object to a map in JSON format. */
+	/**
+	 * Converts this object to a map in JSON format.
+	 * @return \stdClass The map in JSON format corresponding to this object.
+	 */
 	function jsonSerialize(): \stdClass {
 		$map = new \stdClass;
 		$map->user_agent = $this->getUserAgent();

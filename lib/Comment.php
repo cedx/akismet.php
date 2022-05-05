@@ -39,7 +39,11 @@ class Comment implements \JsonSerializable {
 		$this->author = $author;
 	}
 
-	/** Creates a new comment from the specified JSON object. */
+	/**
+	 * Creates a new comment from the specified JSON object.
+	 * @param object $map A JSON object representing a comment.
+	 * @return self The instance corresponding to the specified JSON object.
+	 */
 	static function fromJson(object $map): self {
 		$keys = array_keys(get_object_vars($map));
 		$hasAuthor = count(array_filter($keys, fn($key) => (bool) preg_match('/^(comment_author|user)/', $key))) > 0;
@@ -93,7 +97,10 @@ class Comment implements \JsonSerializable {
 		return $this->type;
 	}
 
-	/** Converts this object to a map in JSON format. */
+	/**
+	 * Converts this object to a map in JSON format.
+	 * @return \stdClass The map in JSON format corresponding to this object.
+	 */
 	function jsonSerialize(): \stdClass {
 		$map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass;
 		if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;

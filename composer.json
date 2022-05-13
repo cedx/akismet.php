@@ -40,7 +40,7 @@
 		"symfony/http-client": "^6.0.8"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^1.6.5",
+		"phpstan/phpstan": "^1.6.8",
 		"phpunit/phpunit": "^9.5.20"
 	},
 	"scripts": {

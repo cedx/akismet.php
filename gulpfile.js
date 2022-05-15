@@ -24,7 +24,7 @@ export async function doc() {
 /** Installs the project dependencies. */
 export async function install() {
 	await exec("composer", [existsSync("composer.lock") ? "install" : "update"]);
-	return exec("npm", [existsSync("package-lock.lock") ? "install" : "update"]);
+	return exec("npm", [existsSync("package-lock.json") ? "install" : "update"]);
 }
 
 /** Performs the static analysis of source code. */

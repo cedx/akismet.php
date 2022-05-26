@@ -1,5 +1,5 @@
 import {existsSync, readFileSync} from "node:fs";
-import {cp} from "node:fs/promises";
+import {cp, rm} from "node:fs/promises";
 import process from "node:process";
 import del from "del";
 import {execa} from "execa";
@@ -16,7 +16,7 @@ export function clean() {
 
 /** Builds the documentation. */
 export async function doc() {
-	await del("docs");
+	await rm("docs", {force: true, recursive: true});
 	await exec("phpdoc", ["--config=etc/phpdoc.xml"]);
 	return cp("www/favicon.ico", "docs/images/favicon.ico");
 }

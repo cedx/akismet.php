@@ -2,11 +2,12 @@
 namespace Akismet;
 
 use Psr\Http\Message\{ResponseInterface, UriInterface};
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpClient\Psr18Client;
 
-/** Submits comments to the [Akismet](https://akismet.com) service. */
-class Client extends EventDispatcher {
+/**
+ * Submits comments to the [Akismet](https://akismet.com) service.
+ */
+class Client {
 
 	/** An event that is triggered when a request is made to the remote service. */
 	const eventRequest = RequestEvent::class;
@@ -34,8 +35,6 @@ class Client extends EventDispatcher {
 
 	/** Creates a new client. */
 	function __construct(string $apiKey, Blog $blog) {
-		parent::__construct();
-
 		$this->apiKey = $apiKey;
 		$this->blog = $blog;
 		$this->http = new Psr18Client;
@@ -53,7 +52,7 @@ class Client extends EventDispatcher {
 
 		$response = $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
 		if (((string) $response->getBody()) == "false") return CheckResult::isHam;
-		return $response->getHeaderLine("X-akismet-pro-tip") == "discard" ? CheckResult::isPervasiveSpam : CheckResult::isSpam;
+		return $response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::isPervasiveSpam : CheckResult::isSpam;
 	}
 
 	/** Gets the Akismet API key. */
@@ -143,7 +142,7 @@ class Client extends EventDispatcher {
 			$response = $this->http->sendRequest($request);
 			$this->dispatch(new ResponseEvent($response, $request));
 
-			if ($response->hasHeader("X-akismet-debug-help")) throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), $endPoint);
+			if ($response->hasHeader("x-akismet-debug-help")) throw new ClientException($response->getHeaderLine("x-akismet-debug-help"), $endPoint);
 			return $response;
 		}
 

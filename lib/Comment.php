@@ -4,7 +4,9 @@ namespace Akismet;
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
 
-/** Represents a comment submitted by an author. */
+/**
+ * Represents a comment submitted by an author.
+ */
 class Comment implements \JsonSerializable {
 
 	/** The comment's author. */

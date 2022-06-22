@@ -47,12 +47,20 @@ class Author implements \JsonSerializable {
 
 	/**
 	 * Creates a new author.
-	 * @param string|null ipAddress The author's IP address.
-	 * @param string|null userAgent The author's user agent, that is the string identifying the Web browser used to submit comments.
+	 * @param string $ipAddress The author's IP address.
+	 * @param string $email The author's mail address.
+	 * @param string $name The author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`.
+	 * @param string $role The author's role. If you set it to `"administrator"`, Akismet will always return `false`.
+	 * @param string $url The URL of the author's website.
+	 * @param string $userAgent The author's user agent, that is the string identifying the Web browser used to submit comments.
 	 */
-	function __construct(?string $ipAddress = null, ?string $userAgent = null) {
-		$this->ipAddress = $ipAddress ?? ($_SERVER["REMOTE_ADDR"] ?? "");
-		$this->userAgent = $userAgent ?? ($_SERVER["HTTP_USER_AGENT"] ?? "");
+	function __construct(string $ipAddress, string $email = "", string $name = "", string $role = "", string $url = "", string $userAgent = "") {
+		$this->email = $email;
+		$this->ipAddress = $ipAddress ?: ($_SERVER["REMOTE_ADDR"] ?? "");
+		$this->name = $name;
+		$this->role = $role;
+		$this->url = $url ? new Uri($url) : null;
+		$this->userAgent = $userAgent ?: ($_SERVER["HTTP_USER_AGENT"] ?? "");
 	}
 
 	/**
@@ -61,16 +69,14 @@ class Author implements \JsonSerializable {
 	 * @return self The instance corresponding to the specified JSON object.
 	 */
 	static function fromJson(object $map): self {
-		$author = new self(
-			isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : "",
-			isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : ""
+		return new self(
+			email: isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : "",
+			ipAddress: isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : "",
+			name: isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : "",
+			role: isset($map->user_role) && is_string($map->user_role) ? $map->user_role : "",
+			url: isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : "",
+			userAgent: isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : ""
 		);
-
-		$author->email = isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : "";
-		$author->name = isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : "";
-		$author->role = isset($map->user_role) && is_string($map->user_role) ? $map->user_role : "";
-		$author->url = isset($map->comment_author_url) && is_string($map->comment_author_url) ? new Uri($map->comment_author_url) : null;
-		return $author;
 	}
 
 	/**
@@ -79,12 +85,12 @@ class Author implements \JsonSerializable {
 	 */
 	function jsonSerialize(): \stdClass {
 		$map = new \stdClass;
-		$map->user_agent = $this->userAgent;
 		$map->user_ip = $this->ipAddress;
-		if ($this->name) $map->comment_author = $this->name;
 		if ($this->email) $map->comment_author_email = $this->email;
-		if ($this->url) $map->comment_author_url = (string) $this->url;
+		if ($this->name) $map->comment_author = $this->name;
 		if ($this->role) $map->user_role = $this->role;
+		if ($this->url) $map->comment_author_url = (string) $this->url;
+		if ($this->userAgent) $map->user_agent = $this->userAgent;
 		return $map;
 	}
 }

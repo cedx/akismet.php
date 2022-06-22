@@ -9,12 +9,6 @@ use Symfony\Component\HttpClient\Psr18Client;
  */
 class Client {
 
-	/** An event that is triggered when a request is made to the remote service. */
-	const eventRequest = RequestEvent::class;
-
-	/** An event that is triggered when a response is received from the remote service. */
-	const eventResponse = ResponseEvent::class;
-
 	/** The Akismet API key. */
 	private string $apiKey;
 
@@ -41,7 +35,7 @@ class Client {
 		$this->endPoint = $this->http->createUri("https://rest.akismet.com/1.1/");
 
 		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-		$pkgVersion = require __DIR__."/version.g.php";
+		$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json"))->version;
 		$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion";
 	}
 
@@ -138,10 +132,7 @@ class Client {
 				->withBody($this->http->createStream(http_build_query($bodyFields, "", "&", PHP_QUERY_RFC1738)))
 				->withHeader("User-Agent", $this->getUserAgent());
 
-			$this->dispatch(new RequestEvent($request));
 			$response = $this->http->sendRequest($request);
-			$this->dispatch(new ResponseEvent($response, $request));
-
 			if ($response->hasHeader("x-akismet-debug-help")) throw new ClientException($response->getHeaderLine("x-akismet-debug-help"), $endPoint);
 			return $response;
 		}

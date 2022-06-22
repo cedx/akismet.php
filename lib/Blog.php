@@ -23,9 +23,9 @@ class Blog implements \JsonSerializable {
 
 	/**
 	 * The blog or site URL.
-	 * @var UriInterface
+	 * @var UriInterface|null
 	 */
-	public UriInterface $url;
+	public ?UriInterface $url;
 
 	/**
 	 * Creates a new blog.
@@ -36,7 +36,7 @@ class Blog implements \JsonSerializable {
 	function __construct(string $url, string $charset = "", array $languages = []) {
 		$this->charset = $charset;
 		$this->languages = $languages;
-		$this->url = new Uri($url);
+		$this->url = $url ? new Uri($url) : null;
 	}
 
 	/**

@@ -13,7 +13,7 @@ class Author implements \JsonSerializable {
 	 * The author's mail address.
 	 * @var string
 	 */
-	public string $email = "";
+	public string $email;
 
 	/**
 	 * The author's IP address.
@@ -25,19 +25,19 @@ class Author implements \JsonSerializable {
 	 * The author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`.
 	 * @var string
 	 */
-	public string $name = "";
+	public string $name;
 
 	/**
 	 * The author's role. If you set it to `"administrator"`, Akismet will always return `false`.
 	 * @var string
 	 */
-	public string $role = "";
+	public string $role;
 
 	/**
 	 * The URL of the author's website.
 	 * @var UriInterface|null
 	 */
-	public ?UriInterface $url = null;
+	public ?UriInterface $url;
 
 	/**
 	 * The author's user agent, that is the string identifying the Web browser used to submit comments.

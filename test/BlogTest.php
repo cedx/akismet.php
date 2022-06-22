@@ -5,10 +5,14 @@ use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
 
-/** @testdox Akismet\Blog */
+/**
+ * @testdox Akismet\Blog
+ */
 class BlogTest extends TestCase {
 
-	/** @testdox ::fromJson() */
+	/**
+	 * @testdox ::fromJson()
+	 */
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$blog = Blog::fromJson(new \stdClass);
@@ -28,7 +32,9 @@ class BlogTest extends TestCase {
 		assertThat((string) $blog->getUrl(), equalTo("https://github.com/cedx/akismet.php"));
 	}
 
-	/** @testdox ->jsonSerialize() */
+	/**
+	 * @testdox ->jsonSerialize()
+	 */
 	function testJsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
 		$data = (new Blog(new Uri("https://github.com/cedx/akismet.php")))->jsonSerialize();

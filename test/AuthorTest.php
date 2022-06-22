@@ -5,10 +5,14 @@ use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty};
 
-/** @testdox Akismet\Author */
+/**
+ * @testdox Akismet\Author
+ */
 class AuthorTest extends TestCase {
 
-	/** @testdox ::fromJson() */
+	/**
+	 * @testdox ::fromJson()
+	 */
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$author = Author::fromJson(new \stdClass);
@@ -25,7 +29,9 @@ class AuthorTest extends TestCase {
 		assertThat((string) $author->getUrl(), equalTo("https://belin.io"));
 	}
 
-	/** @testdox ->jsonSerialize() */
+	/**
+	 * @testdox ->jsonSerialize()
+	 */
 	function testJsonSerialize(): void {
 		// It should return only the IP address and user agent with a newly created instance.
 		$data = (new Author("127.0.0.1", "Doom/6.6.6"))->jsonSerialize();

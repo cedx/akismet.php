@@ -5,7 +5,9 @@ use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\{Assert, TestCase};
 use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr};
 
-/** @testdox Akismet\Client */
+/**
+ * @testdox Akismet\Client
+ */
 class ClientTest extends TestCase {
 
 	/** The client used to query the service database. */

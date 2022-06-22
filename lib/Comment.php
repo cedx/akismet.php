@@ -9,36 +9,77 @@ use Psr\Http\Message\UriInterface;
  */
 class Comment implements \JsonSerializable {
 
-	/** The comment's author. */
-	private ?Author $author;
+	/**
+	 * The comment's author.
+	 * @var Author|null
+	 */
+	public ?Author $author;
 
-	/** The comment's content. */
-	private string $content = "";
+	/**
+	 * The comment's content.
+	 * @var string
+	 */
+	public string $content;
 
-	/** The UTC timestamp of the creation of the comment. */
-	private ?\DateTimeImmutable $date = null;
+	/**
+	 * The UTC timestamp of the creation of the comment.
+	 * @var \DateTimeInterface|null
+	 */
+	public ?\DateTimeInterface $date;
 
-	/** The permanent location of the entry the comment is submitted to. */
-	private ?UriInterface $permalink = null;
+	/**
+	 * The permanent location of the entry the comment is submitted to.
+	 * @var UriInterface|null
+	 */
+	public ?UriInterface $permalink;
 
-	/** The UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
-	private ?\DateTimeImmutable $postModified = null;
+	/**
+	 * The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
+	 * @var \DateTimeInterface|null
+	 */
+	public ?\DateTimeInterface $postModified;
 
-	/** A string describing why the content is being rechecked. */
-	private string $recheckReason = "";
+	/**
+	 * A string describing why the content is being rechecked.
+	 * @var string
+	 */
+	public string $recheckReason;
 
-	/** The URL of the webpage that linked to the entry being requested. */
-	private ?UriInterface $referrer = null;
+	/**
+	 * The URL of the webpage that linked to the entry being requested.
+	 * @var UriInterface|null
+	 */
+	public ?UriInterface $referrer;
 
-	/** The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
-	private string $type = "";
+	/**
+	 * The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
+	 * @var string
+	 */
+	public string $type = "";
 
 	/**
 	 * Creates a new comment.
 	 * @param Author|null $author The comment's author.
+	 * @param string $content The comment's content.
+	 * @param \DateTimeInterface|null $date The UTC timestamp of the creation of the comment.
+	 * @param string $permalink The permanent location of the entry the comment is submitted to.
+	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
+	 * @param string $recheckReason A string describing why the content is being rechecked.
+	 * @param string $referrer The URL of the webpage that linked to the entry being requested.
+	 * @param string $type The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
 	 */
-	function __construct(?Author $author) {
+	function __construct(
+		?Author $author, string $content = "", ?\DateTimeInterface $date = null, string $permalink = "",
+		?\DateTimeInterface $postModified = null, string $recheckReason = "", string $referrer = "", string $type = ""
+	) {
 		$this->author = $author;
+		$this->content = $content;
+		$this->date = $date;
+		$this->permalink = $permalink ? new Uri($permalink) : null;
+		$this->postModified = $postModified;
+		$this->recheckReason = $recheckReason;
+		$this->referrer = $referrer ? new Uri($referrer) : null;
+		$this->type = $type;
 	}
 
 	/**
@@ -48,55 +89,17 @@ class Comment implements \JsonSerializable {
 	 */
 	static function fromJson(object $map): self {
 		$keys = array_keys(get_object_vars($map));
-		$hasAuthor = count(array_filter($keys, fn($key) => (bool) preg_match('/^(comment_author|user)/', $key))) > 0;
-		return (new self($hasAuthor ? Author::fromJson($map) : null))
-			->setContent(isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : "")
-			->setDate(isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTimeImmutable($map->comment_date_gmt) : null)
-			->setPermalink(isset($map->permalink) && is_string($map->permalink) ? new Uri($map->permalink) : null)
-			->setPostModified(isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTimeImmutable($map->comment_post_modified_gmt) : null)
-			->setRecheckReason(isset($map->recheck_reason) && is_string($map->recheck_reason) ? $map->recheck_reason : "")
-			->setReferrer(isset($map->referrer) && is_string($map->referrer) ? new Uri($map->referrer) : null)
-			->setType(isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : "");
-	}
-
-	/** Gets the comment's author. */
-	function getAuthor(): ?Author {
-		return $this->author;
-	}
-
-	/** Gets the comment's content. */
-	function getContent(): string {
-		return $this->content;
-	}
-
-	/** Gets the UTC timestamp of the creation of the comment. */
-	function getDate(): ?\DateTimeImmutable {
-		return $this->date;
-	}
-
-	/** Gets the permanent location of the entry the comment is submitted to. */
-	function getPermalink(): ?UriInterface {
-		return $this->permalink;
-	}
-
-	/** Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
-	function getPostModified(): ?\DateTimeImmutable {
-		return $this->postModified;
-	}
-
-	/** Gets the string describing why the content is being rechecked. */
-	function getRecheckReason(): string {
-		return $this->recheckReason;
-	}
-
-	/** Gets the URL of the webpage that linked to the entry being requested. */
-	function getReferrer(): ?UriInterface {
-		return $this->referrer;
-	}
-
-	/** Gets the comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`. */
-	function getType(): string {
-		return $this->type;
+		$hasAuthor = count(array_filter($keys, fn(string $key) => str_starts_with($key, "comment_author") || str_starts_with($key, "user"))) > 0;
+		return new self(
+			author: $hasAuthor ? Author::fromJson($map) : null,
+			content: isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : "",
+			date: isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTimeImmutable($map->comment_date_gmt) : null,
+			permalink: isset($map->permalink) && is_string($map->permalink) ? $map->permalink : "",
+			postModified: isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTimeImmutable($map->comment_post_modified_gmt) : null,
+			recheckReason: isset($map->recheck_reason) && is_string($map->recheck_reason) ? $map->recheck_reason : "",
+			referrer: isset($map->referrer) && is_string($map->referrer) ? $map->referrer : "",
+			type: isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ""
+		);
 	}
 
 	/**
@@ -104,56 +107,14 @@ class Comment implements \JsonSerializable {
 	 * @return \stdClass The map in JSON format corresponding to this object.
 	 */
 	function jsonSerialize(): \stdClass {
-		$map = ($author = $this->getAuthor()) ? $author->jsonSerialize() : new \stdClass;
-		if (mb_strlen($content = $this->getContent())) $map->comment_content = $content;
-		if ($date = $this->getDate()) $map->comment_date_gmt = $date->format("c");
-		if ($postModified = $this->getPostModified()) $map->comment_post_modified_gmt = $postModified->format("c");
-		if (mb_strlen($type = $this->getType())) $map->comment_type = $type;
-		if ($permalink = $this->getPermalink()) $map->permalink = (string) $permalink;
-		if (mb_strlen($recheckReason = $this->getRecheckReason())) $map->recheck_reason = $recheckReason;
-		if ($referrer = $this->getReferrer()) $map->referrer = (string) $referrer;
+		$map = $this->author ? $this->author->jsonSerialize() : new \stdClass;
+		if ($this->content) $map->comment_content = $this->content;
+		if ($this->date) $map->comment_date_gmt = $this->date->format("c");
+		if ($this->permalink) $map->permalink = (string) $this->permalink;
+		if ($this->postModified) $map->comment_post_modified_gmt = $this->postModified->format("c");
+		if ($this->recheckReason) $map->recheck_reason = $this->recheckReason;
+		if ($this->referrer) $map->referrer = (string) $this->referrer;
+		if ($this->type) $map->comment_type = $this->type;
 		return $map;
-	}
-
-	/** Sets the comment's content. */
-	function setContent(string $value): self {
-		$this->content = $value;
-		return $this;
-	}
-
-	/** Sets the UTC timestamp of the creation of the comment. */
-	function setDate(?\DateTimeInterface $value): self {
-		$this->date = $value ? new \DateTimeImmutable($value->format("c")) : null;
-		return $this;
-	}
-
-	/** Sets the permanent location of the entry the comment is submitted to. */
-	function setPermalink(?UriInterface $value): self {
-		$this->permalink = $value;
-		return $this;
-	}
-
-	/** Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted. */
-	function setPostModified(?\DateTimeInterface $value): self {
-		$this->postModified = $value ? new \DateTimeImmutable($value->format("c")) : null;
-		return $this;
-	}
-
-	/** Sets the string describing why the content is being rechecked. */
-	function setRecheckReason(string $value): self {
-		$this->recheckReason = $value;
-		return $this;
-	}
-
-	/** Sets the URL of the webpage that linked to the entry being requested. */
-	function setReferrer(?UriInterface $value): self {
-		$this->referrer = $value;
-		return $this;
-	}
-
-	/** Sets the comment's type. */
-	function setType(string $value): self {
-		$this->type = $value;
-		return $this;
 	}
 }

@@ -5,10 +5,13 @@ use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull, logicalNot};
 
-/** @testdox Akismet\Comment */
+/**
+ * @testdox Akismet\Comment */
 class CommentTest extends TestCase {
 
-	/** @testdox ::fromJson() */
+	/**
+	 * @testdox ::fromJson()
+	 */
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$comment = Comment::fromJson(new \stdClass);
@@ -42,7 +45,9 @@ class CommentTest extends TestCase {
 		assertThat($comment->getType(), equalTo(CommentType::trackback));
 	}
 
-	/** @testdox ->jsonSerialize() */
+	/**
+	 * @testdox ->jsonSerialize()
+	 */
 	function testJsonSerialize(): void {
 		// It should return only the author info with a newly created instance.
 		$data = (new Comment(new Author("127.0.0.1", "Doom/6.6.6")))->jsonSerialize();

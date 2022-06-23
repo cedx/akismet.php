@@ -2,144 +2,155 @@
 namespace Akismet;
 
 use Psr\Http\Message\{ResponseInterface, UriInterface};
-use Symfony\Component\HttpClient\Psr18Client;
+use Symfony\Component\HttpClient\{Psr18Client, Psr18NetworkException, Psr18RequestException};
+use Symfony\Component\HttpClient\Exception\TransportException;
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
 class Client {
 
-	/** The Akismet API key. */
-	private string $apiKey;
+	/**
+	 * The response returned by the `submit-ham` and `submit-spam` endpoints when the outcome is a success.
+	 * @var {string}
+	 */
+	private const successfulResponse = "Thanks for making the web a better place.";
 
-	/** The front page or home URL of the instance making requests. */
-	private Blog $blog;
+	/**
+	 * The Akismet API key.
+	 * @var string
+	 */
+	public readonly string $apiKey;
 
-	/** The URL of the API end point. */
-	private UriInterface $endPoint;
+	/**
+	 * The base URL of the remote API endpoint.
+	 * @var UriInterface
+	 */
+	public readonly UriInterface $baseUrl;
 
-	/** The HTTP client. */
+	/**
+	 * The front page or home URL of the instance making requests.
+	 * @var Blog
+	 */
+	public readonly Blog $blog;
+
+	/**
+	 * Value indicating whether the client operates in test mode.
+	 * @var bool
+	 */
+	public readonly bool $isTest;
+
+	/**
+	 * The user agent string to use when making requests.
+	 * @var string
+	 */
+	public readonly string $userAgent;
+
+	/**
+	 * The final URL of the remote API endpoint.
+	 * @var UriInterface
+	 */
+	private UriInterface $endpoint;
+
+	/**
+	 * The underlying HTTP client.
+	 * @var Psr18Client
+	 */
 	private Psr18Client $http;
 
-	/** Value indicating whether the client operates in test mode. */
-	private bool $isTest = false;
-
-	/** The user agent string to use when making requests. */
-	private string $userAgent;
-
-	/** Creates a new client. */
-	function __construct(string $apiKey, Blog $blog) {
+	/**
+	 * Creates a new client.
+	 * @param string $apiKey The Akismet API key.
+	 * @param Blog $blog The front page or home URL of the instance making requests.
+	 * @param bool $isTest Value indicating whether the client operates in test mode.
+	 * @param string $userAgent The user agent string to use when making requests.
+	 * @param string $baseUrl The base URL of the remote API endpoint.
+	 */
+	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com/1.1/") {
 		$this->apiKey = $apiKey;
 		$this->blog = $blog;
+		$this->isTest = $isTest;
+
+		if ($userAgent) $this->userAgent = $userAgent;
+		else {
+			$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
+			$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json"))->version;
+			$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion";
+		}
+
 		$this->http = new Psr18Client;
-		$this->endPoint = $this->http->createUri("https://rest.akismet.com/1.1/");
-
-		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-		$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json"))->version;
-		$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion";
-	}
-
-	/** Checks the specified comment against the service database, and returns a value indicating whether it is spam. */
-	function checkComment(Comment $comment): string {
-		$apiUrl = $this->getEndPoint();
-		$endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}comment-check");
-
-		$response = $this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
-		if (((string) $response->getBody()) == "false") return CheckResult::isHam;
-		return $response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::isPervasiveSpam : CheckResult::isSpam;
-	}
-
-	/** Gets the Akismet API key. */
-	function getApiKey(): string {
-		return $this->apiKey;
-	}
-
-	/** Gets the front page or home URL of the instance making requests. */
-	function getBlog(): Blog {
-		return $this->blog;
-	}
-
-	/** Gets the URL of the API end point. */
-	function getEndPoint(): UriInterface {
-		return $this->endPoint;
+		$this->baseUrl = $this->http->createUri($baseUrl);
+		$this->endpoint = $this->http->createUri("{$this->baseUrl->getScheme()}://{$this->apiKey}.{$this->baseUrl->getAuthority()}{$this->baseUrl->getPath()}");
 	}
 
 	/**
-	 * Gets the user agent string to use when making requests.
-	 * If possible, the user agent string should always have the following format: `Application Name/Version | Plugin Name/Version`.
+	 * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
+	 * @param Comment $comment The comment to be submitted.
+	 * @return CheckResult A value indicating whether the specified comment is spam.
 	 */
-	function getUserAgent(): string {
-		return $this->userAgent;
-	}
+	function checkComment(Comment $comment): CheckResult {
+		$response = $this->fetch($this->http->createUri("{$this->endpoint}comment-check"), $comment->jsonSerialize());
+		return ((string) $response->getBody()) == "false"
+			? CheckResult::ham
+			: $response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam;
 
-	/** Gets a value indicating whether the client operates in test mode. */
-	function isTest(): bool {
-		return $this->isTest;
-	}
 
-	/** Sets the URL of the API end point. */
-	function setEndPoint(UriInterface $value): self {
-		$this->endPoint = $value->withUserInfo("");
-		return $this;
+		if (((string) $response->getBody()) == "false") return CheckResult::ham;
+		return $response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam;
 	}
 
 	/**
-	 * Sets a value indicating whether the client operates in test mode.
-	 * You can use it when submitting test queries to Akismet.
+	 * Submits the specified comment that was incorrectly marked as spam but should not have been.
+	 * @param Comment $comment The comment to be submitted.
+	 * @throws Psr18RequestException TODO
 	 */
-	function setTest(bool $value): self {
-		$this->isTest = $value;
-		return $this;
-	}
-
-	/** Sets the user agent string to use when making requests. */
-	function setUserAgent(string $value): self {
-		$this->userAgent = $value;
-		return $this;
-	}
-
-	/** Submits the specified comment that was incorrectly marked as spam but should not have been. */
 	function submitHam(Comment $comment): void {
-		$apiUrl = $this->getEndPoint();
-		$endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}submit-ham");
-		$this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
+		$response = $this->fetch($this->http->createUri("{$this->endpoint}submit-ham"), $comment->jsonSerialize());
+		if (((string) $response->getBody()) != self::successfulResponse) throw new \Exception("TODO Psr18RequestException");
 	}
 
-	/** Submits the specified comment that was not marked as spam but should have been. */
+	/**
+	 * Submits the specified comment that was not marked as spam but should have been.
+	 * @param Comment $comment The comment to be submitted.
+	 * @throws Psr18RequestException TODO
+	 */
 	function submitSpam(Comment $comment): void {
-		$apiUrl = $this->getEndPoint();
-		$endPoint = $this->http->createUri("{$apiUrl->getScheme()}://{$this->getApiKey()}.{$apiUrl->getAuthority()}{$apiUrl->getPath()}submit-spam");
-		$this->fetch($endPoint, get_object_vars($comment->jsonSerialize()));
+		$response = $this->fetch($this->http->createUri("{$this->endpoint}submit-spam"), $comment->jsonSerialize());
+		if (((string) $response->getBody()) != self::successfulResponse) throw new \Exception("TODO Psr18RequestException");
 	}
 
-	/** Checks the API key against the service database, and returns a value indicating whether it is valid. */
+	/**
+	 * Checks the API key against the service database, and returns a value indicating whether it is valid.
+	 * @return bool `true` if the specified API key is valid, otherwise `false`.
+	 */
 	function verifyKey(): bool {
-		$apiUrl = $this->getEndPoint();
-		$response = $this->fetch($apiUrl->withPath("{$apiUrl->getPath()}verify-key"), ["key" => $this->getApiKey()]);
+		$response = $this->fetch($this->http->createUri("{$this->baseUrl}verify-key"), (object) ["key" => $this->apiKey]);
 		return ((string) $response->getBody()) == "valid";
 	}
 
 	/**
-	 * Queries the service by posting the specified fields to a given end point, and returns the server response.
+	 * Queries the service by posting the specified fields to a given end point, and returns the response.
+	 * @param UriInterface $endpoint The URL of the end point to query.
+	 * @param object $fields The fields describing the query body.
 	 * @throws ClientException An error occurred while querying the end point.
 	 */
-	private function fetch(UriInterface $endPoint, array $fields = []): ResponseInterface {
-		$bodyFields = array_merge(get_object_vars($this->getBlog()->jsonSerialize()), $fields);
-		if ($this->isTest()) $bodyFields["is_test"] = "1";
+	private function fetch(UriInterface $endpoint, object $fields): ResponseInterface {
+		$bodyFields = array_merge(get_object_vars($this->blog->jsonSerialize()), get_object_vars($fields));
+		if ($this->isTest) $bodyFields["is_test"] = "1";
 
 		try {
-			$request = $this->http->createRequest("POST", $endPoint)
+			$request = $this->http->createRequest("POST", $endpoint)
 				->withBody($this->http->createStream(http_build_query($bodyFields, "", "&", PHP_QUERY_RFC1738)))
-				->withHeader("User-Agent", $this->getUserAgent());
+				->withHeader("User-Agent", $this->userAgent);
 
 			$response = $this->http->sendRequest($request);
-			if ($response->hasHeader("x-akismet-debug-help")) throw new ClientException($response->getHeaderLine("x-akismet-debug-help"), $endPoint);
+			if ($response->hasHeader("x-akismet-debug-help")) throw new ClientException($response->getHeaderLine("x-akismet-debug-help"), $endpoint);
 			return $response;
 		}
 
 		catch (\Throwable $e) {
 			if ($e instanceof ClientException) throw $e;
-			throw new ClientException($e->getMessage(), $endPoint, $e);
+			throw new ClientException($e->getMessage(), $endpoint, $e);
 		}
 	}
 }

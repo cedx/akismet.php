@@ -1,7 +1,6 @@
 <?php declare(strict_types=1);
 namespace Akismet;
 
-use Nyholm\Psr7\Uri;
 use PHPUnit\Framework\TestCase;
 use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
 
@@ -16,9 +15,9 @@ class BlogTest extends TestCase {
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$blog = Blog::fromJson(new \stdClass);
-		assertThat($blog->getCharset(), isEmpty());
-		assertThat($blog->getLanguages(), isEmpty());
-		assertThat($blog->getUrl(), isNull());
+		assertThat($blog->charset, isEmpty());
+		assertThat($blog->languages, isEmpty());
+		assertThat($blog->url, isNull());
 
 		// It should return an initialized instance with a non-empty map.
 		$blog = Blog::fromJson((object) [
@@ -27,9 +26,9 @@ class BlogTest extends TestCase {
 			"blog_lang" => "en, fr"
 		]);
 
-		assertThat($blog->getCharset(), equalTo("UTF-8"));
-		assertThat((array) $blog->getLanguages(), equalTo(["en", "fr"]));
-		assertThat((string) $blog->getUrl(), equalTo("https://github.com/cedx/akismet.php"));
+		assertThat($blog->charset, equalTo("UTF-8"));
+		assertThat($blog->languages, equalTo(["en", "fr"]));
+		assertThat((string) $blog->url, equalTo("https://github.com/cedx/akismet.php"));
 	}
 
 	/**
@@ -37,16 +36,12 @@ class BlogTest extends TestCase {
 	 */
 	function testJsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
-		$data = (new Blog(new Uri("https://github.com/cedx/akismet.php")))->jsonSerialize();
+		$data = (new Blog(url: "https://github.com/cedx/akismet.php"))->jsonSerialize();
 		assertThat(get_object_vars($data), countOf(1));
 		assertThat($data->blog, equalTo("https://github.com/cedx/akismet.php"));
 
 		// It should return a non-empty map with a initialized instance.
-		$blog = (new Blog(new Uri("https://github.com/cedx/akismet.php")))
-			->setCharset("UTF-8")
-			->setLanguages(["en", "fr"]);
-
-		$data = $blog->jsonSerialize();
+		$data = (new Blog(charset: "UTF-8", languages: ["en", "fr"], url: "https://github.com/cedx/akismet.php"))->jsonSerialize();
 		assertThat(get_object_vars($data), countOf(3));
 		assertThat($data->blog, equalTo("https://github.com/cedx/akismet.php"));
 		assertThat($data->blog_charset, equalTo("UTF-8"));

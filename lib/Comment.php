@@ -52,7 +52,7 @@ class Comment implements \JsonSerializable {
 	public ?UriInterface $referrer;
 
 	/**
-	 * The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
+	 * The comment's type.
 	 * @var string
 	 */
 	public string $type = "";
@@ -66,7 +66,7 @@ class Comment implements \JsonSerializable {
 	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
 	 * @param string $recheckReason A string describing why the content is being rechecked.
 	 * @param string $referrer The URL of the webpage that linked to the entry being requested.
-	 * @param string $type The comment's type. This string value specifies a `CommentType` constant or a made up value like `"registration"`.
+	 * @param string $type The comment's type.
 	 */
 	function __construct(
 		?Author $author, string $content = "", ?\DateTimeInterface $date = null, string $permalink = "",

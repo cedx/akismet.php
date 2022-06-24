@@ -36,7 +36,7 @@ class BlogTest extends TestCase {
 	 */
 	function testJsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
-		$data = (new Blog(url: "https://github.com/cedx/akismet.php"))->jsonSerialize();
+		$data = (new Blog("https://github.com/cedx/akismet.php"))->jsonSerialize();
 		assertThat(get_object_vars($data), countOf(1));
 		assertThat($data->blog, equalTo("https://github.com/cedx/akismet.php"));
 

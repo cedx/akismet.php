@@ -1,25 +1,4 @@
 <?xml version="1.0"?>
-<phpdocumentor configVersion="3">
-	<title>Akismet for PHP</title>
-	<paths>
-		<cache>../var/phpdoc</cache>
-		<output>../docs</output>
-	</paths>
-	<version number="13.0.0">
-		<api>
-			<markers>
-				<marker>TODO</marker>
-			</markers>
-			<source dsn="..">
-				<path>src</path>
-			</source>
-			<visibility>protected</visibility>
-			<visibility>public</visibility>
-		</api>
-	</version>
-</phpdocumentor>
-
-<?xml version="1.0"?>
 <phpdocumentor
 	configVersion="3"
 	xmlns="http://www.phpdoc.org"
@@ -31,7 +10,7 @@
 		<cache>../var/phpdoc</cache>
 		<output>../docs</output>
 	</paths>
-	<version number="9.0.0">
+	<version number="14.0.0">
 		<api>
 			<markers>
 				<marker>TODO</marker>

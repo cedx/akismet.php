@@ -101,13 +101,16 @@
                             </ul>
         </div>
     
+            <span class="phpdocumentor-element__implements">
+            implements
+                            <abbr title="\Psr\Http\Client\ClientExceptionInterface">ClientExceptionInterface</abbr>                    </span>
     
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ClientException.php"><a href="files/src-clientexception.html"><abbr title="src/ClientException.php">ClientException.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/ClientException.php"><a href="files/lib-clientexception.html"><abbr title="lib/ClientException.php">ClientException.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">7</span>
+    <span class="phpdocumentor-element-found-in__line">9</span>
 
     </aside>
 
@@ -119,29 +122,20 @@
 
 
 
-
-
-<h3 id="toc">
-    Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
+<h3 id="interfaces_class_traits">
+    Interfaces, Classes, Traits and Enums
+    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-ClientException.html#method___construct">__construct()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Creates a new client exception.</dd>
+            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\Psr\Http\Client\ClientExceptionInterface">ClientExceptionInterface</abbr></dt>
+        <dd></dd>
+    
+    
+    
+    </dl>
 
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-ClientException.html#method_getUri">getUri()</a>
-    <span>
-                                &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null    </span>
-</dt>
-<dd>Gets the URL of the HTTP request or response that failed.</dd>
 
-        </dl>
 
 
 
@@ -149,109 +143,7 @@
 
         
 
-            <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-elements__header" id="methods">
-            Methods
-            <a href="classes/Akismet-ClientException.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
-        </h3>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/Akismet-ClientException.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ClientException.php"><a href="files/src-clientexception.html"><abbr title="src/ClientException.php">ClientException.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">18</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Creates a new client exception.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$message</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$uri</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Throwable">Throwable</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$previous</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$message</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>A message describing the error.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$uri</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The URL of the HTTP request or response that failed.</p>
-</section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$previous</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Throwable">Throwable</abbr>|null</span>
-                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The previous exception used for the exception chaining.</p>
-</section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
         
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getUri">
-        getUri()
-        <a href="classes/Akismet-ClientException.html#method_getUri" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/ClientException.php"><a href="files/src-clientexception.html"><abbr title="src/ClientException.php">ClientException.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">24</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the URL of the HTTP request or response that failed.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getUri</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-            &mdash;
-        
-    
-</article>
-            </section>
-
         
     <script type="text/javascript">
         function loadExternalCodeSnippets(line) {

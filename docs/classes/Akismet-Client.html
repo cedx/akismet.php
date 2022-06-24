@@ -90,9 +90,6 @@
         <h2 class="phpdocumentor-content__title">
     Client
 
-        <span class="phpdocumentor-element__extends">
-        extends <abbr title="\Symfony\Component\EventDispatcher\EventDispatcher">EventDispatcher</abbr>
-    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -105,9 +102,9 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">9</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 
     </aside>
 
@@ -127,21 +124,42 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/Akismet-Client.html#constant_eventRequest">eventRequest</a>
+                    <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Client.html#property_apiKey">$apiKey</a>
     <span>
-        &nbsp;= \Akismet\RequestEvent::class                            </span>
+                        &nbsp;: string            </span>
 </dt>
-<dd>An event that is triggered when a request is made to the remote service.</dd>
+<dd>The Akismet API key.</dd>
 
-            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
-    <a href="classes/Akismet-Client.html#constant_eventResponse">eventResponse</a>
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Client.html#property_baseUrl">$baseUrl</a>
     <span>
-        &nbsp;= \Akismet\ResponseEvent::class                            </span>
+                        &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>            </span>
 </dt>
-<dd>An event that is triggered when a response is received from the remote service.</dd>
+<dd>The base URL of the remote API endpoint.</dd>
 
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Client.html#property_blog">$blog</a>
+    <span>
+                        &nbsp;: <a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a>            </span>
+</dt>
+<dd>The front page or home URL of the instance making requests.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Client.html#property_isTest">$isTest</a>
+    <span>
+                        &nbsp;: bool            </span>
+</dt>
+<dd>Value indicating whether the client operates in test mode.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Client.html#property_userAgent">$userAgent</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>The user agent string to use when making requests.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Client.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
@@ -151,65 +169,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Client.html#method_checkComment">checkComment()</a>
     <span>
-                                &nbsp;: string    </span>
+                                &nbsp;: <a href="classes/Akismet-CheckResult.html"><abbr title="\Akismet\CheckResult">CheckResult</abbr></a>    </span>
 </dt>
 <dd>Checks the specified comment against the service database, and returns a value indicating whether it is spam.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_getApiKey">getApiKey()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Gets the Akismet API key.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_getBlog">getBlog()</a>
-    <span>
-                                &nbsp;: <a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a>    </span>
-</dt>
-<dd>Gets the front page or home URL of the instance making requests.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_getEndPoint">getEndPoint()</a>
-    <span>
-                                &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>    </span>
-</dt>
-<dd>Gets the URL of the API end point.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_getUserAgent">getUserAgent()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Gets the user agent string to use when making requests.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_isTest">isTest()</a>
-    <span>
-                                &nbsp;: bool    </span>
-</dt>
-<dd>Gets a value indicating whether the client operates in test mode.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_setEndPoint">setEndPoint()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the URL of the API end point.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_setTest">setTest()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets a value indicating whether the client operates in test mode.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Client.html#method_setUserAgent">setUserAgent()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the user agent string to use when making requests.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Client.html#method_submitHam">submitHam()</a>
@@ -237,72 +199,179 @@
 
 
         
-    <section class="phpdocumentor-constants">
-        <h3 class="phpdocumentor-elements__header" id="constants">
-            Constants
-            <a href="classes/Akismet-Client.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
-        </h3>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_eventRequest">
-        eventRequest
-        <a href="classes/Akismet-Client.html#constant_eventRequest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
 
+        
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/Akismet-Client.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                -read-only        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_apiKey">
+        $apiKey
+        <a href="classes/Akismet-Client.html#property_apiKey" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
+    </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">An event that is triggered when a request is made to the remote service.</p>
+        <p class="phpdocumentor-summary">The Akismet API key.</p>
 
-    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">eventRequest</span>
-    = <span class="phpdocumentor-signature__default-value">\Akismet\RequestEvent::class</span>
-</code>
-
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$apiKey</span>
+    </code>
 
     
-        <section class="phpdocumentor-description"></section>
-
+    
     
 
 </article>
-                    <article class="phpdocumentor-element -constant -public ">
-    <h4 class="phpdocumentor-element__name" id="constant_eventResponse">
-        eventResponse
-        <a href="classes/Akismet-Client.html#constant_eventResponse" class="headerlink"><i class="fas fa-link"></i></a>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                -read-only        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_baseUrl">
+        $baseUrl
+        <a href="classes/Akismet-Client.html#property_baseUrl" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
     </h4>
-
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">An event that is triggered when a response is received from the remote service.</p>
+        <p class="phpdocumentor-summary">The base URL of the remote API endpoint.</p>
 
-    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
-    <span class="phpdocumentor-signature__name">eventResponse</span>
-    = <span class="phpdocumentor-signature__default-value">\Akismet\ResponseEvent::class</span>
-</code>
-
+        <span class="phpdocumentor-signature__type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr></span>
+    <span class="phpdocumentor-signature__name">$baseUrl</span>
+    </code>
 
     
-        <section class="phpdocumentor-description"></section>
+    
+    
 
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                -read-only        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_blog">
+        $blog
+        <a href="classes/Akismet-Client.html#property_blog" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">35</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The front page or home URL of the instance making requests.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$blog</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                -read-only        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_isTest">
+        $isTest
+        <a href="classes/Akismet-Client.html#property_isTest" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">41</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Value indicating whether the client operates in test mode.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">bool</span>
+    <span class="phpdocumentor-signature__name">$isTest</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                -read-only        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_userAgent">
+        $userAgent
+        <a href="classes/Akismet-Client.html#property_userAgent" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                        <small class="phpdocumentor-element__modifier">read-only</small>        </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">47</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The user agent string to use when making requests.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$userAgent</span>
+    </code>
+
+    
+    
     
 
 </article>
             </section>
-
-        
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -320,9 +389,9 @@
         <a href="classes/Akismet-Client.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">69</span>
 
     </aside>
 
@@ -330,7 +399,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$apiKey</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$blog</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$apiKey</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$blog</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$isTest</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">false</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$userAgent</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$baseUrl</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;https://rest.akismet.com/1.1/&quot;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -340,7 +409,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The Akismet API key.</p>
+</section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
@@ -348,7 +418,35 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The front page or home URL of the instance making requests.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$isTest</span>
+                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">false</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Value indicating whether the client operates in test mode.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$userAgent</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The user agent string to use when making requests.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$baseUrl</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;https://rest.akismet.com/1.1/&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The base URL of the remote API endpoint.</p>
+</section>
 
             </dd>
             </dl>
@@ -372,9 +470,9 @@
         <a href="classes/Akismet-Client.html#method_checkComment" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">50</span>
+    <span class="phpdocumentor-element-found-in__line">91</span>
 
     </aside>
 
@@ -382,7 +480,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">checkComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Comment.html"><abbr title="\Akismet\Comment">Comment</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$comment</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">checkComment</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Comment.html"><abbr title="\Akismet\Comment">Comment</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$comment</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Akismet-CheckResult.html"><abbr title="\Akismet\CheckResult">CheckResult</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -392,318 +490,20 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Comment.html"><abbr title="\Akismet\Comment">Comment</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getApiKey">
-        getApiKey()
-        <a href="classes/Akismet-Client.html#method_getApiKey" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">60</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the Akismet API key.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getApiKey</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getBlog">
-        getBlog()
-        <a href="classes/Akismet-Client.html#method_getBlog" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">65</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the front page or home URL of the instance making requests.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getBlog</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/Akismet-Blog.html"><abbr title="\Akismet\Blog">Blog</abbr></a></span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getEndPoint">
-        getEndPoint()
-        <a href="classes/Akismet-Client.html#method_getEndPoint" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">70</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the URL of the API end point.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getEndPoint</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr></span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getUserAgent">
-        getUserAgent()
-        <a href="classes/Akismet-Client.html#method_getUserAgent" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">78</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the user agent string to use when making requests.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getUserAgent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-        <section class="phpdocumentor-description"><p>If possible, the user agent string should always have the following format: <code class="prettyprint">Application Name/Version | Plugin Name/Version</code>.</p>
+                    <section class="phpdocumentor-description"><p>The comment to be submitted.</p>
 </section>
 
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_isTest">
-        isTest()
-        <a href="classes/Akismet-Client.html#method_isTest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">83</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets a value indicating whether the client operates in test mode.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">isTest</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">bool</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setEndPoint">
-        setEndPoint()
-        <a href="classes/Akismet-Client.html#method_setEndPoint" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">88</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the URL of the API end point.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setEndPoint</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
             </dd>
             </dl>
 
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/Akismet-CheckResult.html"><abbr title="\Akismet\CheckResult">CheckResult</abbr></a></span>
             &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setTest">
-        setTest()
-        <a href="classes/Akismet-Client.html#method_setTest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">97</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets a value indicating whether the client operates in test mode.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setTest</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-        <section class="phpdocumentor-description"><p>You can use it when submitting test queries to Akismet.</p>
+            <section class="phpdocumentor-description"><p>A value indicating whether the specified comment is spam.</p>
 </section>
 
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setUserAgent">
-        setUserAgent()
-        <a href="classes/Akismet-Client.html#method_setUserAgent" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">103</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the user agent string to use when making requests.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setUserAgent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
     
 </article>
                     <article
@@ -717,9 +517,9 @@
         <a href="classes/Akismet-Client.html#method_submitHam" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">109</span>
+    <span class="phpdocumentor-element-found-in__line">104</span>
 
     </aside>
 
@@ -737,12 +537,29 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Comment.html"><abbr title="\Akismet\Comment">Comment</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The comment to be submitted.</p>
+</section>
 
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Psr\Http\Client\ClientExceptionInterface">ClientExceptionInterface</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>The remote server returned an invalid response.</p>
+</section>
+
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
@@ -761,7 +578,7 @@
         <a href="classes/Akismet-Client.html#method_submitSpam" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
     <span class="phpdocumentor-element-found-in__line">116</span>
 
@@ -781,12 +598,29 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Comment.html"><abbr title="\Akismet\Comment">Comment</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The comment to be submitted.</p>
+</section>
 
             </dd>
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Psr\Http\Client\ClientExceptionInterface">ClientExceptionInterface</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>The remote server returned an invalid response.</p>
+</section>
+
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">void</span>
@@ -805,9 +639,9 @@
         <a href="classes/Akismet-Client.html#method_verifyKey" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Client.php"><a href="files/src-client.html"><abbr title="src/Client.php">Client.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Client.php"><a href="files/lib-client.html"><abbr title="lib/Client.php">Client.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">123</span>
+    <span class="phpdocumentor-element-found-in__line">127</span>
 
     </aside>
 
@@ -824,7 +658,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p><code class="prettyprint">true</code> if the specified API key is valid, otherwise <code class="prettyprint">false</code>.</p>
+</section>
+
     
 </article>
             </section>

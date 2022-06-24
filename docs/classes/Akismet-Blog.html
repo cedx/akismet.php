@@ -105,9 +105,9 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
@@ -139,7 +139,28 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
+                    <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Blog.html#property_charset">$charset</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>The character encoding for the values included in comments.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Blog.html#property_languages">$languages</a>
+    <span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
+</dt>
+<dd>The languages in use on the blog or site, in ISO 639-1 format.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Blog.html#property_url">$url</a>
+    <span>
+                        &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null            </span>
+</dt>
+<dd>The blog or site URL.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Blog.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
@@ -154,46 +175,11 @@
 <dd>Creates a new blog from the specified JSON object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Blog.html#method_getCharset">getCharset()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Gets the character encoding for the values included in comments.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Blog.html#method_getLanguages">getLanguages()</a>
-    <span>
-                                &nbsp;: <abbr title="\ArrayObject">ArrayObject</abbr>    </span>
-</dt>
-<dd>Gets the languages in use on the blog or site, in ISO 639-1 format.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Blog.html#method_getUrl">getUrl()</a>
-    <span>
-                                &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null    </span>
-</dt>
-<dd>Gets the blog or site URL.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Blog.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: <abbr title="\stdClass">stdClass</abbr>    </span>
 </dt>
 <dd>Converts this object to a map in JSON format.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Blog.html#method_setCharset">setCharset()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the character encoding for the values included in comments.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Blog.html#method_setLanguages">setLanguages()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the languages in use on the blog or site, in ISO 639-1 format.</dd>
 
         </dl>
 
@@ -202,6 +188,111 @@
         
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/Akismet-Blog.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_charset">
+        $charset
+        <a href="classes/Akismet-Blog.html#property_charset" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The character encoding for the values included in comments.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$charset</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_languages">
+        $languages
+        <a href="classes/Akismet-Blog.html#property_languages" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The languages in use on the blog or site, in ISO 639-1 format.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$languages</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_url">
+        $url
+        <a href="classes/Akismet-Blog.html#property_url" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The blog or site URL.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
+    <span class="phpdocumentor-signature__name">$url</span>
+    </code>
+
+    
+    
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -219,9 +310,9 @@
         <a href="classes/Akismet-Blog.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">23</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -229,17 +320,35 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$url</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$charset</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$languages</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">[]</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$url</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The blog or site URL.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$charset</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The character encoding for the values included in comments.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$languages</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">[]</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The languages in use on the blog or site, in ISO 639-1 format.</p>
 </section>
 
             </dd>
@@ -264,9 +373,9 @@
         <a href="classes/Akismet-Blog.html#method_fromJson" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -284,7 +393,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>A JSON object representing a blog.</p>
+</section>
 
             </dd>
             </dl>
@@ -294,106 +404,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getCharset">
-        getCharset()
-        <a href="classes/Akismet-Blog.html#method_getCharset" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+            <section class="phpdocumentor-description"><p>The instance corresponding to the specified JSON object.</p>
+</section>
 
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the character encoding for the values included in comments.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getCharset</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getLanguages">
-        getLanguages()
-        <a href="classes/Akismet-Blog.html#method_getLanguages" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">41</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the languages in use on the blog or site, in ISO 639-1 format.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getLanguages</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\ArrayObject">ArrayObject</abbr></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\ArrayObject">ArrayObject</abbr></span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getUrl">
-        getUrl()
-        <a href="classes/Akismet-Blog.html#method_getUrl" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">46</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the blog or site URL.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getUrl</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-            &mdash;
-        
     
 </article>
                     <article
@@ -407,9 +420,9 @@
         <a href="classes/Akismet-Blog.html#method_jsonSerialize" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Blog.php"><a href="files/lib-blog.html"><abbr title="lib/Blog.php">Blog.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">59</span>
 
     </aside>
 
@@ -426,95 +439,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\stdClass">stdClass</abbr></span>
             &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setCharset">
-        setCharset()
-        <a href="classes/Akismet-Blog.html#method_setCharset" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">60</span>
+            <section class="phpdocumentor-description"><p>The map in JSON format corresponding to this object.</p>
+</section>
 
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the character encoding for the values included in comments.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setCharset</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setLanguages">
-        setLanguages()
-        <a href="classes/Akismet-Blog.html#method_setLanguages" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Blog.php"><a href="files/src-blog.html"><abbr title="src/Blog.php">Blog.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">66</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the languages in use on the blog or site, in ISO 639-1 format.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setLanguages</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$values</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$values</span>
-                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
     
 </article>
             </section>

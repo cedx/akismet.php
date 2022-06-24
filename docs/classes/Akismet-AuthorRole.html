@@ -88,16 +88,15 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    RequestEvent
+    AuthorRole
 
-        <span class="phpdocumentor-element__extends">
-        extends <abbr title="\Symfony\Contracts\EventDispatcher\Event">Event</abbr>
+            <span class="phpdocumentor-element__extends">
+        : string
     </span>
     
             <div class="phpdocumentor-element__package">
             in package
             <ul class="phpdocumentor-breadcrumbs">
-                                    <li class="phpdocumentor-breadcrumb"><a href="packages/Application.html">Application</a></li>
                             </ul>
         </div>
     
@@ -105,13 +104,13 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/RequestEvent.php"><a href="files/src-requestevent.html"><abbr title="src/RequestEvent.php">RequestEvent.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/AuthorRole.php"><a href="files/lib-authorrole.html"><abbr title="lib/AuthorRole.php">AuthorRole.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">7</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Represents the event parameter used for request events.</p>
+            <p class="phpdocumentor-summary">Specifies the role of an author.</p>
 
 
 
@@ -121,119 +120,42 @@
 
 
 
-<h3 id="toc">
-    Table of Contents
-    <a href="#toc" class="headerlink"><i class="fas fa-link"></i></a>
-</h3>
-
-<dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-RequestEvent.html#method___construct">__construct()</a>
-    <span>
-                                &nbsp;: mixed    </span>
-</dt>
-<dd>Creates a new request event.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-RequestEvent.html#method_getRequest">getRequest()</a>
-    <span>
-                                &nbsp;: <abbr title="\Psr\Http\Message\RequestInterface">RequestInterface</abbr>    </span>
-</dt>
-<dd>Gets the related HTTP request.</dd>
-
-        </dl>
 
 
 
-        
-
-        
-
-            <section class="phpdocumentor-methods">
-        <h3 class="phpdocumentor-elements__header" id="methods">
-            Methods
-            <a href="classes/Akismet-RequestEvent.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <section class="phpdocumentor-cases">
+        <h3 class="phpdocumentor-elements__header" id="cases">
+            Cases
+            <a href="classes/Akismet-AuthorRole.html#cases" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
+        class="
+            phpdocumentor-element
+            -enum-case
+        "
 >
-    <h4 class="phpdocumentor-element__name" id="method___construct">
-        __construct()
-        <a href="classes/Akismet-RequestEvent.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="enumcase_administrator">
+        administrator
+        <a href="" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/RequestEvent.php"><a href="files/src-requestevent.html"><abbr title="src/RequestEvent.php">RequestEvent.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/AuthorRole.php"><a href="files/lib-authorrole.html"><abbr title="lib/AuthorRole.php">AuthorRole.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">17</span>
+    <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Creates a new request event.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\RequestInterface">RequestInterface</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$request</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+        <p class="phpdocumentor-summary">The author is an administrator.</p>
 
     
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$request</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\RequestInterface">RequestInterface</abbr></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The related HTTP request.</p>
-</section>
-
-            </dd>
-            </dl>
+        <section class="phpdocumentor-description"></section>
 
     
 
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getRequest">
-        getRequest()
-        <a href="classes/Akismet-RequestEvent.html#method_getRequest" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/RequestEvent.php"><a href="files/src-requestevent.html"><abbr title="src/RequestEvent.php">RequestEvent.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">22</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the related HTTP request.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getRequest</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\RequestInterface">RequestInterface</abbr></span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\RequestInterface">RequestInterface</abbr></span>
-            &mdash;
-        
-    
 </article>
             </section>
 
+        
         
     <script type="text/javascript">
         function loadExternalCodeSnippets(line) {
@@ -310,7 +232,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/Akismet-RequestEvent.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/Akismet-AuthorRole.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

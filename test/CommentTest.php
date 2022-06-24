@@ -29,11 +29,17 @@ class CommentTest extends TestCase {
 			"referrer" => "https://belin.io"
 		]);
 
-		assertThat($comment->author, logicalNot(isNull()));
-		assertThat($comment->author->name, equalTo("Cédric Belin"));
+		/** @var Author */
+		$author = $comment->author;
+		assertThat($author , logicalNot(isNull()));
+		assertThat($author ->name, equalTo("Cédric Belin"));
+
+		/** @var \DateTimeInterface */
+		$date = $comment->date;
+		assertThat($date, logicalNot(isNull()));
+		assertThat($date->format("Y"), equalTo(2000));
+
 		assertThat($comment->content, equalTo("A user comment."));
-		assertThat($comment->date, logicalNot(isNull()));
-		assertThat($comment->date->format("Y"), equalTo(2000));
 		assertThat((string) $comment->referrer, equalTo("https://belin.io"));
 		assertThat($comment->type, equalTo(CommentType::blogPost->value));
 	}

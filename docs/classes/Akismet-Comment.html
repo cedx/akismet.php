@@ -105,9 +105,9 @@
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">8</span>
+    <span class="phpdocumentor-element-found-in__line">10</span>
 
     </aside>
 
@@ -139,7 +139,63 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
-                        <dt class="phpdocumentor-table-of-contents__entry -method -public">
+                    <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_author">$author</a>
+    <span>
+                        &nbsp;: <a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null            </span>
+</dt>
+<dd>The comment&#039;s author.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_content">$content</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>The comment&#039;s content.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_date">$date</a>
+    <span>
+                        &nbsp;: <abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null            </span>
+</dt>
+<dd>The UTC timestamp of the creation of the comment.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_permalink">$permalink</a>
+    <span>
+                        &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null            </span>
+</dt>
+<dd>The permanent location of the entry the comment is submitted to.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_postModified">$postModified</a>
+    <span>
+                        &nbsp;: <abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null            </span>
+</dt>
+<dd>The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_recheckReason">$recheckReason</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>A string describing why the content is being rechecked.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_referrer">$referrer</a>
+    <span>
+                        &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null            </span>
+</dt>
+<dd>The URL of the webpage that linked to the entry being requested.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -public">
+    <a href="classes/Akismet-Comment.html#property_type">$type</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+<dd>The comment&#039;s type.</dd>
+
+                <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Comment.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
@@ -154,116 +210,11 @@
 <dd>Creates a new comment from the specified JSON object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getAuthor">getAuthor()</a>
-    <span>
-                                &nbsp;: <a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null    </span>
-</dt>
-<dd>Gets the comment&#039;s author.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getContent">getContent()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Gets the comment&#039;s content.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getDate">getDate()</a>
-    <span>
-                                &nbsp;: <abbr title="\DateTimeImmutable">DateTimeImmutable</abbr>|null    </span>
-</dt>
-<dd>Gets the UTC timestamp of the creation of the comment.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getPermalink">getPermalink()</a>
-    <span>
-                                &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null    </span>
-</dt>
-<dd>Gets the permanent location of the entry the comment is submitted to.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getPostModified">getPostModified()</a>
-    <span>
-                                &nbsp;: <abbr title="\DateTimeImmutable">DateTimeImmutable</abbr>|null    </span>
-</dt>
-<dd>Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getRecheckReason">getRecheckReason()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Gets the string describing why the content is being rechecked.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getReferrer">getReferrer()</a>
-    <span>
-                                &nbsp;: <abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null    </span>
-</dt>
-<dd>Gets the URL of the webpage that linked to the entry being requested.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_getType">getType()</a>
-    <span>
-                                &nbsp;: string    </span>
-</dt>
-<dd>Gets the comment&#039;s type. This string value specifies a `CommentType` constant or a made up value like `&quot;registration&quot;`.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/Akismet-Comment.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: <abbr title="\stdClass">stdClass</abbr>    </span>
 </dt>
 <dd>Converts this object to a map in JSON format.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setContent">setContent()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the comment&#039;s content.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setDate">setDate()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the UTC timestamp of the creation of the comment.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setPermalink">setPermalink()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the permanent location of the entry the comment is submitted to.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setPostModified">setPostModified()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setRecheckReason">setRecheckReason()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the string describing why the content is being rechecked.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setReferrer">setReferrer()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the URL of the webpage that linked to the entry being requested.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/Akismet-Comment.html#method_setType">setType()</a>
-    <span>
-                                &nbsp;: self    </span>
-</dt>
-<dd>Sets the comment&#039;s type.</dd>
 
         </dl>
 
@@ -272,6 +223,276 @@
         
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/Akismet-Comment.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_author">
+        $author
+        <a href="classes/Akismet-Comment.html#property_author" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">16</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The comment&#039;s author.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null</span>
+    <span class="phpdocumentor-signature__name">$author</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_content">
+        $content
+        <a href="classes/Akismet-Comment.html#property_content" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">22</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The comment&#039;s content.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$content</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_date">
+        $date
+        <a href="classes/Akismet-Comment.html#property_date" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">28</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The UTC timestamp of the creation of the comment.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null</span>
+    <span class="phpdocumentor-signature__name">$date</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_permalink">
+        $permalink
+        <a href="classes/Akismet-Comment.html#property_permalink" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">34</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The permanent location of the entry the comment is submitted to.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
+    <span class="phpdocumentor-signature__name">$permalink</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_postModified">
+        $postModified
+        <a href="classes/Akismet-Comment.html#property_postModified" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">40</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null</span>
+    <span class="phpdocumentor-signature__name">$postModified</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_recheckReason">
+        $recheckReason
+        <a href="classes/Akismet-Comment.html#property_recheckReason" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">46</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">A string describing why the content is being rechecked.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$recheckReason</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_referrer">
+        $referrer
+        <a href="classes/Akismet-Comment.html#property_referrer" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The URL of the webpage that linked to the entry being requested.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
+    <span class="phpdocumentor-signature__name">$referrer</span>
+    </code>
+
+    
+    
+    
+
+</article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_type">
+        $type
+        <a href="classes/Akismet-Comment.html#property_type" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">58</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">The comment&#039;s type.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$type</span>
+     = <span class="phpdocumentor-signature__default-value">&quot;&quot;</span></code>
+
+    
+    
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
@@ -289,9 +510,9 @@
         <a href="classes/Akismet-Comment.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">38</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
@@ -299,7 +520,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$author</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$author</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$content</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$date</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$permalink</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$postModified</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$recheckReason</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$referrer</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -310,6 +531,69 @@
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The comment's author.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$content</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The comment's content.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$date</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The UTC timestamp of the creation of the comment.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$permalink</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The permanent location of the entry the comment is submitted to.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$postModified</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$recheckReason</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>A string describing why the content is being rechecked.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$referrer</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The URL of the webpage that linked to the entry being requested.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$type</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                 = <span class="phpdocumentor-signature__argument__default-value">&quot;&quot;</span>            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The comment's type.</p>
 </section>
 
             </dd>
@@ -334,9 +618,9 @@
         <a href="classes/Akismet-Comment.html#method_fromJson" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">43</span>
+    <span class="phpdocumentor-element-found-in__line">90</span>
 
     </aside>
 
@@ -354,7 +638,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>A JSON object representing a comment.</p>
+</section>
 
             </dd>
             </dl>
@@ -364,271 +649,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">self</span>
             &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getAuthor">
-        getAuthor()
-        <a href="classes/Akismet-Comment.html#method_getAuthor" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">57</span>
+            <section class="phpdocumentor-description"><p>The instance corresponding to the specified JSON object.</p>
+</section>
 
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the comment&#039;s author.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getAuthor</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/Akismet-Author.html"><abbr title="\Akismet\Author">Author</abbr></a>|null</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getContent">
-        getContent()
-        <a href="classes/Akismet-Comment.html#method_getContent" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">62</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the comment&#039;s content.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getContent</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getDate">
-        getDate()
-        <a href="classes/Akismet-Comment.html#method_getDate" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">67</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the UTC timestamp of the creation of the comment.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getDate</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\DateTimeImmutable">DateTimeImmutable</abbr>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\DateTimeImmutable">DateTimeImmutable</abbr>|null</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getPermalink">
-        getPermalink()
-        <a href="classes/Akismet-Comment.html#method_getPermalink" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">72</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the permanent location of the entry the comment is submitted to.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getPermalink</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getPostModified">
-        getPostModified()
-        <a href="classes/Akismet-Comment.html#method_getPostModified" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">77</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getPostModified</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\DateTimeImmutable">DateTimeImmutable</abbr>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\DateTimeImmutable">DateTimeImmutable</abbr>|null</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getRecheckReason">
-        getRecheckReason()
-        <a href="classes/Akismet-Comment.html#method_getRecheckReason" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">82</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the string describing why the content is being rechecked.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getRecheckReason</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getReferrer">
-        getReferrer()
-        <a href="classes/Akismet-Comment.html#method_getReferrer" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">87</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the URL of the webpage that linked to the entry being requested.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getReferrer</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_getType">
-        getType()
-        <a href="classes/Akismet-Comment.html#method_getType" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">92</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Gets the comment&#039;s type. This string value specifies a `CommentType` constant or a made up value like `&quot;registration&quot;`.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
-
-    
-    
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">string</span>
-            &mdash;
-        
     
 </article>
                     <article
@@ -642,9 +665,9 @@
         <a href="classes/Akismet-Comment.html#method_jsonSerialize" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="lib/Comment.php"><a href="files/lib-comment.html"><abbr title="lib/Comment.php">Comment.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">97</span>
+    <span class="phpdocumentor-element-found-in__line">109</span>
 
     </aside>
 
@@ -661,315 +684,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><abbr title="\stdClass">stdClass</abbr></span>
             &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setContent">
-        setContent()
-        <a href="classes/Akismet-Comment.html#method_setContent" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">110</span>
+            <section class="phpdocumentor-description"><p>The map in JSON format corresponding to this object.</p>
+</section>
 
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the comment&#039;s content.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setContent</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setDate">
-        setDate()
-        <a href="classes/Akismet-Comment.html#method_setDate" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">116</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the UTC timestamp of the creation of the comment.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setDate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setPermalink">
-        setPermalink()
-        <a href="classes/Akismet-Comment.html#method_setPermalink" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">122</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the permanent location of the entry the comment is submitted to.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setPermalink</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setPostModified">
-        setPostModified()
-        <a href="classes/Akismet-Comment.html#method_setPostModified" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">128</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the UTC timestamp of the publication time for the post, page or thread on which the comment was posted.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setPostModified</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\DateTimeInterface">DateTimeInterface</abbr>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setRecheckReason">
-        setRecheckReason()
-        <a href="classes/Akismet-Comment.html#method_setRecheckReason" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">134</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the string describing why the content is being rechecked.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setRecheckReason</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setReferrer">
-        setReferrer()
-        <a href="classes/Akismet-Comment.html#method_setReferrer" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">140</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the URL of the webpage that linked to the entry being requested.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setReferrer</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Psr\Http\Message\UriInterface">UriInterface</abbr>|null</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
-    
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_setType">
-        setType()
-        <a href="classes/Akismet-Comment.html#method_setType" class="headerlink"><i class="fas fa-link"></i></a>
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Comment.php"><a href="files/src-comment.html"><abbr title="src/Comment.php">Comment.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">146</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Sets the comment&#039;s type.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setType</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$value</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">self</span></code>
-
-    
-        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
-    <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$value</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-            </dl>
-
-    
-
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">self</span>
-            &mdash;
-        
     
 </article>
             </section>

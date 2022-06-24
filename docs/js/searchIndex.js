@@ -16,60 +16,50 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020author\u0020from\u0020the\u0020specified\u0020JSON\u0020object.",
             "url": "classes/Akismet-Author.html#method_fromJson"
         },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AgetEmail\u0028\u0029",
-            "name": "getEmail",
-            "summary": "Gets\u0020the\u0020author\u0027s\u0020mail\u0020address.",
-            "url": "classes/Akismet-Author.html#method_getEmail"
-        },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AgetIPAddress\u0028\u0029",
-            "name": "getIPAddress",
-            "summary": "Gets\u0020the\u0020author\u0027s\u0020IP\u0020address.",
-            "url": "classes/Akismet-Author.html#method_getIPAddress"
-        },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "Gets\u0020the\u0020author\u0027s\u0020name.",
-            "url": "classes/Akismet-Author.html#method_getName"
-        },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AgetRole\u0028\u0029",
-            "name": "getRole",
-            "summary": "Gets\u0020the\u0020author\u0027s\u0020role.",
-            "url": "classes/Akismet-Author.html#method_getRole"
-        },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AgetUrl\u0028\u0029",
-            "name": "getUrl",
-            "summary": "Gets\u0020the\u0020URL\u0020of\u0020the\u0020author\u0027s\u0020website.",
-            "url": "classes/Akismet-Author.html#method_getUrl"
-        },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AgetUserAgent\u0028\u0029",
-            "name": "getUserAgent",
-            "summary": "Gets\u0020the\u0020author\u0027s\u0020user\u0020agent,\u0020that\u0020is\u0020the\u0020string\u0020identifying\u0020the\u0020Web\u0020browser\u0020used\u0020to\u0020submit\u0020comments.",
-            "url": "classes/Akismet-Author.html#method_getUserAgent"
-        },                {
             "fqsen": "\\Akismet\\Author\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
             "summary": "Converts\u0020this\u0020object\u0020to\u0020a\u0020map\u0020in\u0020JSON\u0020format.",
             "url": "classes/Akismet-Author.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AsetEmail\u0028\u0029",
-            "name": "setEmail",
-            "summary": "Sets\u0020the\u0020author\u0027s\u0020mail\u0020address.\u0020If\u0020you\u0020set\u0020it\u0020to\u0020\u0060\u0022akismet\u002Dguaranteed\u002Dspam\u0040example.com\u0022\u0060,\u0020Akismet\u0020will\u0020always\u0020return\u0020\u0060true\u0060.",
-            "url": "classes/Akismet-Author.html#method_setEmail"
+            "fqsen": "\\Akismet\\Author\u003A\u003A\u0024email",
+            "name": "email",
+            "summary": "The\u0020author\u0027s\u0020mail\u0020address.",
+            "url": "classes/Akismet-Author.html#property_email"
         },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AsetName\u0028\u0029",
-            "name": "setName",
-            "summary": "Sets\u0020the\u0020author\u0027s\u0020name.\u0020If\u0020you\u0020set\u0020it\u0020to\u0020\u0060\u0022viagra\u002Dtest\u002D123\u0022\u0060,\u0020Akismet\u0020will\u0020always\u0020return\u0020\u0060true\u0060.",
-            "url": "classes/Akismet-Author.html#method_setName"
+            "fqsen": "\\Akismet\\Author\u003A\u003A\u0024ipAddress",
+            "name": "ipAddress",
+            "summary": "The\u0020author\u0027s\u0020IP\u0020address.",
+            "url": "classes/Akismet-Author.html#property_ipAddress"
         },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AsetRole\u0028\u0029",
-            "name": "setRole",
-            "summary": "Sets\u0020the\u0020author\u0027s\u0020role.\u0020If\u0020you\u0020set\u0020it\u0020to\u0020\u0060\u0022administrator\u0022\u0060,\u0020Akismet\u0020will\u0020always\u0020return\u0020\u0060false\u0060.",
-            "url": "classes/Akismet-Author.html#method_setRole"
+            "fqsen": "\\Akismet\\Author\u003A\u003A\u0024name",
+            "name": "name",
+            "summary": "The\u0020author\u0027s\u0020name.\u0020If\u0020you\u0020set\u0020it\u0020to\u0020\u0060\u0022viagra\u002Dtest\u002D123\u0022\u0060,\u0020Akismet\u0020will\u0020always\u0020return\u0020\u0060true\u0060.",
+            "url": "classes/Akismet-Author.html#property_name"
         },                {
-            "fqsen": "\\Akismet\\Author\u003A\u003AsetUrl\u0028\u0029",
-            "name": "setUrl",
-            "summary": "Sets\u0020the\u0020URL\u0020of\u0020the\u0020author\u0027s\u0020website.",
-            "url": "classes/Akismet-Author.html#method_setUrl"
+            "fqsen": "\\Akismet\\Author\u003A\u003A\u0024role",
+            "name": "role",
+            "summary": "The\u0020author\u0027s\u0020role.\u0020If\u0020you\u0020set\u0020it\u0020to\u0020\u0060\u0022administrator\u0022\u0060,\u0020Akismet\u0020will\u0020always\u0020return\u0020\u0060false\u0060.",
+            "url": "classes/Akismet-Author.html#property_role"
+        },                {
+            "fqsen": "\\Akismet\\Author\u003A\u003A\u0024url",
+            "name": "url",
+            "summary": "The\u0020URL\u0020of\u0020the\u0020author\u0027s\u0020website.",
+            "url": "classes/Akismet-Author.html#property_url"
+        },                {
+            "fqsen": "\\Akismet\\Author\u003A\u003A\u0024userAgent",
+            "name": "userAgent",
+            "summary": "The\u0020author\u0027s\u0020user\u0020agent,\u0020that\u0020is\u0020the\u0020string\u0020identifying\u0020the\u0020Web\u0020browser\u0020used\u0020to\u0020submit\u0020comments.",
+            "url": "classes/Akismet-Author.html#property_userAgent"
+        },                {
+            "fqsen": "\\Akismet\\AuthorRole",
+            "name": "AuthorRole",
+            "summary": "Specifies\u0020the\u0020role\u0020of\u0020an\u0020author.",
+            "url": "classes/Akismet-AuthorRole.html"
+        },                {
+            "fqsen": "\\Akismet\\AuthorRole\u003A\u003Aadministrator",
+            "name": "administrator",
+            "summary": "The\u0020author\u0020is\u0020an\u0020administrator.",
+            "url": ""
         },                {
             "fqsen": "\\Akismet\\Blog",
             "name": "Blog",
@@ -86,55 +76,45 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020blog\u0020from\u0020the\u0020specified\u0020JSON\u0020object.",
             "url": "classes/Akismet-Blog.html#method_fromJson"
         },                {
-            "fqsen": "\\Akismet\\Blog\u003A\u003AgetCharset\u0028\u0029",
-            "name": "getCharset",
-            "summary": "Gets\u0020the\u0020character\u0020encoding\u0020for\u0020the\u0020values\u0020included\u0020in\u0020comments.",
-            "url": "classes/Akismet-Blog.html#method_getCharset"
-        },                {
-            "fqsen": "\\Akismet\\Blog\u003A\u003AgetLanguages\u0028\u0029",
-            "name": "getLanguages",
-            "summary": "Gets\u0020the\u0020languages\u0020in\u0020use\u0020on\u0020the\u0020blog\u0020or\u0020site,\u0020in\u0020ISO\u0020639\u002D1\u0020format.",
-            "url": "classes/Akismet-Blog.html#method_getLanguages"
-        },                {
-            "fqsen": "\\Akismet\\Blog\u003A\u003AgetUrl\u0028\u0029",
-            "name": "getUrl",
-            "summary": "Gets\u0020the\u0020blog\u0020or\u0020site\u0020URL.",
-            "url": "classes/Akismet-Blog.html#method_getUrl"
-        },                {
             "fqsen": "\\Akismet\\Blog\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
             "summary": "Converts\u0020this\u0020object\u0020to\u0020a\u0020map\u0020in\u0020JSON\u0020format.",
             "url": "classes/Akismet-Blog.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\Akismet\\Blog\u003A\u003AsetCharset\u0028\u0029",
-            "name": "setCharset",
-            "summary": "Sets\u0020the\u0020character\u0020encoding\u0020for\u0020the\u0020values\u0020included\u0020in\u0020comments.",
-            "url": "classes/Akismet-Blog.html#method_setCharset"
+            "fqsen": "\\Akismet\\Blog\u003A\u003A\u0024charset",
+            "name": "charset",
+            "summary": "The\u0020character\u0020encoding\u0020for\u0020the\u0020values\u0020included\u0020in\u0020comments.",
+            "url": "classes/Akismet-Blog.html#property_charset"
         },                {
-            "fqsen": "\\Akismet\\Blog\u003A\u003AsetLanguages\u0028\u0029",
-            "name": "setLanguages",
-            "summary": "Sets\u0020the\u0020languages\u0020in\u0020use\u0020on\u0020the\u0020blog\u0020or\u0020site,\u0020in\u0020ISO\u0020639\u002D1\u0020format.",
-            "url": "classes/Akismet-Blog.html#method_setLanguages"
+            "fqsen": "\\Akismet\\Blog\u003A\u003A\u0024languages",
+            "name": "languages",
+            "summary": "The\u0020languages\u0020in\u0020use\u0020on\u0020the\u0020blog\u0020or\u0020site,\u0020in\u0020ISO\u0020639\u002D1\u0020format.",
+            "url": "classes/Akismet-Blog.html#property_languages"
+        },                {
+            "fqsen": "\\Akismet\\Blog\u003A\u003A\u0024url",
+            "name": "url",
+            "summary": "The\u0020blog\u0020or\u0020site\u0020URL.",
+            "url": "classes/Akismet-Blog.html#property_url"
         },                {
             "fqsen": "\\Akismet\\CheckResult",
             "name": "CheckResult",
             "summary": "Specifies\u0020the\u0020result\u0020of\u0020a\u0020comment\u0020check.",
             "url": "classes/Akismet-CheckResult.html"
         },                {
-            "fqsen": "\\Akismet\\CheckResult\u003A\u003AisHam",
-            "name": "isHam",
+            "fqsen": "\\Akismet\\CheckResult\u003A\u003Aham",
+            "name": "ham",
             "summary": "The\u0020comment\u0020is\u0020not\u0020a\u0020spam\u0020\u0028i.e.\u0020a\u0020ham\u0029.",
-            "url": "classes/Akismet-CheckResult.html#constant_isHam"
+            "url": ""
         },                {
-            "fqsen": "\\Akismet\\CheckResult\u003A\u003AisPervasiveSpam",
-            "name": "isPervasiveSpam",
-            "summary": "The\u0020comment\u0020is\u0020a\u0020pervasive\u0020spam\u0020\u0028i.e.\u0020it\u0020can\u0020be\u0020safely\u0020discarded\u0029.",
-            "url": "classes/Akismet-CheckResult.html#constant_isPervasiveSpam"
-        },                {
-            "fqsen": "\\Akismet\\CheckResult\u003A\u003AisSpam",
-            "name": "isSpam",
+            "fqsen": "\\Akismet\\CheckResult\u003A\u003Aspam",
+            "name": "spam",
             "summary": "The\u0020comment\u0020is\u0020a\u0020spam.",
-            "url": "classes/Akismet-CheckResult.html#constant_isSpam"
+            "url": ""
+        },                {
+            "fqsen": "\\Akismet\\CheckResult\u003A\u003ApervasiveSpam",
+            "name": "pervasiveSpam",
+            "summary": "The\u0020comment\u0020is\u0020a\u0020pervasive\u0020spam\u0020\u0028i.e.\u0020it\u0020can\u0020be\u0020safely\u0020discarded\u0029.",
+            "url": ""
         },                {
             "fqsen": "\\Akismet\\Client",
             "name": "Client",
@@ -151,46 +131,6 @@ Search.appendIndex(
             "summary": "Checks\u0020the\u0020specified\u0020comment\u0020against\u0020the\u0020service\u0020database,\u0020and\u0020returns\u0020a\u0020value\u0020indicating\u0020whether\u0020it\u0020is\u0020spam.",
             "url": "classes/Akismet-Client.html#method_checkComment"
         },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AgetApiKey\u0028\u0029",
-            "name": "getApiKey",
-            "summary": "Gets\u0020the\u0020Akismet\u0020API\u0020key.",
-            "url": "classes/Akismet-Client.html#method_getApiKey"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AgetBlog\u0028\u0029",
-            "name": "getBlog",
-            "summary": "Gets\u0020the\u0020front\u0020page\u0020or\u0020home\u0020URL\u0020of\u0020the\u0020instance\u0020making\u0020requests.",
-            "url": "classes/Akismet-Client.html#method_getBlog"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AgetEndPoint\u0028\u0029",
-            "name": "getEndPoint",
-            "summary": "Gets\u0020the\u0020URL\u0020of\u0020the\u0020API\u0020end\u0020point.",
-            "url": "classes/Akismet-Client.html#method_getEndPoint"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AgetUserAgent\u0028\u0029",
-            "name": "getUserAgent",
-            "summary": "Gets\u0020the\u0020user\u0020agent\u0020string\u0020to\u0020use\u0020when\u0020making\u0020requests.",
-            "url": "classes/Akismet-Client.html#method_getUserAgent"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AisTest\u0028\u0029",
-            "name": "isTest",
-            "summary": "Gets\u0020a\u0020value\u0020indicating\u0020whether\u0020the\u0020client\u0020operates\u0020in\u0020test\u0020mode.",
-            "url": "classes/Akismet-Client.html#method_isTest"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AsetEndPoint\u0028\u0029",
-            "name": "setEndPoint",
-            "summary": "Sets\u0020the\u0020URL\u0020of\u0020the\u0020API\u0020end\u0020point.",
-            "url": "classes/Akismet-Client.html#method_setEndPoint"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AsetTest\u0028\u0029",
-            "name": "setTest",
-            "summary": "Sets\u0020a\u0020value\u0020indicating\u0020whether\u0020the\u0020client\u0020operates\u0020in\u0020test\u0020mode.",
-            "url": "classes/Akismet-Client.html#method_setTest"
-        },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AsetUserAgent\u0028\u0029",
-            "name": "setUserAgent",
-            "summary": "Sets\u0020the\u0020user\u0020agent\u0020string\u0020to\u0020use\u0020when\u0020making\u0020requests.",
-            "url": "classes/Akismet-Client.html#method_setUserAgent"
-        },                {
             "fqsen": "\\Akismet\\Client\u003A\u003AsubmitHam\u0028\u0029",
             "name": "submitHam",
             "summary": "Submits\u0020the\u0020specified\u0020comment\u0020that\u0020was\u0020incorrectly\u0020marked\u0020as\u0020spam\u0020but\u0020should\u0020not\u0020have\u0020been.",
@@ -206,30 +146,35 @@ Search.appendIndex(
             "summary": "Checks\u0020the\u0020API\u0020key\u0020against\u0020the\u0020service\u0020database,\u0020and\u0020returns\u0020a\u0020value\u0020indicating\u0020whether\u0020it\u0020is\u0020valid.",
             "url": "classes/Akismet-Client.html#method_verifyKey"
         },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AeventRequest",
-            "name": "eventRequest",
-            "summary": "An\u0020event\u0020that\u0020is\u0020triggered\u0020when\u0020a\u0020request\u0020is\u0020made\u0020to\u0020the\u0020remote\u0020service.",
-            "url": "classes/Akismet-Client.html#constant_eventRequest"
+            "fqsen": "\\Akismet\\Client\u003A\u003A\u0024apiKey",
+            "name": "apiKey",
+            "summary": "The\u0020Akismet\u0020API\u0020key.",
+            "url": "classes/Akismet-Client.html#property_apiKey"
         },                {
-            "fqsen": "\\Akismet\\Client\u003A\u003AeventResponse",
-            "name": "eventResponse",
-            "summary": "An\u0020event\u0020that\u0020is\u0020triggered\u0020when\u0020a\u0020response\u0020is\u0020received\u0020from\u0020the\u0020remote\u0020service.",
-            "url": "classes/Akismet-Client.html#constant_eventResponse"
+            "fqsen": "\\Akismet\\Client\u003A\u003A\u0024baseUrl",
+            "name": "baseUrl",
+            "summary": "The\u0020base\u0020URL\u0020of\u0020the\u0020remote\u0020API\u0020endpoint.",
+            "url": "classes/Akismet-Client.html#property_baseUrl"
+        },                {
+            "fqsen": "\\Akismet\\Client\u003A\u003A\u0024blog",
+            "name": "blog",
+            "summary": "The\u0020front\u0020page\u0020or\u0020home\u0020URL\u0020of\u0020the\u0020instance\u0020making\u0020requests.",
+            "url": "classes/Akismet-Client.html#property_blog"
+        },                {
+            "fqsen": "\\Akismet\\Client\u003A\u003A\u0024isTest",
+            "name": "isTest",
+            "summary": "Value\u0020indicating\u0020whether\u0020the\u0020client\u0020operates\u0020in\u0020test\u0020mode.",
+            "url": "classes/Akismet-Client.html#property_isTest"
+        },                {
+            "fqsen": "\\Akismet\\Client\u003A\u003A\u0024userAgent",
+            "name": "userAgent",
+            "summary": "The\u0020user\u0020agent\u0020string\u0020to\u0020use\u0020when\u0020making\u0020requests.",
+            "url": "classes/Akismet-Client.html#property_userAgent"
         },                {
             "fqsen": "\\Akismet\\ClientException",
             "name": "ClientException",
             "summary": "An\u0020exception\u0020caused\u0020by\u0020an\u0020error\u0020in\u0020a\u0020\u0060Client\u0060\u0020request.",
             "url": "classes/Akismet-ClientException.html"
-        },                {
-            "fqsen": "\\Akismet\\ClientException\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Creates\u0020a\u0020new\u0020client\u0020exception.",
-            "url": "classes/Akismet-ClientException.html#method___construct"
-        },                {
-            "fqsen": "\\Akismet\\ClientException\u003A\u003AgetUri\u0028\u0029",
-            "name": "getUri",
-            "summary": "Gets\u0020the\u0020URL\u0020of\u0020the\u0020HTTP\u0020request\u0020or\u0020response\u0020that\u0020failed.",
-            "url": "classes/Akismet-ClientException.html#method_getUri"
         },                {
             "fqsen": "\\Akismet\\Comment",
             "name": "Comment",
@@ -246,85 +191,50 @@ Search.appendIndex(
             "summary": "Creates\u0020a\u0020new\u0020comment\u0020from\u0020the\u0020specified\u0020JSON\u0020object.",
             "url": "classes/Akismet-Comment.html#method_fromJson"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetAuthor\u0028\u0029",
-            "name": "getAuthor",
-            "summary": "Gets\u0020the\u0020comment\u0027s\u0020author.",
-            "url": "classes/Akismet-Comment.html#method_getAuthor"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetContent\u0028\u0029",
-            "name": "getContent",
-            "summary": "Gets\u0020the\u0020comment\u0027s\u0020content.",
-            "url": "classes/Akismet-Comment.html#method_getContent"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetDate\u0028\u0029",
-            "name": "getDate",
-            "summary": "Gets\u0020the\u0020UTC\u0020timestamp\u0020of\u0020the\u0020creation\u0020of\u0020the\u0020comment.",
-            "url": "classes/Akismet-Comment.html#method_getDate"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetPermalink\u0028\u0029",
-            "name": "getPermalink",
-            "summary": "Gets\u0020the\u0020permanent\u0020location\u0020of\u0020the\u0020entry\u0020the\u0020comment\u0020is\u0020submitted\u0020to.",
-            "url": "classes/Akismet-Comment.html#method_getPermalink"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetPostModified\u0028\u0029",
-            "name": "getPostModified",
-            "summary": "Gets\u0020the\u0020UTC\u0020timestamp\u0020of\u0020the\u0020publication\u0020time\u0020for\u0020the\u0020post,\u0020page\u0020or\u0020thread\u0020on\u0020which\u0020the\u0020comment\u0020was\u0020posted.",
-            "url": "classes/Akismet-Comment.html#method_getPostModified"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetRecheckReason\u0028\u0029",
-            "name": "getRecheckReason",
-            "summary": "Gets\u0020the\u0020string\u0020describing\u0020why\u0020the\u0020content\u0020is\u0020being\u0020rechecked.",
-            "url": "classes/Akismet-Comment.html#method_getRecheckReason"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetReferrer\u0028\u0029",
-            "name": "getReferrer",
-            "summary": "Gets\u0020the\u0020URL\u0020of\u0020the\u0020webpage\u0020that\u0020linked\u0020to\u0020the\u0020entry\u0020being\u0020requested.",
-            "url": "classes/Akismet-Comment.html#method_getReferrer"
-        },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AgetType\u0028\u0029",
-            "name": "getType",
-            "summary": "Gets\u0020the\u0020comment\u0027s\u0020type.\u0020This\u0020string\u0020value\u0020specifies\u0020a\u0020\u0060CommentType\u0060\u0020constant\u0020or\u0020a\u0020made\u0020up\u0020value\u0020like\u0020\u0060\u0022registration\u0022\u0060.",
-            "url": "classes/Akismet-Comment.html#method_getType"
-        },                {
             "fqsen": "\\Akismet\\Comment\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
             "summary": "Converts\u0020this\u0020object\u0020to\u0020a\u0020map\u0020in\u0020JSON\u0020format.",
             "url": "classes/Akismet-Comment.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetContent\u0028\u0029",
-            "name": "setContent",
-            "summary": "Sets\u0020the\u0020comment\u0027s\u0020content.",
-            "url": "classes/Akismet-Comment.html#method_setContent"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024author",
+            "name": "author",
+            "summary": "The\u0020comment\u0027s\u0020author.",
+            "url": "classes/Akismet-Comment.html#property_author"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetDate\u0028\u0029",
-            "name": "setDate",
-            "summary": "Sets\u0020the\u0020UTC\u0020timestamp\u0020of\u0020the\u0020creation\u0020of\u0020the\u0020comment.",
-            "url": "classes/Akismet-Comment.html#method_setDate"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024content",
+            "name": "content",
+            "summary": "The\u0020comment\u0027s\u0020content.",
+            "url": "classes/Akismet-Comment.html#property_content"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetPermalink\u0028\u0029",
-            "name": "setPermalink",
-            "summary": "Sets\u0020the\u0020permanent\u0020location\u0020of\u0020the\u0020entry\u0020the\u0020comment\u0020is\u0020submitted\u0020to.",
-            "url": "classes/Akismet-Comment.html#method_setPermalink"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024date",
+            "name": "date",
+            "summary": "The\u0020UTC\u0020timestamp\u0020of\u0020the\u0020creation\u0020of\u0020the\u0020comment.",
+            "url": "classes/Akismet-Comment.html#property_date"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetPostModified\u0028\u0029",
-            "name": "setPostModified",
-            "summary": "Sets\u0020the\u0020UTC\u0020timestamp\u0020of\u0020the\u0020publication\u0020time\u0020for\u0020the\u0020post,\u0020page\u0020or\u0020thread\u0020on\u0020which\u0020the\u0020comment\u0020was\u0020posted.",
-            "url": "classes/Akismet-Comment.html#method_setPostModified"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024permalink",
+            "name": "permalink",
+            "summary": "The\u0020permanent\u0020location\u0020of\u0020the\u0020entry\u0020the\u0020comment\u0020is\u0020submitted\u0020to.",
+            "url": "classes/Akismet-Comment.html#property_permalink"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetRecheckReason\u0028\u0029",
-            "name": "setRecheckReason",
-            "summary": "Sets\u0020the\u0020string\u0020describing\u0020why\u0020the\u0020content\u0020is\u0020being\u0020rechecked.",
-            "url": "classes/Akismet-Comment.html#method_setRecheckReason"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024postModified",
+            "name": "postModified",
+            "summary": "The\u0020UTC\u0020timestamp\u0020of\u0020the\u0020publication\u0020time\u0020for\u0020the\u0020post,\u0020page\u0020or\u0020thread\u0020on\u0020which\u0020the\u0020comment\u0020was\u0020posted.",
+            "url": "classes/Akismet-Comment.html#property_postModified"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetReferrer\u0028\u0029",
-            "name": "setReferrer",
-            "summary": "Sets\u0020the\u0020URL\u0020of\u0020the\u0020webpage\u0020that\u0020linked\u0020to\u0020the\u0020entry\u0020being\u0020requested.",
-            "url": "classes/Akismet-Comment.html#method_setReferrer"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024recheckReason",
+            "name": "recheckReason",
+            "summary": "A\u0020string\u0020describing\u0020why\u0020the\u0020content\u0020is\u0020being\u0020rechecked.",
+            "url": "classes/Akismet-Comment.html#property_recheckReason"
         },                {
-            "fqsen": "\\Akismet\\Comment\u003A\u003AsetType\u0028\u0029",
-            "name": "setType",
-            "summary": "Sets\u0020the\u0020comment\u0027s\u0020type.",
-            "url": "classes/Akismet-Comment.html#method_setType"
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024referrer",
+            "name": "referrer",
+            "summary": "The\u0020URL\u0020of\u0020the\u0020webpage\u0020that\u0020linked\u0020to\u0020the\u0020entry\u0020being\u0020requested.",
+            "url": "classes/Akismet-Comment.html#property_referrer"
+        },                {
+            "fqsen": "\\Akismet\\Comment\u003A\u003A\u0024type",
+            "name": "type",
+            "summary": "The\u0020comment\u0027s\u0020type.",
+            "url": "classes/Akismet-Comment.html#property_type"
         },                {
             "fqsen": "\\Akismet\\CommentType",
             "name": "CommentType",
@@ -334,67 +244,37 @@ Search.appendIndex(
             "fqsen": "\\Akismet\\CommentType\u003A\u003AblogPost",
             "name": "blogPost",
             "summary": "A\u0020blog\u0020post.",
-            "url": "classes/Akismet-CommentType.html#constant_blogPost"
+            "url": ""
         },                {
             "fqsen": "\\Akismet\\CommentType\u003A\u003Acomment",
             "name": "comment",
             "summary": "A\u0020blog\u0020comment.",
-            "url": "classes/Akismet-CommentType.html#constant_comment"
+            "url": ""
         },                {
             "fqsen": "\\Akismet\\CommentType\u003A\u003AcontactForm",
             "name": "contactForm",
             "summary": "A\u0020contact\u0020form\u0020or\u0020feedback\u0020form\u0020submission.",
-            "url": "classes/Akismet-CommentType.html#constant_contactForm"
+            "url": ""
         },                {
             "fqsen": "\\Akismet\\CommentType\u003A\u003AforumPost",
             "name": "forumPost",
             "summary": "A\u0020top\u002Dlevel\u0020forum\u0020post.",
-            "url": "classes/Akismet-CommentType.html#constant_forumPost"
+            "url": ""
         },                {
-            "fqsen": "\\Akismet\\CommentType\u003A\u003Apingback",
-            "name": "pingback",
-            "summary": "A\u0020\u005Bpingback\u005D\u0028https\u003A\/\/en.wikipedia.org\/wiki\/Pingback\u0029\u0020post.",
-            "url": "classes/Akismet-CommentType.html#constant_pingback"
+            "fqsen": "\\Akismet\\CommentType\u003A\u003Amessage",
+            "name": "message",
+            "summary": "A\u0020message\u0020sent\u0020between\u0020just\u0020a\u0020few\u0020users.",
+            "url": ""
         },                {
-            "fqsen": "\\Akismet\\CommentType\u003A\u003Atrackback",
-            "name": "trackback",
-            "summary": "A\u0020\u005Btrackback\u005D\u0028https\u003A\/\/en.wikipedia.org\/wiki\/Trackback\u0029\u0020post.",
-            "url": "classes/Akismet-CommentType.html#constant_trackback"
+            "fqsen": "\\Akismet\\CommentType\u003A\u003Areply",
+            "name": "reply",
+            "summary": "A\u0020reply\u0020to\u0020a\u0020top\u002Dlevel\u0020forum\u0020post.",
+            "url": ""
         },                {
-            "fqsen": "\\Akismet\\CommentType\u003A\u003Atweet",
-            "name": "tweet",
-            "summary": "A\u0020\u005BTwitter\u005D\u0028https\u003A\/\/twitter.com\u0029\u0020message.",
-            "url": "classes/Akismet-CommentType.html#constant_tweet"
-        },                {
-            "fqsen": "\\Akismet\\RequestEvent",
-            "name": "RequestEvent",
-            "summary": "Represents\u0020the\u0020event\u0020parameter\u0020used\u0020for\u0020request\u0020events.",
-            "url": "classes/Akismet-RequestEvent.html"
-        },                {
-            "fqsen": "\\Akismet\\RequestEvent\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Creates\u0020a\u0020new\u0020request\u0020event.",
-            "url": "classes/Akismet-RequestEvent.html#method___construct"
-        },                {
-            "fqsen": "\\Akismet\\RequestEvent\u003A\u003AgetRequest\u0028\u0029",
-            "name": "getRequest",
-            "summary": "Gets\u0020the\u0020related\u0020HTTP\u0020request.",
-            "url": "classes/Akismet-RequestEvent.html#method_getRequest"
-        },                {
-            "fqsen": "\\Akismet\\ResponseEvent",
-            "name": "ResponseEvent",
-            "summary": "Represents\u0020the\u0020event\u0020parameter\u0020used\u0020for\u0020response\u0020events.",
-            "url": "classes/Akismet-ResponseEvent.html"
-        },                {
-            "fqsen": "\\Akismet\\ResponseEvent\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Creates\u0020a\u0020new\u0020response\u0020event.",
-            "url": "classes/Akismet-ResponseEvent.html#method___construct"
-        },                {
-            "fqsen": "\\Akismet\\ResponseEvent\u003A\u003AgetResponse\u0028\u0029",
-            "name": "getResponse",
-            "summary": "Gets\u0020the\u0020related\u0020HTTP\u0020response.",
-            "url": "classes/Akismet-ResponseEvent.html#method_getResponse"
+            "fqsen": "\\Akismet\\CommentType\u003A\u003Asignup",
+            "name": "signup",
+            "summary": "A\u0020new\u0020user\u0020account.",
+            "url": ""
         },                {
             "fqsen": "\\",
             "name": "\\",

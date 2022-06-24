@@ -32,7 +32,7 @@ class ClientTest extends TestCase {
 	 */
 	protected function setUp(): void {
 		$this->client = new Client(
-			apiKey: getenv("AKISMET_API_KEY"),
+			apiKey: getenv("AKISMET_API_KEY") ?: "",
 			blog: new Blog(url: "https://github.com/cedx/akismet.php"),
 			isTest: true
 		);

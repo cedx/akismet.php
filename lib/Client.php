@@ -12,7 +12,7 @@ class Client {
 
 	/**
 	 * The response returned by the `submit-ham` and `submit-spam` endpoints when the outcome is a success.
-	 * @var {string}
+	 * @var string
 	 */
 	private const successfulResponse = "Thanks for making the web a better place.";
 
@@ -74,8 +74,8 @@ class Client {
 		if ($userAgent) $this->userAgent = $userAgent;
 		else {
 			$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-			$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json"))->version;
-			$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion";
+			$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json") ?: "")->version; // @phpstan-ignore-line
+			$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion"; // @phpstan-ignore-line
 		}
 
 		$this->http = new Psr18Client;
@@ -139,7 +139,7 @@ class Client {
 	 */
 	private function fetch(UriInterface $endpoint, object $fields): ResponseInterface {
 		$body = $this->blog->jsonSerialize();
-		foreach ($fields as $key => $value) $body->$key = $value;
+		foreach ($fields as $key => $value) $body->$key = $value; // @phpstan-ignore-line
 		if ($this->isTest) $body->is_test = "1";
 
 		$request = $this->http->createRequest("POST", $endpoint)

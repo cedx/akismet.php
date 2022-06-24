@@ -147,14 +147,16 @@ class Client {
 			->withHeader("User-Agent", $this->userAgent);
 
 		$response = $this->http->sendRequest($request);
-		$statusCode = $response->getStatusCode();
+		if (intdiv($response->getStatusCode(), 100) != 2)
+			throw new Psr18RequestException(new TransportException($response->getReasonPhrase()), $request);
 
-		if (intdiv($statusCode, 100) != 2)
-			throw new Psr18RequestException(new TransportException($response->getReasonPhrase(), $statusCode), $request);
-		if ($response->hasHeader("x-akismet-alert-code"))
-			throw new Psr18RequestException(new TransportException($response->getHeaderLine("x-akismet-alert-msg"), $statusCode), $request);
+		if ($response->hasHeader("x-akismet-alert-code")) {
+			$code = (int) $response->getHeaderLine("x-akismet-alert-code");
+			throw new Psr18RequestException(new TransportException($response->getHeaderLine("x-akismet-alert-msg"), $code), $request);
+		}
+
 		if ($response->hasHeader("x-akismet-debug-help"))
-			throw new Psr18RequestException(new TransportException($response->getHeaderLine("x-akismet-debug-help"), $statusCode), $request);
+			throw new Psr18RequestException(new TransportException($response->getHeaderLine("x-akismet-debug-help")), $request);
 
 		return $response;
 	}

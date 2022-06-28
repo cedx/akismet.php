@@ -1,13 +1,11 @@
-import {existsSync, readFileSync} from "node:fs";
+import {existsSync} from "node:fs";
 import {cp, rm} from "node:fs/promises";
 import process from "node:process";
 import del from "del";
 import {execa} from "execa";
 import gulp from "gulp";
 import replace from "gulp-replace";
-
-// The package configuration.
-const pkg = JSON.parse(readFileSync("composer.json", "utf8"));
+import composer from "./composer.json" assert {type: "json"};
 
 /** Deletes all generated files and reset any saved state. */
 export function clean() {
@@ -35,7 +33,7 @@ export async function lint() {
 
 /** Publishes the package in the registry. */
 export async function publish() {
-	for (const command of [["tag"], ["push", "origin"]]) await exec("git", [...command, `v${pkg.version}`]);
+	for (const command of [["tag"], ["push", "origin"]]) await exec("git", [...command, `v${composer.version}`]);
 }
 
 /** Runs the test suite. */
@@ -47,8 +45,8 @@ export function test() {
 /** Updates the version number in the sources. */
 export function version() {
 	return gulp.src(["package.json", "etc/phpdoc.xml"], {base: "."})
-		.pipe(replace(/"version": "\d+(\.\d+){2}"/, `"version": "${pkg.version}"`))
-		.pipe(replace(/version number="\d+(\.\d+){2}"/, `version number="${pkg.version}"`))
+		.pipe(replace(/"version": "\d+(\.\d+){2}"/, `"version": "${composer.version}"`))
+		.pipe(replace(/version number="\d+(\.\d+){2}"/, `version number="${composer.version}"`))
 		.pipe(gulp.dest("."));
 }
 

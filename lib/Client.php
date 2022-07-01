@@ -2,8 +2,7 @@
 namespace Akismet;
 
 use Psr\Http\Message\{ResponseInterface, UriInterface};
-use Symfony\Component\HttpClient\{Psr18Client, Psr18RequestException};
-use Symfony\Component\HttpClient\Exception\TransportException;
+use Symfony\Component\HttpClient\Psr18Client;
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
@@ -104,8 +103,7 @@ class Client {
 	function submitHam(Comment $comment): void {
 		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}submit-ham");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
-		if ($response->getBody()->getContents() != self::successfulResponse)
-			throw new ClientException("Invalid server response.", $response->getStatusCode());
+		if ($response->getBody()->getContents() != self::successfulResponse) throw new ClientException("Invalid server response.", 500);
 	}
 
 	/**
@@ -116,8 +114,7 @@ class Client {
 	function submitSpam(Comment $comment): void {
 		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}submit-spam");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
-		if ($response->getBody()->getContents() != self::successfulResponse)
-			throw new ClientException("Invalid server response.", $response->getStatusCode());
+		if ($response->getBody()->getContents() != self::successfulResponse) throw new ClientException("Invalid server response.", 500);
 	}
 
 	/**
@@ -135,7 +132,7 @@ class Client {
 	 * @param UriInterface $endpoint The URL of the end point to query.
 	 * @param object $fields The fields describing the query body.
 	 * @return ResponseInterface The server response.
-	 * @throws \Psr\Http\Client\RequestExceptionInterface An error occurred while querying the end point.
+	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while querying the end point.
 	 */
 	private function fetch(UriInterface $endpoint, object $fields): ResponseInterface {
 		$body = $this->blog->jsonSerialize();
@@ -147,17 +144,14 @@ class Client {
 			->withHeader("User-Agent", $this->userAgent);
 
 		$response = $this->http->sendRequest($request);
-		if (intdiv($response->getStatusCode(), 100) != 2)
-			throw new Psr18RequestException(new TransportException($response->getReasonPhrase()), $request);
+		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new ClientException($response->getReasonPhrase(), $status);
 
 		if ($response->hasHeader("x-akismet-alert-code")) {
 			$code = (int) $response->getHeaderLine("x-akismet-alert-code");
-			throw new Psr18RequestException(new TransportException($response->getHeaderLine("x-akismet-alert-msg"), $code), $request);
+			throw new ClientException($response->getHeaderLine("x-akismet-alert-msg"), $code);
 		}
 
-		if ($response->hasHeader("x-akismet-debug-help"))
-			throw new Psr18RequestException(new TransportException($response->getHeaderLine("x-akismet-debug-help")), $request);
-
+		if ($response->hasHeader("x-akismet-debug-help")) throw new ClientException($response->getHeaderLine("x-akismet-debug-help"), 400);
 		return $response;
 	}
 }

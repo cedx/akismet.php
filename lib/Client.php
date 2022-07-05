@@ -1,5 +1,4 @@
-<?php declare(strict_types=1);
-namespace Akismet;
+<?php namespace Akismet;
 
 use Psr\Http\Message\{ResponseInterface, UriInterface};
 use Symfony\Component\HttpClient\Psr18Client;

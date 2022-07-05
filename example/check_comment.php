@@ -1,5 +1,4 @@
-<?php declare(strict_types=1);
-
+<?php
 use Akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
 use Psr\Http\Client\ClientExceptionInterface;
 

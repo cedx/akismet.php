@@ -1,5 +1,4 @@
-<?php declare(strict_types=1);
-namespace Akismet;
+<?php namespace Akismet;
 
 /**
  * Specifies the role of an author.

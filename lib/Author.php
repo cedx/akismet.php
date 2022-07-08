@@ -46,14 +46,14 @@ class Author implements \JsonSerializable {
 
 	/**
 	 * Creates a new author.
-	 * @param string $ipAddress The author's IP address.
 	 * @param string $email The author's mail address.
+	 * @param string $ipAddress The author's IP address.
 	 * @param string $name The author's name. If you set it to `"viagra-test-123"`, Akismet will always return `true`.
 	 * @param string $role The author's role. If you set it to `"administrator"`, Akismet will always return `false`.
 	 * @param string $url The URL of the author's website.
 	 * @param string $userAgent The author's user agent, that is the string identifying the Web browser used to submit comments.
 	 */
-	function __construct(string $ipAddress, string $email = "", string $name = "", string $role = "", string $url = "", string $userAgent = "") {
+	function __construct(string $email = "", string $ipAddress = "", string $name = "", string $role = "", string $url = "", string $userAgent = "") {
 		$this->email = $email;
 		$this->ipAddress = $ipAddress ?: ($_SERVER["REMOTE_ADDR"] ?? "");
 		$this->name = $name;

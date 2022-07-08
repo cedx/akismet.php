@@ -64,17 +64,17 @@ class Author implements \JsonSerializable {
 
 	/**
 	 * Creates a new author from the specified JSON object.
-	 * @param object $map A JSON object representing an author.
+	 * @param object $json A JSON object representing an author.
 	 * @return self The instance corresponding to the specified JSON object.
 	 */
-	static function fromJson(object $map): self {
+	static function fromJson(object $json): self {
 		return new self(
-			email: isset($map->comment_author_email) && is_string($map->comment_author_email) ? $map->comment_author_email : "",
-			ipAddress: isset($map->user_ip) && is_string($map->user_ip) ? $map->user_ip : "",
-			name: isset($map->comment_author) && is_string($map->comment_author) ? $map->comment_author : "",
-			role: isset($map->user_role) && is_string($map->user_role) ? $map->user_role : "",
-			url: isset($map->comment_author_url) && is_string($map->comment_author_url) ? $map->comment_author_url : "",
-			userAgent: isset($map->user_agent) && is_string($map->user_agent) ? $map->user_agent : ""
+			email: isset($json->comment_author_email) && is_string($json->comment_author_email) ? $json->comment_author_email : "",
+			ipAddress: isset($json->user_ip) && is_string($json->user_ip) ? $json->user_ip : "",
+			name: isset($json->comment_author) && is_string($json->comment_author) ? $json->comment_author : "",
+			role: isset($json->user_role) && is_string($json->user_role) ? $json->user_role : "",
+			url: isset($json->comment_author_url) && is_string($json->comment_author_url) ? $json->comment_author_url : "",
+			userAgent: isset($json->user_agent) && is_string($json->user_agent) ? $json->user_agent : ""
 		);
 	}
 

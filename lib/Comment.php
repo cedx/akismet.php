@@ -83,21 +83,21 @@ class Comment implements \JsonSerializable {
 
 	/**
 	 * Creates a new comment from the specified JSON object.
-	 * @param object $map A JSON object representing a comment.
+	 * @param object $json A JSON object representing a comment.
 	 * @return self The instance corresponding to the specified JSON object.
 	 */
-	static function fromJson(object $map): self {
-		$keys = array_keys(get_object_vars($map));
+	static function fromJson(object $json): self {
+		$keys = array_keys(get_object_vars($json));
 		$hasAuthor = count(array_filter($keys, fn(string $key) => str_starts_with($key, "comment_author") || str_starts_with($key, "user"))) > 0;
 		return new self(
-			author: $hasAuthor ? Author::fromJson($map) : null,
-			content: isset($map->comment_content) && is_string($map->comment_content) ? $map->comment_content : "",
-			date: isset($map->comment_date_gmt) && is_string($map->comment_date_gmt) ? new \DateTimeImmutable($map->comment_date_gmt) : null,
-			permalink: isset($map->permalink) && is_string($map->permalink) ? $map->permalink : "",
-			postModified: isset($map->comment_post_modified_gmt) && is_string($map->comment_post_modified_gmt) ? new \DateTimeImmutable($map->comment_post_modified_gmt) : null,
-			recheckReason: isset($map->recheck_reason) && is_string($map->recheck_reason) ? $map->recheck_reason : "",
-			referrer: isset($map->referrer) && is_string($map->referrer) ? $map->referrer : "",
-			type: isset($map->comment_type) && is_string($map->comment_type) ? $map->comment_type : ""
+			author: $hasAuthor ? Author::fromJson($json) : null,
+			content: isset($json->comment_content) && is_string($json->comment_content) ? $json->comment_content : "",
+			date: isset($json->comment_date_gmt) && is_string($json->comment_date_gmt) ? new \DateTimeImmutable($json->comment_date_gmt) : null,
+			permalink: isset($json->permalink) && is_string($json->permalink) ? $json->permalink : "",
+			postModified: isset($json->comment_post_modified_gmt) && is_string($json->comment_post_modified_gmt) ? new \DateTimeImmutable($json->comment_post_modified_gmt) : null,
+			recheckReason: isset($json->recheck_reason) && is_string($json->recheck_reason) ? $json->recheck_reason : "",
+			referrer: isset($json->referrer) && is_string($json->referrer) ? $json->referrer : "",
+			type: isset($json->comment_type) && is_string($json->comment_type) ? $json->comment_type : ""
 		);
 	}
 

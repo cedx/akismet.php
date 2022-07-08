@@ -40,14 +40,14 @@ class Blog implements \JsonSerializable {
 
 	/**
 	 * Creates a new blog from the specified JSON object.
-	 * @param object $map A JSON object representing a blog.
+	 * @param object $json A JSON object representing a blog.
 	 * @return self The instance corresponding to the specified JSON object.
 	 */
-	static function fromJson(object $map): self {
+	static function fromJson(object $json): self {
 		return new self(
-			charset: isset($map->blog_charset) && is_string($map->blog_charset) ? $map->blog_charset : "",
-			languages: isset($map->blog_lang) && is_string($map->blog_lang) ? array_map(trim(...), explode(",", $map->blog_lang)) : [],
-			url: isset($map->blog) && is_string($map->blog) ? $map->blog : ""
+			charset: isset($json->blog_charset) && is_string($json->blog_charset) ? $json->blog_charset : "",
+			languages: isset($json->blog_lang) && is_string($json->blog_lang) ? array_map(trim(...), explode(",", $json->blog_lang)) : [],
+			url: isset($json->blog) && is_string($json->blog) ? $json->blog : ""
 		);
 	}
 

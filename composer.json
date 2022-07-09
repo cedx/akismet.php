@@ -9,7 +9,7 @@
 		{"email": "cedric@belin.io", "homepage": "https://belin.io", "name": "Cédric Belin"}
 	],
 	"autoload": {
-		"psr-4": {"Akismet\\": "lib/"}
+		"psr-4": {"Akismet\\": "src/"}
 	},
 	"autoload-dev": {
 		"psr-4": {"Akismet\\": "test/"}

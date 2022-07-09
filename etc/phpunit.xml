@@ -8,7 +8,7 @@
 
 	<coverage processUncoveredFiles="true">
 		<include>
-			<directory>../lib</directory>
+			<directory>../src</directory>
 		</include>
 		<report>
 			<clover outputFile="../var/coverage.xml"/>

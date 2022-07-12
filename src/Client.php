@@ -91,7 +91,7 @@ class Client {
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
 		return $response->getBody()->getContents() == "false"
 			? CheckResult::ham
-			: ($response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam);
+			: ($response->getHeaderLine("X-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam);
 	}
 
 	/**
@@ -145,12 +145,12 @@ class Client {
 		$response = $this->http->sendRequest($request);
 		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new ClientException($response->getReasonPhrase(), $status);
 
-		if ($response->hasHeader("x-akismet-alert-code")) {
-			$code = (int) $response->getHeaderLine("x-akismet-alert-code");
-			throw new ClientException($response->getHeaderLine("x-akismet-alert-msg"), $code);
+		if ($response->hasHeader("X-akismet-alert-code")) {
+			$code = (int) $response->getHeaderLine("X-akismet-alert-code");
+			throw new ClientException($response->getHeaderLine("X-akismet-alert-msg"), $code);
 		}
 
-		if ($response->hasHeader("x-akismet-debug-help")) throw new ClientException($response->getHeaderLine("x-akismet-debug-help"), 400);
+		if ($response->hasHeader("X-akismet-debug-help")) throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), 400);
 		return $response;
 	}
 }

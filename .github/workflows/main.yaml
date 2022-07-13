@@ -29,6 +29,6 @@ jobs:
         run: composer run test
       - name: Collect code coverage
         if: success()
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
         with:
           files: var/coverage.xml

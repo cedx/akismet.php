@@ -78,7 +78,7 @@ class Client {
 
 		$this->http = new Psr18Client;
 		$this->baseUrl = $this->http->createUri($baseUrl);
-		$this->endpoint = $this->http->createUri("{$this->baseUrl->getScheme()}://{$this->apiKey}.{$this->baseUrl->getAuthority()}{$this->baseUrl->getPath()}");
+		$this->endpoint = $this->http->createUri("{$this->baseUrl->getScheme()}://$this->apiKey.{$this->baseUrl->getAuthority()}{$this->baseUrl->getPath()}");
 	}
 
 	/**

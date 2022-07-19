@@ -1,7 +1,7 @@
 import {existsSync} from "node:fs";
 import {cp, rm} from "node:fs/promises";
 import process from "node:process";
-import del from "del";
+import {deleteAsync} from "del";
 import {execa} from "execa";
 import gulp from "gulp";
 import replace from "gulp-replace";
@@ -9,7 +9,7 @@ import composer from "./composer.json" assert {type: "json"};
 
 /** Deletes all generated files and reset any saved state. */
 export function clean() {
-	return del("var/**/*");
+	return deleteAsync("var/**/*");
 }
 
 /** Builds the documentation. */

@@ -1,5 +1,7 @@
 name: main
 on: push
+env:
+  AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -14,7 +16,7 @@ jobs:
           extensions: curl, intl, mbstring, simplexml
       - name: Get cache directory
         id: composer-cache
-        run: echo "::set-output name=path::$(composer config cache-files-dir)"
+        run: echo "path=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         uses: actions/cache@v3
         with:
@@ -24,9 +26,7 @@ jobs:
       - name: Install dependencies
         run: composer install
       - name: Run tests
-        env:
-          AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
-        run: composer run test
+        run: composer test
       - name: Collect code coverage
         if: success()
         uses: codecov/codecov-action@v3

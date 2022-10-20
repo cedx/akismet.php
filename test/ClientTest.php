@@ -76,23 +76,19 @@ class ClientTest extends TestCase {
 
 	/**
 	 * @testdox ->submitHam()
-	 * @doesNotPerformAssertions
 	 */
 	function testSubmitHam(): void {
 		it("should complete without error", function() {
-			try { $this->client->submitHam($this->ham); }
-			catch (\Throwable $e) { Assert::fail($e->getMessage()); }
+			expect(fn() => $this->client->submitHam($this->ham))->to->not->throw;
 		});
 	}
 
 	/**
 	 * @testdox ->submitSpam()
-	 * @doesNotPerformAssertions
 	 */
 	function testSubmitSpam(): void {
 		it("should complete without error", function() {
-			try { $this->client->submitSpam($this->spam); }
-			catch (\Throwable $e) { Assert::fail($e->getMessage()); }
+			expect(fn() => $this->client->submitSpam($this->spam))->to->not->throw;
 		});
 	}
 

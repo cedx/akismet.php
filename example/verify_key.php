@@ -12,7 +12,6 @@ try {
 	$isValid = $client->verifyKey();
 	print $isValid ? "The API key is valid." : "The API key is invalid.";
 }
-
 catch (ClientExceptionInterface $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

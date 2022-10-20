@@ -20,7 +20,6 @@ try {
 	$client->submitSpam($comment);
 	print("The comment was successfully submitted as spam.");
 }
-
 catch (ClientExceptionInterface $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

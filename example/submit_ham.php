@@ -20,7 +20,6 @@ try {
 	$client->submitHam($comment);
 	print("The comment was successfully submitted as ham.");
 }
-
 catch (ClientExceptionInterface $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

@@ -2,4 +2,4 @@ parameters:
 	level: max
 	paths: [../example, ../src, ../test]
 	ignoreErrors:
-		- '/Function PHPUnit\\Framework\\logicalOr invoked with 2 parameters, 0 required/'
+		- '/Expression ".*" on a separate line does not do anything/'

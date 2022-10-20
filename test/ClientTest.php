@@ -1,7 +1,7 @@
 <?php namespace Akismet;
 
 use PHPUnit\Framework\{Assert, TestCase};
-use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr};
+use function PHPUnit\Expect\{expect, it};
 
 /**
  * @testdox Akismet\Client
@@ -65,14 +65,13 @@ class ClientTest extends TestCase {
 	 * @testdox ->checkComment()
 	 */
 	function testCheckComment(): void {
-		// It should return `CheckResult::ham` for valid comment (e.g. ham).
-		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::ham));
+		it("should return `CheckResult::ham` for valid comment (e.g. ham)", function() {
+			expect($this->client->checkComment($this->ham))->to->equal(CheckResult::ham);
+		});
 
-		// It should return `CheckResult::spam` for invalid comment (e.g. spam).
-		assertThat($this->client->checkComment($this->spam), logicalOr(
-			equalTo(CheckResult::spam),
-			equalTo(CheckResult::pervasiveSpam)
-		));
+		it("should return `CheckResult::spam` for invalid comment (e.g. spam)", function() {
+			expect($this->client->checkComment($this->spam))->to->be->oneOf([CheckResult::spam, CheckResult::pervasiveSpam]);
+		});
 	}
 
 	/**
@@ -80,9 +79,10 @@ class ClientTest extends TestCase {
 	 * @doesNotPerformAssertions
 	 */
 	function testSubmitHam(): void {
-		// It should complete without error.
-		try { $this->client->submitHam($this->ham); }
-		catch (\Throwable $e) { Assert::fail($e->getMessage()); }
+		it("should complete without error", function() {
+			try { $this->client->submitHam($this->ham); }
+			catch (\Throwable $e) { Assert::fail($e->getMessage()); }
+		});
 	}
 
 	/**
@@ -90,20 +90,23 @@ class ClientTest extends TestCase {
 	 * @doesNotPerformAssertions
 	 */
 	function testSubmitSpam(): void {
-		// It should complete without error.
-		try { $this->client->submitSpam($this->spam); }
-		catch (\Throwable $e) { Assert::fail($e->getMessage()); }
+		it("should complete without error", function() {
+			try { $this->client->submitSpam($this->spam); }
+			catch (\Throwable $e) { Assert::fail($e->getMessage()); }
+		});
 	}
 
 	/**
 	 * @testdox ->verifyKey()
 	 */
 	function testVerifyKey(): void {
-		// It should return `true` for a valid API key.
-		assertThat($this->client->verifyKey(), isTrue());
+		it("should return `true` for a valid API key", function() {
+			expect($this->client->verifyKey())->to->be->true;
+		});
 
-		// It should return `false` for an invalid API key.
-		$client = new Client(apiKey: "0123456789-ABCDEF", blog: $this->client->blog, isTest: true);
-		assertThat($client->verifyKey(), isFalse());
+		it("should return `false` for an invalid API key", function() {
+			$client = new Client(apiKey: "0123456789-ABCDEF", blog: $this->client->blog, isTest: true);
+			expect($client->verifyKey())->to->be->false;
+		});
 	}
 }

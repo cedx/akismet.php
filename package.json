@@ -7,7 +7,7 @@
 	"private": true,
 	"repository": "github:cedx/akismet.php",
 	"type": "module",
-	"version": "14.0.0",
+	"version": "14.1.0",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",

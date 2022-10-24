@@ -37,7 +37,7 @@
 	},
 	"require-dev": {
 		"cedx/phpunit-expect": "^0.13.1",
-		"phpstan/phpstan": "^1.8.10"
+		"phpstan/phpstan": "^1.8.11"
 	},
 	"scripts": {
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]

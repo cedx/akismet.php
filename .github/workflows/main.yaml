@@ -1,7 +1,5 @@
 name: main
 on: push
-env:
-  AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
 jobs:
   main:
     runs-on: ubuntu-latest
@@ -27,6 +25,8 @@ jobs:
         run: composer install
       - name: Run tests
         run: composer test
+        env:
+          AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
       - name: Collect code coverage
         if: success()
         uses: codecov/codecov-action@v3

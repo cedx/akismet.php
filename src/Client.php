@@ -6,7 +6,7 @@ use Psr\Http\Message\{ResponseInterface, UriInterface};
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-class Client {
+final class Client {
 
 	/**
 	 * The response returned by the `submit-ham` and `submit-spam` endpoints when the outcome is a success.

@@ -15,7 +15,7 @@
 	},
 	"devDependencies": {
 		"@types/gulp": "^4.0.10",
-		"@types/node": "^18.11.11",
+		"@types/node": "^18.11.12",
 		"del": "^7.0.0",
 		"execa": "^6.1.0",
 		"gulp": "^4.0.2",

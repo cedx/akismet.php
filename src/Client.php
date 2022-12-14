@@ -66,7 +66,7 @@ final class Client {
 		if ($userAgent) $this->userAgent = $userAgent;
 		else {
 			$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-			$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json") ?: "")->version; // @phpstan-ignore-line
+			$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json") ?: "{}")->version; // @phpstan-ignore-line
 			$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion"; // @phpstan-ignore-line
 		}
 

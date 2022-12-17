@@ -10,19 +10,16 @@ class ClientTest extends TestCase {
 
 	/**
 	 * The client used to query the service database.
-	 * @var Client
 	 */
 	private Client $client;
 
 	/**
 	 * A comment with content marked as ham.
-	 * @var Comment
 	 */
 	private Comment $ham;
 
 	/**
 	 * A comment with content marked as spam.
-	 * @var Comment
 	 */
 	private Comment $spam;
 

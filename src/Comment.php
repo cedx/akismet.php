@@ -10,49 +10,41 @@ class Comment implements \JsonSerializable {
 
 	/**
 	 * The comment's author.
-	 * @var Author|null
 	 */
 	public ?Author $author;
 
 	/**
 	 * The comment's content.
-	 * @var string
 	 */
 	public string $content;
 
 	/**
 	 * The UTC timestamp of the creation of the comment.
-	 * @var \DateTimeInterface|null
 	 */
 	public ?\DateTimeInterface $date;
 
 	/**
 	 * The permanent location of the entry the comment is submitted to.
-	 * @var UriInterface|null
 	 */
 	public ?UriInterface $permalink;
 
 	/**
 	 * The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 * @var \DateTimeInterface|null
 	 */
 	public ?\DateTimeInterface $postModified;
 
 	/**
 	 * A string describing why the content is being rechecked.
-	 * @var string
 	 */
 	public string $recheckReason;
 
 	/**
 	 * The URL of the webpage that linked to the entry being requested.
-	 * @var UriInterface|null
 	 */
 	public ?UriInterface $referrer;
 
 	/**
 	 * The comment's type.
-	 * @var string
 	 */
 	public string $type = "";
 

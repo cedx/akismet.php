@@ -10,7 +10,6 @@ class Blog implements \JsonSerializable {
 
 	/**
 	 * The character encoding for the values included in comments.
-	 * @var string
 	 */
 	public string $charset;
 
@@ -22,7 +21,6 @@ class Blog implements \JsonSerializable {
 
 	/**
 	 * The blog or site URL.
-	 * @var UriInterface|null
 	 */
 	public ?UriInterface $url;
 

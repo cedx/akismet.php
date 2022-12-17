@@ -16,37 +16,31 @@ final class Client {
 
 	/**
 	 * The Akismet API key.
-	 * @var string
 	 */
 	readonly string $apiKey;
 
 	/**
 	 * The base URL of the remote API endpoint.
-	 * @var UriInterface
 	 */
 	readonly UriInterface $baseUrl;
 
 	/**
 	 * The front page or home URL of the instance making requests.
-	 * @var Blog
 	 */
 	readonly Blog $blog;
 
 	/**
 	 * Value indicating whether the client operates in test mode.
-	 * @var bool
 	 */
 	readonly bool $isTest;
 
 	/**
 	 * The user agent string to use when making requests.
-	 * @var string
 	 */
 	readonly string $userAgent;
 
 	/**
 	 * The final URL of the remote API endpoint.
-	 * @var UriInterface
 	 */
 	private UriInterface $endpoint;
 

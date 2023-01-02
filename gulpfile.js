@@ -1,6 +1,6 @@
 import {existsSync} from "node:fs";
 import {cp, rm} from "node:fs/promises";
-import process from "node:process";
+import {env} from "node:process";
 import {deleteAsync} from "del";
 import {execa} from "execa";
 import gulp from "gulp";
@@ -38,7 +38,7 @@ export async function publish() {
 
 /** Runs the test suite. */
 export function test() {
-	process.env.XDEBUG_MODE = "coverage";
+	env.XDEBUG_MODE = "coverage";
 	return exec("vendor/bin/phpunit", ["--configuration=etc/phpunit.xml"]);
 }
 

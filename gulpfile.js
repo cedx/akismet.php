@@ -44,9 +44,10 @@ export function test() {
 
 /** Updates the version number in the sources. */
 export function version() {
-	return gulp.src(["package.json", "etc/phpdoc.xml"], {base: "."})
+	return gulp.src(["package.json", "etc/phpdoc.xml", "src/Client.php"], {base: "."})
 		.pipe(replace(/"version": "\d+(\.\d+){2}"/, `"version": "${composer.version}"`))
 		.pipe(replace(/version number="\d+(\.\d+){2}"/, `version number="${composer.version}"`))
+		.pipe(replace(/const version = "\d+(\.\d+){2}"/, `const version = "${composer.version}"`))
 		.pipe(gulp.dest("."));
 }
 

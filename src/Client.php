@@ -12,7 +12,13 @@ final class Client {
 	 * The response returned by the `submit-ham` and `submit-spam` endpoints when the outcome is a success.
 	 * @var string
 	 */
-	private const successfulResponse = "Thanks for making the web a better place.";
+	private const success = "Thanks for making the web a better place.";
+
+	/**
+	 * The package version.
+	 * @var string
+	 */
+	private const version = "14.1.0";
 
 	/**
 	 * The Akismet API key.
@@ -60,8 +66,7 @@ final class Client {
 		if ($userAgent) $this->userAgent = $userAgent;
 		else {
 			$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-			$pkgVersion = json_decode(file_get_contents(__DIR__."/../composer.json") ?: "{}")->version; // @phpstan-ignore-line
-			$this->userAgent = "PHP/$phpVersion | Akismet/$pkgVersion"; // @phpstan-ignore-line
+			$this->userAgent = "PHP/$phpVersion | Akismet/" . self::version; // @phpstan-ignore-line
 		}
 
 		$this->baseUrl = new Uri($baseUrl);
@@ -89,7 +94,7 @@ final class Client {
 	function submitHam(Comment $comment): void {
 		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}submit-ham");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
-		if ((string) $response->getBody() != self::successfulResponse) throw new ClientException("Invalid server response.", 500);
+		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
 
 	/**
@@ -100,7 +105,7 @@ final class Client {
 	function submitSpam(Comment $comment): void {
 		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}submit-spam");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
-		if ((string) $response->getBody() != self::successfulResponse) throw new ClientException("Invalid server response.", 500);
+		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
 
 	/**

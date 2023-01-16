@@ -7,7 +7,7 @@ import gulp from "gulp";
 import replace from "gulp-replace";
 import composer from "./composer.json" assert {type: "json"};
 
-/** Deletes all generated files and reset any saved state. */
+/** Deletes all generated files. */
 export function clean() {
 	return deleteAsync("var/**/*");
 }
@@ -31,7 +31,7 @@ export async function lint() {
 	return exec("tsc", ["--project", "jsconfig.json"]);
 }
 
-/** Publishes the package in the registry. */
+/** Publishes the package. */
 export async function publish() {
 	for (const command of [["tag"], ["push", "origin"]]) await exec("git", [...command, `v${composer.version}`]);
 }

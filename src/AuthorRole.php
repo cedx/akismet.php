@@ -5,6 +5,8 @@
  */
 enum AuthorRole: string {
 
-	/** The author is an administrator. */
+	/**
+	 * The author is an administrator.
+	 */
 	case administrator = "administrator";
 }

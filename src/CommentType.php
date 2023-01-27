@@ -5,24 +5,38 @@
  */
 enum CommentType: string {
 
-	/** A blog post. */
+	/**
+	 * A blog post.
+	 */
 	case blogPost = "blog-post";
 
-	/** A blog comment. */
+	/**
+	 * A blog comment.
+	 */
 	case comment = "comment";
 
-	/** A contact form or feedback form submission. */
+	/**
+	 * A contact form or feedback form submission.
+	 */
 	case contactForm = "contact-form";
 
-	/** A top-level forum post. */
+	/**
+	 * A top-level forum post.
+	 */
 	case forumPost = "forum-post";
 
-	/** A message sent between just a few users. */
+	/**
+	 * A message sent between just a few users.
+	 */
 	case message = "message";
 
-	/** A reply to a top-level forum post. */
+	/**
+	 * A reply to a top-level forum post.
+	 */
 	case reply = "reply";
 
-	/** A new user account. */
+	/**
+	 * A new user account.
+	 */
 	case signup = "signup";
 }

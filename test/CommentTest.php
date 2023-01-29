@@ -29,12 +29,12 @@ class CommentTest extends TestCase {
 				"referrer" => "https://belin.io"
 			]);
 
-			/** @var Author */
+			/** @var Author $author */
 			$author = $comment->author;
 			expect($author)->to->not->be->null;
 			expect($author ->name)->to->equal("Cédric Belin");
 
-			/** @var \DateTimeInterface */
+			/** @var \DateTimeInterface $date */
 			$date = $comment->date;
 			expect($date)->to->not->be->null;
 			expect($date->format("Y"))->to->equal(2_000);

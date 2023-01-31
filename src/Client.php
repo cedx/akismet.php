@@ -127,42 +127,38 @@ final class Client {
 	 */
 	private function fetch(UriInterface $endpoint, object $fields): ResponseInterface {
 		$handle = curl_init((string) $endpoint);
+		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
+
 		$postFields = $this->blog->jsonSerialize();
 		foreach (get_object_vars($fields) as $key => $value) $postFields->$key = $value;
 		if ($this->isTest) $postFields->is_test = "1";
 
-		try {
-			if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
-
-			$headers = [];
-			curl_setopt_array($handle, [
-				CURLOPT_POST => true,
-				CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&", encoding_type: PHP_QUERY_RFC1738),
-				CURLOPT_RETURNTRANSFER => true,
-				CURLOPT_USERAGENT => $this->userAgent,
-				CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
-					$parts = explode(":", $header, 2);
-					if (count($parts) == 2) $headers[trim($parts[0])] = trim($parts[1]);
-					return strlen($header);
-				}
-			]);
-
-			$body = curl_exec($handle);
-			if ($body === false) throw new ClientException("An error occurred while querying the end point.", 500);
-
-			$response = new Response(body: (string) $body, headers: $headers, status: curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
-			if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new ClientException($response->getReasonPhrase(), $status);
-
-			if ($response->hasHeader("X-akismet-alert-code")) {
-				$code = (int) $response->getHeaderLine("X-akismet-alert-code");
-				throw new ClientException($response->getHeaderLine("X-akismet-alert-msg"), $code);
+		$headers = [];
+		curl_setopt_array($handle, [
+			CURLOPT_POST => true,
+			CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&", encoding_type: PHP_QUERY_RFC1738),
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_USERAGENT => $this->userAgent,
+			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
+				$parts = explode(":", $header, 2);
+				if (count($parts) == 2) $headers[trim($parts[0])] = trim($parts[1]);
+				return strlen($header);
 			}
+		]);
 
-			if ($response->hasHeader("X-akismet-debug-help")) throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), 400);
-			return $response;
+		$body = curl_exec($handle);
+		if ($body === false) throw new ClientException("An error occurred while querying the end point.", 500);
+
+		$response = new Response(body: (string) $body, headers: $headers, status: curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
+		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new ClientException($response->getReasonPhrase(), $status);
+
+		if ($response->hasHeader("X-akismet-alert-code")) {
+			$code = (int) $response->getHeaderLine("X-akismet-alert-code");
+			throw new ClientException($response->getHeaderLine("X-akismet-alert-msg"), $code);
 		}
-		finally {
-			if ($handle) curl_close($handle);
-		}
+
+		return $response->hasHeader("X-akismet-debug-help")
+			? throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), 400)
+			: $response;
 	}
 }

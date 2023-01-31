@@ -1,4 +1,4 @@
-<?php namespace Akismet;
+<?php namespace akismet;
 
 use Nyholm\Psr7\{Response, Uri};
 use Psr\Http\Message\{ResponseInterface, UriInterface};
@@ -18,7 +18,7 @@ final class Client {
 	 * The package version.
 	 * @var string
 	 */
-	private const version = "14.1.0";
+	private const version = "15.0.0";
 
 	/**
 	 * The Akismet API key.

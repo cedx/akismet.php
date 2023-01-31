@@ -1,4 +1,4 @@
-<?php namespace Akismet;
+<?php namespace akismet;
 
 /**
  * Specifies the role of an author.

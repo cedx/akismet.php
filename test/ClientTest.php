@@ -1,10 +1,10 @@
-<?php namespace Akismet;
+<?php namespace akismet;
 
 use PHPUnit\Framework\{Assert, TestCase};
-use function PHPUnit\Expect\{expect, it};
+use function phpunit\expect\{expect, it};
 
 /**
- * @testdox Akismet\Client
+ * @testdox akismet\Client
  */
 class ClientTest extends TestCase {
 

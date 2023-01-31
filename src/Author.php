@@ -1,4 +1,4 @@
-<?php namespace Akismet;
+<?php namespace akismet;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;

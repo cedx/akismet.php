@@ -1,5 +1,5 @@
 <?php
-use Akismet\{Author, Blog, Client, Comment};
+use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 
 /**

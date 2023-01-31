@@ -1,10 +1,10 @@
-<?php namespace Akismet;
+<?php namespace akismet;
 
 use PHPUnit\Framework\TestCase;
-use function PHPUnit\Expect\{expect, it};
+use function phpunit\expect\{expect, it};
 
 /**
- * @testdox Akismet\Comment */
+ * @testdox akismet\Comment */
 class CommentTest extends TestCase {
 
 	/**

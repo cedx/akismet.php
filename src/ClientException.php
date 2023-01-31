@@ -1,4 +1,4 @@
-<?php namespace Akismet;
+<?php namespace akismet;
 
 use Psr\Http\Client\ClientExceptionInterface;
 

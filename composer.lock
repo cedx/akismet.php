@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d56ad85ba21c18a19a8a8b276fb0e850",
+    "content-hash": "21a9135d177b2417c189b313ec3a138d",
     "packages": [
         {
             "name": "nyholm/psr7",
@@ -301,16 +301,16 @@
     "packages-dev": [
         {
             "name": "cedx/phpunit-expect",
-            "version": "0.13.1",
+            "version": "0.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cedx/phpunit-expect.git",
-                "reference": "3bc9ee64ef840b2394eb26710fb88fbd688cb9c4"
+                "reference": "869a24f196e4733793ba70077a589da9ea06f35e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cedx/phpunit-expect/zipball/3bc9ee64ef840b2394eb26710fb88fbd688cb9c4",
-                "reference": "3bc9ee64ef840b2394eb26710fb88fbd688cb9c4",
+                "url": "https://api.github.com/repos/cedx/phpunit-expect/zipball/869a24f196e4733793ba70077a589da9ea06f35e",
+                "reference": "869a24f196e4733793ba70077a589da9ea06f35e",
                 "shasum": ""
             },
             "require": {
@@ -318,10 +318,10 @@
                 "ext-reflection": "*",
                 "ext-spl": "*",
                 "php": ">=8.1.0",
-                "phpunit/phpunit": "^9.5.25"
+                "phpunit/phpunit": "^9.5.28"
             },
             "require-dev": {
-                "phpstan/phpstan": "^1.8.10"
+                "phpstan/phpstan": "^1.9.14"
             },
             "type": "library",
             "autoload": {
@@ -329,7 +329,7 @@
                     "src/functions.php"
                 ],
                 "psr-4": {
-                    "PHPUnit\\Expect\\": "src/"
+                    "phpunit\\expect\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -356,9 +356,9 @@
             "support": {
                 "docs": "https://github.com/cedx/phpunit-expect/wiki",
                 "issues": "https://github.com/cedx/phpunit-expect/issues",
-                "source": "https://github.com/cedx/phpunit-expect/tree/v0.13.1"
+                "source": "https://github.com/cedx/phpunit-expect/tree/v0.14.0"
             },
-            "time": "2022-10-20T07:34:21+00:00"
+            "time": "2023-01-31T10:13:39+00:00"
         },
         {
             "name": "doctrine/instantiator",

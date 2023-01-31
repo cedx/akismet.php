@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [15.0.0](https://github.com/cedx/akismet.php/compare/v14.1.0...15.0.0)
+- Breaking change: lowercased the `Akismet` namespace.
+- Updated the package dependencies.
+
 ## Version [14.1.0](https://github.com/cedx/akismet.php/compare/v14.0.0...14.1.0)
 - Dropped the dependency on [Symfony HTTP Client](https://symfony.com/doc/current/http_client.html).
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [15.0.1](https://github.com/cedx/akismet.php/compare/v15.0.0...15.0.1)
+- Fixed a regression in the `Client->verifyKey()` method that called a wrong endpoint.
+
 ## Version [15.0.0](https://github.com/cedx/akismet.php/compare/v14.1.0...15.0.0)
 - Breaking change: lowercased the `Akismet` namespace.
 - Updated the package dependencies.

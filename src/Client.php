@@ -18,7 +18,7 @@ final class Client {
 	 * The package version.
 	 * @var string
 	 */
-	private const version = "15.0.0";
+	private const version = "15.0.1";
 
 	/**
 	 * The Akismet API key.
@@ -113,7 +113,7 @@ final class Client {
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
 	 */
 	function verifyKey(): bool {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}verify-key");
+		$endpoint = $this->baseUrl->withPath("{$this->baseUrl->getPath()}verify-key");
 		$response = $this->fetch($endpoint, (object) ["key" => $this->apiKey]);
 		return (string) $response->getBody() == "valid";
 	}

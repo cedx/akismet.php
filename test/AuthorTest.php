@@ -8,7 +8,7 @@ use function phpunit\expect\{expect, it};
  * Tests the features of the {@see Author} class.
  */
 #[TestDox('akismet\Author')]
-class AuthorTest extends TestCase {
+final class AuthorTest extends TestCase {
 
 	#[TestDox("::fromJson()")]
 	function testFromJson(): void {

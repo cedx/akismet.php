@@ -9,7 +9,7 @@ use function phpunit\expect\{expect, it};
  * Tests the features of the {@see Client} class.
  */
 #[TestDox('akismet\Client')]
-class ClientTest extends TestCase {
+final class ClientTest extends TestCase {
 
 	/**
 	 * The client used to query the service database.

@@ -8,7 +8,7 @@ use function phpunit\expect\{expect, it};
  * Tests the features of the {@see Comment} class.
  */
 #[TestDox('akismet\Comment')]
-class CommentTest extends TestCase {
+final class CommentTest extends TestCase {
 
 	#[TestDox("::fromJson()")]
 	function testFromJson(): void {

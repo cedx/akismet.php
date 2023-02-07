@@ -8,7 +8,7 @@ use function phpunit\expect\{expect, it};
  * Tests the features of the {@see Blog} class.
  */
 #[TestDox('akismet\Blog')]
-class BlogTest extends TestCase {
+final class BlogTest extends TestCase {
 
 	#[TestDox("::fromJson()")]
 	function testFromJson(): void {

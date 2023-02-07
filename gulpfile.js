@@ -37,9 +37,10 @@ export async function publish() {
 }
 
 /** Runs the test suite. */
-export function test() {
+export async function test() {
 	env.XDEBUG_MODE = "coverage";
-	return exec("vendor/bin/phpunit", ["--configuration=etc/phpunit.xml"]);
+	const {stdout} = await execa(`php -r "print extension_loaded('xdebug') ? 'true' : 'false';"`);
+	return exec("vendor/bin/phpunit", ["--configuration=etc/phpunit.xml"].concat(stdout == "true" ? [] : ["--no-coverage"]));
 }
 
 /** Updates the version number in the sources. */

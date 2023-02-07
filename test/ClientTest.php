@@ -1,11 +1,14 @@
 <?php namespace akismet;
 
-use PHPUnit\Framework\{Assert, TestCase};
+use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\Before;
 use function phpunit\expect\{expect, it};
 
 /**
- * @testdox akismet\Client
+ * Tests the features of the {@see Client} class.
  */
+#[TestDox('akismet\Client')]
 class ClientTest extends TestCase {
 
 	/**
@@ -24,9 +27,10 @@ class ClientTest extends TestCase {
 	private Comment $spam;
 
 	/**
-	 * @before This method is called before each test.
+	 * This method is called before each test.
 	 */
-	protected function setUp(): void {
+	#[Before]
+	protected function before(): void {
 		$this->client = new Client(
 			apiKey: getenv("AKISMET_API_KEY") ?: "",
 			blog: new Blog("https://github.com/cedx/akismet.php"),
@@ -58,9 +62,7 @@ class ClientTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @testdox ->checkComment()
-	 */
+	#[TestDox("->checkComment()")]
 	function testCheckComment(): void {
 		it("should return `CheckResult::ham` for valid comment (e.g. ham)", function() {
 			expect($this->client->checkComment($this->ham))->to->equal(CheckResult::ham);
@@ -71,27 +73,21 @@ class ClientTest extends TestCase {
 		});
 	}
 
-	/**
-	 * @testdox ->submitHam()
-	 */
+	#[TestDox("->submitHam()")]
 	function testSubmitHam(): void {
 		it("should complete without error", function() {
 			expect(fn() => $this->client->submitHam($this->ham))->to->not->throw;
 		});
 	}
 
-	/**
-	 * @testdox ->submitSpam()
-	 */
+	#[TestDox("->submitSpam()")]
 	function testSubmitSpam(): void {
 		it("should complete without error", function() {
 			expect(fn() => $this->client->submitSpam($this->spam))->to->not->throw;
 		});
 	}
 
-	/**
-	 * @testdox ->verifyKey()
-	 */
+	#[TestDox("->verifyKey()")]
 	function testVerifyKey(): void {
 		it("should return `true` for a valid API key", function() {
 			expect($this->client->verifyKey())->to->be->true;

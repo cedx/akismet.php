@@ -1,16 +1,16 @@
 <?php namespace akismet;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\TestDox;
 use function phpunit\expect\{expect, it};
 
 /**
- * @testdox akismet\Author
+ * Tests the features of the {@see Author} class.
  */
+#[TestDox('akismet\Author')]
 class AuthorTest extends TestCase {
 
-	/**
-	 * @testdox ::fromJson()
-	 */
+	#[TestDox("::fromJson()")]
 	function testFromJson(): void {
 		it("should return an empty instance with an empty map", function() {
 			$author = Author::fromJson(new \stdClass);
@@ -35,9 +35,7 @@ class AuthorTest extends TestCase {
 		});
 	}
 
-	/**
-	 * @testdox ->jsonSerialize()
-	 */
+	#[TestDox("->jsonSerialize()")]
 	function testJsonSerialize(): void {
 		it("should return only the IP address with a newly created instance", function() {
 			$data = (new Author(ipAddress: "127.0.0.1"))->jsonSerialize();

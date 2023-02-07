@@ -37,8 +37,8 @@
 		"psr/http-client": "^1.0.1"
 	},
 	"require-dev": {
-		"cedx/phpunit-expect": "^0.14.0",
-		"phpstan/phpstan": "^1.9.14"
+		"cedx/phpunit-expect": "^0.15.0",
+		"phpstan/phpstan": "^1.9.16"
 	},
 	"scripts": {
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]

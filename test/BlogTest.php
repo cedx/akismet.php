@@ -1,16 +1,16 @@
 <?php namespace akismet;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\TestDox;
 use function phpunit\expect\{expect, it};
 
 /**
- * @testdox akismet\Blog
+ * Tests the features of the {@see Blog} class.
  */
+#[TestDox('akismet\Blog')]
 class BlogTest extends TestCase {
 
-	/**
-	 * @testdox ::fromJson()
-	 */
+	#[TestDox("::fromJson()")]
 	function testFromJson(): void {
 		it("should return an empty instance with an empty map", function() {
 			$blog = Blog::fromJson(new \stdClass);
@@ -32,9 +32,7 @@ class BlogTest extends TestCase {
 		});
 	}
 
-	/**
-	 * @testdox ->jsonSerialize()
-	 */
+	#[TestDox("->jsonSerialize()")]
 	function testJsonSerialize(): void {
 		it("should return only the blog URL with a newly created instance", function() {
 			$data = (new Blog("https://github.com/cedx/akismet.php"))->jsonSerialize();

@@ -16,20 +16,26 @@ final class AuthorTest extends TestCase {
 			$author = Author::fromJson(new \stdClass);
 			expect($author->email)->to->be->empty;
 			expect($author->ipAddress)->to->be->empty;
+			expect($author->name)->to->be->empty;
+			expect($author->role)->to->be->empty;
 			expect($author->url)->to->be->null;
 			expect($author->userAgent)->to->be->empty;
 		});
 
 		it("should return an initialized instance with a non-empty map", function() {
 			$author = Author::fromJson((object) [
+				"comment_author" => "Cédric Belin",
 				"comment_author_email" => "cedric@belin.io",
 				"comment_author_url" => "https://belin.io",
 				"user_agent" => "Mozilla/5.0",
-				"user_ip" => "127.0.0.1"
+				"user_ip" => "127.0.0.1",
+				"user_role" => "administrator"
 			]);
 
 			expect($author->email)->to->equal("cedric@belin.io");
 			expect($author->ipAddress)->to->equal("127.0.0.1");
+			expect($author->name)->to->equal("Cédric Belin");
+			expect($author->role)->to->equal(AuthorRole::administrator->value);
 			expect((string) $author->url)->to->equal("https://belin.io");
 			expect($author->userAgent)->to->equal("Mozilla/5.0");
 		});

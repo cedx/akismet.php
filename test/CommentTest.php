@@ -17,6 +17,9 @@ final class CommentTest extends TestCase {
 			expect($comment->author)->to->be->null;
 			expect($comment->content)->to->be->empty;
 			expect($comment->date)->to->be->null;
+			expect($comment->permalink)->to->be->null;
+			expect($comment->postModified)->to->be->null;
+			expect($comment->recheckReason)->to->be->empty;
 			expect($comment->referrer)->to->be->null;
 			expect($comment->type)->to->be->empty;
 		});
@@ -27,21 +30,25 @@ final class CommentTest extends TestCase {
 				"comment_content" => "A user comment.",
 				"comment_date_gmt" => "2000-01-01T00:00:00.000Z",
 				"comment_type" => "blog-post",
-				"referrer" => "https://belin.io"
+				"recheck_reason" => "The comment has been changed.",
+				"referrer" => "https://belin.io",
+				"user_ip" => "127.0.0.1"
 			]);
 
 			/** @var Author $author */
 			$author = $comment->author;
 			expect($author)->to->not->be->null;
-			expect($author ->name)->to->equal("Cédric Belin");
+			expect($author->ipAddress)->to->equal("127.0.0.1");
+			expect($author->name)->to->equal("Cédric Belin");
 
 			/** @var \DateTimeInterface $date */
 			$date = $comment->date;
 			expect($date)->to->not->be->null;
-			expect($date->format("Y"))->to->equal(2_000);
+			expect($date->format("c"))->to->equal("2000-01-01T00:00:00+00:00");
 
 			expect($comment->content)->to->equal("A user comment.");
 			expect((string) $comment->referrer)->to->equal("https://belin.io");
+			expect($comment->recheckReason)->to->equal("The comment has been changed.");
 			expect($comment->type)->to->equal(CommentType::blogPost->value);
 		});
 	}

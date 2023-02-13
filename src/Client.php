@@ -58,7 +58,7 @@ final class Client {
 	 * @param string $userAgent The user agent string to use when making requests.
 	 * @param string $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com/1.1/") {
+	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com/") {
 		$this->apiKey = $apiKey;
 		$this->blog = $blog;
 		$this->isTest = $isTest;
@@ -79,7 +79,7 @@ final class Client {
 	 * @return CheckResult A value indicating whether the specified comment is spam.
 	 */
 	function checkComment(Comment $comment): CheckResult {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}comment-check");
+		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}1.1/comment-check");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
 		return (string) $response->getBody() == "false"
 			? CheckResult::ham
@@ -92,7 +92,7 @@ final class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function submitHam(Comment $comment): void {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}submit-ham");
+		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}1.1/submit-ham");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
 		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
@@ -103,7 +103,7 @@ final class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function submitSpam(Comment $comment): void {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}submit-spam");
+		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}1.1/submit-spam");
 		$response = $this->fetch($endpoint, $comment->jsonSerialize());
 		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
@@ -113,7 +113,7 @@ final class Client {
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
 	 */
 	function verifyKey(): bool {
-		$endpoint = $this->baseUrl->withPath("{$this->baseUrl->getPath()}verify-key");
+		$endpoint = $this->baseUrl->withPath("{$this->baseUrl->getPath()}1.1/verify-key");
 		$response = $this->fetch($endpoint, (object) ["key" => $this->apiKey]);
 		return (string) $response->getBody() == "valid";
 	}

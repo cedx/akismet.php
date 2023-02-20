@@ -4,13 +4,12 @@
 *.css text diff=css
 *.html text diff=html
 *.http text
-*.js text
+*.hxml text
 *.json text
 *.md text diff=markdown
 *.neon text
 *.php text diff=php
 *.svg text
-*.ts text
 *.txt text
 *.xml text
 *.yaml text

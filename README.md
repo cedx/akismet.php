@@ -5,7 +5,7 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 
 ## Documentation
 - [User guide](https://github.com/cedx/akismet.php/wiki)
-- [API reference](https://cedx.github.io/akismet.php)
+- [API reference](https://docs.belin.io/akismet.php)
 
 ## Development
 - [Git repository](https://github.com/cedx/akismet.php)

@@ -33,8 +33,8 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-pcre": "*",
-		"nyholm/psr7": "^1.5.1",
-		"psr/http-client": "^1.0.1"
+		"nyholm/psr7": "^1.6.0",
+		"psr/http-client": "^1.0.2"
 	},
 	"require-dev": {
 		"cedx/phpunit-expect": "^0.15.0",
@@ -44,7 +44,7 @@
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]
 	},
 	"support": {
-		"docs": "https://github.com/cedx/akismet.php/wiki",
+		"docs": "https://docs.belin.io/akismet.php",
 		"issues": "https://github.com/cedx/akismet.php/issues"
 	}
 }

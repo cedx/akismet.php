@@ -3,17 +3,19 @@
 	cacheDirectory="../var/phpunit"
 	testdox="true"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd">
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd">
 
 	<coverage>
-		<include>
-			<directory>../src</directory>
-		</include>
 		<report>
 			<clover outputFile="../var/coverage.xml"/>
 		</report>
 	</coverage>
 	<logging/>
+	<source>
+		<include>
+			<directory>../src</directory>
+		</include>
+	</source>
 	<testsuites>
 		<testsuite name="main">
 			<directory>../test</directory>

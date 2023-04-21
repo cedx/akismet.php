@@ -59,18 +59,13 @@ final class Client {
 	 * @param string $baseUrl The base URL of the remote API endpoint.
 	 */
 	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com/") {
+		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
 		$this->apiKey = $apiKey;
-		$this->blog = $blog;
-		$this->isTest = $isTest;
-
-		if ($userAgent) $this->userAgent = $userAgent;
-		else {
-			$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-			$this->userAgent = "PHP/$phpVersion | Akismet/" . self::version; // @phpstan-ignore-line
-		}
-
 		$this->baseUrl = new Uri($baseUrl);
+		$this->blog = $blog;
 		$this->endpoint = new Uri("{$this->baseUrl->getScheme()}://$this->apiKey.{$this->baseUrl->getAuthority()}{$this->baseUrl->getPath()}");
+		$this->isTest = $isTest;
+		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/" . self::version;
 	}
 
 	/**

@@ -8,7 +8,7 @@
 	<title>Akismet for PHP</title>
 	<paths>
 		<cache>../var/phpdoc</cache>
-		<output>../docs</output>
+		<output>../docs/api</output>
 	</paths>
 	<version number="15.0.1">
 		<api>

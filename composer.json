@@ -33,12 +33,12 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-pcre": "*",
-		"nyholm/psr7": "^1.6.1",
+		"nyholm/psr7": "^1.7.0",
 		"psr/http-client": "^1.0.2"
 	},
 	"require-dev": {
 		"cedx/phpunit-expect": "^0.15.0",
-		"phpstan/phpstan": "^1.10.13"
+		"phpstan/phpstan": "^1.10.14"
 	},
 	"scripts": {
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]

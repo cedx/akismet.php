@@ -1,2 +1,11 @@
-- [API reference](api/)
-- [License](license.md)
+- [Installation](installation.md)
+- [Usage](usage.md)
+- Features
+	- [Key verification](features/key_verification.md)
+	- [Comment check](features/comment_check.md)
+	- [Submit spam](features/submit_spam.md)
+	- [Submit ham](features/submit_ham.md)
+- [Testing](testing.md)
+- See also
+	- [API reference](api/)
+	- [License](about/license.md)

@@ -46,11 +46,6 @@ final class Client {
 	readonly string $userAgent;
 
 	/**
-	 * The final URL of the remote API endpoint.
-	 */
-	private UriInterface $endpoint;
-
-	/**
 	 * Creates a new client.
 	 * @param string $apiKey The Akismet API key.
 	 * @param Blog $blog The front page or home URL of the instance making requests.
@@ -63,7 +58,6 @@ final class Client {
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri($baseUrl);
 		$this->blog = $blog;
-		$this->endpoint = new Uri("{$this->baseUrl->getScheme()}://$this->apiKey.{$this->baseUrl->getAuthority()}{$this->baseUrl->getPath()}");
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/" . self::version;
 	}
@@ -74,8 +68,7 @@ final class Client {
 	 * @return CheckResult A value indicating whether the specified comment is spam.
 	 */
 	function checkComment(Comment $comment): CheckResult {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}1.1/comment-check");
-		$response = $this->fetch($endpoint, $comment->jsonSerialize());
+		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
 		return (string) $response->getBody() == "false"
 			? CheckResult::ham
 			: ($response->getHeaderLine("X-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam);
@@ -87,8 +80,7 @@ final class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function submitHam(Comment $comment): void {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}1.1/submit-ham");
-		$response = $this->fetch($endpoint, $comment->jsonSerialize());
+		$response = $this->fetch("1.1/submit-ham", $comment->jsonSerialize());
 		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
 
@@ -98,8 +90,7 @@ final class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function submitSpam(Comment $comment): void {
-		$endpoint = $this->endpoint->withPath("{$this->endpoint->getPath()}1.1/submit-spam");
-		$response = $this->fetch($endpoint, $comment->jsonSerialize());
+		$response = $this->fetch("1.1/submit-spam", $comment->jsonSerialize());
 		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
 
@@ -108,24 +99,24 @@ final class Client {
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
 	 */
 	function verifyKey(): bool {
-		$endpoint = $this->baseUrl->withPath("{$this->baseUrl->getPath()}1.1/verify-key");
-		$response = $this->fetch($endpoint, (object) ["key" => $this->apiKey]);
+		$response = $this->fetch("1.1/verify-key", (object) ["key" => $this->apiKey]);
 		return (string) $response->getBody() == "valid";
 	}
 
 	/**
 	 * Queries the service by posting the specified fields to a given end point, and returns the response.
-	 * @param UriInterface $endpoint The URL of the end point to query.
+	 * @param string $endpoint The URL of the end point to query.
 	 * @param object $fields The fields describing the query body.
 	 * @return ResponseInterface The server response.
 	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while querying the end point.
 	 */
-	private function fetch(UriInterface $endpoint, object $fields): ResponseInterface {
-		$handle = curl_init((string) $endpoint);
+	private function fetch(string $endpoint, object $fields): ResponseInterface {
+		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}$endpoint"));
 		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
 
 		$postFields = $this->blog->jsonSerialize();
 		foreach (get_object_vars($fields) as $key => $value) $postFields->$key = $value;
+		$postFields->api_key = $this->apiKey;
 		if ($this->isTest) $postFields->is_test = "1";
 
 		$headers = [];

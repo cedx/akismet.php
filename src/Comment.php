@@ -19,6 +19,12 @@ class Comment implements \JsonSerializable {
 	public string $content;
 
 	/**
+	 * The context in which this comment was posted.
+	 * @var string[]
+	 */
+	public array $context;
+
+	/**
 	 * The UTC timestamp of the creation of the comment.
 	 */
 	public ?\DateTimeInterface $date;
@@ -52,6 +58,7 @@ class Comment implements \JsonSerializable {
 	 * Creates a new comment.
 	 * @param Author|null $author The comment's author.
 	 * @param string $content The comment's content.
+	 * @param string[] $context The context in which this comment was posted.
 	 * @param \DateTimeInterface|null $date The UTC timestamp of the creation of the comment.
 	 * @param string $permalink The permanent location of the entry the comment is submitted to.
 	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
@@ -60,11 +67,12 @@ class Comment implements \JsonSerializable {
 	 * @param string $type The comment's type.
 	 */
 	function __construct(
-		?Author $author, string $content = "", ?\DateTimeInterface $date = null, string $permalink = "",
+		?Author $author, string $content = "", array $context = [], ?\DateTimeInterface $date = null, string $permalink = "",
 		?\DateTimeInterface $postModified = null, string $recheckReason = "", string $referrer = "", string $type = ""
 	) {
 		$this->author = $author;
 		$this->content = $content;
+		$this->context = $context;
 		$this->date = $date;
 		$this->permalink = $permalink ? new Uri($permalink) : null;
 		$this->postModified = $postModified;
@@ -84,6 +92,7 @@ class Comment implements \JsonSerializable {
 		return new self(
 			author: $hasAuthor ? Author::fromJson($json) : null,
 			content: isset($json->comment_content) && is_string($json->comment_content) ? $json->comment_content : "",
+			context: isset($json->comment_context) && is_array($json->comment_context) ? $json->comment_context : [],
 			date: isset($json->comment_date_gmt) && is_string($json->comment_date_gmt) ? new \DateTimeImmutable($json->comment_date_gmt) : null,
 			permalink: isset($json->permalink) && is_string($json->permalink) ? $json->permalink : "",
 			postModified: isset($json->comment_post_modified_gmt) && is_string($json->comment_post_modified_gmt) ? new \DateTimeImmutable($json->comment_post_modified_gmt) : null,
@@ -100,6 +109,7 @@ class Comment implements \JsonSerializable {
 	function jsonSerialize(): \stdClass {
 		$map = $this->author ? $this->author->jsonSerialize() : new \stdClass;
 		if ($this->content) $map->comment_content = $this->content;
+		if ($this->context) $map->comment_context = $this->context;
 		if ($this->date) $map->comment_date_gmt = $this->date->format("c");
 		if ($this->permalink) $map->permalink = (string) $this->permalink;
 		if ($this->postModified) $map->comment_post_modified_gmt = $this->postModified->format("c");

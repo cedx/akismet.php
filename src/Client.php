@@ -59,7 +59,7 @@ final class Client {
 		$this->baseUrl = new Uri($baseUrl);
 		$this->blog = $blog;
 		$this->isTest = $isTest;
-		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/" . self::version;
+		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;
 	}
 
 	/**

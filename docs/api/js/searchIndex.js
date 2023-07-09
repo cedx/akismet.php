@@ -1,6 +1,11 @@
 Search.appendIndex(
     [
                 {
+            "fqsen": "\\akismet\\Actitivy",
+            "name": "Actitivy",
+            "summary": "TODO",
+            "url": "classes/akismet-Actitivy.html"
+        },                {
             "fqsen": "\\akismet\\Author",
             "name": "Author",
             "summary": "Represents\u0020the\u0020author\u0020of\u0020a\u0020comment.",
@@ -206,6 +211,11 @@ Search.appendIndex(
             "summary": "The\u0020comment\u0027s\u0020content.",
             "url": "classes/akismet-Comment.html#property_content"
         },                {
+            "fqsen": "\\akismet\\Comment\u003A\u003A\u0024context",
+            "name": "context",
+            "summary": "The\u0020context\u0020in\u0020which\u0020this\u0020comment\u0020was\u0020posted.",
+            "url": "classes/akismet-Comment.html#property_context"
+        },                {
             "fqsen": "\\akismet\\Comment\u003A\u003A\u0024date",
             "name": "date",
             "summary": "The\u0020UTC\u0020timestamp\u0020of\u0020the\u0020creation\u0020of\u0020the\u0020comment.",
@@ -275,6 +285,41 @@ Search.appendIndex(
             "name": "signup",
             "summary": "A\u0020new\u0020user\u0020account.",
             "url": ""
+        },                {
+            "fqsen": "\\akismet\\Usage",
+            "name": "Usage",
+            "summary": "Provides\u0020API\u0020usage\u0020for\u0020a\u0020given\u0020month.",
+            "url": "classes/akismet-Usage.html"
+        },                {
+            "fqsen": "\\akismet\\Usage\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Creates\u0020a\u0020new\u0020usage.",
+            "url": "classes/akismet-Usage.html#method___construct"
+        },                {
+            "fqsen": "\\akismet\\Usage\u003A\u003AfromJson\u0028\u0029",
+            "name": "fromJson",
+            "summary": "Creates\u0020a\u0020new\u0020usage\u0020from\u0020the\u0020specified\u0020JSON\u0020object.",
+            "url": "classes/akismet-Usage.html#method_fromJson"
+        },                {
+            "fqsen": "\\akismet\\Usage\u003A\u003A\u0024limit",
+            "name": "limit",
+            "summary": "The\u0020number\u0020of\u0020monthly\u0020API\u0020calls\u0020your\u0020plan\u0020entitles\u0020you\u0020to.",
+            "url": "classes/akismet-Usage.html#property_limit"
+        },                {
+            "fqsen": "\\akismet\\Usage\u003A\u003A\u0024percentage",
+            "name": "percentage",
+            "summary": "The\u0020percentage\u0020of\u0020the\u0020limit\u0020used\u0020since\u0020the\u0020beginning\u0020of\u0020the\u0020month.",
+            "url": "classes/akismet-Usage.html#property_percentage"
+        },                {
+            "fqsen": "\\akismet\\Usage\u003A\u003A\u0024throttled",
+            "name": "throttled",
+            "summary": "Value\u0020indicating\u0020whether\u0020the\u0020requests\u0020are\u0020being\u0020throttled\u0020for\u0020having\u0020consistently\u0020gone\u0020over\u0020the\u0020limit.",
+            "url": "classes/akismet-Usage.html#property_throttled"
+        },                {
+            "fqsen": "\\akismet\\Usage\u003A\u003A\u0024usage",
+            "name": "usage",
+            "summary": "The\u0020number\u0020of\u0020calls\u0020\u0028spam\u0020\u002B\u0020ham\u0029\u0020since\u0020the\u0020beginning\u0020of\u0020the\u0020month.",
+            "url": "classes/akismet-Usage.html#property_usage"
         },                {
             "fqsen": "\\",
             "name": "\\",

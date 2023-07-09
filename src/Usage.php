@@ -47,7 +47,7 @@ class Usage {
 	static function fromJson(object $json): self {
 		return new self(
 			limit: isset($json->limit) && is_int($json->limit) ? $json->limit : -1,
-			percentage: isset($json->percentage) && is_numeric($json->percentage) ? $json->percentage : 0,
+			percentage: isset($json->percentage) && (is_float($json->percentage) || is_int($json->percentage)) ? $json->percentage : 0,
 			throttled: isset($json->throttled) && is_bool($json->throttled) ? $json->throttled : false,
 			usage: isset($json->usage) && is_int($json->usage) ? $json->usage : 0
 		);

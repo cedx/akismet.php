@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\TestDox;
-use function phpunit\expect\{expect, it};
+use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull, logicalNot};
 
 /**
  * Tests the features of the {@see Comment} class.
@@ -12,72 +12,68 @@ final class CommentTest extends TestCase {
 
 	#[TestDox("::fromJson()")]
 	function testFromJson(): void {
-		it("should return an empty instance with an empty map", function() {
-			$comment = Comment::fromJson(new \stdClass);
-			expect($comment->author)->to->be->null;
-			expect($comment->content)->to->be->empty;
-			expect($comment->date)->to->be->null;
-			expect($comment->permalink)->to->be->null;
-			expect($comment->postModified)->to->be->null;
-			expect($comment->recheckReason)->to->be->empty;
-			expect($comment->referrer)->to->be->null;
-			expect($comment->type)->to->be->empty;
-		});
+		// It should return an empty instance with an empty map.
+		$comment = Comment::fromJson(new \stdClass);
+		assertThat($comment->author, isNull());
+		assertThat($comment->content, isEmpty());
+		assertThat($comment->date, isNull());
+		assertThat($comment->permalink, isNull());
+		assertThat($comment->postModified, isNull());
+		assertThat($comment->recheckReason, isEmpty());
+		assertThat($comment->referrer, isNull());
+		assertThat($comment->type, isEmpty());
 
-		it("should return an initialized instance with a non-empty map", function() {
-			$comment = Comment::fromJson((object) [
-				"comment_author" => "Cédric Belin",
-				"comment_content" => "A user comment.",
-				"comment_date_gmt" => "2000-01-01T00:00:00.000Z",
-				"comment_type" => "blog-post",
-				"recheck_reason" => "The comment has been changed.",
-				"referrer" => "https://belin.io",
-				"user_ip" => "127.0.0.1"
-			]);
+		// It should return an initialized instance with a non-empty map.
+		$comment = Comment::fromJson((object) [
+			"comment_author" => "Cédric Belin",
+			"comment_content" => "A user comment.",
+			"comment_date_gmt" => "2000-01-01T00:00:00.000Z",
+			"comment_type" => "blog-post",
+			"recheck_reason" => "The comment has been changed.",
+			"referrer" => "https://belin.io",
+			"user_ip" => "127.0.0.1"
+		]);
 
-			/** @var Author $author */
-			$author = $comment->author;
-			expect($author)->to->not->be->null;
-			expect($author->ipAddress)->to->equal("127.0.0.1");
-			expect($author->name)->to->equal("Cédric Belin");
+		/** @var Author $author */
+		$author = $comment->author;
+		assertThat($author, logicalNot(isNull()));
+		assertThat($author->ipAddress, equalTo("127.0.0.1"));
+		assertThat($author->name, equalTo("Cédric Belin"));
 
-			/** @var \DateTimeInterface $date */
-			$date = $comment->date;
-			expect($date)->to->not->be->null;
-			expect($date->format("c"))->to->equal("2000-01-01T00:00:00+00:00");
+		/** @var \DateTimeInterface $date */
+		$date = $comment->date;
+		assertThat($date, logicalNot(isNull()));
+		assertThat($date->format("c"), equalTo("2000-01-01T00:00:00+00:00"));
 
-			expect($comment->content)->to->equal("A user comment.");
-			expect((string) $comment->referrer)->to->equal("https://belin.io");
-			expect($comment->recheckReason)->to->equal("The comment has been changed.");
-			expect($comment->type)->to->equal(CommentType::blogPost->value);
-		});
+		assertThat($comment->content, equalTo("A user comment."));
+		assertThat((string) $comment->referrer, equalTo("https://belin.io"));
+		assertThat($comment->recheckReason, equalTo("The comment has been changed."));
+		assertThat($comment->type, equalTo(CommentType::blogPost->value));
 	}
 
 	#[TestDox("->jsonSerialize()")]
 	function testJsonSerialize(): void {
-		it("should return only the author info with a newly created instance", function() {
-			$data = (new Comment(author: new Author(ipAddress: "127.0.0.1")))->jsonSerialize();
-			expect(get_object_vars($data))->to->have->lengthOf(1);
-			expect($data->user_ip)->to->equal("127.0.0.1");
-		});
+		// It should return only the author info with a newly created instance.
+		$data = (new Comment(author: new Author(ipAddress: "127.0.0.1")))->jsonSerialize();
+		assertThat(get_object_vars($data), countOf(1));
+		assertThat($data->user_ip, equalTo("127.0.0.1"));
 
-		it("should return a non-empty map with a initialized instance", function() {
-			$data = (new Comment(
-				author: new Author(ipAddress: "127.0.0.1", name: "Cédric Belin", userAgent: "Doom/6.6.6"),
-				content: "A user comment.",
-				date: new \DateTimeImmutable("2000-01-01T00:00:00.000Z"),
-				referrer: "https://belin.io",
-				type: CommentType::blogPost->value
-			))->jsonSerialize();
+		// It should return a non-empty map with a initialized instance.
+		$data = (new Comment(
+			author: new Author(ipAddress: "127.0.0.1", name: "Cédric Belin", userAgent: "Doom/6.6.6"),
+			content: "A user comment.",
+			date: new \DateTimeImmutable("2000-01-01T00:00:00.000Z"),
+			referrer: "https://belin.io",
+			type: CommentType::blogPost->value
+		))->jsonSerialize();
 
-			expect(get_object_vars($data))->to->have->lengthOf(7);
-			expect($data->comment_author)->to->equal("Cédric Belin");
-			expect($data->comment_content)->to->equal("A user comment.");
-			expect($data->comment_date_gmt)->to->equal("2000-01-01T00:00:00+00:00");
-			expect($data->comment_type)->to->equal("blog-post");
-			expect($data->referrer)->to->equal("https://belin.io");
-			expect($data->user_agent)->to->equal("Doom/6.6.6");
-			expect($data->user_ip)->to->equal("127.0.0.1");
-		});
+		assertThat(get_object_vars($data), countOf(7));
+		assertThat($data->comment_author, equalTo("Cédric Belin"));
+		assertThat($data->comment_content, equalTo("A user comment."));
+		assertThat($data->comment_date_gmt, equalTo("2000-01-01T00:00:00+00:00"));
+		assertThat($data->comment_type, equalTo("blog-post"));
+		assertThat($data->referrer, equalTo("https://belin.io"));
+		assertThat($data->user_agent, equalTo("Doom/6.6.6"));
+		assertThat($data->user_ip, equalTo("127.0.0.1"));
 	}
 }

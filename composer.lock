@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b7b1a505f1d37f88076d8441137b802",
+    "content-hash": "12ba70a0a3941b8f3149eac0ddea96ca",
     "packages": [
         {
             "name": "nyholm/psr7",
@@ -246,67 +246,6 @@
         }
     ],
     "packages-dev": [
-        {
-            "name": "cedx/phpunit-expect",
-            "version": "0.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cedx/phpunit-expect.git",
-                "reference": "590790fa59e088ca2ece6cbc1368da669e544f7e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cedx/phpunit-expect/zipball/590790fa59e088ca2ece6cbc1368da669e544f7e",
-                "reference": "590790fa59e088ca2ece6cbc1368da669e544f7e",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "ext-reflection": "*",
-                "ext-spl": "*",
-                "php": ">=8.1.0",
-                "phpunit/phpunit": "^10.0.4"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "^1.9.15"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
-                "psr-4": {
-                    "phpunit\\expect\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Cédric Belin",
-                    "email": "cedric@belin.io",
-                    "homepage": "https://belin.io"
-                }
-            ],
-            "description": "BDD assertion library based on PHPUnit, inspired by Chai.",
-            "homepage": "https://github.com/cedx/phpunit-expect",
-            "keywords": [
-                "BDD",
-                "assert",
-                "expect",
-                "phpunit",
-                "test",
-                "unit"
-            ],
-            "support": {
-                "docs": "https://github.com/cedx/phpunit-expect/wiki",
-                "issues": "https://github.com/cedx/phpunit-expect/issues",
-                "source": "https://github.com/cedx/phpunit-expect/tree/v0.15.0"
-            },
-            "time": "2023-02-07T11:01:25+00:00"
-        },
         {
             "name": "myclabs/deep-copy",
             "version": "1.11.1",

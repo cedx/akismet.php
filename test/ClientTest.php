@@ -1,7 +1,7 @@
 <?php namespace akismet;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Attributes\{Before, TestDox};
+use PHPUnit\Framework\Attributes\{Before, Test, TestDox};
 use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isNull, isTrue, logicalOr};
 
 /**
@@ -61,8 +61,9 @@ final class ClientTest extends TestCase {
 		);
 	}
 
+	#[Test]
 	#[TestDox("checkComment()")]
-	function testCheckComment(): void {
+	function checkComment(): void {
 		// It should return `CheckResult::ham` for valid comment (e.g. ham).
 		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::ham));
 
@@ -73,20 +74,23 @@ final class ClientTest extends TestCase {
 		));
 	}
 
+	#[Test]
 	#[TestDox("submitHam()")]
-	function testSubmitHam(): void {
+	function submitHam(): void {
 		// It should complete without error.
 		assertThat($this->client->submitHam($this->ham), isNull()); // @phpstan-ignore-line
 	}
 
+	#[Test]
 	#[TestDox("submitSpam()")]
-	function testSubmitSpam(): void {
+	function submitSpam(): void {
 		// It should complete without error.
 		assertThat($this->client->submitSpam($this->spam), isNull()); // @phpstan-ignore-line
 	}
 
+	#[Test]
 	#[TestDox("verifyKey()")]
-	function testVerifyKey(): void {
+	function verifyKey(): void {
 		// It should return `true` for a valid API key.
 		assertThat($this->client->verifyKey(), isTrue());
 

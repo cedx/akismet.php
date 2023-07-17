@@ -1,7 +1,7 @@
 <?php namespace akismet;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\{Test, TestDox};
 use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
 
 /**
@@ -10,8 +10,9 @@ use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
 #[TestDox("Blog")]
 final class BlogTest extends TestCase {
 
+	#[Test]
 	#[TestDox("fromJson()")]
-	function testFromJson(): void {
+	function fromJson(): void {
 		// It should return an empty instance with an empty map.
 		$blog = Blog::fromJson(new \stdClass);
 		assertThat($blog->charset, isEmpty());
@@ -30,8 +31,9 @@ final class BlogTest extends TestCase {
 		assertThat((string) $blog->url, equalTo("https://github.com/cedx/akismet.php"));
 	}
 
+	#[Test]
 	#[TestDox("jsonSerialize()")]
-	function testJsonSerialize(): void {
+	function jsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
 		$data = (new Blog("https://github.com/cedx/akismet.php"))->jsonSerialize();
 		assertThat(get_object_vars($data), countOf(1));

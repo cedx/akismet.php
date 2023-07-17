@@ -7,7 +7,7 @@ use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isNull, isTrue, lo
 /**
  * Tests the features of the {@see Client} class.
  */
-#[TestDox('akismet\Client')]
+#[TestDox("Client")]
 final class ClientTest extends TestCase {
 
 	/**
@@ -61,7 +61,7 @@ final class ClientTest extends TestCase {
 		);
 	}
 
-	#[TestDox("->checkComment()")]
+	#[TestDox("checkComment()")]
 	function testCheckComment(): void {
 		// It should return `CheckResult::ham` for valid comment (e.g. ham).
 		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::ham));
@@ -73,19 +73,19 @@ final class ClientTest extends TestCase {
 		));
 	}
 
-	#[TestDox("->submitHam()")]
+	#[TestDox("submitHam()")]
 	function testSubmitHam(): void {
 		// It should complete without error.
 		assertThat($this->client->submitHam($this->ham), isNull()); // @phpstan-ignore-line
 	}
 
-	#[TestDox("->submitSpam()")]
+	#[TestDox("submitSpam()")]
 	function testSubmitSpam(): void {
 		// It should complete without error.
 		assertThat($this->client->submitSpam($this->spam), isNull()); // @phpstan-ignore-line
 	}
 
-	#[TestDox("->verifyKey()")]
+	#[TestDox("verifyKey()")]
 	function testVerifyKey(): void {
 		// It should return `true` for a valid API key.
 		assertThat($this->client->verifyKey(), isTrue());

@@ -7,10 +7,10 @@ use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
 /**
  * Tests the features of the {@see Blog} class.
  */
-#[TestDox('akismet\Blog')]
+#[TestDox("Blog")]
 final class BlogTest extends TestCase {
 
-	#[TestDox("::fromJson()")]
+	#[TestDox("fromJson()")]
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$blog = Blog::fromJson(new \stdClass);
@@ -30,7 +30,7 @@ final class BlogTest extends TestCase {
 		assertThat((string) $blog->url, equalTo("https://github.com/cedx/akismet.php"));
 	}
 
-	#[TestDox("->jsonSerialize()")]
+	#[TestDox("jsonSerialize()")]
 	function testJsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
 		$data = (new Blog("https://github.com/cedx/akismet.php"))->jsonSerialize();

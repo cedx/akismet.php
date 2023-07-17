@@ -7,10 +7,10 @@ use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
 /**
  * Tests the features of the {@see Author} class.
  */
-#[TestDox('akismet\Author')]
+#[TestDox("Author")]
 final class AuthorTest extends TestCase {
 
-	#[TestDox("::fromJson()")]
+	#[TestDox("fromJson()")]
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$author = Author::fromJson(new \stdClass);
@@ -39,7 +39,7 @@ final class AuthorTest extends TestCase {
 		assertThat($author->userAgent, equalTo("Mozilla/5.0"));
 	}
 
-	#[TestDox("->jsonSerialize()")]
+	#[TestDox("jsonSerialize()")]
 	function testJsonSerialize(): void {
 		// It should return only the IP address with a newly created instance.
 		$data = (new Author(ipAddress: "127.0.0.1"))->jsonSerialize();

@@ -7,10 +7,10 @@ use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull, l
 /**
  * Tests the features of the {@see Comment} class.
  */
-#[TestDox('akismet\Comment')]
+#[TestDox("Comment")]
 final class CommentTest extends TestCase {
 
-	#[TestDox("::fromJson()")]
+	#[TestDox("fromJson()")]
 	function testFromJson(): void {
 		// It should return an empty instance with an empty map.
 		$comment = Comment::fromJson(new \stdClass);
@@ -51,7 +51,7 @@ final class CommentTest extends TestCase {
 		assertThat($comment->type, equalTo(CommentType::blogPost->value));
 	}
 
-	#[TestDox("->jsonSerialize()")]
+	#[TestDox("jsonSerialize()")]
 	function testJsonSerialize(): void {
 		// It should return only the author info with a newly created instance.
 		$data = (new Comment(author: new Author(ipAddress: "127.0.0.1")))->jsonSerialize();

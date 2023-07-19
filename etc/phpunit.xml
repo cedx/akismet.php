@@ -1,13 +1,11 @@
 <?xml version="1.0"?>
-<phpunit
-	cacheDirectory="../var/phpunit"
+<phpunit cacheDirectory="../var/phpunit" testdox="true"
 	displayDetailsOnTestsThatTriggerDeprecations="true"
 	displayDetailsOnTestsThatTriggerErrors="true"
 	displayDetailsOnTestsThatTriggerNotices="true"
 	displayDetailsOnTestsThatTriggerWarnings="true"
-	testdox="true"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.1/phpunit.xsd">
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd">
 
 	<coverage>
 		<report>

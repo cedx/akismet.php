@@ -25,42 +25,6 @@ final class ClientTest extends TestCase {
 	 */
 	private Comment $spam;
 
-	/**
-	 * This method is called before each test.
-	 */
-	#[Before]
-	protected function before(): void {
-		$this->client = new Client(
-			apiKey: getenv("AKISMET_API_KEY") ?: "",
-			blog: new Blog("https://github.com/cedx/akismet.php"),
-			isTest: true
-		);
-
-		$this->ham = new Comment(
-			author: new Author(
-				ipAddress: "192.168.0.1",
-				name: "Akismet",
-				role: AuthorRole::administrator->value,
-				url: "https://belin.io",
-				userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
-			),
-			content: "I'm testing out the Service API.",
-			referrer: "https://www.npmjs.com/package/@cedx/akismet",
-			type: CommentType::comment->value
-		);
-
-		$this->spam = new Comment(
-			author: new Author(
-				email: "akismet-guaranteed-spam@example.com",
-				ipAddress: "127.0.0.1",
-				name: "viagra-test-123",
-				userAgent: "Spam Bot/6.6.6"
-			),
-			content: "Spam!",
-			type: CommentType::blogPost->value
-		);
-	}
-
 	#[Test]
 	#[TestDox("checkComment()")]
 	function checkComment(): void {
@@ -97,5 +61,38 @@ final class ClientTest extends TestCase {
 		// It should return `false` for an invalid API key.
 		$client = new Client(apiKey: "0123456789-ABCDEF", blog: $this->client->blog, isTest: true);
 		assertThat($client->verifyKey(), isFalse());
+	}
+
+	#[Before]
+	protected function before(): void {
+		$this->client = new Client(
+			apiKey: getenv("AKISMET_API_KEY") ?: "",
+			blog: new Blog("https://github.com/cedx/akismet.php"),
+			isTest: true
+		);
+
+		$this->ham = new Comment(
+			author: new Author(
+				ipAddress: "192.168.0.1",
+				name: "Akismet",
+				role: AuthorRole::administrator->value,
+				url: "https://belin.io",
+				userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
+			),
+			content: "I'm testing out the Service API.",
+			referrer: "https://www.npmjs.com/package/@cedx/akismet",
+			type: CommentType::comment->value
+		);
+
+		$this->spam = new Comment(
+			author: new Author(
+				email: "akismet-guaranteed-spam@example.com",
+				ipAddress: "127.0.0.1",
+				name: "viagra-test-123",
+				userAgent: "Spam Bot/6.6.6"
+			),
+			content: "Spam!",
+			type: CommentType::blogPost->value
+		);
 	}
 }

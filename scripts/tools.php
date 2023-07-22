@@ -5,8 +5,8 @@
  */
 function cleanDirectory(string $directory): void {
 	static $excludes = [".", "..", ".gitkeep"];
-	foreach (array_filter(scandir($directory) ?: [], fn($entry) => !in_array($entry, $excludes)) as $entity)
-		is_dir($path = "$directory/$entity") ? removeDirectory($path) : unlink($path);
+	foreach (array_filter(scandir($directory) ?: [], fn($item) => !in_array($item, $excludes)) as $entry)
+		is_dir($path = "$directory/$entry") ? removeDirectory($path) : unlink($path);
 }
 
 /**

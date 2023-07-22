@@ -178,7 +178,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\akismet\\ClientException",
             "name": "ClientException",
-            "summary": "An\u0020exception\u0020caused\u0020by\u0020an\u0020error\u0020in\u0020a\u0020\u0060Client\u0060\u0020request.",
+            "summary": "An\u0020exception\u0020caused\u0020by\u0020an\u0020error\u0020in\u0020a\u0020\u007B\u0040see\u0020Client\u007D\u0020request.",
             "url": "classes/akismet-ClientException.html"
         },                {
             "fqsen": "\\akismet\\Comment",

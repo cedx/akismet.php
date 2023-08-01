@@ -58,17 +58,17 @@ class Comment implements \JsonSerializable {
 	 * Creates a new comment.
 	 * @param Author|null $author The comment's author.
 	 * @param string $content The comment's content.
-	 * @param string[] $context The context in which this comment was posted.
-	 * @param \DateTimeInterface|null $date The UTC timestamp of the creation of the comment.
-	 * @param string $permalink The permanent location of the entry the comment is submitted to.
-	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 * @param string $recheckReason A string describing why the content is being rechecked.
-	 * @param string $referrer The URL of the webpage that linked to the entry being requested.
 	 * @param string $type The comment's type.
+	 * @param \DateTimeInterface|null $date The UTC timestamp of the creation of the comment.
+	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
+	 * @param string $permalink The permanent location of the entry the comment is submitted to.
+	 * @param string $referrer The URL of the webpage that linked to the entry being requested.
+	 * @param string $recheckReason A string describing why the content is being rechecked.
+	 * @param string[] $context The context in which this comment was posted.
 	 */
 	function __construct(
-		?Author $author, string $content = "", array $context = [], ?\DateTimeInterface $date = null, string $permalink = "",
-		?\DateTimeInterface $postModified = null, string $recheckReason = "", string $referrer = "", string $type = ""
+		?Author $author, string $content = "", string $type = "", ?\DateTimeInterface $date = null, ?\DateTimeInterface $postModified = null,
+		string $permalink = "", string $referrer = "", string $recheckReason = "", array $context = []
 	) {
 		$this->author = $author;
 		$this->content = $content;

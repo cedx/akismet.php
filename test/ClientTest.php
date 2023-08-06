@@ -11,7 +11,7 @@ use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isNull, isTrue, lo
 final class ClientTest extends TestCase {
 
 	/**
-	 * The client used to query the service database.
+	 * The client used to query the remote API.
 	 */
 	private static Client $client;
 

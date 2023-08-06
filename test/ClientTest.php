@@ -74,14 +74,12 @@ final class ClientTest extends TestCase {
 	#[Test]
 	#[TestDox("submitHam()")]
 	function submitHam(): void {
-		// It should complete without error.
 		assertThat(self::$client->submitHam(self::$ham), isNull()); // @phpstan-ignore-line
 	}
 
 	#[Test]
 	#[TestDox("submitSpam()")]
 	function submitSpam(): void {
-		// It should complete without error.
 		assertThat(self::$client->submitSpam(self::$spam), isNull()); // @phpstan-ignore-line
 	}
 

@@ -32,7 +32,7 @@ See [Response Error Codes](https://akismet.com/developers/errors) for more infor
 ## Example
 
 ```php
-use Akismet\{Author, Blog, Client, Comment};
+use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 
 try {
@@ -50,7 +50,6 @@ try {
   $client->submitSpam($comment);
   print("The comment was successfully submitted as spam.");
 }
-
 catch (ClientExceptionInterface $e) {
   print "An error occurred: {$e->getMessage()}";
 }

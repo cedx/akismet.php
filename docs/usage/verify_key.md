@@ -24,8 +24,9 @@ It can also throws a custom error code and message (respectively provided by the
 See [Response Error Codes](https://akismet.com/developers/errors) for more information.
 
 ## Example
+
 ```php
-use Akismet\{Blog, Client};
+use akismet\{Blog, Client};
 use Psr\Http\Client\ClientExceptionInterface;
 
 try {
@@ -35,7 +36,6 @@ try {
   $isValid = $client->verifyKey();
   print $isValid ? "The API key is valid." : "The API key is invalid.";
 }
-
 catch (ClientExceptionInterface $e) {
   print "An error occurred: {$e->getMessage()}";
 }

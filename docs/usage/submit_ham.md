@@ -30,7 +30,7 @@ See [Response Error Codes](https://akismet.com/developers/errors) for more infor
 ## Example
 
 ```php
-use Akismet\{Author, Blog, Client, Comment};
+use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 
 try {
@@ -41,14 +41,13 @@ try {
     content: "I'm testing out the Service API.",
     author: new Author(
       ipAddress: "192.168.123.456",
-      userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36"
+      userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0"
     )
   );
 
   $client->submitHam($comment);
   print("The comment was successfully submitted as ham.");
 }
-
 catch (ClientExceptionInterface $e) {
   print "An error occurred: {$e->getMessage()}";
 }

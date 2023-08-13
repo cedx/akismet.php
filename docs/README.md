@@ -5,7 +5,7 @@ Add Akismet to your [PHP](https://www.php.net) applications so you don't have to
 ## Quick start
 
 ### Get an API key
-The Akismet service requires an API key. If you are not already registered, [sign up for an Akismet account](https://akismet.com/development).
+The Akismet service requires an API key. If you are not already registered, [sign up for an Akismet account](https://akismet.com/developers).
 
 ### Get the library
 Install the latest version of **Akismet for PHP** with [Composer](https://getcomposer.org) package manager:
@@ -19,15 +19,13 @@ For detailed instructions, see the [installation guide](installation.md).
 ## Usage
 There are three different types of calls to [Akismet](https://akismet.com):
 
-1. [Key verification](verify_key.md) will verify whether or not a valid API key is being used. This is especially useful if you will have multiple users with their own Akismet subscriptions using your application.
-2. [Comment check](check_comment.md) is used to ask Akismet whether or not a given post, comment, profile, etc. is spam.
-3. [Submit spam](submit_spam.md) and [submit ham](submit_ham.md) are follow-ups to let Akismet know when it got something wrong (missed spam and false positives). These are very important, and you shouldn't develop using the Akismet API without a facility to include reporting missed spam and false positives.
+1. [Key verification](Key-verification) will verify whether or not a valid API key is being used. This is especially useful if you will have multiple users with their own Akismet subscriptions using your application.
+2. [Comment check](Comment-check) is used to ask Akismet whether or not a given post, comment, profile, etc. is spam.
+3. [Submit spam](Submit-spam) and [submit ham](Submit-ham) are follow-ups to let Akismet know when it got something wrong (missed spam and false positives). These are very important, and you shouldn't develop using the Akismet API without a facility to include reporting missed spam and false positives.
 
-Before integrating this library into your application, you should [test your API calls](testing.md) to ensure a proper usage.
+Before integrating this library into your application, you should [test your API calls](Testing) to ensure a proper usage.
 
 ## See also
-- [Git repository](https://github.com/cedx/akismet)
-- [Packagist package](https://packagist.org/packages/cedx/akismet)
-- [Submit an issue](https://github.com/cedx/akismet/issues)
-
 - [API reference](api/)
+- [Packagist package](https://packagist.org/packages/cedx/akismet)
+- [Code coverage](https://app.codecov.io/gh/cedx/akismet.php)

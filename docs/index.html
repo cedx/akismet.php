@@ -16,7 +16,9 @@
 		<link rel="icon" href="favicon.svg"/>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css"/>
 
-		<script defer src="https://cdn.jsdelivr.net/npm/docsify"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 		<script defer src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
 		<script defer src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
 
@@ -27,6 +29,7 @@
 				loadSidebar: true,
 				name: "Akismet for PHP",
 				noCompileLinks: ["api/.*"],
+				pagination: {crossChapter: true},
 				repo: "cedx/akismet.php",
 				tabs: {theme: "material"},
 				themeColor: "#617cbe"
@@ -35,7 +38,7 @@
 
 		<style>
 			body { font-family: ui-sans-serif, sans-serif; }
-			button { font-family: inherit; }
+			button, input { font-family: inherit; }
 			.docsify-tabs > button { cursor: pointer; }
 		</style>
 	</head>

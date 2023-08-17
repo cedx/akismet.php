@@ -4,7 +4,7 @@ and then returns a thumbs up or thumbs down. **Performance can drop dramatically
 The more data you send Akismet about each comment, the greater the accuracy. We recommend erring on the side of including too much data.
 
 ```php
-Client->checkComment(Comment $comment): string
+Client->checkComment(Comment $comment): CheckResult
 ```
 
 It is important to [test Akismet](testing.md) with a significant amount of real, live data in order to draw any conclusions on accuracy.

@@ -37,8 +37,8 @@
 		"psr/http-client": "^1.0.2"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^1.10.28",
-		"phpunit/phpunit": "^10.2.6"
+		"phpstan/phpstan": "^1.10.29",
+		"phpunit/phpunit": "^10.3.2"
 	},
 	"scripts": {
 		"build": "@php scripts/build.php",

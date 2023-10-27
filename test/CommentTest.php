@@ -56,12 +56,12 @@ final class CommentTest extends TestCase {
 	#[TestDox("jsonSerialize()")]
 	function jsonSerialize(): void {
 		// It should return only the author info with a newly created instance.
-		$data = (new Comment(author: new Author(ipAddress: "127.0.0.1")))->jsonSerialize();
-		assertThat(get_object_vars($data), countOf(1));
-		assertThat($data->user_ip, equalTo("127.0.0.1"));
+		$json = (new Comment(author: new Author(ipAddress: "127.0.0.1")))->jsonSerialize();
+		assertThat(get_object_vars($json), countOf(1));
+		assertThat($json->user_ip, equalTo("127.0.0.1"));
 
 		// It should return a non-empty map with a initialized instance.
-		$data = (new Comment(
+		$json = (new Comment(
 			author: new Author(ipAddress: "127.0.0.1", name: "Cédric Belin", userAgent: "Doom/6.6.6"),
 			content: "A user comment.",
 			date: new \DateTimeImmutable("2000-01-01T00:00:00.000Z"),
@@ -69,13 +69,13 @@ final class CommentTest extends TestCase {
 			type: CommentType::blogPost->value
 		))->jsonSerialize();
 
-		assertThat(get_object_vars($data), countOf(7));
-		assertThat($data->comment_author, equalTo("Cédric Belin"));
-		assertThat($data->comment_content, equalTo("A user comment."));
-		assertThat($data->comment_date_gmt, equalTo("2000-01-01T00:00:00+00:00"));
-		assertThat($data->comment_type, equalTo("blog-post"));
-		assertThat($data->referrer, equalTo("https://belin.io"));
-		assertThat($data->user_agent, equalTo("Doom/6.6.6"));
-		assertThat($data->user_ip, equalTo("127.0.0.1"));
+		assertThat(get_object_vars($json), countOf(7));
+		assertThat($json->comment_author, equalTo("Cédric Belin"));
+		assertThat($json->comment_content, equalTo("A user comment."));
+		assertThat($json->comment_date_gmt, equalTo("2000-01-01T00:00:00+00:00"));
+		assertThat($json->comment_type, equalTo("blog-post"));
+		assertThat($json->referrer, equalTo("https://belin.io"));
+		assertThat($json->user_agent, equalTo("Doom/6.6.6"));
+		assertThat($json->user_ip, equalTo("127.0.0.1"));
 	}
 }

@@ -44,12 +44,12 @@ final class AuthorTest extends TestCase {
 	#[TestDox("jsonSerialize()")]
 	function jsonSerialize(): void {
 		// It should return only the IP address with a newly created instance.
-		$data = (new Author(ipAddress: "127.0.0.1"))->jsonSerialize();
-		assertThat(get_object_vars($data), countOf(1));
-		assertThat($data->user_ip, equalTo("127.0.0.1"));
+		$json = (new Author(ipAddress: "127.0.0.1"))->jsonSerialize();
+		assertThat(get_object_vars($json), countOf(1));
+		assertThat($json->user_ip, equalTo("127.0.0.1"));
 
 		// It should return a non-empty map with a initialized instance.
-		$data = (new Author(
+		$json = (new Author(
 			email: "cedric@belin.io",
 			ipAddress: "192.168.0.1",
 			name: "Cédric Belin",
@@ -57,11 +57,11 @@ final class AuthorTest extends TestCase {
 			userAgent: "Mozilla/5.0"
 		))->jsonSerialize();
 
-		assertThat(get_object_vars($data), countOf(5));
-		assertThat($data->comment_author, equalTo("Cédric Belin"));
-		assertThat($data->comment_author_email, equalTo("cedric@belin.io"));
-		assertThat($data->comment_author_url, equalTo("https://belin.io"));
-		assertThat($data->user_agent, equalTo("Mozilla/5.0"));
-		assertThat($data->user_ip, equalTo("192.168.0.1"));
+		assertThat(get_object_vars($json), countOf(5));
+		assertThat($json->comment_author, equalTo("Cédric Belin"));
+		assertThat($json->comment_author_email, equalTo("cedric@belin.io"));
+		assertThat($json->comment_author_url, equalTo("https://belin.io"));
+		assertThat($json->user_agent, equalTo("Mozilla/5.0"));
+		assertThat($json->user_ip, equalTo("192.168.0.1"));
 	}
 }

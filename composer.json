@@ -1,6 +1,6 @@
 {
 	"description": "Prevent comment spam using the Akismet service.",
-	"homepage": "https://docs.belin.io/akismet.php",
+	"homepage": "https://cedx.github.io/akismet.php",
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",
@@ -32,7 +32,7 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-pcre": "*",
-		"nyholm/psr7": "^1.8.0",
+		"nyholm/psr7": "^1.8.1",
 		"psr/http-client": "^1.0.2"
 	},
 	"require-dev": {
@@ -49,7 +49,7 @@
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]
 	},
 	"support": {
-		"docs": "https://docs.belin.io/akismet.php",
+		"docs": "https://cedx.github.io/akismet.php",
 		"issues": "https://github.com/cedx/akismet.php/issues"
 	}
 }

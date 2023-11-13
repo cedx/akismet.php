@@ -64,7 +64,7 @@ Search.appendIndex(
             "fqsen": "\\akismet\\AuthorRole\u003A\u003Aadministrator",
             "name": "administrator",
             "summary": "The\u0020author\u0020is\u0020an\u0020administrator.",
-            "url": ""
+            "url": "classes/akismet-AuthorRole.html#enumcase_administrator"
         },                {
             "fqsen": "\\akismet\\Blog",
             "name": "Blog",
@@ -109,17 +109,17 @@ Search.appendIndex(
             "fqsen": "\\akismet\\CheckResult\u003A\u003Aham",
             "name": "ham",
             "summary": "The\u0020comment\u0020is\u0020not\u0020a\u0020spam\u0020\u0028i.e.\u0020a\u0020ham\u0029.",
-            "url": ""
+            "url": "classes/akismet-CheckResult.html#enumcase_ham"
         },                {
             "fqsen": "\\akismet\\CheckResult\u003A\u003Aspam",
             "name": "spam",
             "summary": "The\u0020comment\u0020is\u0020a\u0020spam.",
-            "url": ""
+            "url": "classes/akismet-CheckResult.html#enumcase_spam"
         },                {
             "fqsen": "\\akismet\\CheckResult\u003A\u003ApervasiveSpam",
             "name": "pervasiveSpam",
             "summary": "The\u0020comment\u0020is\u0020a\u0020pervasive\u0020spam\u0020\u0028i.e.\u0020it\u0020can\u0020be\u0020safely\u0020discarded\u0029.",
-            "url": ""
+            "url": "classes/akismet-CheckResult.html#enumcase_pervasiveSpam"
         },                {
             "fqsen": "\\akismet\\Client",
             "name": "Client",
@@ -254,37 +254,37 @@ Search.appendIndex(
             "fqsen": "\\akismet\\CommentType\u003A\u003AblogPost",
             "name": "blogPost",
             "summary": "A\u0020blog\u0020post.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_blogPost"
         },                {
             "fqsen": "\\akismet\\CommentType\u003A\u003Acomment",
             "name": "comment",
             "summary": "A\u0020blog\u0020comment.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_comment"
         },                {
             "fqsen": "\\akismet\\CommentType\u003A\u003AcontactForm",
             "name": "contactForm",
             "summary": "A\u0020contact\u0020form\u0020or\u0020feedback\u0020form\u0020submission.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_contactForm"
         },                {
             "fqsen": "\\akismet\\CommentType\u003A\u003AforumPost",
             "name": "forumPost",
             "summary": "A\u0020top\u002Dlevel\u0020forum\u0020post.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_forumPost"
         },                {
             "fqsen": "\\akismet\\CommentType\u003A\u003Amessage",
             "name": "message",
             "summary": "A\u0020message\u0020sent\u0020between\u0020just\u0020a\u0020few\u0020users.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_message"
         },                {
             "fqsen": "\\akismet\\CommentType\u003A\u003Areply",
             "name": "reply",
             "summary": "A\u0020reply\u0020to\u0020a\u0020top\u002Dlevel\u0020forum\u0020post.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_reply"
         },                {
             "fqsen": "\\akismet\\CommentType\u003A\u003Asignup",
             "name": "signup",
             "summary": "A\u0020new\u0020user\u0020account.",
-            "url": ""
+            "url": "classes/akismet-CommentType.html#enumcase_signup"
         },                {
             "fqsen": "\\akismet\\Usage",
             "name": "Usage",

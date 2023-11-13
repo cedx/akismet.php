@@ -4,8 +4,8 @@
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://www.php.net).
 
 ## Documentation
-- [User guide](https://docs.belin.io/akismet.php)
-- [API reference](https://docs.belin.io/akismet.php/api)
+- [User guide](https://cedx.github.io/akismet.php)
+- [API reference](https://cedx.github.io/akismet.php/api)
 
 ## Development
 - [Git repository](https://github.com/cedx/akismet.php)
@@ -13,4 +13,4 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 - [Submit an issue](https://github.com/cedx/akismet.php/issues)
 
 ## License
-[Akismet for PHP](https://docs.belin.io/akismet.php) is distributed under the MIT License.
+[Akismet for PHP](https://cedx.github.io/akismet.php) is distributed under the MIT License.

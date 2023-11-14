@@ -1,6 +1,6 @@
 {
 	"description": "Prevent comment spam using the Akismet service.",
-	"homepage": "https://cedx.github.io/akismet.php",
+	"homepage": "https://github.com/cedx/akismet.php",
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",

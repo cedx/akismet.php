@@ -13,4 +13,4 @@ Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](http
 - [Submit an issue](https://github.com/cedx/akismet.php/issues)
 
 ## License
-[Akismet for PHP](https://cedx.github.io/akismet.php) is distributed under the MIT License.
+[Akismet for PHP](https://github.com/cedx/akismet.php) is distributed under the MIT License.

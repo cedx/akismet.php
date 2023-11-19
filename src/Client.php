@@ -53,10 +53,10 @@ final class Client {
 	 * @param string $userAgent The user agent string to use when making requests.
 	 * @param string $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com/") {
+	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com") {
 		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri($baseUrl);
+		$this->baseUrl = new Uri(mb_substr($baseUrl, -1) == "/" ? $baseUrl : "$baseUrl/");
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;

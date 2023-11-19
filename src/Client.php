@@ -56,7 +56,7 @@ final class Client {
 	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com") {
 		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(mb_substr($baseUrl, -1) == "/" ? $baseUrl : "$baseUrl/");
+		$this->baseUrl = new Uri(str_ends_with($baseUrl, "/") ? $baseUrl : "$baseUrl/");
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;

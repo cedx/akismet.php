@@ -11,9 +11,6 @@
 	</paths>
 	<version number="15.1.0">
 		<api>
-			<markers>
-				<marker>TODO</marker>
-			</markers>
 			<source dsn="..">
 				<path>src</path>
 			</source>

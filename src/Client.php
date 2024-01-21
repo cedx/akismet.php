@@ -66,6 +66,7 @@ final class Client {
 	 * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
 	 * @param Comment $comment The comment to be submitted.
 	 * @return CheckResult A value indicating whether the specified comment is spam.
+	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function checkComment(Comment $comment): CheckResult {
 		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
@@ -97,6 +98,7 @@ final class Client {
 	/**
 	 * Checks the API key against the service database, and returns a value indicating whether it is valid.
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
+	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function verifyKey(): bool {
 		$response = $this->fetch("1.1/verify-key", (object) ["key" => $this->apiKey]);
@@ -122,7 +124,7 @@ final class Client {
 		$headers = [];
 		curl_setopt_array($handle, [
 			CURLOPT_POST => true,
-			CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&", encoding_type: PHP_QUERY_RFC1738),
+			CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&"),
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_USERAGENT => $this->userAgent,
 			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {

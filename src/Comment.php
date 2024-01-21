@@ -85,6 +85,7 @@ class Comment implements \JsonSerializable {
 	 * Creates a new comment from the specified JSON object.
 	 * @param object $json A JSON object representing a comment.
 	 * @return self The instance corresponding to the specified JSON object.
+	 * @throws \Exception An invalid date/time string was provided.
 	 */
 	static function fromJson(object $json): self {
 		$keys = array_keys(get_object_vars($json));

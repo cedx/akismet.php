@@ -24,7 +24,7 @@ None.
 The method throws a `Psr\Http\Client\ClientExceptionInterface` when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.
 
-It can also throws a custom error code and message (respectively provided by the `X-akismet-alert-code` and `X-akismet-alert-msg` headers).
+It can also throw a custom error code and message (respectively provided by the `X-akismet-alert-code` and `X-akismet-alert-msg` headers).
 See [Response Error Codes](https://akismet.com/developers/errors) for more information.
 
 ## Example

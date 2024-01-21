@@ -1,4 +1,5 @@
 /**/.DS_Store
 /.idea/
+/etc/http-client.private.env.json
 /var/
 /vendor/

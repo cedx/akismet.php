@@ -37,7 +37,7 @@
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^1.10.56",
-		"phpunit/phpunit": "^10.5.8"
+		"phpunit/phpunit": "^10.5.9"
 	},
 	"scripts": {
 		"build": "@php scripts/build.php",

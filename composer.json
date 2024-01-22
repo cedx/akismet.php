@@ -40,12 +40,12 @@
 		"phpunit/phpunit": "^10.5.9"
 	},
 	"scripts": {
-		"build": "@php scripts/build.php",
-		"clean": "@php scripts/clean.php",
+		"build": "@php tool/build.php",
+		"clean": "@php tool/clean.php",
 		"dist": ["@clean", "@build"],
-		"doc": "@php scripts/doc.php",
+		"doc": "@php tool/doc.php",
 		"lint": "phpstan analyse --configuration=etc/phpstan.neon --memory-limit=256M",
-		"publish": "@php scripts/publish.php",
+		"publish": "@php tool/publish.php",
 		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]
 	},
 	"support": {

@@ -1,11 +1,6 @@
 Search.appendIndex(
     [
                 {
-            "fqsen": "\\akismet\\Actitivy",
-            "name": "Actitivy",
-            "summary": "TODO",
-            "url": "classes/akismet-Actitivy.html"
-        },                {
             "fqsen": "\\akismet\\Author",
             "name": "Author",
             "summary": "Represents\u0020the\u0020author\u0020of\u0020a\u0020comment.",

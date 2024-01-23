@@ -46,7 +46,7 @@
 		"doc": "@php tool/doc.php",
 		"lint": "phpstan analyse --configuration=etc/phpstan.neon --memory-limit=256M",
 		"publish": "@php tool/publish.php",
-		"test": ["@putenv XDEBUG_MODE=coverage", "phpunit --configuration=etc/phpunit.xml"]
+		"test": "phpunit --configuration=etc/phpunit.xml"
 	},
 	"support": {
 		"docs": "https://cedx.github.io/akismet.php",

@@ -2,9 +2,7 @@
 use akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
 use Psr\Http\Client\ClientExceptionInterface;
 
-/**
- * Checks a comment against the Akismet service.
- */
+// Checks a comment against the Akismet service.
 try {
 	$author = new Author(
 		email: "john.doe@domain.com",

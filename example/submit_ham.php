@@ -2,9 +2,7 @@
 use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 
-/**
- * Submits ham to the Akismet service.
- */
+// Submits ham to the Akismet service.
 try {
 	$blog = new Blog("https://www.yourblog.com");
 	$client = new Client("123YourAPIKey", $blog);

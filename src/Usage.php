@@ -3,27 +3,27 @@
 /**
  * Provides API usage for a given month.
  */
-class Usage {
+final readonly class Usage {
 
 	/**
 	 * The number of monthly API calls your plan entitles you to.
 	 */
-	readonly int $limit;
+	public int $limit;
 
 	/**
 	 * The percentage of the limit used since the beginning of the month.
 	 */
-	readonly float $percentage;
+	public float $percentage;
 
 	/**
 	 * Value indicating whether the requests are being throttled for having consistently gone over the limit.
 	 */
-	readonly bool $throttled;
+	public bool $throttled;
 
 	/**
 	 * The number of calls (spam + ham) since the beginning of the month.
 	 */
-	readonly int $usage;
+	public int $usage;
 
 	/**
 	 * Creates a new usage.
@@ -47,7 +47,7 @@ class Usage {
 	static function fromJson(object $json): self {
 		return new self(
 			limit: isset($json->limit) && is_int($json->limit) ? $json->limit : -1,
-			percentage: isset($json->percentage) && (is_float($json->percentage) || is_int($json->percentage)) ? $json->percentage : 0,
+			percentage: isset($json->percentage) && is_numeric($json->percentage) ? (float) $json->percentage : 0,
 			throttled: isset($json->throttled) && is_bool($json->throttled) ? $json->throttled : false,
 			usage: isset($json->usage) && is_int($json->usage) ? $json->usage : 0
 		);

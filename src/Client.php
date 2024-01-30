@@ -6,44 +6,42 @@ use Psr\Http\Message\{ResponseInterface, UriInterface};
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
  */
-final class Client {
+final readonly class Client {
 
 	/**
 	 * The response returned by the `submit-ham` and `submit-spam` endpoints when the outcome is a success.
-	 * @var string
 	 */
-	private const success = "Thanks for making the web a better place.";
+	private const string success = "Thanks for making the web a better place.";
 
 	/**
 	 * The package version.
-	 * @var string
 	 */
-	private const version = "15.0.1";
+	private const string version = "15.0.1";
 
 	/**
 	 * The Akismet API key.
 	 */
-	readonly string $apiKey;
+	public string $apiKey;
 
 	/**
 	 * The base URL of the remote API endpoint.
 	 */
-	readonly UriInterface $baseUrl;
+	public UriInterface $baseUrl;
 
 	/**
 	 * The front page or home URL of the instance making requests.
 	 */
-	readonly Blog $blog;
+	public Blog $blog;
 
 	/**
 	 * Value indicating whether the client operates in test mode.
 	 */
-	readonly bool $isTest;
+	public bool $isTest;
 
 	/**
 	 * The user agent string to use when making requests.
 	 */
-	readonly string $userAgent;
+	public string $userAgent;
 
 	/**
 	 * Creates a new client.

@@ -1,7 +1,10 @@
 <?php namespace akismet;
 
-use Nyholm\Psr7\{Response, Uri};
-use Psr\Http\Message\{ResponseInterface, UriInterface};
+use Nyholm\Psr7\Uri;
+use Psr\Http\Message\UriInterface;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\ExceptionInterface as HttpException;
+use Symfony\Contracts\HttpClient\{HttpClientInterface, ResponseInterface as Response};
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
@@ -44,6 +47,11 @@ final readonly class Client {
 	public string $userAgent;
 
 	/**
+	 * The underlying HTTP client.
+	 */
+	private HttpClientInterface $http;
+
+	/**
 	 * Creates a new client.
 	 * @param string $apiKey The Akismet API key.
 	 * @param Blog $blog The front page or home URL of the instance making requests.
@@ -56,6 +64,7 @@ final readonly class Client {
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri(str_ends_with($baseUrl, "/") ? $baseUrl : "$baseUrl/");
 		$this->blog = $blog;
+		$this->http = HttpClient::createForBaseUri((string) $this->baseUrl);
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;
 	}
@@ -68,9 +77,10 @@ final readonly class Client {
 	 */
 	function checkComment(Comment $comment): CheckResult {
 		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
-		return (string) $response->getBody() == "false"
-			? CheckResult::ham
-			: ($response->getHeaderLine("X-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam);
+		if ($response->getContent() == "false") return CheckResult::ham;
+
+		$headers = $response->getHeaders();
+		return ($headers["x-akismet-pro-tip"][0] ?? "") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam;
 	}
 
 	/**
@@ -80,7 +90,7 @@ final readonly class Client {
 	 */
 	function submitHam(Comment $comment): void {
 		$response = $this->fetch("1.1/submit-ham", $comment->jsonSerialize());
-		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
+		if ($response->getContent() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
 
 	/**
@@ -90,7 +100,7 @@ final readonly class Client {
 	 */
 	function submitSpam(Comment $comment): void {
 		$response = $this->fetch("1.1/submit-spam", $comment->jsonSerialize());
-		if ((string) $response->getBody() != self::success) throw new ClientException("Invalid server response.", 500);
+		if ($response->getContent() != self::success) throw new ClientException("Invalid server response.", 500);
 	}
 
 	/**
@@ -100,51 +110,30 @@ final readonly class Client {
 	 */
 	function verifyKey(): bool {
 		$response = $this->fetch("1.1/verify-key", (object) ["key" => $this->apiKey]);
-		return (string) $response->getBody() == "valid";
+		return $response->getContent() == "valid";
 	}
 
 	/**
 	 * Queries the service by posting the specified fields to a given end point, and returns the response.
 	 * @param string $endpoint The URL of the end point to query.
 	 * @param object $fields The fields describing the query body.
-	 * @return ResponseInterface The server response.
+	 * @return Response The server response.
 	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while querying the end point.
 	 */
-	private function fetch(string $endpoint, object $fields): ResponseInterface {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}$endpoint"));
-		if (!$handle) throw new ClientException("Unable to allocate the cURL handle.", 500);
-
+	private function fetch(string $endpoint, object $fields): Response {
 		$postFields = $this->blog->jsonSerialize();
 		foreach (get_object_vars($fields) as $key => $value) $postFields->$key = $value;
 		$postFields->api_key = $this->apiKey;
 		if ($this->isTest) $postFields->is_test = "1";
 
-		$headers = [];
-		curl_setopt_array($handle, [
-			CURLOPT_POST => true,
-			CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&"),
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_USERAGENT => $this->userAgent,
-			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
-				$parts = explode(":", $header, 2);
-				if (count($parts) == 2) $headers[trim($parts[0])] = trim($parts[1]);
-				return strlen($header);
-			}
-		]);
-
-		$body = curl_exec($handle);
-		if ($body === false) throw new ClientException("An error occurred while querying the end point.", 500);
-
-		$response = new Response(body: (string) $body, headers: $headers, status: curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
-		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new ClientException($response->getReasonPhrase(), $status);
-
-		if ($response->hasHeader("X-akismet-alert-code")) {
-			$code = (int) $response->getHeaderLine("X-akismet-alert-code");
-			throw new ClientException($response->getHeaderLine("X-akismet-alert-msg"), $code);
+		try {
+			$response = $this->http->request("POST", $endpoint, ["body" => get_object_vars($postFields)]);
+			$headers = $response->getHeaders();
+			if (isset($headers["x-akismet-alert-code"])) throw new ClientException($headers["x-akismet-alert-msg"][0], (int) $headers["x-akismet-alert-code"][0]);
+			return isset($headers["x-akismet-debug-help"]) ? throw new ClientException($headers["x-akismet-debug-help"][0], 400) : $response;
 		}
-
-		return $response->hasHeader("X-akismet-debug-help")
-			? throw new ClientException($response->getHeaderLine("X-akismet-debug-help"), 400)
-			: $response;
+		catch (HttpException) {
+			throw new ClientException("An error occurred while querying the end point.", 500);
+		}
 	}
 }

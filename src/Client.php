@@ -57,12 +57,14 @@ final readonly class Client {
 	 * @param Blog $blog The front page or home URL of the instance making requests.
 	 * @param bool $isTest Value indicating whether the client operates in test mode.
 	 * @param string $userAgent The user agent string to use when making requests.
-	 * @param string $baseUrl The base URL of the remote API endpoint.
+	 * @param string|UriInterface $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string $baseUrl = "https://rest.akismet.com") {
+	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|UriInterface $baseUrl = "https://rest.akismet.com") {
 		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
+		$url = $baseUrl instanceof UriInterface ? (string) $baseUrl : $baseUrl;
+
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(str_ends_with($baseUrl, "/") ? $baseUrl : "$baseUrl/");
+		$this->baseUrl = new Uri(str_ends_with($url, "/") ? $url : "$url/");
 		$this->blog = $blog;
 		$this->http = HttpClient::createForBaseUri((string) $this->baseUrl);
 		$this->isTest = $isTest;

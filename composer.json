@@ -50,7 +50,7 @@
 		"test": "phpunit --configuration=etc/phpunit.xml"
 	},
 	"support": {
-		"docs": "https://cedx.github.io/akismet.php",
+		"docs": "https://docs.belin.io/akismet.php",
 		"issues": "https://github.com/cedx/akismet.php/issues"
 	}
 }

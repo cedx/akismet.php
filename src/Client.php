@@ -111,8 +111,13 @@ final readonly class Client {
 	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
 	 */
 	function verifyKey(): bool {
-		$response = $this->fetch("1.1/verify-key", (object) ["key" => $this->apiKey]);
-		return $response->getContent() == "valid";
+		try {
+			$response = $this->fetch("1.1/verify-key", new \stdClass);
+			return $response->getContent() == "valid";
+		}
+		catch (ClientException) {
+			return false;
+		}
 	}
 
 	/**

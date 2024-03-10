@@ -19,7 +19,7 @@ final readonly class Client {
 	/**
 	 * The package version.
 	 */
-	private const string version = "15.0.1";
+	private const string version = "15.1.0";
 
 	/**
 	 * The Akismet API key.

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe4fbb48044637f2e81f2a6698bc27c6",
+    "content-hash": "44652d0889d426ff4686e242491363c1",
     "packages": [
         {
             "name": "nyholm/psr7",
@@ -900,16 +900,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "11.0.2",
+            "version": "11.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "9e0a298b4dc6438a1e70ac8e1b3ea4980ae5a09b"
+                "reference": "7e35a2cbcabac0e6865fd373742ea432a3c34f92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/9e0a298b4dc6438a1e70ac8e1b3ea4980ae5a09b",
-                "reference": "9e0a298b4dc6438a1e70ac8e1b3ea4980ae5a09b",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/7e35a2cbcabac0e6865fd373742ea432a3c34f92",
+                "reference": "7e35a2cbcabac0e6865fd373742ea432a3c34f92",
                 "shasum": ""
             },
             "require": {
@@ -966,7 +966,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/11.0.2"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/11.0.3"
             },
             "funding": [
                 {
@@ -974,7 +974,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-09T16:56:49+00:00"
+            "time": "2024-03-12T15:35:40+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1223,16 +1223,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.0.5",
+            "version": "11.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "da2de3900beab025398ba37705b0f5ecafb3e1ab"
+                "reference": "6af32d7938fc366f86e49a5f5ebb314018d1b1fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/da2de3900beab025398ba37705b0f5ecafb3e1ab",
-                "reference": "da2de3900beab025398ba37705b0f5ecafb3e1ab",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6af32d7938fc366f86e49a5f5ebb314018d1b1fb",
+                "reference": "6af32d7938fc366f86e49a5f5ebb314018d1b1fb",
                 "shasum": ""
             },
             "require": {
@@ -1303,7 +1303,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.0.5"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.0.6"
             },
             "funding": [
                 {
@@ -1319,7 +1319,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-09T12:12:14+00:00"
+            "time": "2024-03-12T15:40:01+00:00"
         },
         {
             "name": "sebastian/cli-parser",

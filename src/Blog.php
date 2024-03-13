@@ -26,11 +26,11 @@ class Blog implements \JsonSerializable {
 
 	/**
 	 * Creates a new blog.
-	 * @param string $url The blog or site URL.
+	 * @param string|UriInterface $url The blog or site URL.
 	 * @param string $charset The character encoding for the values included in comments.
 	 * @param string[] $languages The languages in use on the blog or site, in ISO 639-1 format.
 	 */
-	function __construct(string $url, string $charset = "", array $languages = []) {
+	function __construct(string|UriInterface $url, string $charset = "", array $languages = []) {
 		$this->charset = $charset;
 		$this->languages = $languages;
 		$this->url = $url ? new Uri($url) : null;

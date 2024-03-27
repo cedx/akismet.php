@@ -1,11 +1,11 @@
 <?php
 use Castor\Attribute\{AsContext, AsTask};
 use Castor\Context;
-use function Castor\{finder, fs, variable};
+use function Castor\{exit_code, finder, fs, run, variable};
 
 #[AsContext(default: true)]
 function context(): Context {
-	return new Context(["package" => json_decode(file_get_contents("composer.json"))]);
+	return new Context(pty: false, data: ["package" => json_decode(file_get_contents("composer.json"))]);
 }
 
 #[AsTask(description: "Builds the project.")]
@@ -32,26 +32,24 @@ function doc(): void {
 	replaceInFile("etc/phpdoc.xml", '/version number="\d+(\.\d+){2}"/', "version number=\"$pkg->version\"");
 
 	fs()->remove("docs/api");
-	passthru("phpdoc --config=etc/phpdoc.xml");
+	run("phpdoc --config=etc/phpdoc.xml");
 	fs()->copy("docs/favicon.ico", "docs/api/images/favicon.ico");
 }
 
 #[AsTask(description: "Performs the static analysis of source code.")]
 function lint(): int {
-	passthru("php vendor/bin/phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M", $exitCode);
-	return $exitCode;
+	return exit_code("php vendor/bin/phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M");
 }
 
 #[AsTask(description: "Publishes the package.")]
 function publish(): void {
 	$pkg = variable("package");
-	foreach (["tag", "push origin"] as $action) passthru("git $action v$pkg->version");
+	foreach (["tag", "push origin"] as $action) run("git $action v$pkg->version");
 }
 
 #[AsTask(description: "Runs the test suite.")]
 function test(): int {
-	passthru("php vendor/bin/phpunit --configuration=etc/phpunit.xml", $exitCode);
-	return $exitCode;
+	return exit_code("php vendor/bin/phpunit --configuration=etc/phpunit.xml");
 }
 
 /**

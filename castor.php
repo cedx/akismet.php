@@ -28,9 +28,9 @@ function dist(): void {
 #[AsTask(description: "Builds the documentation")]
 function doc(): void {
 	$pkg = variable("package");
-	foreach (["CHANGELOG.md", "LICENSE.md"] as $file) fs()->copy($file, "docs/".mb_strtolower($file));
 	replaceInFile("etc/phpdoc.xml", '/version number="\d+(\.\d+){2}"/', "version number=\"$pkg->version\"");
 
+	foreach (["CHANGELOG.md", "LICENSE.md"] as $file) fs()->copy($file, "docs/".mb_strtolower($file));
 	fs()->remove("docs/api");
 	run("phpdoc --config=etc/phpdoc.xml");
 	fs()->copy("docs/favicon.ico", "docs/api/images/favicon.ico");

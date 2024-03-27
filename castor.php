@@ -5,7 +5,7 @@ use function Castor\{finder, fs, variable};
 
 #[AsContext(default: true)]
 function context(): Context {
-	return new Context(["package" => json_decode(file_get_contents(__DIR__ . "/composer.json"))]);
+	return new Context(["package" => json_decode(file_get_contents("composer.json"))]);
 }
 
 #[AsTask(description: "Builds the project.")]

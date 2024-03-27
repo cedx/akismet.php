@@ -41,12 +41,6 @@
 		"phpunit/phpunit": "^11.0.8"
 	},
 	"scripts": {
-		"build": "@php tool/build.php",
-		"clean": "@php tool/clean.php",
-		"dist": ["@clean", "@build"],
-		"doc": "@php tool/doc.php",
-		"lint": "phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M",
-		"publish": "@php tool/publish.php",
 		"test": "phpunit --configuration=etc/phpunit.xml"
 	},
 	"support": {

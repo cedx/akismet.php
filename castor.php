@@ -5,7 +5,7 @@ use function Castor\{exit_code, finder, fs, run, variable};
 
 #[AsContext(default: true)]
 function context(): Context {
-	return new Context(pty: false, data: ["package" => json_decode(file_get_contents("composer.json"))]);
+	return new Context(pty: PHP_OS_FAMILY != "Windows", data: ["package" => json_decode(file_get_contents("composer.json"))]);
 }
 
 #[AsTask(description: "Builds the project")]

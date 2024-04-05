@@ -33,12 +33,11 @@
 		"ext-mbstring": "*",
 		"ext-pcre": "*",
 		"nyholm/psr7": "^1.8.1",
-		"psr/http-client": "^1.0.3",
-		"symfony/http-client": "^7.0.5"
+		"symfony/http-client": "^7.0.6"
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^1.10.66",
-		"phpunit/phpunit": "^11.0.9"
+		"phpunit/phpunit": "^11.1.0"
 	},
 	"scripts": {
 		"test": "phpunit --configuration=etc/phpunit.xml"

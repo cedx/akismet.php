@@ -17,6 +17,7 @@ function build(): void {
 #[AsTask(description: "Deletes all generated files")]
 function clean(): void {
 	fs()->remove(finder()->in("var"));
+	fs()->remove("www");
 }
 
 #[AsTask(description: "Packages the application")]

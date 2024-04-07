@@ -10,7 +10,7 @@ The Akismet service requires an API key. If you are not already registered, [sig
 ### Get the library
 Install the latest version of **Akismet for PHP** with [Composer](https://getcomposer.org) package manager:
 
-```shell
+``` shell
 composer require cedx/akismet
 ```
 

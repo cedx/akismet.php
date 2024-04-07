@@ -2,7 +2,7 @@
 Key verification authenticates your API key before calling the [comment check](usage/check_comment.md),
 [submit spam](usage/submit_spam.md) or [submit ham](usage/submit_ham.md) methods.
 
-```php
+``` php
 Client->verifyKey(): bool
 ```
 
@@ -25,7 +25,7 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 
 ## Example
 
-```php
+``` php
 use akismet\{Blog, Client};
 use Psr\Http\Client\ClientExceptionInterface;
 

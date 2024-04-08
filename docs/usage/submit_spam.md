@@ -18,7 +18,8 @@ See the [Akismet API documentation](https://akismet.com/developers/detailed-docs
 ### Comment **$comment**
 The user's `Comment` to be submitted, incorrectly classified as ham.
 
-> Ideally, it should be the same object as the one passed to the original [comment check](usage/check_comment.md) API call.
+!!! note
+    Ideally, it should be the same object as the one passed to the original [comment check](check_comment.md) API call.
 
 ## Return value
 None.
@@ -32,6 +33,7 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 ## Example
 
 ```php
+<?php
 use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 

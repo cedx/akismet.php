@@ -1,7 +1,7 @@
 <?php
 use Castor\Attribute\{AsContext, AsTask};
 use Castor\Context;
-use function Castor\{exit_code, finder, fs, run, variable};
+use function Castor\{exit_code, finder, fs, request, run, variable};
 
 #[AsContext(default: true)]
 function context(): Context {
@@ -28,12 +28,14 @@ function dist(): void {
 
 #[AsTask(description: "Builds the documentation")]
 function doc(): void {
+	foreach (["CHANGELOG.md", "LICENSE.md"] as $file) fs()->copy($file, "docs/".mb_strtolower($file));
+
 	$pkg = variable("package");
 	replaceInFile("etc/phpdoc.xml", '/version number="\d+(\.\d+){2}"/', "version number=\"$pkg->version\"");
 
-	foreach (["CHANGELOG.md", "LICENSE.md"] as $file) fs()->copy($file, "docs/".mb_strtolower($file));
 	fs()->remove("docs/api");
-	run("phpdoc --config=etc/phpdoc.xml");
+	file_put_contents("var/phpDocumentor.phar", request("GET", "https://phpdoc.org/phpDocumentor.phar")->getContent());
+	run("php var/phpDocumentor.phar --config=etc/phpdoc.xml");
 	fs()->copy("docs/favicon.ico", "docs/api/images/favicon.ico");
 }
 
@@ -46,6 +48,12 @@ function lint(): int {
 function publish(): void {
 	$pkg = variable("package");
 	foreach (["tag", "push origin"] as $action) run("git $action v$pkg->version");
+}
+
+#[AsTask(description: "Starts the development server")]
+function serve(): int {
+	doc();
+	run("mkdocs serve --config-file=etc/mkdocs.yaml");
 }
 
 #[AsTask(description: "Runs the test suite")]

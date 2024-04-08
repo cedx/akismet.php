@@ -1,0 +1,52 @@
+name: continuous-integration
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch sources
+        uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: none
+          extensions: curl, intl, mbstring, simplexml
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: php-${{runner.os}}-composer-${{hashFiles('composer.lock')}}
+          restore-keys: php-${{runner.os}}-composer-
+      - name: Install dependencies
+        run: composer install
+      - name: Run tests
+        run: composer test
+        env:
+          AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch sources
+        uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: none
+          extensions: curl, intl, mbstring, simplexml
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          cache: pip
+          python-version: 3.12
+      - name: Install dependencies
+        run: |
+          curl --output=var/castor.phar https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar
+          pip install --requirement=etc/requirements.txt
+      - name: Deploy documentation
+        run: |
+          php var/castor.phar doc
+          mkdocs gh-deploy --config-file=etc/mkdocs.yaml --force

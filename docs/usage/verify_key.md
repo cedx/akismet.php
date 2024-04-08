@@ -26,6 +26,7 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 ## Example
 
 ```php
+<?php
 use akismet\{Blog, Client};
 use Psr\Http\Client\ClientExceptionInterface;
 

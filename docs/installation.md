@@ -27,6 +27,7 @@ composer require cedx/akismet
 Now in your [PHP](https://www.php.net) code, you can use:
 
 ```php
+<?php
 use akismet\{
   Author,
   Blog,

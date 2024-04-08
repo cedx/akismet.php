@@ -23,7 +23,3 @@ There are three different types of calls to [Akismet](https://akismet.com):
 3. [Submit spam](usage/submit_spam.md) and [submit ham](usage/submit_ham.md) are follow-ups to let Akismet know when it got something wrong (missed spam and false positives). These are very important, and you shouldn't develop using the Akismet API without a facility to include reporting missed spam and false positives.
 
 Before integrating this library into your application, you should [test your API calls](testing.md) to ensure a proper usage.
-
-## See also
-- [API reference](api/)
-- [Packagist package](https://packagist.org/packages/cedx/akismet)

@@ -44,7 +44,7 @@ jobs:
           python-version: 3.12
       - name: Install dependencies
         run: |
-          curl --output=var/castor.phar https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar
+          curl --output var/castor.phar https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar
           pip install --requirement=etc/requirements.txt
       - name: Deploy documentation
         run: |

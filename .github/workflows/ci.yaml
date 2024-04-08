@@ -13,12 +13,15 @@ jobs:
           coverage: none
           extensions: curl, intl, mbstring, simplexml
           php-version: 8.3
+      - name: Get cache directory
+        id: cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
       - name: Cache dependencies
         uses: actions/cache@v4
         with:
-          path: vendor
-          key: php-${{runner.os}}-composer-${{hashFiles('composer.lock')}}
-          restore-keys: php-${{runner.os}}-composer-
+          path: ${{steps.cache.outputs.dir}}
+          key: ${{runner.os}}-composer-${{hashFiles('composer.lock')}}
+          restore-keys: ${{runner.os}}-composer-
       - name: Install dependencies
         run: composer install
       - name: Run tests

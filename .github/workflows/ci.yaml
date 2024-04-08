@@ -48,5 +48,6 @@ jobs:
           pip install --requirement=etc/requirements.txt
       - name: Deploy documentation
         run: |
+          php var/castor.phar --version
           php var/castor.phar doc
           mkdocs gh-deploy --config-file=etc/mkdocs.yaml --force

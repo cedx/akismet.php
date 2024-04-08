@@ -7,7 +7,7 @@ The more data you send Akismet about each comment, the greater the accuracy. We 
 Client->checkComment(Comment $comment): CheckResult
 ```
 
-It is important to [test Akismet](testing.md) with a significant amount of real, live data in order to draw any conclusions on accuracy.
+It is important to [test Akismet](../testing.md) with a significant amount of real, live data in order to draw any conclusions on accuracy.
 Akismet works by comparing content to genuine spam activity happening **right now** (and this is based on more than just the content itself),
 so artificially generating spam comments is not a viable approach.
 

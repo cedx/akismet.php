@@ -1,6 +1,6 @@
 # Key verification
-Key verification authenticates your API key before calling the [comment check](usage/check_comment.md),
-[submit spam](usage/submit_spam.md) or [submit ham](usage/submit_ham.md) methods.
+Key verification authenticates your API key before calling the [comment check](check_comment.md),
+[submit spam](submit_spam.md) or [submit ham](submit_ham.md) methods.
 
 ```php
 Client->verifyKey(): bool

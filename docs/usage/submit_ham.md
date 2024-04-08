@@ -1,13 +1,13 @@
 # Submit ham
 This call is intended for the submission of false positives - items that were incorrectly classified as spam by Akismet.
-It takes identical arguments as [comment check](usage/check_comment.md) and [submit spam](usage/submit_spam.md).
+It takes identical arguments as [comment check](check_comment.md) and [submit spam](submit_spam.md).
 
 ```php
 Client->submitHam(Comment $comment): void
 ```
 
-Remember that, as explained in the [submit spam](usage/submit_spam.md) documentation, you should ensure
-that any values you're passing here match up with the original and corresponding [comment check](usage/check_comment.md) call.
+Remember that, as explained in the [submit spam](submit_spam.md) documentation, you should ensure
+that any values you're passing here match up with the original and corresponding [comment check](check_comment.md) call.
 
 See the [Akismet API documentation](https://akismet.com/developers/detailed-docs/submit-ham-false-positives) for more information.
 

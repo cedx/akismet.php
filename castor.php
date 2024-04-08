@@ -51,7 +51,7 @@ function publish(): void {
 }
 
 #[AsTask(description: "Starts the development server")]
-function serve(): int {
+function serve(): void {
 	doc();
 	run("mkdocs serve --config-file=etc/mkdocs.yaml");
 }

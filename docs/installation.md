@@ -6,7 +6,7 @@ and [Composer](https://getcomposer.org), the PHP package manager, up and running
 	
 You can verify if you're already good to go with the following commands:
 
-``` shell
+```shell
 php --version
 # PHP 8.3.4 (cli) (built: Mar 13 2024 11:42:47) (NTS Visual C++ 2019 x64)
 
@@ -19,14 +19,14 @@ composer --version
 ### 1. Install it
 From a command prompt, run:
 
-``` shell
+```shell
 composer require cedx/akismet
 ```
 
 ### 2. Import it
 Now in your [PHP](https://www.php.net) code, you can use:
 
-``` php
+```php
 use akismet\{
   Author,
   Blog,

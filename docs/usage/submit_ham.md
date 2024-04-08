@@ -2,7 +2,7 @@
 This call is intended for the submission of false positives - items that were incorrectly classified as spam by Akismet.
 It takes identical arguments as [comment check](usage/check_comment.md) and [submit spam](usage/submit_spam.md).
 
-``` php
+```php
 Client->submitHam(Comment $comment): void
 ```
 
@@ -29,7 +29,7 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 
 ## Example
 
-``` php
+```php
 use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 

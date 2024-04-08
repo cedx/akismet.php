@@ -1,7 +1,7 @@
 # Submit spam
 This call is for submitting comments that weren't marked as spam but should have been.
 
-``` php
+```php
 Client->submitHam(Comment $comment): void
 ```
 
@@ -31,7 +31,7 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 
 ## Example
 
-``` php
+```php
 use akismet\{Author, Blog, Client, Comment};
 use Psr\Http\Client\ClientExceptionInterface;
 

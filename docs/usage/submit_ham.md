@@ -3,7 +3,7 @@ This call is intended for the submission of false positives - items that were in
 It takes identical arguments as [comment check](check_comment.md) and [submit spam](submit_spam.md).
 
 ```php
-Client->submitHam(Comment $comment): void
+<?php Client->submitHam(Comment $comment): void
 ```
 
 Remember that, as explained in the [submit spam](submit_spam.md) documentation, you should ensure

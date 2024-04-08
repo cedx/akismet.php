@@ -3,7 +3,7 @@ Key verification authenticates your API key before calling the [comment check](c
 [submit spam](submit_spam.md) or [submit ham](submit_ham.md) methods.
 
 ```php
-Client->verifyKey(): bool
+<?php Client->verifyKey(): bool
 ```
 
 This is the first call that you should make to Akismet and is especially useful

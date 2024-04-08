@@ -11,8 +11,7 @@ The Akismet API will always return a `CheckResult::spam` response to a valid req
 If you receive anything else, something is wrong in your client, data, or communications.
 
 ```php
-<?php
-use akismet\{Author, Blog, Client, Comment};
+<?php use akismet\{Author, Blog, Client, Comment};
 
 $comment = new Comment(
   content: "A user comment.",
@@ -35,8 +34,7 @@ and all other required fields populated with typical values.
 The Akismet API will always return a `CheckResult::ham` response. Any other response indicates a data or communication problem.
 
 ```php
-<?php
-use akismet\{Author, AuthorRole, Blog, Client, Comment};
+<?php use akismet\{Author, AuthorRole, Blog, Client, Comment};
 
 $comment = new Comment(
   content: "A user comment.",
@@ -59,8 +57,7 @@ That will tell Akismet not to change its behaviour based on those API calls: the
 That means your tests will be somewhat repeatable, in the sense that one test won't influence subsequent calls.
 
 ```php
-<?php
-use akismet\{Author, Blog, Client, Comment};
+<?php use akismet\{Author, Blog, Client, Comment};
 
 $blog = new Blog("https://www.yourblog.com");
 $client = new Client("123YourAPIKey", $blog, isTest: true);

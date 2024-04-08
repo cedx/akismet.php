@@ -2,7 +2,7 @@
 This call is for submitting comments that weren't marked as spam but should have been.
 
 ```php
-Client->submitHam(Comment $comment): void
+<?php Client->submitHam(Comment $comment): void
 ```
 
 It is very important that the values you submit with this call match those of your [comment check](check_comment.md) calls as closely as possible.

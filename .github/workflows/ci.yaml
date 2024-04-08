@@ -45,6 +45,7 @@ jobs:
       - name: Install dependencies
         run: |
           curl --output var/castor.phar https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar
+          php var/castor.phar --version
           pip install --requirement=etc/requirements.txt
       - name: Deploy documentation
         run: |

@@ -3,7 +3,7 @@
 ## Version [16.0.0](https://github.com/cedx/akismet.php/compare/v15.1.0...16.0.0)
 - Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: removed the `ClientException` class.
-- Removed the dependency on [PSR-17 interfaces](https://www.php-fig.org/psr/psr-18).
+- Removed the dependency on [PSR-18 interfaces](https://www.php-fig.org/psr/psr-18).
 
 ## Version [15.1.0](https://github.com/cedx/akismet.php/compare/v15.0.1...15.1.0)
 - Updated the package dependencies.

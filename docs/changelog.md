@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [16.0.0](https://github.com/cedx/akismet.php/compare/v15.1.0...16.0.0)
+- Breaking change: raised the required [PHP](https://www.php.net) version.
+- Breaking change: removed the `ClientException` class.
+- Removed the dependency on [Symfony HTTP client](https://symfony.com/doc/current/http_client.html).
+
 ## Version [15.1.0](https://github.com/cedx/akismet.php/compare/v15.0.1...15.1.0)
 - Updated the package dependencies.
 
@@ -20,7 +25,7 @@
 - Breaking change: replaced the getter/setter methods by properties.
 - Breaking change: the `Client` class is no longer an event dispatcher. 
 - Breaking change: using PHP 8.1 features, like enumerations and readonly properties.
-- Added support for the [Akismet response error codes](https://akismet.com/developers/errors).
+- Added support for the [Akismet response error codes](https://akismet.com/developers/detailed-docs/errors).
 - Updated the package dependencies.
 
 ## Version [13.0.0](https://github.com/cedx/akismet.php/compare/v12.1.0...v13.0.0)

@@ -70,10 +70,9 @@ final readonly class Client {
 	 */
 	function checkComment(Comment $comment): CheckResult {
 		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
-		if ((string) $response->getBody() == "false") return CheckResult::ham;
-
-		$headers = $response->getHeaders();
-		return ($headers["x-akismet-pro-tip"][0] ?? "") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam;
+		return (string) $response->getBody() == "false"
+			? CheckResult::ham
+			: ($response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam);
 	}
 
 	/**
@@ -99,7 +98,6 @@ final readonly class Client {
 	/**
 	 * Checks the API key against the service database, and returns a value indicating whether it is valid.
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
-	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
 	function verifyKey(): bool {
 		try {

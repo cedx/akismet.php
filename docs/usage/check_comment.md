@@ -24,7 +24,7 @@ A `CheckResult` value indicating whether the given `Comment` is ham, spam or per
 !!! tip
     A comment classified as pervasive spam can be safely discarded.
 
-The method throws a `Psr\Http\Client\ClientExceptionInterface` when an error occurs.
+The method throws a [`RuntimeException`](https://www.php.net/manual/en/class.runtimeexception.php) when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.
 
 It can also throw a custom error code and message (respectively provided by the `X-akismet-alert-code` and `X-akismet-alert-msg` headers).
@@ -35,7 +35,6 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 ```php
 <?php
 use akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
-use Psr\Http\Client\ClientExceptionInterface;
 
 try {
   $author = new Author(
@@ -63,7 +62,7 @@ try {
   $result = (new Client("123YourAPIKey", $blog))->checkComment($comment);
   print $result == CheckResult::ham ? "The comment is ham." : "The comment is spam.";
 }
-catch (ClientExceptionInterface $e) {
+catch (RuntimeException $e) {
   print "An error occurred: {$e->getMessage()}";
 }
 ```

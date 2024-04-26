@@ -75,7 +75,7 @@ final readonly class Client {
 	 * Checks the specified comment against the service database, and returns a value indicating whether it is spam.
 	 * @param Comment $comment The comment to be submitted.
 	 * @return CheckResult A value indicating whether the specified comment is spam.
-	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
+	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
 	function checkComment(Comment $comment): CheckResult {
 		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
@@ -88,34 +88,34 @@ final readonly class Client {
 	/**
 	 * Submits the specified comment that was incorrectly marked as spam but should not have been.
 	 * @param Comment $comment The comment to be submitted.
-	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
+	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
 	function submitHam(Comment $comment): void {
 		$response = $this->fetch("1.1/submit-ham", $comment->jsonSerialize());
-		if ($response->getContent() != self::success) throw new ClientException("Invalid server response.", 500);
+		if ($response->getContent() != self::success) throw new \RuntimeException("Invalid server response.", 500);
 	}
 
 	/**
 	 * Submits the specified comment that was not marked as spam but should have been.
 	 * @param Comment $comment The comment to be submitted.
-	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
+	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
 	function submitSpam(Comment $comment): void {
 		$response = $this->fetch("1.1/submit-spam", $comment->jsonSerialize());
-		if ($response->getContent() != self::success) throw new ClientException("Invalid server response.", 500);
+		if ($response->getContent() != self::success) throw new \RuntimeException("Invalid server response.", 500);
 	}
 
 	/**
 	 * Checks the API key against the service database, and returns a value indicating whether it is valid.
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
-	 * @throws \Psr\Http\Client\ClientExceptionInterface The remote server returned an invalid response.
+	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
 	function verifyKey(): bool {
 		try {
 			$response = $this->fetch("1.1/verify-key", new \stdClass);
 			return $response->getContent() == "valid";
 		}
-		catch (ClientException) {
+		catch (\RuntimeException) {
 			return false;
 		}
 	}
@@ -125,7 +125,7 @@ final readonly class Client {
 	 * @param string $endpoint The URL of the end point to query.
 	 * @param object $fields The fields describing the query body.
 	 * @return Response The server response.
-	 * @throws \Psr\Http\Client\ClientExceptionInterface An error occurred while querying the end point.
+	 * @throws \RuntimeException An error occurred while querying the end point.
 	 */
 	private function fetch(string $endpoint, object $fields): Response {
 		$postFields = $this->blog->jsonSerialize();
@@ -136,11 +136,11 @@ final readonly class Client {
 		try {
 			$response = $this->http->request("POST", $endpoint, ["body" => get_object_vars($postFields)]);
 			$headers = $response->getHeaders();
-			if (isset($headers["x-akismet-alert-code"])) throw new ClientException($headers["x-akismet-alert-msg"][0], (int) $headers["x-akismet-alert-code"][0]);
-			return isset($headers["x-akismet-debug-help"]) ? throw new ClientException($headers["x-akismet-debug-help"][0], 400) : $response;
+			if (isset($headers["x-akismet-alert-code"])) throw new \RuntimeException($headers["x-akismet-alert-msg"][0], (int) $headers["x-akismet-alert-code"][0]);
+			return isset($headers["x-akismet-debug-help"]) ? throw new \RuntimeException($headers["x-akismet-debug-help"][0], 400) : $response;
 		}
 		catch (HttpException) {
-			throw new ClientException("An error occurred while querying the end point.", 500);
+			throw new \RuntimeException("An error occurred while querying the end point.", 500);
 		}
 	}
 }

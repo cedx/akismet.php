@@ -1,6 +1,5 @@
 <?php
 use akismet\{Author, Blog, Client, Comment};
-use Psr\Http\Client\ClientExceptionInterface;
 
 // Submits ham to the Akismet service.
 try {
@@ -18,6 +17,6 @@ try {
 	$client->submitHam($comment);
 	print("The comment was successfully submitted as ham.");
 }
-catch (ClientExceptionInterface $e) {
+catch (RuntimeException $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

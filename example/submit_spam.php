@@ -1,6 +1,5 @@
 <?php
 use akismet\{Author, Blog, Client, Comment};
-use Psr\Http\Client\ClientExceptionInterface;
 
 // Submits spam to the Akismet service.
 try {
@@ -18,6 +17,6 @@ try {
 	$client->submitSpam($comment);
 	print("The comment was successfully submitted as spam.");
 }
-catch (ClientExceptionInterface $e) {
+catch (RuntimeException $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

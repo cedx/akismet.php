@@ -1,6 +1,5 @@
 <?php
 use akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
-use Psr\Http\Client\ClientExceptionInterface;
 
 // Checks a comment against the Akismet service.
 try {
@@ -29,6 +28,6 @@ try {
 	$result = (new Client("123YourAPIKey", $blog))->checkComment($comment);
 	print $result == CheckResult::ham ? "The comment is ham." : "The comment is spam.";
 }
-catch (ClientExceptionInterface $e) {
+catch (RuntimeException $e) {
 	print "An error occurred: {$e->getMessage()}";
 }

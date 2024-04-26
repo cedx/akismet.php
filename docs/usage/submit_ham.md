@@ -22,7 +22,7 @@ The user's `Comment` to be submitted, incorrectly classified as spam.
 ## Return value
 None.
 
-The method throws a `Psr\Http\Client\ClientExceptionInterface` when an error occurs.
+The method throws a [`RuntimeException`](https://www.php.net/manual/en/class.runtimeexception.php) when an error occurs.
 The exception `getMessage()` usually includes some debug information, provided by the `X-akismet-debug-help` HTTP header, about what exactly was invalid about the call.
 
 It can also throw a custom error code and message (respectively provided by the `X-akismet-alert-code` and `X-akismet-alert-msg` headers).
@@ -33,7 +33,6 @@ See [Response Error Codes](https://akismet.com/developers/detailed-docs/errors) 
 ```php
 <?php
 use akismet\{Author, Blog, Client, Comment};
-use Psr\Http\Client\ClientExceptionInterface;
 
 try {
   $blog = new Blog("https://www.yourblog.com");
@@ -50,7 +49,7 @@ try {
   $client->submitHam($comment);
   print("The comment was successfully submitted as ham.");
 }
-catch (ClientExceptionInterface $e) {
+catch (RuntimeException $e) {
   print "An error occurred: {$e->getMessage()}";
 }
 ```

@@ -41,7 +41,7 @@ function doc(): void {
 
 #[AsTask(description: "Performs the static analysis of source code")]
 function lint(): int {
-	return exit_code("php vendor/bin/phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M");
+	return exit_code("php vendor/bin/phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M --verbose");
 }
 
 #[AsTask(description: "Publishes the package")]

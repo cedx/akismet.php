@@ -64,7 +64,7 @@ final class CommentTest extends TestCase {
 		$json = (new Comment(
 			author: new Author(ipAddress: "127.0.0.1", name: "Cédric Belin", userAgent: "Doom/6.6.6"),
 			content: "A user comment.",
-			date: new \DateTimeImmutable("2000-01-01T00:00:00.000Z"),
+			date: new \DateTime("2000-01-01T00:00:00.000Z"),
 			referrer: "https://belin.io",
 			type: CommentType::blogPost->value
 		))->jsonSerialize();

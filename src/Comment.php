@@ -85,21 +85,20 @@ class Comment implements \JsonSerializable {
 	 * Creates a new comment from the specified JSON object.
 	 * @param object $json A JSON object representing a comment.
 	 * @return self The instance corresponding to the specified JSON object.
-	 * @throws \Exception An invalid date/time string was provided.
 	 */
 	static function fromJson(object $json): self {
 		$keys = array_keys(get_object_vars($json));
-		$hasAuthor = count(array_filter($keys, fn(string $key) => str_starts_with($key, "comment_author") || str_starts_with($key, "user"))) > 0;
+		$hasAuthor = count(array_filter($keys, fn($key) => str_starts_with($key, "comment_author") || str_starts_with($key, "user"))) > 0;
 		return new self(
 			author: $hasAuthor ? Author::fromJson($json) : null,
-			content: isset($json->comment_content) && is_string($json->comment_content) ? $json->comment_content : "",
-			context: isset($json->comment_context) && is_array($json->comment_context) ? $json->comment_context : [],
-			date: isset($json->comment_date_gmt) && is_string($json->comment_date_gmt) ? new \DateTimeImmutable($json->comment_date_gmt) : null,
-			permalink: isset($json->permalink) && is_string($json->permalink) ? $json->permalink : "",
-			postModified: isset($json->comment_post_modified_gmt) && is_string($json->comment_post_modified_gmt) ? new \DateTimeImmutable($json->comment_post_modified_gmt) : null,
-			recheckReason: isset($json->recheck_reason) && is_string($json->recheck_reason) ? $json->recheck_reason : "",
-			referrer: isset($json->referrer) && is_string($json->referrer) ? $json->referrer : "",
-			type: isset($json->comment_type) && is_string($json->comment_type) ? $json->comment_type : ""
+			content: (string) ($json->comment_content ?? ""),
+			context: array_map(strval(...), (array) ($json->comment_context ?? [])),
+			date: ($date = (string) ($json->comment_date_gmt ?? "")) ? new \DateTime($date) : null,
+			permalink: (string) ($json->permalink ?? ""),
+			postModified: ($date = (string) ($json->comment_post_modified_gmt ?? "")) ? new \DateTime($date) : null,
+			recheckReason: (string) ($json->recheck_reason ?? ""),
+			referrer: (string) ($json->referrer ?? ""),
+			type: (string) ($json->comment_type ?? "")
 		);
 	}
 

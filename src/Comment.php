@@ -95,7 +95,7 @@ class Comment implements \JsonSerializable {
 			context: array_map(strval(...), (array) ($json->comment_context ?? [])),
 			date: ($date = (string) ($json->comment_date_gmt ?? "")) ? new \DateTime($date) : null,
 			permalink: (string) ($json->permalink ?? ""),
-			postModified: ($date = (string) ($json->comment_post_modified_gmt ?? "")) ? new \DateTime($date) : null,
+			postModified: ($postModified = (string) ($json->comment_post_modified_gmt ?? "")) ? new \DateTime($postModified) : null,
 			recheckReason: (string) ($json->recheck_reason ?? ""),
 			referrer: (string) ($json->referrer ?? ""),
 			type: (string) ($json->comment_type ?? "")

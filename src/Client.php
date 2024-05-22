@@ -117,7 +117,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while querying the end point.
 	 */
 	private function fetch(string $endpoint, object $fields): Response {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint"));
+		$handle = curl_init($this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint"));
 		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
 
 		$postFields = $this->blog->jsonSerialize();

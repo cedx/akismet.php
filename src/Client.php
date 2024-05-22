@@ -127,6 +127,7 @@ final readonly class Client {
 
 		$headers = [];
 		curl_setopt_array($handle, [
+			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_POST => true,
 			CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&"),
 			CURLOPT_RETURNTRANSFER => true,

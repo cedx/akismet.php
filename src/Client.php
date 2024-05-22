@@ -56,7 +56,7 @@ final readonly class Client {
 		$url = $baseUrl instanceof UriInterface ? (string) $baseUrl : $baseUrl;
 
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(str_ends_with($url, "/") ? $url : "$url/");
+		$this->baseUrl = new Uri(str_ends_with($url, "/") ? mb_substr($url, 0, -1) : $url);
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;
@@ -117,7 +117,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while querying the end point.
 	 */
 	private function fetch(string $endpoint, object $fields): Response {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}$endpoint"));
+		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint"));
 		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
 
 		$postFields = $this->blog->jsonSerialize();

@@ -134,7 +134,7 @@ final readonly class Client {
 			CURLOPT_USERAGENT => $this->userAgent,
 			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
 				$parts = explode(":", $header, 2);
-				if (count($parts) == 2) $headers[trim($parts[0])] = trim($parts[1]);
+				if (count($parts) == 2) $headers[trim($parts[0])][] = trim($parts[1]);
 				return strlen($header);
 			}
 		]);

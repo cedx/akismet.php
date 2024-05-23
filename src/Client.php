@@ -53,10 +53,8 @@ final readonly class Client {
 	 */
 	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|UriInterface $baseUrl = "https://rest.akismet.com") {
 		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
-		$url = $baseUrl instanceof UriInterface ? (string) $baseUrl : $baseUrl;
-
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(str_ends_with($url, "/") ? mb_substr($url, 0, -1) : $url);
+		$this->baseUrl = new Uri(rtrim($baseUrl, "/"));
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;

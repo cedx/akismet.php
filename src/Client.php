@@ -137,7 +137,7 @@ final readonly class Client {
 		]);
 
 		$body = curl_exec($handle);
-		if ($body === false) throw new \RuntimeException("An error occurred while querying the end point.", 500);
+		if ($body === false) throw new \RuntimeException(curl_error($handle) ?: "An error occurred while querying the end point.", 500);
 
 		$response = new Response(body: (string) $body, headers: $headers, status: curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
 		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new \RuntimeException($response->getReasonPhrase(), $status);

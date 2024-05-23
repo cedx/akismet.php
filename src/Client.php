@@ -125,15 +125,14 @@ final readonly class Client {
 		$headers = [];
 		curl_setopt_array($handle, [
 			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
+				if (count($parts = explode(":", $header, 2)) == 2) $headers[trim($parts[0])][] = trim($parts[1]);
+				return strlen($header);
+			},
 			CURLOPT_POST => true,
 			CURLOPT_POSTFIELDS => http_build_query($postFields, arg_separator: "&"),
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_USERAGENT => $this->userAgent,
-			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
-				$parts = explode(":", $header, 2);
-				if (count($parts) == 2) $headers[trim($parts[0])][] = trim($parts[1]);
-				return strlen($header);
-			}
+			CURLOPT_USERAGENT => $this->userAgent
 		]);
 
 		$body = curl_exec($handle);
@@ -142,11 +141,8 @@ final readonly class Client {
 		$response = new Response(body: (string) $body, headers: $headers, status: curl_getinfo($handle, CURLINFO_RESPONSE_CODE));
 		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new \RuntimeException($response->getReasonPhrase(), $status);
 
-		if ($response->hasHeader("x-akismet-alert-code"))
-			throw new \RuntimeException($response->getHeaderLine("x-akismet-alert-msg"), (int) $response->getHeaderLine("x-akismet-alert-code"));
-
-		return $response->hasHeader("x-akismet-debug-help")
-			? throw new \RuntimeException($response->getHeaderLine("x-akismet-debug-help"), 400)
-			: $response;
+		return $response->hasHeader("x-akismet-alert-code")
+			? throw new \RuntimeException($response->getHeaderLine("x-akismet-alert-msg"), (int) $response->getHeaderLine("x-akismet-alert-code"))
+			: ($response->hasHeader("x-akismet-debug-help") ? throw new \RuntimeException($response->getHeaderLine("x-akismet-debug-help"), 400) : $response);
 	}
 }

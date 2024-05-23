@@ -52,12 +52,11 @@ final readonly class Client {
 	 * @param string|UriInterface $baseUrl The base URL of the remote API endpoint.
 	 */
 	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|UriInterface $baseUrl = "https://rest.akismet.com") {
-		$phpVersion = implode(".", [PHP_MAJOR_VERSION, PHP_MINOR_VERSION, PHP_RELEASE_VERSION]);
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri(rtrim($baseUrl, "/"));
 		$this->blog = $blog;
 		$this->isTest = $isTest;
-		$this->userAgent = $userAgent ?: "PHP/$phpVersion | Akismet/".self::version;
+		$this->userAgent = $userAgent ?: sprintf("PHP/%d | Akismet/%s", PHP_MAJOR_VERSION, self::version);
 	}
 
 	/**

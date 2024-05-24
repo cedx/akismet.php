@@ -142,7 +142,7 @@ final readonly class Client {
 		if (intdiv($status = $response->getStatusCode(), 100) != 2) throw new \RuntimeException($response->getReasonPhrase(), $status);
 
 		return $response->hasHeader("x-akismet-alert-code")
-			? throw new \RuntimeException($response->getHeaderLine("x-akismet-alert-msg"), (int) $response->getHeaderLine("x-akismet-alert-code"))
+			? throw new \RuntimeException("{$response->getHeaderLine("x-akismet-alert-code")} {$response->getHeaderLine("x-akismet-alert-msg")}", 403)
 			: ($response->hasHeader("x-akismet-debug-help") ? throw new \RuntimeException($response->getHeaderLine("x-akismet-debug-help"), 400) : $response);
 	}
 }

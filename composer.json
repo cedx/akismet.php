@@ -42,7 +42,7 @@
 		"test": "phpunit --configuration=etc/phpunit.xml"
 	},
 	"support": {
-		"docs": "https://docs.belin.io/akismet.php",
+		"docs": "https://github.com/cedx/akismet.php/wiki",
 		"issues": "https://github.com/cedx/akismet.php/issues"
 	}
 }

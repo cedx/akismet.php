@@ -19,28 +19,3 @@ jobs:
         run: composer test
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetch sources
-        uses: actions/checkout@v4
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          coverage: none
-          extensions: curl, intl, mbstring, simplexml
-          php-version: 8.3
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          cache: pip
-          python-version: 3.12
-      - name: Install dependencies
-        run: |
-          curl --location --output var/castor.phar https://github.com/jolicode/castor/releases/latest/download/castor.linux-amd64.phar
-          pip install --requirement=etc/requirements.txt
-      - name: Deploy documentation
-        run: |
-          php var/castor.phar doc
-          mkdocs gh-deploy --config-file=etc/mkdocs.yaml --force

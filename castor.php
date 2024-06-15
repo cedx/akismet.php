@@ -11,7 +11,10 @@ function context(): Context {
 #[AsTask(description: "Builds the project")]
 function build(): void {
 	$pkg = variable("package");
-	replaceInFile("src/Client.php", '/version = "\d+(\.\d+){2}"/', "version = \"$pkg->version\"");
+	file_put_contents(
+		$file = "src/Client.php",
+		preg_replace('/version = "\d+(\.\d+){2}"/', "version = \"$pkg->version\"", file_get_contents($file))
+	);
 }
 
 #[AsTask(description: "Deletes all generated files")]
@@ -31,7 +34,10 @@ function doc(): void {
 	foreach (["CHANGELOG.md", "LICENSE.md"] as $file) fs()->copy($file, "docs/".mb_strtolower($file));
 
 	$pkg = variable("package");
-	replaceInFile("etc/phpdoc.xml", '/version number="\d+(\.\d+){2}"/', "version number=\"$pkg->version\"");
+	file_put_contents(
+		$file = "etc/phpdoc.xml",
+		preg_replace('/version number="\d+(\.\d+){2}"/', "version number=\"$pkg->version\"", file_get_contents($file))
+	);
 
 	fs()->remove("docs/api");
 	http_download("https://phpdoc.org/phpDocumentor.phar", "var/phpDocumentor.phar");
@@ -59,14 +65,4 @@ function serve(): void {
 #[AsTask(description: "Runs the test suite")]
 function test(): int {
 	return exit_code("php vendor/bin/phpunit --configuration=etc/phpunit.xml");
-}
-
-/**
- * Replaces in the specified file the substring which the pattern matches with the given replacement.
- * @param string $file The path of the file to process.
- * @param string $pattern The pattern to search for.
- * @param string $replacement The string to replace.
- */
-function replaceInFile(string $file, string $pattern, string $replacement): void {
-	file_put_contents($file, preg_replace($pattern, $replacement, file_get_contents($file)));
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "072f6d4efc059033d9abfc416b23f077",
+    "content-hash": "727c3aa1508c97a5a9470c7dd677d5c9",
     "packages": [
         {
             "name": "nyholm/psr7",
@@ -432,16 +432,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.4",
+            "version": "1.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82"
+                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9100a76ce8015b9aa7125b9171ae3a76887b6c82",
-                "reference": "9100a76ce8015b9aa7125b9171ae3a76887b6c82",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/490f0ae1c92b082f154681d7849aee776a7c1443",
+                "reference": "490f0ae1c92b082f154681d7849aee776a7c1443",
                 "shasum": ""
             },
             "require": {
@@ -486,7 +486,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-06-06T12:19:22+00:00"
+            "time": "2024-06-17T15:10:54+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1349,16 +1349,16 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "6.0.1",
+            "version": "6.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "f291e5a317c321c0381fa9ecc796fa2d21b186da"
+                "reference": "507d2333cbc4e6ea248fbda2d45ee1511e03da13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/f291e5a317c321c0381fa9ecc796fa2d21b186da",
-                "reference": "f291e5a317c321c0381fa9ecc796fa2d21b186da",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/507d2333cbc4e6ea248fbda2d45ee1511e03da13",
+                "reference": "507d2333cbc4e6ea248fbda2d45ee1511e03da13",
                 "shasum": ""
             },
             "require": {
@@ -1367,12 +1367,12 @@
                 "sebastian/recursion-context": "^6.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^11.0"
+                "phpunit/phpunit": "^11.2"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "6.0-dev"
+                    "dev-main": "6.1-dev"
                 }
             },
             "autoload": {
@@ -1415,7 +1415,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/exporter/issues",
                 "security": "https://github.com/sebastianbergmann/exporter/security/policy",
-                "source": "https://github.com/sebastianbergmann/exporter/tree/6.0.1"
+                "source": "https://github.com/sebastianbergmann/exporter/tree/6.1.2"
             },
             "funding": [
                 {
@@ -1423,7 +1423,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-03-02T07:28:20+00:00"
+            "time": "2024-06-18T11:19:56+00:00"
         },
         {
             "name": "sebastian/global-state",
@@ -1661,16 +1661,16 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "6.0.0",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "b75224967b5a466925c6d54e68edd0edf8dd4ed4"
+                "reference": "2f15508e17af4ea35129bbc32ce28a814d9c7426"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/b75224967b5a466925c6d54e68edd0edf8dd4ed4",
-                "reference": "b75224967b5a466925c6d54e68edd0edf8dd4ed4",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/2f15508e17af4ea35129bbc32ce28a814d9c7426",
+                "reference": "2f15508e17af4ea35129bbc32ce28a814d9c7426",
                 "shasum": ""
             },
             "require": {
@@ -1713,7 +1713,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
                 "security": "https://github.com/sebastianbergmann/recursion-context/security/policy",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/6.0.0"
+                "source": "https://github.com/sebastianbergmann/recursion-context/tree/6.0.1"
             },
             "funding": [
                 {
@@ -1721,7 +1721,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-02-02T06:08:48+00:00"
+            "time": "2024-06-17T05:22:57+00:00"
         },
         {
             "name": "sebastian/type",

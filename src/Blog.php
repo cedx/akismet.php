@@ -50,8 +50,8 @@ class Blog implements \JsonSerializable {
 	}
 
 	/**
-	 * Converts this object to a map in JSON format.
-	 * @return \stdClass The map in JSON format corresponding to this object.
+	 * Returns a JSON representation of this object.
+	 * @return \stdClass The JSON representation of this object.
 	 */
 	function jsonSerialize(): \stdClass {
 		$map = new \stdClass;

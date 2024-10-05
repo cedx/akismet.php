@@ -1,4 +1,5 @@
-<?php namespace akismet;
+<?php declare(strict_types=1);
+namespace akismet;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
@@ -55,7 +56,7 @@ class Author implements \JsonSerializable {
 		$this->ipAddress = $ipAddress ?: ($_SERVER["REMOTE_ADDR"] ?? "");
 		$this->name = $name;
 		$this->role = $role;
-		$this->url = $url ? new Uri($url) : null;
+		$this->url = $url ? new Uri((string) $url) : null;
 		$this->userAgent = $userAgent ?: ($_SERVER["HTTP_USER_AGENT"] ?? "");
 	}
 

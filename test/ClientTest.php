@@ -1,8 +1,9 @@
-<?php namespace akismet;
+<?php declare(strict_types=1);
+namespace akismet;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\{Assert, TestCase};
 use PHPUnit\Framework\Attributes\{Before, Test, TestDox};
-use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isNull, isTrue, logicalOr};
+use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr};
 
 /**
  * Tests the features of the {@see Client} class.
@@ -41,13 +42,25 @@ final class ClientTest extends TestCase {
 	#[Test]
 	#[TestDox("submitHam()")]
 	function submitHam(): void {
-		assertThat($this->client->submitHam($this->ham), isNull()); // @phpstan-ignore method.void
+		try {
+			$this->client->submitHam($this->ham);
+			assertThat(true, isTrue());
+		}
+		catch (\Throwable $e) {
+			Assert::fail($e->getMessage());
+		}
 	}
 
 	#[Test]
 	#[TestDox("submitSpam()")]
 	function submitSpam(): void {
-		assertThat($this->client->submitSpam($this->spam), isNull()); // @phpstan-ignore method.void
+		try {
+			$this->client->submitSpam($this->spam);
+			assertThat(true, isTrue());
+		}
+		catch (\Throwable $e) {
+			Assert::fail($e->getMessage());
+		}
 	}
 
 	#[Test]

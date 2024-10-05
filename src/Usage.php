@@ -1,4 +1,5 @@
-<?php namespace akismet;
+<?php declare(strict_types=1);
+namespace akismet;
 
 /**
  * Provides API usage for a given month.

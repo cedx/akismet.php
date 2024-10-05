@@ -1,4 +1,5 @@
-<?php namespace akismet;
+<?php declare(strict_types=1);
+namespace akismet;
 
 use Nyholm\Psr7\{Response, Uri};
 use Psr\Http\Message\UriInterface;
@@ -53,7 +54,7 @@ final readonly class Client {
 	 */
 	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|UriInterface $baseUrl = "https://rest.akismet.com") {
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(rtrim($baseUrl, "/"));
+		$this->baseUrl = new Uri(rtrim((string) $baseUrl, "/"));
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: sprintf("PHP/%d | Akismet/%s", PHP_MAJOR_VERSION, self::version);
@@ -114,7 +115,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while querying the end point.
 	 */
 	private function fetch(string $endpoint, object $fields): Response {
-		$handle = curl_init($this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint"));
+		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint"));
 		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
 
 		$postFields = $this->blog->jsonSerialize();

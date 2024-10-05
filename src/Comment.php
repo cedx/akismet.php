@@ -1,4 +1,5 @@
-<?php namespace akismet;
+<?php declare(strict_types=1);
+namespace akismet;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
@@ -74,10 +75,10 @@ class Comment implements \JsonSerializable {
 		$this->content = $content;
 		$this->context = $context;
 		$this->date = $date;
-		$this->permalink = $permalink ? new Uri($permalink) : null;
+		$this->permalink = $permalink ? new Uri((string) $permalink) : null;
 		$this->postModified = $postModified;
 		$this->recheckReason = $recheckReason;
-		$this->referrer = $referrer ? new Uri($referrer) : null;
+		$this->referrer = $referrer ? new Uri((string) $referrer) : null;
 		$this->type = $type;
 	}
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 use akismet\{Author, Blog, Client, Comment};
 
 // Submits spam to the Akismet service.

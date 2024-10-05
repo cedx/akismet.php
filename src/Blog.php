@@ -1,4 +1,5 @@
-<?php namespace akismet;
+<?php declare(strict_types=1);
+namespace akismet;
 
 use Nyholm\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
@@ -33,7 +34,7 @@ class Blog implements \JsonSerializable {
 	function __construct(string|UriInterface $url, string $charset = "", array $languages = []) {
 		$this->charset = $charset;
 		$this->languages = $languages;
-		$this->url = $url ? new Uri($url) : null;
+		$this->url = $url ? new Uri((string) $url) : null;
 	}
 
 	/**

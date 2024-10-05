@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 use akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
 
 // Checks a comment against the Akismet service.

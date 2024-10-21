@@ -36,7 +36,7 @@
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^1.12.7",
-		"phpunit/phpunit": "^11.4.1"
+		"phpunit/phpunit": "^11.4.2"
 	},
 	"scripts": {
 		"test": "phpunit --configuration=etc/phpunit.xml"

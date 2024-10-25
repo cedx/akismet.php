@@ -12,7 +12,7 @@ jobs:
         with:
           coverage: none
           extensions: curl, intl, mbstring, simplexml
-          php-version: 8.3
+          php-version: latest
       - name: Install dependencies
         uses: ramsey/composer-install@v3
       - name: Run tests

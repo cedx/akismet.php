@@ -6,6 +6,7 @@ use function Castor\{exit_code, finder, fs, run, variable};
 
 #[AsContext(default: true)]
 function context(): Context {
+	putenv("PATH=".implode(PATH_SEPARATOR, [realpath("vendor/bin"), getenv("PATH")]));
 	return new Context(["package" => json_decode(file_get_contents("composer.json"))]);
 }
 
@@ -31,7 +32,7 @@ function dist(): void {
 
 #[AsTask(description: "Performs the static analysis of source code")]
 function lint(): int {
-	return exit_code("php vendor/bin/phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M --verbose");
+	return exit_code("phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M --verbose");
 }
 
 #[AsTask(description: "Publishes the package")]
@@ -42,5 +43,5 @@ function publish(): void {
 
 #[AsTask(description: "Runs the test suite")]
 function test(): int {
-	return exit_code("php vendor/bin/phpunit --configuration=etc/phpunit.xml");
+	return exit_code("phpunit --configuration=etc/phpunit.xml");
 }

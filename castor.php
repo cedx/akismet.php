@@ -31,7 +31,7 @@ function dist(): void {
 
 #[AsTask(description: "Performs the static analysis of source code")]
 function lint(): int {
-	return exit_code("composer exec -- phpstan analyse --configuration=etc/phpstan.php --memory-limit=256M --verbose");
+	return _exec("phpstan", "analyse", "--configuration=etc/phpstan.php", "--memory-limit=256M", "--verbose");
 }
 
 #[AsTask(description: "Publishes the package")]
@@ -42,5 +42,15 @@ function publish(): void {
 
 #[AsTask(description: "Runs the test suite")]
 function test(): int {
-	return exit_code("composer exec -- phpunit --configuration=etc/phpunit.xml");
+	return _exec("phpunit", "--configuration=etc/phpunit.xml");
+}
+
+/**
+ * Executes a command from a local package.
+ * @param string $command The command to run.
+ * @param string ...$args The command arguments.
+ * @return int The exit code.
+ */
+function _exec(string $command, string ...$args): int {
+	return exit_code(["composer", "exec", "--", $command, ...$args]);
 }

@@ -11,11 +11,9 @@ function context(): Context {
 
 #[AsTask(description: "Builds the project")]
 function build(): void {
+	$file = "src/Client.php";
 	$pkg = variable("package");
-	file_put_contents(
-		$file = "src/Client.php",
-		preg_replace('/version = "\d+(\.\d+){2}"/', "version = \"$pkg->version\"", file_get_contents($file))
-	);
+	file_put_contents($file, preg_replace('/version = "\d+(\.\d+){2}"/', "version = \"$pkg->version\"", file_get_contents($file)));
 }
 
 #[AsTask(description: "Deletes all generated files")]

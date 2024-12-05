@@ -45,18 +45,18 @@ final class AuthorTest extends TestCase {
 	#[TestDox("jsonSerialize()")]
 	function jsonSerialize(): void {
 		// It should return only the IP address with a newly created instance.
-		$json = (new Author(ipAddress: "127.0.0.1"))->jsonSerialize();
+		$json = new Author(ipAddress: "127.0.0.1")->jsonSerialize();
 		assertThat(get_object_vars($json), countOf(1));
 		assertThat($json->user_ip, equalTo("127.0.0.1"));
 
 		// It should return a non-empty map with a initialized instance.
-		$json = (new Author(
+		$json = new Author(
 			email: "cedric@belin.io",
 			ipAddress: "192.168.0.1",
 			name: "Cédric Belin",
 			url: "https://belin.io",
 			userAgent: "Mozilla/5.0"
-		))->jsonSerialize();
+		)->jsonSerialize();
 
 		assertThat(get_object_vars($json), countOf(5));
 		assertThat($json->comment_author, equalTo("Cédric Belin"));

@@ -54,7 +54,7 @@ final readonly class Client {
 	 */
 	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|UriInterface $baseUrl = "https://rest.akismet.com") {
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(rtrim((string) $baseUrl, "/"));
+		$this->baseUrl = new Uri(mb_rtrim((string) $baseUrl, "/"));
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: sprintf("PHP/%d | Akismet/%s", PHP_MAJOR_VERSION, self::version);
@@ -127,7 +127,7 @@ final readonly class Client {
 		curl_setopt_array($handle, [
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HEADERFUNCTION => function($_, $header) use (&$headers) {
-				if (count($parts = explode(":", $header, 2)) == 2) $headers[trim($parts[0])][] = trim($parts[1]);
+				if (count($parts = explode(":", $header, 2)) == 2) $headers[mb_trim($parts[0])][] = mb_trim($parts[1]);
 				return strlen($header);
 			},
 			CURLOPT_POST => true,

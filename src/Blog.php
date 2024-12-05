@@ -45,7 +45,7 @@ class Blog implements \JsonSerializable {
 	static function fromJson(object $json): self {
 		return new self(
 			charset: (string) ($json->blog_charset ?? ""),
-			languages: ($languages = (string) ($json->blog_lang ?? "")) ? array_map(trim(...), explode(",", $languages)) : [],
+			languages: ($languages = (string) ($json->blog_lang ?? "")) ? array_map(mb_trim(...), explode(",", $languages)) : [],
 			url: (string) ($json->blog ?? "")
 		);
 	}

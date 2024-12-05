@@ -25,7 +25,7 @@ try {
 		url: "https://www.yourblog.com"
 	);
 
-	$result = (new Client("123YourAPIKey", $blog))->checkComment($comment);
+	$result = new Client("123YourAPIKey", $blog)->checkComment($comment);
 	print $result == CheckResult::ham ? "The comment is ham." : "The comment is spam.";
 }
 catch (RuntimeException $e) {

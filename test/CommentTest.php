@@ -57,18 +57,18 @@ final class CommentTest extends TestCase {
 	#[TestDox("jsonSerialize()")]
 	function jsonSerialize(): void {
 		// It should return only the author info with a newly created instance.
-		$json = (new Comment(author: new Author(ipAddress: "127.0.0.1")))->jsonSerialize();
+		$json = new Comment(author: new Author(ipAddress: "127.0.0.1"))->jsonSerialize();
 		assertThat(get_object_vars($json), countOf(1));
 		assertThat($json->user_ip, equalTo("127.0.0.1"));
 
 		// It should return a non-empty map with a initialized instance.
-		$json = (new Comment(
+		$json = new Comment(
 			author: new Author(ipAddress: "127.0.0.1", name: "Cédric Belin", userAgent: "Doom/6.6.6"),
 			content: "A user comment.",
 			date: new \DateTime("2000-01-01T00:00:00.000Z"),
 			referrer: "https://belin.io",
 			type: CommentType::blogPost->value
-		))->jsonSerialize();
+		)->jsonSerialize();
 
 		assertThat(get_object_vars($json), countOf(7));
 		assertThat($json->comment_author, equalTo("Cédric Belin"));

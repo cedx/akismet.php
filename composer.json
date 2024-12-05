@@ -26,7 +26,7 @@
 		"validation"
 	],
 	"require": {
-		"php": ">=8.3.0",
+		"php": ">=8.4.0",
 		"ext-curl": "*",
 		"ext-date": "*",
 		"ext-json": "*",
@@ -35,8 +35,8 @@
 		"nyholm/psr7": "^1.8.2"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^1.12.8",
-		"phpunit/phpunit": "^11.4.3"
+		"phpstan/phpstan": "^2.0.3",
+		"phpunit/phpunit": "^11.4.4"
 	},
 	"scripts": {
 		"test": "phpunit --configuration=etc/phpunit.xml"

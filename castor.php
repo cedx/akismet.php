@@ -50,5 +50,5 @@ function test(): int {
  * @return int The exit code.
  */
 function cpx(string $command, string ...$args): int {
-	return exit_code(["composer", "exec", "--", $command, ...$args]);
+	return exit_code(["pwsh", "-Command", implode(" ", ["composer", "exec", "'--'", $command, ...$args])]);
 }

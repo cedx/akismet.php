@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <phpunit cacheDirectory="../var/phpunit" testdox="true"
 	displayDetailsOnTestsThatTriggerDeprecations="true"
 	displayDetailsOnTestsThatTriggerErrors="true"

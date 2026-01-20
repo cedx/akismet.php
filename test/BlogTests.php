@@ -9,7 +9,7 @@ use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
  * Tests the features of the {@see Blog} class.
  */
 #[TestDox("Blog")]
-final class BlogTest extends TestCase {
+final class BlogTests extends TestCase {
 
 	#[Test]
 	#[TestDox("fromJson()")]

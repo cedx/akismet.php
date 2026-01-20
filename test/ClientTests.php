@@ -9,7 +9,7 @@ use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr}
  * Tests the features of the {@see Client} class.
  */
 #[TestDox("Client")]
-final class ClientTest extends TestCase {
+final class ClientTests extends TestCase {
 
 	/**
 	 * The client used to query the remote API.

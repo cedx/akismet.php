@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 namespace Belin\Akismet;
 
-use Nyholm\Psr7\Uri;
-use Psr\Http\Message\UriInterface;
+use Uri\Rfc3986\Uri;
 
 /**
  * Represents the front page or home URL transmitted when making requests.
@@ -23,18 +22,18 @@ class Blog implements \JsonSerializable {
 	/**
 	 * The blog or site URL.
 	 */
-	public ?UriInterface $url;
+	public ?Uri $url;
 
 	/**
 	 * Creates a new blog.
-	 * @param string|UriInterface $url The blog or site URL.
+	 * @param string|Uri $url The blog or site URL.
 	 * @param string $charset The character encoding for the values included in comments.
 	 * @param string[] $languages The languages in use on the blog or site, in ISO 639-1 format.
 	 */
-	function __construct(string|UriInterface $url, string $charset = "", array $languages = []) {
+	function __construct(string|Uri $url, string $charset = "", array $languages = []) {
 		$this->charset = $charset;
 		$this->languages = $languages;
-		$this->url = $url ? new Uri((string) $url) : null;
+		$this->url = $url ? ($url instanceof Uri ? $url : new Uri($url)) : null;
 	}
 
 	/**
@@ -43,7 +42,7 @@ class Blog implements \JsonSerializable {
 	 */
 	function jsonSerialize(): \stdClass {
 		$map = new \stdClass;
-		$map->blog = (string) $this->url;
+		$map->blog = $this->url->toString();
 		if ($this->charset) $map->blog_charset = $this->charset;
 		if ($this->languages) $map->blog_lang = implode(",", $this->languages);
 		return $map;

@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 namespace Belin\Akismet;
 
-use Nyholm\Psr7\{Response, Uri};
-use Psr\Http\Message\UriInterface;
+use Uri\Rfc3986\Uri;
 
 /**
  * Submits comments to the [Akismet](https://akismet.com) service.
@@ -27,7 +26,7 @@ final readonly class Client {
 	/**
 	 * The base URL of the remote API endpoint.
 	 */
-	public UriInterface $baseUrl;
+	public Uri $baseUrl;
 
 	/**
 	 * The front page or home URL of the instance making requests.
@@ -50,11 +49,11 @@ final readonly class Client {
 	 * @param Blog $blog The front page or home URL of the instance making requests.
 	 * @param bool $isTest Value indicating whether the client operates in test mode.
 	 * @param string $userAgent The user agent string to use when making requests.
-	 * @param string|UriInterface $baseUrl The base URL of the remote API endpoint.
+	 * @param string|Uri $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|UriInterface $baseUrl = "https://rest.akismet.com") {
+	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|Uri $baseUrl = "https://rest.akismet.com") {
 		$this->apiKey = $apiKey;
-		$this->baseUrl = new Uri(mb_rtrim((string) $baseUrl, "/"));
+		$this->baseUrl = new Uri(mb_rtrim($baseUrl instanceof Uri ? $baseUrl->toString() : $baseUrl, "/"));
 		$this->blog = $blog;
 		$this->isTest = $isTest;
 		$this->userAgent = $userAgent ?: sprintf("PHP/%d | Akismet/%s", PHP_MAJOR_VERSION, self::version);
@@ -115,7 +114,7 @@ final readonly class Client {
 	 * @throws \RuntimeException An error occurred while querying the end point.
 	 */
 	private function fetch(string $endpoint, object $fields): Response {
-		$handle = curl_init((string) $this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint"));
+		$handle = curl_init($this->baseUrl->withPath("{$this->baseUrl->getPath()}/$endpoint")->toString());
 		if (!$handle) throw new \RuntimeException("Unable to allocate the cURL handle.", 500);
 
 		$postFields = $this->blog->jsonSerialize();

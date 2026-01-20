@@ -1,8 +1,7 @@
 <?php declare(strict_types=1);
 namespace Belin\Akismet;
 
-use Nyholm\Psr7\Uri;
-use Psr\Http\Message\UriInterface;
+use Uri\Rfc3986\Uri;
 
 /**
  * Represents a comment submitted by an author.
@@ -33,7 +32,7 @@ class Comment implements \JsonSerializable {
 	/**
 	 * The permanent location of the entry the comment is submitted to.
 	 */
-	public ?UriInterface $permalink;
+	public ?Uri $permalink;
 
 	/**
 	 * The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
@@ -48,7 +47,7 @@ class Comment implements \JsonSerializable {
 	/**
 	 * The URL of the webpage that linked to the entry being requested.
 	 */
-	public ?UriInterface $referrer;
+	public ?Uri $referrer;
 
 	/**
 	 * The comment's type.
@@ -62,23 +61,23 @@ class Comment implements \JsonSerializable {
 	 * @param string $type The comment's type.
 	 * @param \DateTimeInterface|null $date The UTC timestamp of the creation of the comment.
 	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
-	 * @param string|UriInterface $permalink The permanent location of the entry the comment is submitted to.
-	 * @param string|UriInterface $referrer The URL of the webpage that linked to the entry being requested.
+	 * @param string|Uri $permalink The permanent location of the entry the comment is submitted to.
+	 * @param string|Uri $referrer The URL of the webpage that linked to the entry being requested.
 	 * @param string $recheckReason A string describing why the content is being rechecked.
 	 * @param string[] $context The context in which this comment was posted.
 	 */
 	function __construct(
 		?Author $author, string $content = "", string $type = "", ?\DateTimeInterface $date = null, ?\DateTimeInterface $postModified = null,
-		string|UriInterface $permalink = "", string|UriInterface $referrer = "", string $recheckReason = "", array $context = []
+		string|Uri $permalink = "", string|Uri $referrer = "", string $recheckReason = "", array $context = []
 	) {
 		$this->author = $author;
 		$this->content = $content;
 		$this->context = $context;
 		$this->date = $date;
-		$this->permalink = $permalink ? new Uri((string) $permalink) : null;
+		$this->permalink = $permalink ? ($permalink instanceof Uri ? $permalink : new Uri($permalink)) : null;
 		$this->postModified = $postModified;
 		$this->recheckReason = $recheckReason;
-		$this->referrer = $referrer ? new Uri((string) $referrer) : null;
+		$this->referrer = $referrer ? ($referrer instanceof Uri ? $referrer : new Uri($referrer)) : null;
 		$this->type = $type;
 	}
 
@@ -91,10 +90,10 @@ class Comment implements \JsonSerializable {
 		if ($this->content) $map->comment_content = $this->content;
 		if ($this->context) $map->comment_context = $this->context;
 		if ($this->date) $map->comment_date_gmt = $this->date->format("c");
-		if ($this->permalink) $map->permalink = (string) $this->permalink;
+		if ($this->permalink) $map->permalink = $this->permalink->toString();
 		if ($this->postModified) $map->comment_post_modified_gmt = $this->postModified->format("c");
 		if ($this->recheckReason) $map->recheck_reason = $this->recheckReason;
-		if ($this->referrer) $map->referrer = (string) $this->referrer;
+		if ($this->referrer) $map->referrer = $this->referrer->toString();
 		if ($this->type) $map->comment_type = $this->type;
 		return $map;
 	}

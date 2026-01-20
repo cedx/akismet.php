@@ -1,10 +1,10 @@
-<phpunit cacheDirectory="../var/phpunit" testdox="true"
+<phpunit cacheDirectory="../var/PHPUnit" testdox="true"
 	displayDetailsOnTestsThatTriggerDeprecations="true"
 	displayDetailsOnTestsThatTriggerErrors="true"
 	displayDetailsOnTestsThatTriggerNotices="true"
 	displayDetailsOnTestsThatTriggerWarnings="true"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.2/phpunit.xsd">
+	xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.5/phpunit.xsd">
 
 	<source>
 		<include>
@@ -12,8 +12,8 @@
 		</include>
 	</source>
 	<testsuites>
-		<testsuite name="main">
-			<directory>../test</directory>
+		<testsuite name="Default">
+			<directory suffix=".php">../test</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-use akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
+use Belin\Akismet\{Author, Blog, CheckResult, Client, Comment, CommentType};
 
 // Checks a comment against the Akismet service.
 try {
@@ -16,7 +16,7 @@ try {
 		date: new DateTime,
 		content: "A user comment.",
 		referrer: "https://github.com/cedx/akismet.php",
-		type: CommentType::contactForm->value
+		type: CommentType::ContactForm->value
 	);
 
 	$blog = new Blog(
@@ -26,7 +26,7 @@ try {
 	);
 
 	$result = new Client("123YourAPIKey", $blog)->checkComment($comment);
-	print $result == CheckResult::ham ? "The comment is ham." : "The comment is spam.";
+	print $result == CheckResult::Ham ? "The comment is ham." : "The comment is spam.";
 }
 catch (RuntimeException $e) {
 	print "An error occurred: {$e->getMessage()}";

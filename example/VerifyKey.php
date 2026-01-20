@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-use akismet\{Blog, Client};
+use Belin\Akismet\{Blog, Client};
 
 // Verifies an Akismet API key.
 try {

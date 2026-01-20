@@ -1,12 +1,16 @@
 name: continuous-integration
 on: push
 
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Fetch sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -16,6 +20,6 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v3
       - name: Run tests
-        run: composer test
+        run: ./Invoke.ps1 Test
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}

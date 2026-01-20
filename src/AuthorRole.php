@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace akismet;
+namespace Belin\Akismet;
 
 /**
  * Specifies the role of an author.

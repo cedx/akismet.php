@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace akismet;
+namespace Belin\Akismet;
 
 use Nyholm\Psr7\{Response, Uri};
 use Psr\Http\Message\UriInterface;

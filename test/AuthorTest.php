@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace akismet;
+namespace Belin\Akismet;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\{Test, TestDox};

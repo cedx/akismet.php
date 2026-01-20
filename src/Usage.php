@@ -39,18 +39,4 @@ final readonly class Usage {
 		$this->throttled = $throttled;
 		$this->usage = $usage;
 	}
-
-	/**
-	 * Creates a new usage from the specified JSON object.
-	 * @param object $json A JSON object representing a usage.
-	 * @return self The instance corresponding to the specified JSON object.
-	 */
-	static function fromJson(object $json): self {
-		return new self(
-			limit: (int) ($json->limit ?? -1),
-			percentage: (float) ($json->percentage ?? 0),
-			throttled: (bool) ($json->throttled ?? false),
-			usage: (int) ($json->usage ?? 0)
-		);
-	}
 }

@@ -9,15 +9,15 @@ enum CheckResult {
 	/**
 	 * The comment is not a spam (i.e. a ham).
 	 */
-	case ham;
+	case Ham;
 
 	/**
 	 * The comment is a spam.
 	 */
-	case spam;
+	case Spam;
 
 	/**
 	 * The comment is a pervasive spam (i.e. it can be safely discarded).
 	 */
-	case pervasiveSpam;
+	case PervasiveSpam;
 }

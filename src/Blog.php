@@ -38,19 +38,6 @@ class Blog implements \JsonSerializable {
 	}
 
 	/**
-	 * Creates a new blog from the specified JSON object.
-	 * @param object $json A JSON object representing a blog.
-	 * @return self The instance corresponding to the specified JSON object.
-	 */
-	static function fromJson(object $json): self {
-		return new self(
-			charset: (string) ($json->blog_charset ?? ""),
-			languages: ($languages = (string) ($json->blog_lang ?? "")) ? array_map(mb_trim(...), explode(",", $languages)) : [],
-			url: (string) ($json->blog ?? "")
-		);
-	}
-
-	/**
 	 * Returns a JSON representation of this object.
 	 * @return \stdClass The JSON representation of this object.
 	 */

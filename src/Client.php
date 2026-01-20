@@ -69,8 +69,8 @@ final readonly class Client {
 	function checkComment(Comment $comment): CheckResult {
 		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
 		return (string) $response->getBody() == "false"
-			? CheckResult::ham
-			: ($response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::pervasiveSpam : CheckResult::spam);
+			? CheckResult::Ham
+			: ($response->getHeaderLine("x-akismet-pro-tip") == "discard" ? CheckResult::PervasiveSpam : CheckResult::Spam);
 	}
 
 	/**

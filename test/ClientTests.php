@@ -30,12 +30,12 @@ final class ClientTests extends TestCase {
 	#[TestDox("checkComment()")]
 	function checkComment(): void {
 		// It should return `CheckResult::ham` for valid comment (e.g. ham).
-		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::ham));
+		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::Ham));
 
 		// It should return `CheckResult::spam` for invalid comment (e.g. spam).
 		assertThat($this->client->checkComment($this->spam), logicalOr(
-			equalTo(CheckResult::spam),
-			equalTo(CheckResult::pervasiveSpam)
+			equalTo(CheckResult::Spam),
+			equalTo(CheckResult::PervasiveSpam)
 		));
 	}
 
@@ -86,13 +86,13 @@ final class ClientTests extends TestCase {
 			author: new Author(
 				ipAddress: "192.168.0.1",
 				name: "Akismet",
-				role: AuthorRole::administrator->value,
+				role: AuthorRole::Administrator->value,
 				url: "https://belin.io",
 				userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0"
 			),
 			content: "I'm testing out the Service API.",
 			referrer: "https://www.npmjs.com/package/@cedx/akismet",
-			type: CommentType::comment->value
+			type: CommentType::Comment->value
 		);
 
 		$this->spam = new Comment(
@@ -103,7 +103,7 @@ final class ClientTests extends TestCase {
 				userAgent: "Spam Bot/6.6.6"
 			),
 			content: "Spam!",
-			type: CommentType::blogPost->value
+			type: CommentType::BlogPost->value
 		);
 	}
 }

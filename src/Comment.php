@@ -83,27 +83,6 @@ class Comment implements \JsonSerializable {
 	}
 
 	/**
-	 * Creates a new comment from the specified JSON object.
-	 * @param object $json A JSON object representing a comment.
-	 * @return self The instance corresponding to the specified JSON object.
-	 */
-	static function fromJson(object $json): self {
-		$keys = array_keys(get_object_vars($json));
-		$hasAuthor = count(array_filter($keys, fn($key) => str_starts_with($key, "comment_author") || str_starts_with($key, "user"))) > 0;
-		return new self(
-			author: $hasAuthor ? Author::fromJson($json) : null,
-			content: (string) ($json->comment_content ?? ""),
-			context: array_map(strval(...), (array) ($json->comment_context ?? [])),
-			date: ($date = (string) ($json->comment_date_gmt ?? "")) ? new \DateTime($date) : null,
-			permalink: (string) ($json->permalink ?? ""),
-			postModified: ($postModified = (string) ($json->comment_post_modified_gmt ?? "")) ? new \DateTime($postModified) : null,
-			recheckReason: (string) ($json->recheck_reason ?? ""),
-			referrer: (string) ($json->referrer ?? ""),
-			type: (string) ($json->comment_type ?? "")
-		);
-	}
-
-	/**
 	 * Returns a JSON representation of this object.
 	 * @return \stdClass The JSON representation of this object.
 	 */

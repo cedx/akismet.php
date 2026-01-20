@@ -9,35 +9,35 @@ enum CommentType: string {
 	/**
 	 * A blog post.
 	 */
-	case blogPost = "blog-post";
+	case BlogPost = "blog-post";
 
 	/**
 	 * A blog comment.
 	 */
-	case comment = "comment";
+	case Comment = "comment";
 
 	/**
 	 * A contact form or feedback form submission.
 	 */
-	case contactForm = "contact-form";
+	case ContactForm = "contact-form";
 
 	/**
 	 * A top-level forum post.
 	 */
-	case forumPost = "forum-post";
+	case ForumPost = "forum-post";
 
 	/**
 	 * A message sent between just a few users.
 	 */
-	case message = "message";
+	case Message = "message";
 
 	/**
 	 * A reply to a top-level forum post.
 	 */
-	case reply = "reply";
+	case Reply = "reply";
 
 	/**
 	 * A new user account.
 	 */
-	case signup = "signup";
+	case Signup = "signup";
 }

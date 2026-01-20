@@ -61,22 +61,6 @@ class Author implements \JsonSerializable {
 	}
 
 	/**
-	 * Creates a new author from the specified JSON object.
-	 * @param object $json A JSON object representing an author.
-	 * @return self The instance corresponding to the specified JSON object.
-	 */
-	static function fromJson(object $json): self {
-		return new self(
-			email: (string) ($json->comment_author_email ?? ""),
-			ipAddress: (string) ($json->user_ip ?? ""),
-			name: (string) ($json->comment_author ?? ""),
-			role: (string) ($json->user_role ?? ""),
-			url: (string) ($json->comment_author_url ?? ""),
-			userAgent: (string) ($json->user_agent ?? "")
-		);
-	}
-
-	/**
 	 * Returns a JSON representation of this object.
 	 * @return \stdClass The JSON representation of this object.
 	 */

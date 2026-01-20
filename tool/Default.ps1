@@ -1,0 +1,1 @@
+& "$PSScriptRoot/Clean.ps1"

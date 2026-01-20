@@ -1,6 +1,5 @@
-/**/.DS_Store
-/.castor.stub.php
+/**/*.user
 /.idea/
+/.vs/
 /var/
 /vendor/
-/wiki/

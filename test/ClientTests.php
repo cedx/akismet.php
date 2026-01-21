@@ -87,7 +87,7 @@ final class ClientTests extends TestCase {
 				ipAddress: "192.168.0.1",
 				name: "Akismet",
 				role: AuthorRole::Administrator->value,
-				url: "https://belin.io",
+				url: "https://cedric-belin.fr",
 				userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0"
 			),
 			content: "I'm testing out the Service API.",

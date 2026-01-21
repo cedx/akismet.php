@@ -21,17 +21,17 @@ final class AuthorTests extends TestCase {
 
 		// It should return a non-empty map with a initialized instance.
 		$json = new Author(
-			email: "cedric@belin.io",
+			email: "contact@cedric-belin.fr",
 			ipAddress: "192.168.0.1",
 			name: "Cédric Belin",
-			url: "https://belin.io",
+			url: "https://cedric-belin.fr",
 			userAgent: "Mozilla/5.0"
 		)->jsonSerialize();
 
 		assertThat(get_object_vars($json), countOf(5));
 		assertThat($json->comment_author, equalTo("Cédric Belin"));
-		assertThat($json->comment_author_email, equalTo("cedric@belin.io"));
-		assertThat($json->comment_author_url, equalTo("https://belin.io"));
+		assertThat($json->comment_author_email, equalTo("contact@cedric-belin.fr"));
+		assertThat($json->comment_author_url, equalTo("https://cedric-belin.fr"));
 		assertThat($json->user_agent, equalTo("Mozilla/5.0"));
 		assertThat($json->user_ip, equalTo("192.168.0.1"));
 	}

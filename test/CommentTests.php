@@ -24,7 +24,7 @@ final class CommentTests extends TestCase {
 			author: new Author(ipAddress: "127.0.0.1", name: "Cédric Belin", userAgent: "Doom/6.6.6"),
 			content: "A user comment.",
 			date: new \DateTime("2000-01-01T00:00:00.000Z"),
-			referrer: "https://belin.io",
+			referrer: "https://cedric-belin.fr",
 			type: CommentType::BlogPost->value
 		)->jsonSerialize();
 
@@ -33,7 +33,7 @@ final class CommentTests extends TestCase {
 		assertThat($json->comment_content, equalTo("A user comment."));
 		assertThat($json->comment_date_gmt, equalTo("2000-01-01T00:00:00+00:00"));
 		assertThat($json->comment_type, equalTo("blog-post"));
-		assertThat($json->referrer, equalTo("https://belin.io"));
+		assertThat($json->referrer, equalTo("https://cedric-belin.fr"));
 		assertThat($json->user_agent, equalTo("Doom/6.6.6"));
 		assertThat($json->user_ip, equalTo("127.0.0.1"));
 	}

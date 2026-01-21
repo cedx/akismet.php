@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",
-	"version": "16.0.0",
+	"version": "17.0.0",
 	"authors": [
 		{"email": "cedx@outlook.com", "homepage": "https://cedric-belin.fr", "name": "Cédric Belin"}
 	],

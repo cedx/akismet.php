@@ -1,5 +1,12 @@
 # Changelog
 
+## Version [17.0.0](https://github.com/cedx/akismet.php/compare/v16.0.0...17.0.0)
+- Breaking change: raised the required [PHP](https://www.php.net) version.
+- Breaking change: removed the `fromJson()` static methods.
+- Breaking change: renamed the root namespace to `Belin\Akismet`.
+- Breaking change: using PHP 8.5 features, like the `Uri\Rfc3986\Uri` class.
+- Removed the dependency on [nyholm/psr7](https://github.com/Nyholm/psr7) library.
+
 ## Version [16.0.0](https://github.com/cedx/akismet.php/compare/v15.1.0...16.0.0)
 - Breaking change: raised the required [PHP](https://www.php.net) version.
 - Breaking change: removed the `ClientException` class.

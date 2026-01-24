@@ -28,7 +28,7 @@ final class ClientTests extends TestCase {
 
 	#[Test]
 	#[TestDox("checkComment()")]
-	function checkComment(): void {
+	public function checkComment(): void {
 		// It should return `CheckResult::ham` for valid comment (e.g. ham).
 		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::Ham));
 
@@ -41,7 +41,7 @@ final class ClientTests extends TestCase {
 
 	#[Test]
 	#[TestDox("submitHam()")]
-	function submitHam(): void {
+	public function submitHam(): void {
 		try {
 			$this->client->submitHam($this->ham);
 			assertThat(true, isTrue());
@@ -53,7 +53,7 @@ final class ClientTests extends TestCase {
 
 	#[Test]
 	#[TestDox("submitSpam()")]
-	function submitSpam(): void {
+	public function submitSpam(): void {
 		try {
 			$this->client->submitSpam($this->spam);
 			assertThat(true, isTrue());
@@ -65,7 +65,7 @@ final class ClientTests extends TestCase {
 
 	#[Test]
 	#[TestDox("verifyKey()")]
-	function verifyKey(): void {
+	public function verifyKey(): void {
 		// It should return `true` for a valid API key.
 		assertThat($this->client->verifyKey(), isTrue());
 

@@ -66,7 +66,7 @@ class Comment implements \JsonSerializable {
 	 * @param string $recheckReason A string describing why the content is being rechecked.
 	 * @param string[] $context The context in which this comment was posted.
 	 */
-	function __construct(
+	public function __construct(
 		?Author $author, string $content = "", string $type = "", ?\DateTimeInterface $date = null, ?\DateTimeInterface $postModified = null,
 		string|Uri $permalink = "", string|Uri $referrer = "", string $recheckReason = "", array $context = []
 	) {
@@ -85,7 +85,7 @@ class Comment implements \JsonSerializable {
 	 * Returns a JSON representation of this object.
 	 * @return \stdClass The JSON representation of this object.
 	 */
-	function jsonSerialize(): \stdClass {
+	public function jsonSerialize(): \stdClass {
 		$map = $this->author ? $this->author->jsonSerialize() : new \stdClass;
 		if ($this->content) $map->comment_content = $this->content;
 		if ($this->context) $map->comment_context = $this->context;

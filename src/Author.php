@@ -47,7 +47,7 @@ class Author implements \JsonSerializable {
 	 * @param string $role The author's role. If you set it to `"administrator"`, Akismet will always return `false`.
 	 * @param string $userAgent The author's user agent, that is the string identifying the Web browser used to submit comments.
 	 */
-	function __construct(
+	public function __construct(
 		string $ipAddress = "", string $name = "", string $email = "",
 		string|Uri $url = "", string $role = "", string $userAgent = ""
 	) {
@@ -63,7 +63,7 @@ class Author implements \JsonSerializable {
 	 * Returns a JSON representation of this object.
 	 * @return \stdClass The JSON representation of this object.
 	 */
-	function jsonSerialize(): \stdClass {
+	public function jsonSerialize(): \stdClass {
 		$map = new \stdClass;
 		$map->user_ip = $this->ipAddress;
 		if ($this->email) $map->comment_author_email = $this->email;

@@ -13,7 +13,7 @@ final class AuthorTests extends TestCase {
 
 	#[Test]
 	#[TestDox("jsonSerialize()")]
-	function jsonSerialize(): void {
+	public function jsonSerialize(): void {
 		// It should return only the IP address with a newly created instance.
 		$json = new Author(ipAddress: "127.0.0.1")->jsonSerialize();
 		assertThat(get_object_vars($json), countOf(1));

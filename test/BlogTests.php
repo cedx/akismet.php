@@ -13,7 +13,7 @@ final class BlogTests extends TestCase {
 
 	#[Test]
 	#[TestDox("jsonSerialize()")]
-	function jsonSerialize(): void {
+	public function jsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
 		$json = new Blog("https://github.com/cedx/akismet.php")->jsonSerialize();
 		assertThat(get_object_vars($json), countOf(1));

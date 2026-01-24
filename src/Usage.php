@@ -33,7 +33,7 @@ final readonly class Usage {
 	 * @param float $percentage The percentage of the limit used since the beginning of the month.
 	 * @param bool $throttled Value indicating whether the requests are being throttled for having consistently gone over the limit.
 	 */
-	function __construct(int $usage, int $limit, float $percentage, bool $throttled) {
+	public function __construct(int $usage, int $limit, float $percentage, bool $throttled) {
 		$this->limit = $limit;
 		$this->percentage = $percentage;
 		$this->throttled = $throttled;

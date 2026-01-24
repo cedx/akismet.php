@@ -51,7 +51,7 @@ final class Client {
 	 * @param string $userAgent The user agent string to use when making requests.
 	 * @param string|Uri $baseUrl The base URL of the remote API endpoint.
 	 */
-	function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|Uri $baseUrl = "https://rest.akismet.com") {
+	public function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|Uri $baseUrl = "https://rest.akismet.com") {
 		self::$version ??= json_decode((string) file_get_contents(__DIR__ . "/../composer.json"))->version;
 
 		$this->apiKey = $apiKey;
@@ -67,7 +67,7 @@ final class Client {
 	 * @return CheckResult A value indicating whether the specified comment is spam.
 	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
-	function checkComment(Comment $comment): CheckResult {
+	public function checkComment(Comment $comment): CheckResult {
 		$response = $this->fetch("1.1/comment-check", $comment->jsonSerialize());
 		if ($response->body == "false") return CheckResult::Ham;
 		return ($response->headers["x-akismet-pro-tip"] ?? "") == "discard" ? CheckResult::PervasiveSpam : CheckResult::Spam;
@@ -78,7 +78,7 @@ final class Client {
 	 * @param Comment $comment The comment to be submitted.
 	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
-	function submitHam(Comment $comment): void {
+	public function submitHam(Comment $comment): void {
 		$response = $this->fetch("1.1/submit-ham", $comment->jsonSerialize());
 		if ($response->body != self::Success) throw new \RuntimeException("Invalid server response.", 500);
 	}
@@ -88,7 +88,7 @@ final class Client {
 	 * @param Comment $comment The comment to be submitted.
 	 * @throws \RuntimeException The remote server returned an invalid response.
 	 */
-	function submitSpam(Comment $comment): void {
+	public function submitSpam(Comment $comment): void {
 		$response = $this->fetch("1.1/submit-spam", $comment->jsonSerialize());
 		if ($response->body != self::Success) throw new \RuntimeException("Invalid server response.", 500);
 	}
@@ -97,7 +97,7 @@ final class Client {
 	 * Checks the API key against the service database, and returns a value indicating whether it is valid.
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
 	 */
-	function verifyKey(): bool {
+	public function verifyKey(): bool {
 		try {
 			$response = $this->fetch("1.1/verify-key");
 			return $response->body == "valid";

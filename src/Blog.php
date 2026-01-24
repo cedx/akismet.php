@@ -30,7 +30,7 @@ class Blog implements \JsonSerializable {
 	 * @param string $charset The character encoding for the values included in comments.
 	 * @param string[] $languages The languages in use on the blog or site, in ISO 639-1 format.
 	 */
-	function __construct(string|Uri $url, string $charset = "", array $languages = []) {
+	public function __construct(string|Uri $url, string $charset = "", array $languages = []) {
 		$this->charset = $charset;
 		$this->languages = $languages;
 		$this->url = $url instanceof Uri ? $url : new Uri($url);
@@ -40,7 +40,7 @@ class Blog implements \JsonSerializable {
 	 * Returns a JSON representation of this object.
 	 * @return \stdClass The JSON representation of this object.
 	 */
-	function jsonSerialize(): \stdClass {
+	public function jsonSerialize(): \stdClass {
 		$map = new \stdClass;
 		$map->blog = $this->url->toString();
 		if ($this->charset) $map->blog_charset = $this->charset;

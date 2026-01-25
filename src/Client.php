@@ -19,11 +19,6 @@ final class Client {
 	private static ?string $version = null;
 
 	/**
-	 * The Akismet API key.
-	 */
-	public readonly string $apiKey;
-
-	/**
 	 * The base URL of the remote API endpoint.
 	 */
 	public readonly Uri $baseUrl;
@@ -44,6 +39,11 @@ final class Client {
 	public string $userAgent;
 
 	/**
+	 * The Akismet API key.
+	 */
+	private readonly string $apiKey;
+
+	/**
 	 * Creates a new client.
 	 * @param string $apiKey The Akismet API key.
 	 * @param Blog $blog The front page or home URL of the instance making requests.
@@ -51,7 +51,7 @@ final class Client {
 	 * @param string $userAgent The user agent string to use when making requests.
 	 * @param string|Uri $baseUrl The base URL of the remote API endpoint.
 	 */
-	public function __construct(string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|Uri $baseUrl = "https://rest.akismet.com") {
+	public function __construct(#[\SensitiveParameter] string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|Uri $baseUrl = "https://rest.akismet.com") {
 		self::$version ??= json_decode((string) file_get_contents(__DIR__ . "/../composer.json"))->version;
 
 		$this->apiKey = $apiKey;

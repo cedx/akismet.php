@@ -4,27 +4,27 @@ namespace Belin\Akismet;
 /**
  * Provides API usage for a given month.
  */
-final readonly class Usage {
+final class Usage {
 
 	/**
 	 * The number of monthly API calls your plan entitles you to.
 	 */
-	public int $limit;
+	public readonly int $limit;
 
 	/**
 	 * The percentage of the limit used since the beginning of the month.
 	 */
-	public float $percentage;
+	public readonly float $percentage;
 
 	/**
 	 * Value indicating whether the requests are being throttled for having consistently gone over the limit.
 	 */
-	public bool $throttled;
+	public readonly bool $throttled;
 
 	/**
 	 * The number of calls (spam + ham) since the beginning of the month.
 	 */
-	public int $usage;
+	public readonly int $usage;
 
 	/**
 	 * Creates a new usage.

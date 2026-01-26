@@ -3,7 +3,7 @@ namespace Belin\Akismet;
 
 use PHPUnit\Framework\{Assert, TestCase};
 use PHPUnit\Framework\Attributes\{Before, Test, TestDox};
-use function PHPUnit\Framework\{assertThat, equalTo, isFalse, isTrue, logicalOr};
+use function PHPUnit\Framework\{assertEquals, assertFalse, assertTrue};
 
 /**
  * Tests the features of the {@see Client} class.
@@ -30,13 +30,11 @@ final class ClientTests extends TestCase {
 	#[TestDox("checkComment()")]
 	public function checkComment(): void {
 		// It should return `CheckResult::ham` for valid comment (e.g. ham).
-		assertThat($this->client->checkComment($this->ham), equalTo(CheckResult::Ham));
+		assertEquals(CheckResult::Ham, $this->client->checkComment($this->ham));
 
 		// It should return `CheckResult::spam` for invalid comment (e.g. spam).
-		assertThat($this->client->checkComment($this->spam), logicalOr(
-			equalTo(CheckResult::Spam),
-			equalTo(CheckResult::PervasiveSpam)
-		));
+		$result = $this->client->checkComment($this->spam);
+		assertTrue($result == CheckResult::Spam || $result == CheckResult::PervasiveSpam);
 	}
 
 	#[Test]
@@ -44,7 +42,7 @@ final class ClientTests extends TestCase {
 	public function submitHam(): void {
 		try {
 			$this->client->submitHam($this->ham);
-			assertThat(true, isTrue());
+			assertTrue(true); // @phpstan-ignore function.alreadyNarrowedType
 		}
 		catch (\Throwable $e) {
 			Assert::fail($e->getMessage());
@@ -56,7 +54,7 @@ final class ClientTests extends TestCase {
 	public function submitSpam(): void {
 		try {
 			$this->client->submitSpam($this->spam);
-			assertThat(true, isTrue());
+			assertTrue(true); // @phpstan-ignore function.alreadyNarrowedType
 		}
 		catch (\Throwable $e) {
 			Assert::fail($e->getMessage());
@@ -67,11 +65,11 @@ final class ClientTests extends TestCase {
 	#[TestDox("verifyKey()")]
 	public function verifyKey(): void {
 		// It should return `true` for a valid API key.
-		assertThat($this->client->verifyKey(), isTrue());
+		assertTrue($this->client->verifyKey());
 
 		// It should return `false` for an invalid API key.
 		$client = new Client(apiKey: "0123456789-ABCDEF", blog: $this->client->blog, isTest: true);
-		assertThat($client->verifyKey(), isFalse());
+		assertFalse($client->verifyKey());
 	}
 
 	#[Before]

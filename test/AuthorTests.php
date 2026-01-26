@@ -3,7 +3,7 @@ namespace Belin\Akismet;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\{Test, TestDox};
-use function PHPUnit\Framework\{assertThat, countOf, equalTo, isEmpty, isNull};
+use function PHPUnit\Framework\{assertCount, assertEquals};
 
 /**
  * Tests the features of the {@see Author} class.
@@ -16,8 +16,8 @@ final class AuthorTests extends TestCase {
 	public function jsonSerialize(): void {
 		// It should return only the IP address with a newly created instance.
 		$json = new Author(ipAddress: "127.0.0.1")->jsonSerialize();
-		assertThat(get_object_vars($json), countOf(1));
-		assertThat($json->user_ip, equalTo("127.0.0.1"));
+		assertCount(1, get_object_vars($json));
+		assertEquals("127.0.0.1", $json->user_ip);
 
 		// It should return a non-empty map with a initialized instance.
 		$json = new Author(
@@ -28,11 +28,11 @@ final class AuthorTests extends TestCase {
 			userAgent: "Mozilla/5.0"
 		)->jsonSerialize();
 
-		assertThat(get_object_vars($json), countOf(5));
-		assertThat($json->comment_author, equalTo("Cédric Belin"));
-		assertThat($json->comment_author_email, equalTo("contact@cedric-belin.fr"));
-		assertThat($json->comment_author_url, equalTo("https://cedric-belin.fr"));
-		assertThat($json->user_agent, equalTo("Mozilla/5.0"));
-		assertThat($json->user_ip, equalTo("192.168.0.1"));
+		assertCount(5, get_object_vars($json));
+		assertEquals("Cédric Belin", $json->comment_author);
+		assertEquals("contact@cedric-belin.fr", $json->comment_author_email);
+		assertEquals("https://cedric-belin.fr", $json->comment_author_url);
+		assertEquals("Mozilla/5.0", $json->user_agent);
+		assertEquals("192.168.0.1", $json->user_ip);
 	}
 }

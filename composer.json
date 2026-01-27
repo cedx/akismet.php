@@ -35,7 +35,7 @@
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^2.1.37",
-		"phpunit/phpunit": "^12.5.7"
+		"phpunit/phpunit": "^12.5.8"
 	},
 	"support": {
 		"docs": "https://github.com/cedx/akismet.php/wiki",

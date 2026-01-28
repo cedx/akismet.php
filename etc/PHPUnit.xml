@@ -13,7 +13,7 @@
 	</source>
 	<testsuites>
 		<testsuite name="Default">
-			<directory suffix=".php">../test</directory>
+			<directory suffix="Tests.php">../test</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

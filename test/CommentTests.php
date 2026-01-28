@@ -11,8 +11,7 @@ use function PHPUnit\Framework\{assertCount, assertEquals};
 #[TestDox("Comment")]
 final class CommentTests extends TestCase {
 
-	#[Test]
-	#[TestDox("jsonSerialize()")]
+	#[Test, TestDox("jsonSerialize()")]
 	public function jsonSerialize(): void {
 		// It should return only the author info with a newly created instance.
 		$json = new Comment(author: new Author(ipAddress: "127.0.0.1"))->jsonSerialize();

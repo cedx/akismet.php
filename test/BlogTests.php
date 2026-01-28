@@ -11,8 +11,7 @@ use function PHPUnit\Framework\{assertCount, assertEquals};
 #[TestDox("Blog")]
 final class BlogTests extends TestCase {
 
-	#[Test]
-	#[TestDox("jsonSerialize()")]
+	#[Test, TestDox("jsonSerialize()")]
 	public function jsonSerialize(): void {
 		// It should return only the blog URL with a newly created instance.
 		$json = new Blog("https://github.com/cedx/akismet.php")->jsonSerialize();

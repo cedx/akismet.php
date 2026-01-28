@@ -26,8 +26,7 @@ final class ClientTests extends TestCase {
 	 */
 	private Comment $spam;
 
-	#[Test]
-	#[TestDox("checkComment()")]
+	#[Test, TestDox("checkComment()")]
 	public function checkComment(): void {
 		// It should return `CheckResult::ham` for valid comment (e.g. ham).
 		assertEquals(CheckResult::Ham, $this->client->checkComment($this->ham));
@@ -37,8 +36,7 @@ final class ClientTests extends TestCase {
 		assertTrue($result == CheckResult::Spam || $result == CheckResult::PervasiveSpam);
 	}
 
-	#[Test]
-	#[TestDox("submitHam()")]
+	#[Test, TestDox("submitHam()")]
 	public function submitHam(): void {
 		try {
 			$this->client->submitHam($this->ham);
@@ -49,8 +47,7 @@ final class ClientTests extends TestCase {
 		}
 	}
 
-	#[Test]
-	#[TestDox("submitSpam()")]
+	#[Test, TestDox("submitSpam()")]
 	public function submitSpam(): void {
 		try {
 			$this->client->submitSpam($this->spam);
@@ -61,8 +58,7 @@ final class ClientTests extends TestCase {
 		}
 	}
 
-	#[Test]
-	#[TestDox("verifyKey()")]
+	#[Test, TestDox("verifyKey()")]
 	public function verifyKey(): void {
 		// It should return `true` for a valid API key.
 		assertTrue($this->client->verifyKey());

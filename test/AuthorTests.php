@@ -11,8 +11,7 @@ use function PHPUnit\Framework\{assertCount, assertEquals};
 #[TestDox("Author")]
 final class AuthorTests extends TestCase {
 
-	#[Test]
-	#[TestDox("jsonSerialize()")]
+	#[Test, TestDox("jsonSerialize()")]
 	public function jsonSerialize(): void {
 		// It should return only the IP address with a newly created instance.
 		$json = new Author(ipAddress: "127.0.0.1")->jsonSerialize();

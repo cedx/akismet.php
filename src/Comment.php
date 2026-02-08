@@ -58,7 +58,7 @@ class Comment implements \JsonSerializable {
 	 * Creates a new comment.
 	 * @param Author|null $author The comment's author.
 	 * @param string $content The comment's content.
-	 * @param string $type The comment's type.
+	 * @param string|CommentType $type The comment's type.
 	 * @param \DateTimeInterface|null $date The UTC timestamp of the creation of the comment.
 	 * @param \DateTimeInterface|null $postModified The UTC timestamp of the publication time for the post, page or thread on which the comment was posted.
 	 * @param string|Uri $permalink The permanent location of the entry the comment is submitted to.
@@ -67,7 +67,7 @@ class Comment implements \JsonSerializable {
 	 * @param string[] $context The context in which this comment was posted.
 	 */
 	public function __construct(
-		?Author $author, string $content = "", string $type = "", ?\DateTimeInterface $date = null, ?\DateTimeInterface $postModified = null,
+		?Author $author, string $content = "", string|CommentType $type = "", ?\DateTimeInterface $date = null, ?\DateTimeInterface $postModified = null,
 		string|Uri $permalink = "", string|Uri $referrer = "", string $recheckReason = "", array $context = []
 	) {
 		$this->author = $author;
@@ -78,7 +78,7 @@ class Comment implements \JsonSerializable {
 		$this->postModified = $postModified;
 		$this->recheckReason = $recheckReason;
 		$this->referrer = $referrer ? ($referrer instanceof Uri ? $referrer : new Uri($referrer)) : null;
-		$this->type = $type;
+		$this->type = is_string($type) ? $type : $type->value;
 	}
 
 	/**

@@ -16,7 +16,7 @@ try {
 		date: new DateTime,
 		content: "A user comment.",
 		referrer: "https://github.com/cedx/akismet.php",
-		type: CommentType::ContactForm->value
+		type: CommentType::ContactForm
 	);
 
 	$blog = new Blog(

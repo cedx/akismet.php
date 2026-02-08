@@ -80,13 +80,13 @@ final class ClientTests extends TestCase {
 			author: new Author(
 				ipAddress: "192.168.0.1",
 				name: "Akismet",
-				role: AuthorRole::Administrator->value,
+				role: AuthorRole::Administrator,
 				url: "https://cedric-belin.fr",
 				userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36 Edg/128.0.0.0"
 			),
 			content: "I'm testing out the Service API.",
 			referrer: "https://www.npmjs.com/package/@cedx/akismet",
-			type: CommentType::Comment->value
+			type: CommentType::Comment
 		);
 
 		$this->spam = new Comment(
@@ -97,7 +97,7 @@ final class ClientTests extends TestCase {
 				userAgent: "Spam Bot/6.6.6"
 			),
 			content: "Spam!",
-			type: CommentType::BlogPost->value
+			type: CommentType::BlogPost
 		);
 	}
 }

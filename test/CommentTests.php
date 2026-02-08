@@ -24,7 +24,7 @@ final class CommentTests extends TestCase {
 			content: "A user comment.",
 			date: new \DateTime("2000-01-01T00:00:00.000Z"),
 			referrer: "https://cedric-belin.fr",
-			type: CommentType::BlogPost->value
+			type: CommentType::BlogPost
 		)->jsonSerialize();
 
 		assertCount(7, get_object_vars($json));

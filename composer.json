@@ -37,6 +37,9 @@
 		"phpstan/phpstan": "^2.1.40",
 		"phpunit/phpunit": "^13.0.5"
 	},
+	"scripts": {
+		"test": "pwsh Invoke.ps1 Test"
+	},
 	"support": {
 		"docs": "https://github.com/cedx/akismet.php/wiki",
 		"issues": "https://github.com/cedx/akismet.php/issues"

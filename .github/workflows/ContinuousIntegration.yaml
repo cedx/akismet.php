@@ -20,6 +20,6 @@ jobs:
       - name: Install dependencies
         uses: ramsey/composer-install@v3
       - name: Run tests
-        run: ./Invoke.ps1 Test
+        run: composer test
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}

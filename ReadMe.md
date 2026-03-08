@@ -2,7 +2,7 @@
 Prevent comment spam using [Akismet](https://akismet.com) service, in [PHP](https://www.php.net).
 
 ## Documentation
-- [User guide](https://github.com/cedx/akismet.php/wiki)
+- [User guide](https://github.com/cedx/akismet.php/tree/main/docs)
 - [Examples](https://github.com/cedx/akismet.php/tree/main/example)
 
 ## Development

@@ -34,8 +34,8 @@
 		"ext-pcre": "*"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^2.1.44",
-		"phpunit/phpunit": "^13.0.5"
+		"phpstan/phpstan": "^2.1.45",
+		"phpunit/phpunit": "^13.0.6"
 	},
 	"scripts": {
 		"test": "pwsh Invoke.ps1 Test"

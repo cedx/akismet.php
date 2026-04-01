@@ -34,7 +34,7 @@
 		"ext-pcre": "*"
 	},
 	"require-dev": {
-		"phpstan/phpstan": "^2.1.45",
+		"phpstan/phpstan": "^2.1.46",
 		"phpunit/phpunit": "^13.0.6"
 	},
 	"scripts": {

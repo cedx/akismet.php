@@ -35,7 +35,7 @@
 	},
 	"require-dev": {
 		"phpstan/phpstan": "^2.1.46",
-		"phpunit/phpunit": "^13.0.6"
+		"phpunit/phpunit": "^13.1.0"
 	},
 	"scripts": {
 		"test": "pwsh Invoke.ps1 Test"

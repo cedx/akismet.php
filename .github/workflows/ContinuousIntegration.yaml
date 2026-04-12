@@ -20,6 +20,6 @@ jobs:
       - name: Install dependencies
         run: ./Invoke.ps1 Install
       - name: Run tests
-        run: ./Invoke.ps1 Tests
+        run: ./Invoke.ps1 Test
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}

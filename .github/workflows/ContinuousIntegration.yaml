@@ -18,8 +18,8 @@ jobs:
           extensions: curl, intl, mbstring, simplexml
           php-version: latest
       - name: Install dependencies
-        uses: ramsey/composer-install@v3
+        uses: ./Invoke.ps1 Install
       - name: Run tests
-        run: composer test
+        run: ./Invoke.ps1 Tests
         env:
           AKISMET_API_KEY: ${{secrets.AKISMET_API_KEY}}

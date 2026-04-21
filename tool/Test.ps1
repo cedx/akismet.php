@@ -1,2 +1,4 @@
+using module ./Cmdlets.psm1
+
 "Running the test suite..."
-composer exec "--" phpunit --configuration=etc/PHPUnit.xml
+Invoke-PhpUnit "$PSScriptRoot/../etc/PHPUnit.xml"

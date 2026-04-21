@@ -23,7 +23,7 @@ function Invoke-PhpStan {
 		# The path to the configuration file.
 		[Parameter(Position = 0)]
 		[ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage = "The specified configuration file does not exist.")]
-		[string] $Path,
+		[string] $Configuration,
 
 		# The maximum memory allocated to the analysis.
 		[ValidateRange("Positive")]
@@ -31,7 +31,7 @@ function Invoke-PhpStan {
 	)
 
 	$argumentList = "phpstan", "analyse", "--verbose"
-	if ($Path) { $argumentList += "--configuration=$Path" }
+	if ($Configuration) { $argumentList += "--configuration=$Configuration" }
 	if ($MemoryLimit) { $argumentList += "--memory-limit=$MemoryLimit" }
 	composer exec "--" @argumentList
 }
@@ -45,11 +45,11 @@ function Invoke-PhpUnit {
 		# The path to the configuration file.
 		[Parameter(Position = 0)]
 		[ValidateScript({ Test-Path $_ -PathType Leaf }, ErrorMessage = "The specified configuration file does not exist.")]
-		[string] $Path
+		[string] $Configuration
 	)
 
 	$argumentList = , "phpunit"
-	if ($Path) { $argumentList += "--configuration=$Path" }
+	if ($Configuration) { $argumentList += "--configuration=$Configuration" }
 	composer exec "--" @argumentList
 }
 

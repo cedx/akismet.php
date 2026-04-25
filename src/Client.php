@@ -14,11 +14,6 @@ final class Client {
 	private const string Success = "Thanks for making the web a better place.";
 
 	/**
-	 * The package version number.
-	 */
-	private static ?string $version = null;
-
-	/**
 	 * The base URL of the remote API endpoint.
 	 */
 	public readonly Uri $baseUrl;
@@ -52,13 +47,13 @@ final class Client {
 	 * @param string|Uri $baseUrl The base URL of the remote API endpoint.
 	 */
 	public function __construct(#[\SensitiveParameter] string $apiKey, Blog $blog, bool $isTest = false, string $userAgent = "", string|Uri $baseUrl = "https://rest.akismet.com") {
-		self::$version ??= json_decode((string) file_get_contents(__DIR__ . "/../composer.json"))->version;
+		static $version = json_decode((string) file_get_contents(__DIR__ . "/../composer.json"))->version;
 
 		$this->apiKey = $apiKey;
 		$this->baseUrl = new Uri(mb_rtrim($baseUrl instanceof Uri ? $baseUrl->toString() : $baseUrl, "/"));
 		$this->blog = $blog;
 		$this->isTest = $isTest;
-		$this->userAgent = $userAgent ?: sprintf("PHP/%d | Akismet/%s", PHP_MAJOR_VERSION, self::$version);
+		$this->userAgent = $userAgent ?: sprintf("PHP/%d | Belin.Akismet/%s", PHP_VERSION, $version);
 	}
 
 	/**

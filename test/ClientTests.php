@@ -64,7 +64,7 @@ final class ClientTests extends TestCase {
 		assertTrue($this->client->verifyKey());
 
 		// It should return `false` for an invalid API key.
-		$client = new Client(apiKey: "0123456789-ABCDEF", blog: $this->client->blog, isTest: true);
+		$client = new Client(apiKey: "0123456789AB", blog: $this->client->blog, isTest: true);
 		assertFalse($client->verifyKey());
 	}
 

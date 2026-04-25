@@ -98,13 +98,8 @@ final class Client {
 	 * @return bool `true` if the specified API key is valid, otherwise `false`.
 	 */
 	public function verifyKey(): bool {
-		try {
-			$response = $this->fetch("1.1/verify-key");
-			return $response->body == "valid";
-		}
-		catch (\RuntimeException) {
-			return false;
-		}
+		$response = $this->fetch("1.1/verify-key");
+		return $response->body == "valid";
 	}
 
 	/**

@@ -129,7 +129,7 @@ final class Client {
 		$body = curl_exec($handle);
 		if ($body === false) throw new \RuntimeException(curl_error($handle), 500);
 
-		$statusCode = curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
+		$statusCode = (int) curl_getinfo($handle, CURLINFO_RESPONSE_CODE);
 		if (intdiv($statusCode, 100) != 2) throw new \RuntimeException("The server response failed.", $statusCode);
 		if (isset($headers["x-akismet-alert-code"])) throw new \RuntimeException($headers["x-akismet-alert-msg"], 403);
 		if (isset($headers["x-akismet-debug-help"])) throw new \RuntimeException($headers["x-akismet-debug-help"], 400);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1808b8ae69b3a8077aa3bb2a29e32db2",
+    "content-hash": "5a0bd670c79843d433dafd94185100c7",
     "packages": [],
     "packages-dev": [
         {
@@ -245,11 +245,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.51",
+            "version": "2.1.53",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/dc3b523c45e714c70de2ac5113b958223b55dc59",
-                "reference": "dc3b523c45e714c70de2ac5113b958223b55dc59",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ef67586798c003274797b288a68b221e4270dca7",
+                "reference": "ef67586798c003274797b288a68b221e4270dca7",
                 "shasum": ""
             },
             "require": {
@@ -294,25 +294,26 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-04-21T18:22:01+00:00"
+            "time": "2026-04-28T16:09:00+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "14.1.4",
+            "version": "14.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "13dd8d33c6a23da100acec635cd351bfa7ff1a98"
+                "reference": "4991e47adce8e31e554aee8fdaabfc3b1d60707d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/13dd8d33c6a23da100acec635cd351bfa7ff1a98",
-                "reference": "13dd8d33c6a23da100acec635cd351bfa7ff1a98",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/4991e47adce8e31e554aee8fdaabfc3b1d60707d",
+                "reference": "4991e47adce8e31e554aee8fdaabfc3b1d60707d",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
+                "ext-mbstring": "*",
                 "ext-xmlwriter": "*",
                 "nikic/php-parser": "^5.7.0",
                 "php": ">=8.4",
@@ -363,7 +364,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/14.1.4"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/14.1.6"
             },
             "funding": [
                 {
@@ -383,7 +384,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-23T17:00:20+00:00"
+            "time": "2026-04-24T13:10:08+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",

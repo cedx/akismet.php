@@ -48,7 +48,7 @@ try {
     author: $author,
     date: new DateTime,
     content: "A user comment.",
-    referrer: "https://github.com/cedx/akismet.php",
+    referrer: "https://github.com/CedX/Akismet.php",
     type: CommentType::ContactForm->value
   );
 
@@ -66,5 +66,5 @@ catch (RuntimeException $e) {
 }
 ```
 
-See the [source code](https://github.com/cedx/akismet.php/tree/main/src) for detailed information
+See the [source code](https://github.com/CedX/Akismet.php/tree/main/src) for detailed information
 about the `Author` and `Comment` classes, and their properties.

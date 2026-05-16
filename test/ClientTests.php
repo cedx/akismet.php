@@ -72,7 +72,7 @@ final class ClientTests extends TestCase {
 	protected function before(): void {
 		$this->client = new Client(
 			apiKey: getenv("AKISMET_API_KEY") ?: "",
-			blog: new Blog("https://github.com/cedx/akismet.php"),
+			blog: new Blog("https://github.com/CedX/Akismet.php"),
 			isTest: true
 		);
 

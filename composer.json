@@ -1,6 +1,6 @@
 {
 	"description": "Prevent comment spam using the Akismet service.",
-	"homepage": "https://github.com/cedx/akismet.php",
+	"homepage": "https://github.com/CedX/Akismet.php",
 	"license": "MIT",
 	"name": "cedx/akismet",
 	"type": "library",
@@ -38,7 +38,7 @@
 		"phpunit/phpunit": "^13.1.10"
 	},
 	"support": {
-		"docs": "https://github.com/cedx/akismet.php/tree/main/docs",
-		"issues": "https://github.com/cedx/akismet.php/issues"
+		"docs": "https://github.com/CedX/Akismet.php/tree/main/docs",
+		"issues": "https://github.com/CedX/Akismet.php/issues"
 	}
 }

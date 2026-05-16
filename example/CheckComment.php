@@ -15,7 +15,7 @@ try {
 		author: $author,
 		date: new DateTime,
 		content: "A user comment.",
-		referrer: "https://github.com/cedx/akismet.php",
+		referrer: "https://github.com/CedX/Akismet.php",
 		type: CommentType::ContactForm
 	);
 
